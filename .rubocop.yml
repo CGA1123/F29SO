@@ -1,0 +1,12 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'spec/*_helper.rb'
+    - 'Rakefile'
+Rails:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: false
