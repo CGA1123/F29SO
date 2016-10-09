@@ -17,3 +17,11 @@
 - [Factory Girl](https://github.com/thoughtbot/factory_girl_rails)
 - [Rubocop](https://github.com/bbatsov/rubocop)
 
+## Installation
+
+- Clone the repo onto your local machine  `git clone https://github.com/CGA1123/F29SO`
+- Get into the project directory          `cd F29SO`
+- Install the gems used by the project    `bundle install`
+- Set up your databases                   `rake db:setup`
+- Run the test suite                      `rake`
+- Start up the rails server               `rails s`
