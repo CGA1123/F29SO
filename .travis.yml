@@ -13,3 +13,5 @@ before_script:
 script:
   # Run rubocop
   - bundle exec rubocop
+  # Run Test Suite
+  - bundle exec rake
