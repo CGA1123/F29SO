@@ -1,5 +1,7 @@
-### User Story
+## User Story
 
-### Acceptance Criteria
+As a \<User type\>, I want to/ can \<do something\>, so that \<reason\> (Include User Story as Issue Title please)
 
-### Definition Of Done
+## Acceptance Criteria + Definition Of Done
+
+*Remember to set estimate*
