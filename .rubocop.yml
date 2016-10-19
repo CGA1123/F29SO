@@ -11,3 +11,12 @@ Rails:
 
 Style/Documentation:
   Enabled: false
+
+Style/InlineComment:
+  Enabled: true
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+
+Style/StringMethods:
+  Enabled: true
