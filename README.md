@@ -8,6 +8,7 @@
 
 - Rails `4.2.7.1`
 - Ruby `2.3.1`
+- Bundler (`gem install bundler`)
 - Postgresql
 
 ## Testing gems in this project
