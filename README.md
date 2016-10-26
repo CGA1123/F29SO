@@ -11,14 +11,10 @@
 - Bundler (`gem install bundler`)
 - Postgresql
 
-## Testing gems in this project
-
-- [RSpec](https://github.com/rspec/rspec-rails)
-- [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers)
-- [Factory Girl](https://github.com/thoughtbot/factory_girl_rails)
-- [Rubocop](https://github.com/bbatsov/rubocop)
-
 ## Installation
+
+See [Getting Started](GETTING_STARTED.md) for some more detailed instruction.
+See [Contibution Guidelines](CONTRIBUTING.md) before making changes to the projects codebase.
 
 - Clone the repo onto your local machine  `git clone https://github.com/CGA1123/F29SO`
 - Get into the project directory          `cd F29SO`
