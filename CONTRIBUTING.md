@@ -2,11 +2,11 @@
 
 ### This document sets out the guidelines for contributing changes/new features to the project.
 
-Before contributing, make sure you have installed all the necessary dependencies, which are outlined in the projects README.
+Before contributing, make sure you have installed all the necessary dependencies, which are outlined in [Getting Started] (GETTING_STARTED.md).
 
 Make sure the tests pass on your local copy by running `rake test`. Before working on any new features, make the current ones pass the test suite.
 
-When changing the codebase, never do so on branch `master`, and commits straight to `develop` should be avoided.
+When changing the codebase, **never** do so on branch `master`, and commits straight to `develop` should be avoided.
 
 Before starting any work, make sure your local repository is up to date with the GitHub repository using `git pull`.
 
@@ -22,7 +22,7 @@ Then proceed to make your changes and commit your work when appropriate, when yo
 
 Before pushing, please check your code passes the test suite. As well as the various linters, especially `rubocop`. They will all be run once you open a Pull Request anyway.
 
-#### Also, *write tests for all code you write*.
+#### Also, **write tests for all code you write**.
 
 Once the branch has been successfully pushed to GitHub, open a pull-request, and the rest of the team can view and review your proposed changes.
 
