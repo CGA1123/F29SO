@@ -18,7 +18,10 @@ Then create your new branch:
 - You can do so by running the `git branch <new-branch>` which will create a new branch from the one you are currently on and then changing to that branch with `git checkout <new-branch>`.
 - Or, you can use `git checkout -b <new-branch>` which will create a new branch from your current branch and change you to it.
 
-Then proceed to make your changes and commit your work when appropriate, when you want to push your new branch up to the GitHub repository you can run `git push`, the first time you do this you will be prompted to run `git push --set-upstream origin <new-branch>`.
+Then proceed to make your changes and `git commit` your work when appropriate.
+Please follow [best](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html) [practices](http://chris.beams.io/posts/git-commit/) when writing commit messages.
+
+When you want to push your new branch up to the GitHub repository you can run `git push`, the first time you do this you will be prompted to run `git push --set-upstream origin <new-branch>`.
 
 Before pushing, please check your code passes the test suite. As well as the various linters, especially `rubocop`. They will all be run once you open a Pull Request anyway.
 
