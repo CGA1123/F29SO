@@ -22,4 +22,4 @@ ratings:
     - app/**
     - lib/**
 exclude_paths:
-
+  - db/**
