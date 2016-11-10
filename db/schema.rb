@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161110135007) do
+ActiveRecord::Schema.define(version: 20161110184643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,17 +27,17 @@ ActiveRecord::Schema.define(version: 20161110135007) do
   add_index "group_permissions", ["permission_id"], name: "index_group_permissions_on_permission_id", using: :btree
 
   create_table "groups", force: :cascade do |t|
-    t.string   "group_name"
+    t.string   "name"
     t.string   "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
   create_table "permissions", force: :cascade do |t|
-    t.string   "permission_string"
+    t.string   "name"
     t.string   "description"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
