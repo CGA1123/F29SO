@@ -47,6 +47,9 @@ ActiveRecord::Schema.define(version: 20161111132845) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id", using: :btree
+  add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
