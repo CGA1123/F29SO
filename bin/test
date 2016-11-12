@@ -1,0 +1,21 @@
+#!/usr/bin/env ruby
+require 'pathname'
+
+# path to your application root.
+APP_ROOT = Pathname.new File.expand_path('../../', __FILE__)
+
+Dir.chdir APP_ROOT do
+  # Resets the test database
+  puts "Setting Up Database"
+  system 'RAILS_ENV=test bundle exec rake db:test:prepare'
+
+  # Run the rspec testing framework
+  # options enabled are: --format documentation
+  puts "$ RAILS_ENV=test bundle exec rspec -f d"
+  system 'RAILS_ENV=test bundle exec rspec -f d'
+
+  # Run Rubocop
+  # option enabled are: --format fuubar, --display-cop-names, --extra-details
+  puts "$ bundle exec rubocop -f fu -D -E"
+  system 'bundle exec rubocop -f fu -D -E'
+end
