@@ -6,4 +6,8 @@ class Group < ActiveRecord::Base
 
   validates :name, :description, presence: true
   validates :name, uniqueness: { case_sensitive: false }
+
+  def permission_strings
+    permissions.map(&:name)
+  end
 end

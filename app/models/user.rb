@@ -5,4 +5,12 @@ class User < ActiveRecord::Base
   has_many :groups, through: :user_groups
 
   validates :groups, presence: true
+
+  def permission?(permission_name)
+    permission_strings.include?(permission_name)
+  end
+
+  def permission_strings
+    groups.map(&:permission_strings).flatten.uniq
+  end
 end
