@@ -5,14 +5,18 @@ require 'pathname'
 APP_ROOT = Pathname.new File.expand_path('../../', __FILE__)
 
 Dir.chdir APP_ROOT do
+  test_env = ENV['RAILS_ENV'] == 'macs_development' ? 'macs_test' : 'test'
+  puts "Application Environment: #{test_env}"
+
   # Resets the test database
   puts "Setting Up Database"
-  system 'RAILS_ENV=test bundle exec rake db:test:prepare'
-
+  system "RAILS_ENV=#{test_env} bundle exec rake db:drop"
+  system "RAILS_ENV=#{test_env} bundle exec rake db:create"
+  system "RAILS_ENV=#{test_env} bundle exec rake db:schema:load"
   # Run the rspec testing framework
   # options enabled are: --format documentation
-  puts "$ RAILS_ENV=test bundle exec rspec -f d"
-  system 'RAILS_ENV=test bundle exec rspec -f d'
+  puts "$ RAILS_ENV=#{test_env} bundle exec rspec -f d"
+  system "RAILS_ENV=#{test_env} bundle exec rspec -f d"
 
   # Run Rubocop
   # option enabled are: --format fuubar, --display-cop-names, --extra-details

@@ -11,7 +11,9 @@ before_script:
   - psql -c 'create database travis_ci_test;' -U postgres
 
 script:
+  # Set up database
+  - RAILS_ENV=test bundle exec rake db:test:prepare
+  # Run tests
+  - RAILS_ENV=test bundle exec rspec -f d
   # Run rubocop
-  - bundle exec rubocop
-  # Run Test Suite
-  - bundle exec rake
+  - bundle exec rubocop -f fu -D -E
