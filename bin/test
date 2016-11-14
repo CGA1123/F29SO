@@ -9,17 +9,23 @@ Dir.chdir APP_ROOT do
   puts "Application Environment: #{test_env}"
 
   # Resets the test database
-  puts "Setting Up Database"
+  puts "Setting Up Database..."
+  puts "Drop Database"
   system "RAILS_ENV=#{test_env} bundle exec rake db:drop"
+  puts "Create Database"
   system "RAILS_ENV=#{test_env} bundle exec rake db:create"
+  puts "Load Database Schema"
   system "RAILS_ENV=#{test_env} bundle exec rake db:schema:load"
+
   # Run the rspec testing framework
   # options enabled are: --format documentation
+  puts "\nRun RSpec"
   puts "$ RAILS_ENV=#{test_env} bundle exec rspec -f d"
   system "RAILS_ENV=#{test_env} bundle exec rspec -f d"
 
   # Run Rubocop
   # option enabled are: --format fuubar, --display-cop-names, --extra-details
+  puts "\nRun Rubocop"
   puts "$ bundle exec rubocop -f fu -D -E"
   system 'bundle exec rubocop -f fu -D -E'
 end
