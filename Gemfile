@@ -24,13 +24,14 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', require: false
   gem 'rubocop', '~> 0.43.0', require: false
 end
 
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'rails-erd'
 end
 
 group :test do
