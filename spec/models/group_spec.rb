@@ -15,7 +15,7 @@ RSpec.describe Group, type: :model do
     it 'returns names of all permissions held by group' do
       permission1 = FactoryGirl.create(:permission)
       permission2 = FactoryGirl.create(:permission)
-      _permission3 = FactoryGirl.create(:permission)
+      permission3 = FactoryGirl.create(:permission)
       subject.permissions << [permission1, permission2]
 
       expect(subject.permission_strings)
