@@ -4,60 +4,57 @@ html, body {
     height:100%;
 }
 
-body{
-
-	background-image:url(images/origami-mobile.svg);
-	background-size: auto 100%;
-	background-repeat: no-repeat;
-	background-position:left;
-	max-height:100%;
-	height:100%;
-	margin-bottom:0px;
-	margin-left:0px;
-	margin-right:0px;
-	margin-top:0px;
-
-	}
-
-@media (min-width: 768px) {
-    body {
-        background-image:url(images/origami-desktop-01.svg);
-	background-size: cover;
-	background-repeat: no-repeat;
-	background-position:left;
-	width:100%;
-	margin-bottom:0px;
-	margin-left:0px;
-	margin-right:0px;
-	margin-top:0px;
-    }
+body {
+  background-image: image-url("origami-mobile.svg");
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position:left;
+  max-height:100%;
+  height:100%;
+  margin-bottom:0px;
+  margin-left:0px;
+  margin-right:0px;
+  margin-top:0px;
 }
 
-.gridContainer{
+@media (min-width: 768px) {
+  body {
+    background-image: image-url("origami-desktop-01.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position:left;
+    width:100%;
+    margin-bottom:0px;
+    margin-left:0px;
+    margin-right:0px;
+    margin-top:0px;
+  }
+}
+
+.gridContainer {
 	padding-top:20%;
 }
 
-#layoutDiv1{
+#layoutDiv1 {
 	text-align:center;
-	}
+}
 
-.table{
+.table {
 	text-align:center;
 	width:100%;
 	alignment-adjust:central;
 	border:medium;
-
 }
 
-h1{
+h1 {
 	font-size:x-large;
 	font-weight:200;
 	font-family: 'Roboto', sans-serif;
 	margin:0px;
 	color:#89188A;
-	}
+}
 
-.textBox{
+.textBox {
 	background-color:none;
 	text-align: center;
 	border-bottom-width: medium;
@@ -68,12 +65,17 @@ h1{
 	border-bottom-color: #CCC;
 	font-family: 'Roboto', sans-serif;
 	width:100%;
-	}
+}
 
-#submit{
+#submit {
 	background-color:#CCC;
 	color:#FFF;
 	border:none;
 	width:100%;
 	max-width:250px;
-	}
+}
+
+#forgotten-password {
+  font-size: smaller;
+  color: #89188A;
+}
