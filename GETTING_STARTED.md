@@ -49,16 +49,12 @@ Then, navigate to the folder where the project was cloned.
 
 Install all the ruby gem dependencies:
 
-`bundle install`
+`bin/setup`
 
 *You may need to install the postgresql adapter gem seperately `gem install pg -- --with-pg-config=(path/to/config)`, on MacOS with postgresql app path should be `/Applications/Postgres.app/Contents/Versions/latest/bin/pg_config`*
 
-Once the bundle has sucessfully been installed, set up the database:
-
-`rake db:setup`
-
 And then, start up the rails server!
 
-`rails server`
+`bundle exec rails server`
 
 And go to [`http://localhost:3000`](http://localhost:3000).

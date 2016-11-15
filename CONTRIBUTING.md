@@ -4,7 +4,7 @@
 
 **Before contributing, make sure you have installed all the necessary dependencies, which are outlined in [GETTING_STARTED.md] (GETTING_STARTED.md).**
 
-Make sure the tests pass on your local copy by running `bundle exec rake`. Before working on any new features, make the current ones pass the test suite.
+Make sure the tests pass on your local copy by running `bin/test`. Before working on any new features, make the current ones pass the test suite.
 
 When changing the codebase, **never** do so on branch `master`, and commits straight to `develop` should be avoided.
 
@@ -30,7 +30,7 @@ When you want to push your new branch up to the GitHub repository you can run `g
 
 Do not use the `-f` or `--force` flag when using `git push` unless you are **sure** of what you are doing.
 
-**Before pushing**, please check your code passes the test suite `bundle exec rake` or `bundle exec rspec`. As well as the various linters, especially `bundle exec rubocop`.
+**Before pushing**, please check your code passes the test suite `bin/test`.
 
 These test will also be run again once you open a Pull Request.
 
