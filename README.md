@@ -19,7 +19,7 @@ Current live versions of the project can be accessed:
 
 ### Dependencies
 
-- Ruby `2.3.1`
+- Ruby `2.3.2`
 - Bundler
 - Postgresql
 
