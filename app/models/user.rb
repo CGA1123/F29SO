@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :groups, presence: true
 
   def permission?(permission_name)
+    return true if groups.map(&:name).include?('root')
     permission_strings.include?(permission_name)
   end
 

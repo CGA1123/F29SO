@@ -22,6 +22,11 @@ RSpec.describe User, type: :model do
     it 'returns false if User does not have the relevant permission' do
       expect(user.permission?('non.existent.permission')).to be_falsy
     end
+
+    it 'always returns true if user is in the root group' do
+      subject.groups << FactoryGirl.create(:group, name: 'root')
+      expect(subject.permission?('non.existent.permission')).to be_truthy
+    end
   end
 
   describe '#permission_strings' do
