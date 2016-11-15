@@ -20,7 +20,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma'
 gem 'devise'
 
-group :development, :test do
+group :development, :test, :macs_development, :macs_test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
@@ -29,14 +29,18 @@ group :development, :test do
   gem 'reek'
 end
 
-group :development do
+group :development, :macs_development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'rails-erd'
 end
 
-group :test do
+group :test, :macs_test do
   gem 'codeclimate-test-reporter', require: nil
+end
+
+group :macs_test, :macs_development do
+  gem 'sqlite3'
 end
 
 group :production do
