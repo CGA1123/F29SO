@@ -26,6 +26,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails', require: false
   gem 'rubocop', '~> 0.43.0', require: false
+  gem 'reek'
 end
 
 group :development do
