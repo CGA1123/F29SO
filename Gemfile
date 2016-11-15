@@ -19,6 +19,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'puma'
 gem 'devise'
+gem 'devise_invitable', '~> 1.7.0'
 
 group :development, :test, :macs_development, :macs_test do
   gem 'byebug'
