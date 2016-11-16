@@ -24,8 +24,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'always returns true if user is in the root group' do
-      subject.groups << FactoryGirl.create(:group, name: 'root')
-      expect(subject.permission?('non.existent.permission')).to be_truthy
+      root = FactoryGirl.build(:root_user)
+      expect(root.permission?('non.existent.permission')).to be_truthy
     end
   end
 
