@@ -1,3 +1,6 @@
+# Need to add this smell supressor at the class level, due to a bug in reek.
+# https://github.com/troessner/reek/issues/903
+# :reek:PrimaDonnaMethod
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -14,7 +17,7 @@ class ApplicationController < ActionController::Base
   # invite a user, throw a 404.
   # This method is called before the actions: new, create
   def authenticate_inviter!
-    not_found if current_user.nil? || !current_user.permission?('user.invite')
+    not_found unless user_signed_in? && current_user.permission?('user.invite')
   end
 
   def not_found
