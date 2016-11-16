@@ -18,8 +18,10 @@ RSpec.describe Users::InvitationsController, type: :controller do
     context 'user with permission' do
       it 'invites new user' do
         sign_in root
-        expect { post :create, params: { user: { email: 't@t.t' } } }
+        # rubocop:disable Rails/HttpPositionalArguments
+        expect { post :create, user: { email: 't@t.t' } }
           .to change { User.count }.by(1)
+        # rubocop:enable Rails/HttpPositionalArguments
       end
     end
 
