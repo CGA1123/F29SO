@@ -51,6 +51,10 @@ Install all the ruby gem dependencies:
 
 `bin/setup`
 
+Check that everything is working:
+
+`bin/test`
+
 *You may need to install the postgresql adapter gem seperately `gem install pg -- --with-pg-config=(path/to/config)`, on MacOS with postgresql app path should be `/Applications/Postgres.app/Contents/Versions/latest/bin/pg_config`*
 
 And then, start up the rails server!
