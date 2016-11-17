@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   # invite a user, throw a 404.
   # This method is called before the actions: new, create
   def authenticate_inviter!
-    not_found unless user_signed_in? && current_user.permission?('user.invite')
+    not_found unless user_signed_in? && current_user.permission?('users.invite')
   end
 
   def not_found
