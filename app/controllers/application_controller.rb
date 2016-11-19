@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   private
 
@@ -22,5 +23,11 @@ class ApplicationController < ActionController::Base
 
   def not_found
     raise ActionController::RoutingError, 'Not Found'
+  end
+
+  # We need to allow the parameter :groups, so that a users group can be set
+  # when invited
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:invite, keys: [:email, { groups: [] }])
   end
 end

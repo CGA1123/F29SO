@@ -4,20 +4,32 @@ module Users
       super
     end
 
-    def edit
-      super
-    end
-
     def create
+      # TODO, need to check that on create, that the inviter actually has
+      # permission to invite to a user into that group. This would involve a
+      # dynamic permission, with a form of users.invite.<group_name>
+      # We should probably also add a check so that no user can be invited as
+      # root ?
       super
     end
 
-    def update
-      super
+    private
+
+    # Override the `invite_params` method
+    # invite_params returns the parameters used to create the new invited user.
+    def invite_params
+      permitted_params = devise_parameter_sanitizer.sanitize(:invite)
+      convert_groups(permitted_params)
+      permitted_params
     end
 
-    def destroy
-      super
+    # The params hash sent through the HTTP POST request contains an array of
+    # integers, relating to the ID of the groups, this method maps those IDs
+    # to the actual Group object. (This is necessary for the relationship
+    # between Group & User to work)
+    def convert_groups(params)
+      params[:groups] = params[:groups].map { |e| Group.find(e) } \
+        if params[:groups].present?
     end
   end
 end

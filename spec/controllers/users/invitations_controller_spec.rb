@@ -5,6 +5,7 @@ RSpec.describe Users::InvitationsController, type: :controller do
   let(:no_permission) { FactoryGirl.create(:user) }
 
   before do
+    # TODO: Don't use @request / Make exception for rubocop
     @request.env['devise.mapping'] = Devise.mappings[:user]
   end
 
@@ -16,13 +17,22 @@ RSpec.describe Users::InvitationsController, type: :controller do
     end
 
     context 'user with permission' do
+      # rubocop:disable Rails/HttpPositionalArguments
+
+      # A user without a group is invalid.
+      it 'does not invite invalid user' do
+        sign_in root
+        expect { post :create, user: { email: 't@t.t' } }
+          .to change { User.count }.by(0)
+      end
+
       it 'invites new user' do
         sign_in root
-        # rubocop:disable Rails/HttpPositionalArguments
-        expect { post :create, user: { email: 't@t.t' } }
+        group = FactoryGirl.create(:group)
+        expect { post :create, user: { email: 't@t.t', groups: [group.id] } }
           .to change { User.count }.by(1)
-        # rubocop:enable Rails/HttpPositionalArguments
       end
+      # rubocop:enable Rails/HttpPositionalArguments
     end
 
     context 'user without permission' do
