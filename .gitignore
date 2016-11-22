@@ -18,3 +18,9 @@ erd.pdf
 
 # Ignore precompiled assets
 public/assets
+
+# Ignore coverage output
+coverage/
+
+# Ignore sqlite3 databases
+db/*.sqlite3
