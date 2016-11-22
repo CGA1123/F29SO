@@ -1,0 +1,15 @@
+<h3>Hello, <%= "#{@user.first_name} #{@user.last_name}" %></h3>
+<p><%= @user.email %></p>
+
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  <% @groups.each do |group| %>
+    <tr>
+      <td> <%= group.name %></td>
+      <td> <%= group.description %></td>
+    </tr>
+  <% end %>
+  </table>
