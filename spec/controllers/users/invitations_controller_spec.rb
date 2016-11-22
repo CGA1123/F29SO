@@ -5,8 +5,10 @@ RSpec.describe Users::InvitationsController, type: :controller do
   let(:no_permission) { FactoryGirl.create(:user) }
 
   before do
-    # TODO: Don't use @request / Make exception for rubocop
+    # Temporarly disable this cop, we need to set an instance variable
+    # rubocop:disable RSpec/InstanceVariable
     @request.env['devise.mapping'] = Devise.mappings[:user]
+    # rubocop:enable RSpec/InstanceVariable
   end
 
   describe '#create' do
