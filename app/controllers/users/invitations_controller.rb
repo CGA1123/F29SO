@@ -1,17 +1,6 @@
 module Users
   class InvitationsController < Devise::InvitationsController
-    def new
-      super
-    end
-
-    def create
-      # TODO, need to check that on create, that the inviter actually has
-      # permission to invite to a user into that group. This would involve a
-      # dynamic permission, with a form of users.invite.<group_name>
-      # We should probably also add a check so that no user can be invited as
-      # root ?
-      super
-    end
+    before_action :check_permissions, only: [:create]
 
     private
 
@@ -27,6 +16,16 @@ module Users
       permitted_params[:groups] = Group.where(id: permitted_params[:groups])
 
       permitted_params
+    end
+
+    # Need to ensure that the inviting user has the right permissions
+    def check_permissions
+      groups = invite_params[:groups]
+      groups.each do |group|
+        message = "You don't have permission to invite #{group.name}"
+        redirect_to new_user_invitation_path, alert: message \
+          unless current_user.permission?("users.invite.#{group.id}")
+      end
     end
   end
 end
