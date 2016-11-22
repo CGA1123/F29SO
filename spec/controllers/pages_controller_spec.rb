@@ -3,10 +3,8 @@ require 'rails_helper'
 RSpec.describe PagesController, type: :controller do
   describe 'GET #user_home' do
     context 'when logged in' do
-      let(:user) { FactoryGirl.create(:user) }
-
       it do
-        sign_in user
+        sign_in FactoryGirl.create(:user)
         get :user_home
         expect(response).to be_success
       end
