@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :user_groups
   has_many :groups, through: :user_groups
 
-  validates :groups, presence: true
+  validates :groups, :first_name, :last_name, :location, presence: true
 
   def permission?(permission_name)
     permission_strings.include?(permission_name)
