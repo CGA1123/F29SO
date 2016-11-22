@@ -8,5 +8,6 @@
   <%= f.text_field field %></p>
 <% end -%>
 
+  <%= f.collection_check_boxes :groups, Group.all, :id, :name %>
   <p><%= f.submit t("devise.invitations.new.submit_button") %></p>
 <% end %>

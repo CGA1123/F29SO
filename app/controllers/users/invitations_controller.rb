@@ -19,17 +19,14 @@ module Users
     # invite_params returns the parameters used to create the new invited user.
     def invite_params
       permitted_params = devise_parameter_sanitizer.sanitize(:invite)
-      convert_groups(permitted_params)
-      permitted_params
-    end
 
-    # The params hash sent through the HTTP POST request contains an array of
-    # integers, relating to the ID of the groups, this method maps those IDs
-    # to the actual Group object. (This is necessary for the relationship
-    # between Group & User to work)
-    def convert_groups(params)
-      params[:groups] = params[:groups].map { |e| Group.find(e) } \
-        if params[:groups].present?
+      # The params hash sent through the HTTP POST request contains an array of
+      # integers, relating to the ID of the groups, this method maps those IDs
+      # to the actual Group object. (This is necessary for the relationship
+      # between Group & User to work)
+      permitted_params[:groups] = Group.where(id: permitted_params[:groups])
+
+      permitted_params
     end
   end
 end
