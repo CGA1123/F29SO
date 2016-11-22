@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
          :validatable, :confirmable, :timeoutable
+
   has_many :user_groups
   has_many :groups, through: :user_groups
 
@@ -12,5 +13,9 @@ class User < ActiveRecord::Base
 
   def permission_strings
     groups.map(&:permission_strings).flatten.uniq
+  end
+
+  def name
+    "#{first_name} #{last_name}"
   end
 end

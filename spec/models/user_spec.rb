@@ -36,4 +36,10 @@ RSpec.describe User, type: :model do
         .to(match_array([permission.name, permission2.name, permission3.name]))
     end
   end
+
+  describe '#name' do
+    it 'returns concatenation of first_name & last_name' do
+      expect(subject.name).to eq("#{subject.first_name} #{subject.last_name}")
+    end
+  end
 end
