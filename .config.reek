@@ -1,0 +1,8 @@
+# Disable IrresponsibleModule Code Smell (https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md)
+IrresponsibleModule:
+  enabled: false
+
+# Paths that will not be scanned for code smells
+exclude_paths:
+  - db/migrate
+  - config/

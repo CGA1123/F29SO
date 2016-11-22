@@ -12,9 +12,9 @@ Once all dependencies are installed see the [Contribution Guidelines](CONTRIBUTI
 
 A ruby version manager like [`rvm`](https://rvm.io/) is recommended. [Installation Instructions](https://rvm.io/rvm/install)
 
-Once `rvm` is installed, install the ruby version needed for this project. `rvm install 2.3.1`
+Once `rvm` is installed, install the ruby version needed for this project. `rvm install 2.3.2`
 
-Restart your shell, and check that the correct ruby version is being used by your system by running `ruby --version`, you should get output similar to `ruby 2.3.1p112 (2016-04-26 revision 54768) [x86_64-darwin15]`.
+Restart your shell, and check that the correct ruby version is being used by your system by running `ruby --version`, you should get output similar to `ruby 2.3.2p217 (2016-11-15 revision 56796) [x86_64-darwin15]`.
 
 #### Windows
 
@@ -50,6 +50,10 @@ Then, navigate to the folder where the project was cloned.
 Install all the ruby gem dependencies:
 
 `bin/setup`
+
+Check that everything is working:
+
+`bin/test`
 
 *You may need to install the postgresql adapter gem seperately `gem install pg -- --with-pg-config=(path/to/config)`, on MacOS with postgresql app path should be `/Applications/Postgres.app/Contents/Versions/latest/bin/pg_config`*
 
