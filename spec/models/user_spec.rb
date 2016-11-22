@@ -7,7 +7,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
 
-  subject(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
   let(:group) { user.groups.first }
   let(:other_group) { FactoryGirl.create(:group) }
@@ -38,7 +38,7 @@ RSpec.describe User, type: :model do
 
   describe '#name' do
     it 'returns concatenation of first_name & last_name' do
-      expect(subject.name).to eq("#{subject.first_name} #{subject.last_name}")
+      expect(user.name).to eq("#{user.first_name} #{user.last_name}")
     end
   end
 end
