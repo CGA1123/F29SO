@@ -28,7 +28,7 @@ RSpec.describe Users::InvitationsController, type: :controller do
       end
     end
 
-    context 'user with permission' do
+    context 'user with users.invite permission' do
       # A user without a group is invalid.
       it 'does not invite invalid user' do
         sign_in root

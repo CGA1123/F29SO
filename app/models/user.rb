@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
   has_many :user_groups
   has_many :groups, through: :user_groups
 
-  validates :groups, :first_name, :last_name, :location, presence: true
+  validates :groups, presence: true
+  validates :first_name, :last_name, :location, presence: true, on: :update
 
   def permission?(permission_name)
     return true if groups.map(&:name).include?('root')
