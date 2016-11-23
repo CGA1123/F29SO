@@ -12,9 +12,9 @@ Once all dependencies are installed see the [Contribution Guidelines](CONTRIBUTI
 
 A ruby version manager like [`rvm`](https://rvm.io/) is recommended. [Installation Instructions](https://rvm.io/rvm/install)
 
-Once `rvm` is installed, install the ruby version needed for this project. `rvm install 2.3.2`
+Once `rvm` is installed, install the ruby version needed for this project. `rvm install 2.3.3`
 
-Restart your shell, and check that the correct ruby version is being used by your system by running `ruby --version`, you should get output similar to `ruby 2.3.2p217 (2016-11-15 revision 56796) [x86_64-darwin15]`.
+Restart your shell, and check that the correct ruby version is being used by your system by running `ruby --version`, you should get output similar to `ruby 2.3.3p222 (2016-11-21 revision 56859) [x86_64-darwin15]`.
 
 #### Windows
 
