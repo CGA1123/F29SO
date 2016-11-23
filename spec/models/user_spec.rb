@@ -4,8 +4,10 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:user_groups) }
   it { is_expected.to have_many(:groups).through(:user_groups) }
   it { is_expected.to validate_presence_of(:groups) }
+  it { is_expected.to validate_presence_of(:first_name) }
+  it { is_expected.to validate_presence_of(:last_name) }
 
-  subject(:user) { FactoryGirl.create(:user) }
+  let(:user) { FactoryGirl.create(:user) }
 
   let(:group) { user.groups.first }
   let(:other_group) { FactoryGirl.create(:group) }
@@ -36,6 +38,12 @@ RSpec.describe User, type: :model do
       user.groups << other_group
       expect(user.permission_strings)
         .to(match_array([permission.name, permission2.name, permission3.name]))
+    end
+  end
+
+  describe '#name' do
+    it 'returns concatenation of first_name & last_name' do
+      expect(user.name).to eq("#{user.first_name} #{user.last_name}")
     end
   end
 end

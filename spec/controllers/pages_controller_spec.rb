@@ -4,9 +4,7 @@ RSpec.describe PagesController, type: :controller do
   describe 'GET #user_home' do
     context 'when logged in' do
       it do
-        user = FactoryGirl.create(:user)
-        user.confirm
-        sign_in user
+        sign_in FactoryGirl.create(:user)
         get :user_home
         expect(response).to be_success
       end
