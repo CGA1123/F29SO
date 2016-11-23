@@ -29,5 +29,13 @@ class ApplicationController < ActionController::Base
   # when invited
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:invite, keys: [:email, { groups: [] }])
+    devise_parameter_sanitizer.permit(:accept_invitation,
+                                      keys: [
+                                        :first_name,
+                                        :last_name,
+                                        :location,
+                                        :password,
+                                        :password_confirmation
+                                      ])
   end
 end

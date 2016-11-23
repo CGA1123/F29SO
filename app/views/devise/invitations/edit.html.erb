@@ -4,6 +4,10 @@
   <%= devise_error_messages! %>
   <%= f.hidden_field :invitation_token %>
 
+  <%= f.text_field :first_name, placeholder: 'Joe' %>
+  <%= f.text_field :last_name, placeholder: 'Bloggs' %>
+  <%= f.text_field :location, placeholder: 'Edinburgh' %>
+
   <% if f.object.class.require_password_on_accepting %>
   <p><%= f.label :password %><br />
   <%= f.password_field :password %></p>
