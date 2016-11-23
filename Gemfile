@@ -19,13 +19,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'puma'
 gem 'devise'
+gem 'devise_invitable', '~> 1.7.0'
 
 group :development, :test, :macs_development, :macs_test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails', require: false
-  gem 'rubocop', '~> 0.43.0', require: false
+  gem 'rubocop', '~> 0.45.0', require: false
   gem 'reek'
   gem 'rubocop-rspec'
 end

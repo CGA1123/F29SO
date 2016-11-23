@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout' }
+  devise_for :users, path: '', path_names: { sign_in: 'login', sign_out: 'logout' }, controllers: { invitations: 'users/invitations' }
 
   devise_scope :user do
     authenticated :user do
@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'profile' => 'profiles#show'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
