@@ -1,6 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Users::InvitationsController, type: :controller do
+# rubocop:disable Rails/HttpPositionalArguments
+
+RSpec.describe InvitationsController, type: :controller do
   let(:group) { FactoryGirl.create(:group) }
 
   let(:root) { FactoryGirl.create(:root_user) }
@@ -10,13 +12,6 @@ RSpec.describe Users::InvitationsController, type: :controller do
 
   let(:group_invite) do
     FactoryGirl.create(:permission, name: "users.invite.#{group.id}")
-  end
-
-  before do
-    # Temporarly disable this cop, we need to set an instance variable
-    # rubocop:disable RSpec/InstanceVariable
-    @request.env['devise.mapping'] = Devise.mappings[:user]
-    # rubocop:enable RSpec/InstanceVariable
   end
 
   describe '#create' do

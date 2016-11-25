@@ -4,8 +4,8 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:user_groups) }
   it { is_expected.to have_many(:groups).through(:user_groups) }
   it { is_expected.to validate_presence_of(:groups) }
-  it { is_expected.to validate_presence_of(:first_name).on(:update) }
-  it { is_expected.to validate_presence_of(:last_name).on(:update) }
+  it { is_expected.to validate_presence_of(:first_name) }
+  it { is_expected.to validate_presence_of(:last_name) }
 
   let(:user) { FactoryGirl.create(:user) }
 

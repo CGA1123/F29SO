@@ -1,0 +1,38 @@
+class InvitationsController < ApplicationController
+  before_action :authenticate_inviter, only: [:create, :new]
+  before_action :check_permissions, only: [:create]
+
+  private
+
+  # Override the `invite_params` method
+  # invite_params returns the parameters used to create the new invited user.
+  def invite_params
+    params.require(:invitation).permit(:email, groups: [] )
+
+    # The params hash sent through the HTTP POST request contains an array of
+    # integers, relating to the ID of the groups, this method maps those IDs
+    # to the actual Group object. (This is necessary for the relationship
+    # between Group & User to work)
+    params[:groups] = Group.where(id: permitted_params[:groups])
+
+    params
+  end
+
+  # Need to ensure that the inviting user has the right permissions
+  def check_permissions
+    groups = invite_params[:groups]
+    groups.each do |group|
+      message = "You don't have permission to invite #{group.name}"
+      redirect_to new_user_invitation_path, alert: message \
+        unless current_user.permission?("users.invite.#{group.id}")
+    end
+  end
+
+  # If a user is not logged in, or does not have appropriate permission to
+  # invite a user, throw a 404.
+  # This method is called before the actions: new, create
+  # not_found is defined in ApplicationController
+  def authenticate_inviter!
+    not_found unless user_signed_in? && current_user.permission?('users.invite')
+  end
+end
