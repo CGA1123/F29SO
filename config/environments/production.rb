@@ -77,12 +77,15 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Host Settings
+  Rails.application.routes.default_url_options[:host] = "#{ENV['APP_URL']}"
+
   # Email Settings
-  config.action_mailer.default_url_options = { host: 'localhost' }
+  config.action_mailer.default_url_options = { host: "#{ENV['APP_URL']}" }
   config.action_mailer.smtp_settings = {
     user_name: ENV['SENDGRID_USERNAME'],
     password: ENV['SENDGRID_PASSWORD'],
-    domain: 'reaf.com',
+    domain: "#{ENV['APP_URL']}",
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: :plain,
