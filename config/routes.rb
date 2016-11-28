@@ -11,7 +11,10 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'profile' => 'profiles#show'
+  get 'profile/:id', to: 'profiles#show', as: :profile
+  patch 'profile', to: 'profiles#update'
+  get 'profile/:id/edit', to: 'profiles#edit', as: :edit_profile
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
