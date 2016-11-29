@@ -87,32 +87,77 @@ RSpec.describe ProfilesController, type: :controller do
 
     describe 'GET #edit' do
       context 'a user with no permission' do
+        before do
+          sign_in user
+          get :edit, id: user.id
+        end
+
         context 'trying to edit his own profile' do
-          it 'redirects to #show with an alert'
+          it 'redirects to #show' do
+            expect(response).to redirect_to(profile_path(id: user.id))
+          end
+
+          it 'displays an alert' do
+            expect(flash[:alert]).to eq('Nope...')
+          end
         end
 
         context 'trying to edit anothers profile' do
-          it 'redirects to #show with an alert'
+          it 'redirects to #show' do
+            get :edit, id: another_user.id
+            expect(response).to redirect_to(profile_path(id: another_user.id))
+          end
+
+          it 'displays an alert' do
+            get :edit, id: another_user.id
+            expect(flash[:alert]).to eq('Nope...')
+          end
         end
       end
 
       context 'with profile.edit permission' do
+        before do
+          user.groups << edit_group
+          sign_in user
+          get :edit, id: user.id
+        end
         context 'trying to edit his own profile' do
-          it 'renders the edit form'
+          it 'renders the edit form' do
+            expect(response).to be_success
+          end
         end
 
         context 'trying to edit anothers profile' do
-          it 'redirects to #show with an alert'
+          it 'redirects to #show' do
+            get :edit, id: another_user.id
+            expect(response).to redirect_to(profile_path(id: another_user.id))
+          end
+
+          it 'displays an alert' do
+            get :edit, id: another_user.id
+            expect(flash[:alert]).to eq('Nope...')
+          end
         end
       end
 
       context 'with profile.edit.others permission' do
+        before do
+          user.groups << edit_others_group
+          sign_in user
+          get :edit, id: user.id
+        end
+
         context 'trying to edit his own profile' do
-          it 'renders the edit form'
+          it 'renders the edit form' do
+            expect(response).to be_success
+          end
         end
 
         context 'trying to edit anothers profile' do
-          it 'renders the edit form'
+          it 'renders the edit form' do
+            get :edit, id: another_user.id
+            expect(response).to be_success
+          end
         end
       end
     end
