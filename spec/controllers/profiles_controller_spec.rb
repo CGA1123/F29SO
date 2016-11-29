@@ -50,15 +50,11 @@ RSpec.describe ProfilesController, type: :controller do
         end
       end
 
-      context 'a user with profile.edit permission' do
+      context 'with profile.edit permission' do
         before do
           user.groups << edit_group
           sign_in user
           get :show, id: user.id
-        end
-
-        it 'has the profile.edit permission' do
-          expect(user.permission?('profile.edit')).to be_truthy
         end
 
         it 'assigns @can_edit on own profile correctly' do
@@ -71,15 +67,11 @@ RSpec.describe ProfilesController, type: :controller do
         end
       end
 
-      context 'a user with profile.edit.others permission' do
+      context 'with profile.edit.others permission' do
         before do
           user.groups << edit_others_group
           sign_in user
           get :show, id: user.id
-        end
-
-        it 'has the profile.edit.others permission' do
-          expect(user.permission?('profile.edit.others')).to be_truthy
         end
 
         it 'assigns @can_edit on own profile correctly' do
@@ -89,6 +81,38 @@ RSpec.describe ProfilesController, type: :controller do
         it 'assigns @can_edit on another_user profile correctly' do
           get :show, id: another_user.id
           expect(assigns['can_edit']).to eq(true)
+        end
+      end
+    end
+
+    describe 'GET #edit' do
+      context 'a user with no permission' do
+        context 'trying to edit his own profile' do
+          it 'redirects to #show with an alert'
+        end
+
+        context 'trying to edit anothers profile' do
+          it 'redirects to #show with an alert'
+        end
+      end
+
+      context 'with profile.edit permission' do
+        context 'trying to edit his own profile' do
+          it 'renders the edit form'
+        end
+
+        context 'trying to edit anothers profile' do
+          it 'redirects to #show with an alert'
+        end
+      end
+
+      context 'with profile.edit.others permission' do
+        context 'trying to edit his own profile' do
+          it 'renders the edit form'
+        end
+
+        context 'trying to edit anothers profile' do
+          it 'renders the edit form'
         end
       end
     end
