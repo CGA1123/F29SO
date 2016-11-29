@@ -28,7 +28,7 @@ class ProfilesController < ApplicationController
     params.require(:user).permit(:first_name, :last_name, :location)
   end
 
-  # Check if a user is allowed to edit another users profile
+  # set @can_edit true/false
   # is true if the user is trying to edit himself AND he has 'profile.edit'
   # permission, OR if the user has the 'profile.edit.others' permission.
   def edit?(user)
