@@ -83,3 +83,16 @@ production:
   database: F29SO_production
   username: F29SO
   password: <%= ENV['F29SO_DATABASE_PASSWORD'] %>
+
+# Database configuration for working on MACS Linux machines
+macs_development:
+  adapter: sqlite3
+  database: db/macs_development.sqlite3
+  pool: 5
+  timeout: 5000
+
+macs_test:
+  adapter: sqlite3
+  database: db/macs_test.sqlite3
+  pool: 5
+  timeout: 5000

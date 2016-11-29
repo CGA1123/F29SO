@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.1'
+ruby '2.3.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.7.1'
@@ -17,23 +17,37 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-group :development, :test do
+gem 'puma'
+gem 'devise'
+gem 'devise_invitable', '~> 1.7.0'
+
+group :development, :test, :macs_development, :macs_test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
-  gem 'factory_girl_rails'
-  gem 'rubocop', '~> 0.43.0', require: false
+  gem 'factory_girl_rails', require: false
+  gem 'rubocop', '~> 0.45.0', require: false
+  gem 'reek'
+  gem 'rubocop-rspec'
 end
 
-group :development do
+group :development, :macs_development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'rails-erd'
 end
 
-group :test do
+group :test, :macs_test do
   gem 'codeclimate-test-reporter', require: nil
+end
+
+group :macs_test, :macs_development do
+  gem 'sqlite3'
 end
 
 group :production do
   gem 'rails_12factor'
 end
+
+# Add gems specific to windows
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]

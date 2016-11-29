@@ -1,4 +1,6 @@
 engines:
+  reek:
+    enabled: true
   brakeman:
     enabled: true
   bundler-audit:
@@ -22,4 +24,4 @@ ratings:
     - app/**
     - lib/**
 exclude_paths:
-
+  - db/**

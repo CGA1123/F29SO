@@ -19,7 +19,7 @@ Current live versions of the project can be accessed:
 
 ### Dependencies
 
-- Ruby `2.3.1`
+- Ruby `2.3.2`
 - Bundler
 - Postgresql
 
@@ -31,7 +31,6 @@ See [Contibution Guidelines](CONTRIBUTING.md) before making changes to the proje
 
 - Clone the repo onto your local machine  `git clone https://github.com/CGA1123/F29SO`
 - Get into the project directory          `cd F29SO`
-- Install the gems used by the project    `bundle install`
-- Set up your databases                   `rake db:setup`
-- Run the test suite                      `rake`
-- Start up the rails server               `rails s`
+- Install the gems / setup databses       `bin/setup`
+- Run the test suite                      `bin/test`
+- Start up the rails server               `bundle exec rails server`

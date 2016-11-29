@@ -5,3 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# Create Root Group
+root = Group.create(name: 'root', description: 'super user group, this group has all permissions on the system.')
+User.create(email: 'admin@reaf-rms.local', password: '12345678', password_confirmation: '12345678', groups: [root], confirmed_at: Time.now)
