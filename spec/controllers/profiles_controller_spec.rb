@@ -17,7 +17,7 @@ RSpec.describe ProfilesController, type: :controller do
 
   context 'User is signed in' do
     describe 'GET #show' do
-      context 'a user with no permission' do
+      context 'with no permission' do
         before do
           sign_in user
           get :show, id: user.id
@@ -86,7 +86,7 @@ RSpec.describe ProfilesController, type: :controller do
     end
 
     describe 'GET #edit' do
-      context 'a user with no permission' do
+      context 'with no permission' do
         before do
           sign_in user
           get :edit, id: user.id
@@ -157,6 +157,124 @@ RSpec.describe ProfilesController, type: :controller do
           it 'renders the edit form' do
             get :edit, id: another_user.id
             expect(response).to be_success
+          end
+        end
+      end
+    end
+
+    describe 'PATCH #update' do
+      context 'with no permission' do
+        before do
+          sign_in user
+          patch :update, id: user.id, user: { location: 'Earth' }
+        end
+
+        context 'trying to edit his own profile' do
+          it 'does not update the profile' do
+            expect(user.reload.location).not_to eq('Earth')
+          end
+
+          it 'redirects to #show' do
+            expect(response).to redirect_to(profile_path(id: user.id))
+          end
+
+          it 'displays an alert' do
+            expect(flash[:alert]).to eq('Nope...')
+          end
+        end
+
+        context 'trying to edit anothers profile' do
+          it 'does not update the profile' do
+            patch :update, id: another_user.id, user: { location: 'Earth' }
+            expect(another_user.reload.location).not_to eq('Earth')
+          end
+
+          it 'redirects to #show' do
+            patch :update, id: another_user.id, user: { location: 'Earth' }
+            expect(response).to redirect_to(profile_path(id: another_user.id))
+          end
+
+          it 'displays an alert' do
+            patch :update, id: another_user.id
+            expect(flash[:alert]).to eq('Nope...')
+          end
+        end
+      end
+
+      context 'with profile.edit permission' do
+        before do
+          user.groups << edit_group
+          sign_in user
+          patch :update, id: user.id, user: { location: 'Earth' }
+        end
+
+        context 'trying to edit his own profile' do
+          it 'updates the profile' do
+            expect(user.reload.location).to eq('Earth')
+          end
+
+          it 'redirects to #show' do
+            expect(response).to redirect_to(profile_path(id: user.id))
+          end
+
+          it 'does not display an alert' do
+            expect(flash[:alert]).to be_nil
+          end
+        end
+
+        context 'trying to edit anothers profile' do
+          it 'does not update the profile' do
+            patch :update, id: another_user.id, user: { location: 'Earth' }
+            expect(another_user.reload.location).not_to eq('Earth')
+          end
+
+          it 'redirects to #show' do
+            patch :update, id: another_user.id
+            expect(response).to redirect_to(profile_path(id: another_user.id))
+          end
+
+          it 'displays an alert' do
+            patch :update, id: another_user.id
+            expect(flash[:alert]).to eq('Nope...')
+          end
+        end
+      end
+
+      context 'with profile.edit.others permission' do
+        before do
+          user.groups << edit_others_group
+          sign_in user
+          patch :update, id: user.id, user: { location: 'Earth' }
+        end
+
+        context 'trying to edit his own profile' do
+          it 'updates the profile' do
+            expect(user.reload.location).to eq('Earth')
+          end
+
+          it 'redirects to #show' do
+            expect(response).to redirect_to(profile_path(id: user.id))
+          end
+
+          it 'does not display an alert' do
+            expect(flash[:alert]).to be_nil
+          end
+        end
+
+        context 'trying to edit anothers profile' do
+          it 'updates the profile' do
+            patch :update, id: another_user.id, user: { location: 'Earth' }
+            expect(another_user.reload.location).to eq('Earth')
+          end
+
+          it 'redirects to #show' do
+            patch :update, id: another_user.id, user: { location: 'Earth' }
+            expect(response).to redirect_to(profile_path(id: another_user.id))
+          end
+
+          it 'does not displays an alert' do
+            patch :update, id: another_user.id, user: { location: 'Earth' }
+            expect(flash[:alert]).to be_nil
           end
         end
       end
