@@ -16,6 +16,9 @@ RSpec.describe ProfilesController, type: :controller do
   end
 
   context 'User is signed in' do
+
+    it_behaves_like 'insufficient permission'
+
     describe 'GET #show' do
       context 'with no permission' do
         before do
@@ -282,25 +285,27 @@ RSpec.describe ProfilesController, type: :controller do
   end
 
   context 'User is not signed in' do
+    param = { id: 'id_shouldnt_matter' }
+
     describe 'GET #show' do
-      it do
-        get :show, id: 'id_shouldnt_matter'
-        expect(response).to redirect_to(new_user_session_path)
-      end
+      it_behaves_like 'unauthenticated request',
+                      method: 'get',
+                      action: :show,
+                      params: param
     end
 
     describe 'GET #edit' do
-      it do
-        get :edit, id: 'id_shouldnt_matter'
-        expect(response).to redirect_to(new_user_session_path)
-      end
+      it_behaves_like 'unauthenticated request',
+                      method: 'get',
+                      action: :edit,
+                      params: param
     end
 
     describe 'PATCH #update' do
-      it do
-        patch :update, id: 'id_shouldnt_matter'
-        expect(response).to redirect_to(new_user_session_path)
-      end
+      it_behaves_like 'unauthenticated request',
+                      method: 'patch',
+                      action: :update,
+                      params: param
     end
   end
 end
