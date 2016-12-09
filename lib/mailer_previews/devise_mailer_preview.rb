@@ -1,3 +1,6 @@
+# This file smells of :reek:UtilityFunction
+# Can't really do anything about this, also its not really a smell, this is
+# the only way to preview views for ActionMailer instances!
 module Devise
   class MailerPreview < ActionMailer::Preview
     def confirmation_instructions
