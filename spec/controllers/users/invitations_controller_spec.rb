@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-# rubocop:disable Rails/HttpPositionalArguments
-
 RSpec.describe Users::InvitationsController, type: :controller do
   let(:group) { FactoryGirl.create(:group) }
 
@@ -93,4 +91,3 @@ RSpec.describe Users::InvitationsController, type: :controller do
     end
   end
 end
-# rubocop:enable Rails/HttpPositionalArguments
