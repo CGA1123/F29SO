@@ -22,6 +22,8 @@ gem 'puma'
 gem 'devise'
 gem 'devise_invitable', '~> 1.7.0'
 
+gem 'premailer-rails'
+
 group :development, :test, :macs_development, :macs_test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'

@@ -1,8 +1,8 @@
 <% content_for :page_title, 'Forgotten Password' %>
 <div class="gridContainer">
   <div id="LayoutDiv1">
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
     <table align="center" class="table" cellpadding="5px">
-      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
         <%= devise_error_messages! %>
         <tr>
           <td><h1>Forgotten your password?</h1></td>
@@ -20,6 +20,6 @@
             <%= f.submit "Submit", id: 'submit' %>
           </td>
         </tr>
-      <% end %>
     </table>
+    <% end %>
   </div>
