@@ -11,10 +11,10 @@ RSpec.describe PagesController, type: :controller do
     end
 
     context 'when not logged in' do
-      it 'redirects to login page' do
-        get :user_home
-        expect(response).to redirect_to(new_user_session_path)
-      end
+      it_behaves_like 'unauthenticated request',
+                      method: :get,
+                      action: :user_home,
+                      params: {}
     end
   end
 end

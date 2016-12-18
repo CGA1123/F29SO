@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>F29SO</title>
+  <title><%= yield(:page_title) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'respond' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<% if notice %>
-<p id='notice'><%= notice %></p>
-<% end %>
-<% if alert %>
-<p id='notice'><%= alert %></p>
-<% end %>
-<% if user_signed_in? %>
-<%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
-<% end %>
-<%= yield %>
-
+  <% if notice %>
+    <p id='notice'><%= notice %></p>
+  <% end %>
+  <% if alert %>
+    <p id='notice'><%= alert %></p>
+  <% end %>
+  <% if user_signed_in? %>
+    <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
+  <% end %>
+  <div class="yielded">
+    <%= yield %>
+  </div>
 </body>
 </html>
