@@ -3,7 +3,6 @@ class CreateProjectPermissions < ActiveRecord::Migration
     create_table :project_permissions do |t|
       t.string :name
       t.string :description
-
       t.timestamps null: false
     end
   end
