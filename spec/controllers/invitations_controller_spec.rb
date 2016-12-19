@@ -12,6 +12,8 @@ RSpec.describe InvitationsController, type: :controller do
     FactoryGirl.create(:permission, name: "users.invite.#{group.id}")
   end
 
+  let(:valid_params) { { invitation: { email: 't@t.t', groups: [group.id] } } }
+
   describe '#create' do
     context 'user with users.invite permission' do
       # A user without a group is invalid.
@@ -23,7 +25,7 @@ RSpec.describe InvitationsController, type: :controller do
 
       it 'invites new user' do
         sign_in root
-        expect { post :create, invitation: { email: 't@t.t', groups: [group.id] } }
+        expect { post :create, valid_params }
           .to change { Invitation.count }.by(1)
       end
     end
@@ -40,7 +42,7 @@ RSpec.describe InvitationsController, type: :controller do
         sign_in no_permission
 
         group.permissions << [users_invite]
-        expect { post :create, invitation: { email: 't@t.t', groups: [group.id] } }
+        expect { post :create, valid_params }
           .to change { Invitation.count }.by(0)
       end
     end
@@ -50,7 +52,7 @@ RSpec.describe InvitationsController, type: :controller do
         sign_in no_permission
 
         group.permissions << [users_invite, group_invite]
-        expect { post :create, invitation: { email: 't@t.t', groups: [group.id] } }
+        expect { post :create, valid_params }
           .to change { Invitation.count }.by(1)
       end
     end
