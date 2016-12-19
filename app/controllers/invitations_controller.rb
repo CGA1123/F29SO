@@ -3,6 +3,7 @@ class InvitationsController < ApplicationController
   before_action :check_permissions, only: [:create]
 
   def index
+    @invitations = Invitation.all
   end
 
   def new
