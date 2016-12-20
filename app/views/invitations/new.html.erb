@@ -1,4 +1,9 @@
-<%= form_for Invitation.new, url: invitations_path, method: :post do |f| %>
+<%= form_for @invitation, url: invitations_path, method: :post do |f| %>
+  <ul>
+  <% @invitation.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
 
   <p><%= f.label 'email' %><br />
   <%= f.text_field :email %></p>
