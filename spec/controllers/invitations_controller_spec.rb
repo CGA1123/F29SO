@@ -20,7 +20,7 @@ RSpec.describe InvitationsController, type: :controller do
 
   let(:invitation) { FactoryGirl.create(:invitation, token: stored_token) }
 
-  describe '#create' do
+  describe 'POST #create' do
     context 'user with users.invite permission' do
       before { sign_in root }
       # A user without a group is invalid.
@@ -77,7 +77,7 @@ RSpec.describe InvitationsController, type: :controller do
     end
   end
 
-  describe '#new' do
+  describe 'GET #new' do
     context 'user with permission' do
       it do
         sign_in root
@@ -94,7 +94,7 @@ RSpec.describe InvitationsController, type: :controller do
     end
   end
 
-  describe '#accept' do
+  describe 'GET #accept' do
     context 'user is logged in' do
       it do
         sign_in root
@@ -130,5 +130,8 @@ RSpec.describe InvitationsController, type: :controller do
         end
       end
     end
+  end
+
+  describe 'POST #create_user' do
   end
 end
