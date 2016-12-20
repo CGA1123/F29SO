@@ -13,4 +13,10 @@ class ApplicationController < ActionController::Base
   def not_found
     raise ActionController::RoutingError, 'Not Found'
   end
+
+  def unauthenticated_only
+    return unless current_user
+    redirect_to after_sign_in_path_for(User),
+                notice: 'You cannot do that as a logged in user'
+  end
 end

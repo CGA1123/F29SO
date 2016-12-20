@@ -14,6 +14,12 @@ RSpec.describe InvitationsController, type: :controller do
 
   let(:valid_params) { { invitation: { email: 't@t.t', groups: [group.id] } } }
 
+  let(:tokens) { Devise.token_generator.generate(Invitation, :token) }
+  let(:raw_token) { tokens[0] }
+  let(:stored_token) { tokens[1] }
+
+  let(:invitation) { FactoryGirl.create(:invitation, token: stored_token) }
+
   describe '#create' do
     context 'user with users.invite permission' do
       before { sign_in root }
@@ -85,6 +91,26 @@ RSpec.describe InvitationsController, type: :controller do
         sign_in no_permission
         expect { get :new }.to raise_error(ActionController::RoutingError)
       end
+    end
+  end
+
+  describe '#accept' do
+    context 'user is logged in' do
+      it do
+        sign_in root
+        get :accept
+        expect(response).to redirect_to(authenticated_root_path)
+      end
+    end
+    context 'with no token parameter' do
+      # get :accept
+      # expect(response).to redirect_to(unauthenticated_root)
+    end
+
+    context 'with valid token' do
+    end
+
+    context 'with invalid token' do
     end
   end
 end
