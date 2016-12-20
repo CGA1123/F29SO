@@ -28,6 +28,7 @@ class InvitationsController < ApplicationController
     @user = User.new
   end
 
+  # :reek:TooManyStatements { max_statements: 7 }
   def create_user
     @user = User.new(accept_params)
     @user.email = @invitation.email

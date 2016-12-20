@@ -11,6 +11,7 @@ class ProfilesController < ApplicationController
   def edit
   end
 
+  # :reek:TooManyStatements { max_statements: 7 }
   def update
     respond_to do |format|
       if @user.update(profile_params)
