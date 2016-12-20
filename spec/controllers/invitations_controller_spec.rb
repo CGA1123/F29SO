@@ -111,6 +111,11 @@ RSpec.describe InvitationsController, type: :controller do
           get :accept, token: raw_token
           expect(response).to be_success
         end
+
+        it 'build a @user' do
+          get :accept, token: raw_token
+          expect(assigns[:user]).not_to be_nil
+        end
       end
 
       context 'with invalid/empty token' do

@@ -25,6 +25,11 @@ class InvitationsController < ApplicationController
   end
 
   def accept
+    @user = User.new
+  end
+
+  def create_user
+    redirect_to unauthenticated_root_path
   end
 
   private

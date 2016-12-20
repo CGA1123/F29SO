@@ -21,4 +21,5 @@ Rails.application.routes.draw do
   post 'invitations', to: 'invitations#create'
 
   get 'invitations/accept', to: 'invitations#accept', as: :accept_invitation
+  post 'invitations/accept', to: 'invitations#create_user'
 end
