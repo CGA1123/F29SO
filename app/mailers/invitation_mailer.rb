@@ -3,7 +3,7 @@ class InvitationMailer < ApplicationMailer
     @token = token
     @email = email
     mail(
-      to: @email,
+      to: email,
       from: 'change_me@change_me.com',
       subject: "You've been invited"
     )
