@@ -7,7 +7,7 @@ class Invitation < ActiveRecord::Base
   validates :email, uniqueness: { case_sensitive: false }
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
 
-  def self.find_by_token(token)
+  def self.with_token(token)
     enc_token = Devise.token_generator.digest(Invitation, :token, token)
     Invitation.find_by(token: enc_token)
   end
