@@ -105,6 +105,12 @@ RSpec.describe InvitationsController, type: :controller do
 
     context 'user is not logged in' do
       context 'with valid token' do
+        before { invitation }
+
+        it do
+          get :accept, token: raw_token
+          expect(response).to be_success
+        end
       end
 
       context 'with invalid/empty token' do
