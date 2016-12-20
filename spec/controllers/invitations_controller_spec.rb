@@ -126,12 +126,33 @@ RSpec.describe InvitationsController, type: :controller do
 
         it 'sets a notice' do
           get :accept, token: ''
-          expect(flash[:notice]).not_to be_nil
+          expect(flash[:notice]).to eq('Your invitation token is invalid')
         end
       end
     end
   end
 
   describe 'POST #create_user' do
+    context 'user signed in' do
+      it do
+        sign_in root
+        post :create_user
+        expect(response).to redirect_to(unauthenticated_root_path)
+      end
+    end
+
+    context 'user is not signed in' do
+      context 'token is invalid/empty' do
+        it do
+          post :create_user, token: ''
+          expect(response).to redirect_to(unauthenticated_root_path)
+        end
+
+        it do
+          post :create_user, token: ''
+          expect(flash[:notice]).to eq('Your invitation token is invalid')
+        end
+      end
+    end
   end
 end
