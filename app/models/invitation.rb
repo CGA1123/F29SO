@@ -3,9 +3,9 @@ class Invitation < ActiveRecord::Base
   has_many :groups, through: :invitation_groups
 
   validates :groups, :email, :token, :sent_at, presence: true
+  validates :token, uniqueness: true
+  validates :email, uniqueness: { case_sensitive: false }
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
-
-  after_save :deliver_invitation
 
   def self.find_by_token(token)
     enc_token = Devise.token_generator.digest(Invitation, :token, token)
@@ -15,24 +15,15 @@ class Invitation < ActiveRecord::Base
   def invite
     generate_token
     self.sent_at = Time.now.getlocal
-    save
+    if save
+      InvitationMailer.invitation(email, @raw_token).deliver_later
+      true
+    else
+      false
+    end
   end
 
   private
-
-  # TODO: avoid the whole disable/enable callback, also this
-  # re saves the record which is not ideal....
-  def deliver_invitation
-    Invitation.skip_callback(:save, :after, :deliver_invitation)
-
-    generate_token unless @raw_token
-    self.sent_at = Time.now.getlocal
-    save
-    # Send Invite
-    InvitationMailer.invitation(email, @raw_token).deliver_later
-
-    Invitation.set_callback(:save, :after, :deliver_invitation)
-  end
 
   def generate_token
     raw, encrypted = Devise.token_generator.generate(Invitation, :token)
