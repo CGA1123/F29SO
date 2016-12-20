@@ -7,6 +7,11 @@ class Invitation < ActiveRecord::Base
 
   after_save :deliver_invitation
 
+  def self.find_by_token(token)
+    enc_token = Devise.token_generator.digest(Invitation, :token, token)
+    Invitation.find_by(token: enc_token)
+  end
+
   def invite
     generate_token
     self.sent_at = Time.now.getlocal
@@ -15,6 +20,8 @@ class Invitation < ActiveRecord::Base
 
   private
 
+  # TODO: avoid the whole disable/enable callback, also this
+  # re saves the record which is not ideal....
   def deliver_invitation
     Invitation.skip_callback(:save, :after, :deliver_invitation)
 
