@@ -10,9 +10,10 @@ RSpec.describe Invitation, type: :model do
   it { is_expected.to validate_uniqueness_of(:email).case_insensitive }
   it { is_expected.to validate_uniqueness_of(:token) }
 
+  let(:existing_user) { FactoryGirl.create(:user) }
+
   describe 'validate that a user with email does not already exist' do
     it 'does not allow invitation to existing user' do
-      existing_user = FactoryGirl.create(:user)
       invitation = Invitation.new(email: existing_user.email,
                                   groups: existing_user.groups,
                                   sent_at: Time.now.getlocal,
