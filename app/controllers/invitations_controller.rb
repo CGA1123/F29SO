@@ -11,6 +11,16 @@ class InvitationsController < ApplicationController
   end
 
   def create
+    @invitation = Invitation.new(invite_params)
+
+    if @invitation.invite
+      redirect_to invitations_path
+    else
+      render :new
+    end
+  end
+
+  def accept
   end
 
   private
