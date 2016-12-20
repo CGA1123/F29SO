@@ -16,17 +16,30 @@ RSpec.describe InvitationsController, type: :controller do
 
   describe '#create' do
     context 'user with users.invite permission' do
+      before { sign_in root }
       # A user without a group is invalid.
-      it 'does not invite invalid user' do
-        sign_in root
-        expect { post :create, invitation: { email: 't@t.t' } }
-          .to change { Invitation.count }.by(0)
+      context 'parameters invalid' do
+        it 'does not invite user' do
+          expect { post :create, invitation: { email: 't@t.t' } }
+            .to change { Invitation.count }.by(0)
+        end
+
+        it 'does not send an email' do
+          expect { post :create, invitation: { email: 't@t.t' } }
+            .to change { ActionMailer::Base.deliveries.count }.by(0)
+        end
       end
 
-      it 'invites new user' do
-        sign_in root
-        expect { post :create, valid_params }
-          .to change { Invitation.count }.by(1)
+      context 'parameters valid' do
+        it 'invites new user' do
+          expect { post :create, valid_params }
+            .to change { Invitation.count }.by(1)
+        end
+
+        it 'sends an email' do
+          expect { post :create, valid_params }
+            .to change { ActionMailer::Base.deliveries.count }.by(1)
+        end
       end
     end
 
