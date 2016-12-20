@@ -7,10 +7,10 @@ class InvitationsController < ApplicationController
   end
 
   def new
+    @invitation = Invitation.new
   end
 
   def create
-    redirect_to invitations_path
   end
 
   private
