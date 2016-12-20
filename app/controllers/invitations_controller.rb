@@ -29,7 +29,17 @@ class InvitationsController < ApplicationController
   end
 
   def create_user
-    redirect_to unauthenticated_root_path
+    @user = User.new(accept_params)
+    @user.email = @invitation.email
+    @user.groups = @invitation.groups
+    @user.skip_confirmation!
+
+    if @user.save
+      @invitation.destroy!
+      redirect_to unauthenticated_root_path
+    else
+      render :accept
+    end
   end
 
   private
@@ -45,6 +55,15 @@ class InvitationsController < ApplicationController
     permitted_params[:groups] = Group.where(id: permitted_params[:groups])
 
     permitted_params
+  end
+
+  def accept_params
+    params.require(:user)
+          .permit(:password,
+                  :password_confirmation,
+                  :first_name,
+                  :last_name,
+                  :location)
   end
 
   # Need to ensure that the inviting user has the right permissions

@@ -153,6 +153,39 @@ RSpec.describe InvitationsController, type: :controller do
           expect(flash[:notice]).to eq('Your invitation token is invalid')
         end
       end
+
+      context 'token is valid' do
+        before { invitation }
+        context 'params are valid' do
+          let(:user_params) do
+            {
+              token: raw_token,
+              user: { first_name: 'f',
+                      last_name: 'l',
+                      location: 'l',
+                      password: 'password',
+                      password_confirmation: 'password' }
+            }
+          end
+
+          it do
+            post :create_user, user_params
+            expect(response).to redirect_to(unauthenticated_root_path)
+          end
+
+          it 'creates a user' do
+            expect { post :create_user, user_params }
+              .to change { User.count }.by(1)
+          end
+        end
+
+        context 'params invalid' do
+          it 're renders #accept' do
+            post :create_user, token: raw_token, user: { first_name: 'f' }
+            expect(response).to render_template(:accept)
+          end
+        end
+      end
     end
   end
 end

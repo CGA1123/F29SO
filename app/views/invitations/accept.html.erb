@@ -1,32 +1,18 @@
-<p>Token: <%= @token %></p>
 <%= form_for @user, url: accept_invitation_path(token: @token), method: :post do |f| %>
-  <div class="field">
-    <%= f.label :first_name %><br />
-    <%= f.password_field :first_name %>
-  </div>
+  <ul>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
 
-  <div class="field">
-    <%= f.label :last_name %><br />
-    <%= f.password_field :last_name %>
-  </div>
+  <%= f.text_field :first_name, placeholder: 'Joe' %>
 
-  <div class="field">
-    <%= f.label :location %><br />
-    <%= f.password_field :location %>
-  </div>
+  <%= f.text_field :last_name, placeholder: 'Bloggs' %>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: 'off' %>
-  </div>
+  <%= f.text_field :location, placeholder: 'Edinburgh' %>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: 'off' %>
-  </div>
+  <%= f.password_field :password, autocomplete: 'off', placeholder: '*******' %>
+  <%= f.password_field :password_confirmation, autocomplete: 'off', placeholder: '*******' %>
 
   <%= f.submit %>
 <% end %>
