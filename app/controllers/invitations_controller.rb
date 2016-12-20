@@ -63,7 +63,8 @@ class InvitationsController < ApplicationController
   def verify_token
     @token = params[:token]
     @invitation = Invitation.with_token(@token)
-    return unless @invitation.nil?
+    # return now if an @invitation was found (nil == false)
+    return if @invitation
     redirect_to unauthenticated_root_path,
                 notice: 'Your invitation token is invalid'
   end
