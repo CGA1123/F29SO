@@ -102,15 +102,22 @@ RSpec.describe InvitationsController, type: :controller do
         expect(response).to redirect_to(authenticated_root_path)
       end
     end
-    context 'with no token parameter' do
-      # get :accept
-      # expect(response).to redirect_to(unauthenticated_root)
-    end
 
-    context 'with valid token' do
-    end
+    context 'user is not logged in' do
+      context 'with valid token' do
+      end
 
-    context 'with invalid token' do
+      context 'with invalid/empty token' do
+        it do
+          get :accept, token: ''
+          expect(response).to redirect_to(unauthenticated_root_path)
+        end
+
+        it 'sets a notice' do
+          get :accept, token: ''
+          expect(flash[:notice]).not_to be_nil
+        end
+      end
     end
   end
 end

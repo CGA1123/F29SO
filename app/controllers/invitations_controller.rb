@@ -4,6 +4,7 @@ class InvitationsController < ApplicationController
 
   skip_before_action :authenticate_user!, only: [:accept]
   before_action :unauthenticated_only, only: [:accept]
+  before_action :verify_token, only: [:accept]
 
   def index
     @invitations = Invitation.all
@@ -24,7 +25,6 @@ class InvitationsController < ApplicationController
   end
 
   def accept
-    @token = params[:token]
   end
 
   private
@@ -58,5 +58,13 @@ class InvitationsController < ApplicationController
   # not_found is defined in ApplicationController
   def authenticate_inviter
     not_found unless user_signed_in? && current_user.permission?('users.invite')
+  end
+
+  def verify_token
+    @token = params[:token]
+    @invitation = Invitation.with_token(@token)
+    return unless @invitation.nil?
+    redirect_to unauthenticated_root_path,
+                notice: 'Your invitation token is invalid'
   end
 end
