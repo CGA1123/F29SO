@@ -7,6 +7,8 @@ class Invitation < ActiveRecord::Base
   validates :email, uniqueness: { case_sensitive: false }
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }
 
+  validate :user_email_not_taken
+
   def self.with_token(token)
     enc_token = Devise.token_generator.digest(Invitation, :token, token)
     Invitation.find_by(token: enc_token)
@@ -24,6 +26,10 @@ class Invitation < ActiveRecord::Base
   end
 
   private
+
+  def user_email_not_taken
+    errors.add(:email, 'is already taken') if User.find_by(email: email)
+  end
 
   def generate_token
     raw, encrypted = Devise.token_generator.generate(Invitation, :token)
