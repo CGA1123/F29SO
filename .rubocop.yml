@@ -26,5 +26,5 @@ Style/StringMethods:
 Rails/HttpPositionalArguments:
   Enabled: false
 
-Rspec/DescribedClass:
+RSpec/DescribedClass:
   Enabled: false
