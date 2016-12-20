@@ -20,5 +20,5 @@ Rails.application.routes.draw do
   get 'invitations', to: 'invitations#index', as: :invitations
   post 'invitations', to: 'invitations#create'
 
-  get 'invitations/accept/:token', to: 'invitations#accept', as: :accept_invitation
+  get 'invitations/accept', to: 'invitations#accept', as: :accept_invitation
 end

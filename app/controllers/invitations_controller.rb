@@ -2,6 +2,8 @@ class InvitationsController < ApplicationController
   before_action :authenticate_inviter, only: [:create, :new, :index]
   before_action :check_permissions, only: [:create]
 
+  skip_before_action :authenticate_user!, only: [:accept]
+
   def index
     @invitations = Invitation.all
   end
@@ -21,6 +23,7 @@ class InvitationsController < ApplicationController
   end
 
   def accept
+    @token = params[:token]
   end
 
   private
