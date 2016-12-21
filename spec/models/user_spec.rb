@@ -48,4 +48,10 @@ RSpec.describe User, type: :model do
       expect(user.name).to eq("#{user.first_name} #{user.last_name}")
     end
   end
+
+  describe '#initials' do
+    it 'returns concatenation of first characters of first_name & last_name' do
+      expect(user.initials).to eq("#{user.first_name[0]}#{user.last_name[0]}")
+    end
+  end
 end

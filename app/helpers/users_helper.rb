@@ -1,5 +1,5 @@
 module UsersHelper
-  def user_avatar(user, size=60)
+  def user_avatar(user, size = 60)
     attributes = {
       'data-name' => user.initials,
       'data-height' => size,
