@@ -1,0 +1,18 @@
+<%= form_for @user, url: accept_invitation_path(token: @token), method: :post do |f| %>
+  <ul>
+  <% @user.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+
+  <%= f.text_field :first_name, placeholder: 'Joe' %>
+
+  <%= f.text_field :last_name, placeholder: 'Bloggs' %>
+
+  <%= f.text_field :location, placeholder: 'Edinburgh' %>
+
+  <%= f.password_field :password, autocomplete: 'off', placeholder: '*******' %>
+  <%= f.password_field :password_confirmation, autocomplete: 'off', placeholder: '*******' %>
+
+  <%= f.submit %>
+<% end %>

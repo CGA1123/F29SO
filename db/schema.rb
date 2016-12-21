@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115220634) do
+ActiveRecord::Schema.define(version: 20161219153058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,25 @@ ActiveRecord::Schema.define(version: 20161115220634) do
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "invitation_groups", force: :cascade do |t|
+    t.integer  "invitation_id"
+    t.integer  "group_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "invitation_groups", ["group_id"], name: "index_invitation_groups_on_group_id", using: :btree
+  add_index "invitation_groups", ["invitation_id"], name: "index_invitation_groups_on_invitation_id", using: :btree
+
+  create_table "invitations", force: :cascade do |t|
+    t.string   "email"
+    t.string   "sent_at"
+    t.string   "accepted_at"
+    t.string   "token"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
