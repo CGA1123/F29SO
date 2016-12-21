@@ -1,6 +1,6 @@
 # REAF - Resource Management System (RMS)
 
-![REAF LOGO](/resources/reaf_logo.png)
+![REAF LOGO](.github/resources/reaf_logo.png)
 
 ## Project Status (Develop Branch)
 [![Build Status](https://travis-ci.com/CGA1123/F29SO.svg?token=CLPqdNeNYg5kLHcGitp5&branch=develop)](https://travis-ci.com/CGA1123/F29SO)
@@ -19,7 +19,7 @@ Current live versions of the project can be accessed:
 
 ### Dependencies
 
-- Ruby `2.3.2`
+- Ruby `2.3.3`
 - Bundler
 - Postgresql
 

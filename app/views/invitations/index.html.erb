@@ -1,0 +1,6 @@
+<h3>Invitation Index:</h3>
+<ul>
+  <% @invitations.each do |invite| %>
+  <li>Invite For: <%= invite.email %></li>
+  <% end %>
+</ul>

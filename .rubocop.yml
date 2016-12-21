@@ -22,3 +22,9 @@ Style/MethodCalledOnDoEndBlock:
 
 Style/StringMethods:
   Enabled: true
+
+Rails/HttpPositionalArguments:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: false

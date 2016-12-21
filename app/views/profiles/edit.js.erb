@@ -1,0 +1,6 @@
+// Render Edit Form in line
+console.log('edit.js.erb');
+
+console.log("<%= j render 'profiles/form.html.erb' %>");
+console.log($('.user-info').innerHTML)
+$('.user-info').html("<%= j render 'form.html.erb' %>")

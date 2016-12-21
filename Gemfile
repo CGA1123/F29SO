@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.3.2'
+ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.7.1'
@@ -12,6 +12,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'jquery-rails'
+gem 'respond-js-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -19,7 +20,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'puma'
 gem 'devise'
-gem 'devise_invitable', '~> 1.7.0'
+
+gem 'premailer-rails'
 
 group :development, :test, :macs_development, :macs_test do
   gem 'byebug'

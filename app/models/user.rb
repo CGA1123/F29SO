@@ -1,13 +1,12 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
-         :validatable, :confirmable, :timeoutable, :invitable
+         :validatable, :confirmable, :timeoutable
 
   has_many :user_groups
   has_many :groups, through: :user_groups
   has_many :project_groups, through: :user_project_groups
 
-  validates :groups, presence: true
-  validates :first_name, :last_name, :location, presence: true, on: :update
+  validates :groups, :first_name, :last_name, :location, presence: true
 
   def permission?(permission_name)
     return true if groups.map(&:name).include?('root')
