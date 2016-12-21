@@ -3,14 +3,16 @@
    Note: Fluid media requires that you remove the media's height and width attributes from the HTML
    http://www.alistapart.com/articles/fluid-images/
 */
-img, object, embed, video {
-	max-width: 100%;
+embed,
+img,
+object,
+video {
+  max-width: 100%;
 }
 /* IE 6 does not support max-width so default to width 100% */
 .ie6 img {
-	width:100%;
+  width: 100%;
 }
-
 /*
 	Dreamweaver Fluid Grid Properties
 	----------------------------------
@@ -25,155 +27,160 @@ img, object, embed, video {
 	and Golden Grid System by Joni Korpi
 	http://goldengridsystem.com/
 */
-
 /* Mobile Layout: 480px and below. */
-
 .gridContainer {
-	margin-left: auto;
-	margin-right: auto;
-	width: 86.4842%;
-	padding-left: 2.2578%;
-	padding-right: 2.2578%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 86.4842%;
+  padding-left: 2.2578%;
+  padding-right: 2.2578%;
 }
+
 #LayoutDiv1 {
-	clear: both;
-	float: left;
-	margin-left: 0;
-	width: 100%;
-	display: block;
-	margin-top: 10%;
+  clear: both;
+  float: left;
+  margin-left: 0;
+  width: 100%;
+  display: block;
+  margin-top: 10%;
 }
+
 #emailBody {
-	clear: both;
-	float: left;
-	margin-left: 0;
-	width: 100%;
-	display: block;
+  clear: both;
+  float: left;
+  margin-left: 0;
+  width: 100%;
+  display: block;
 }
+
 #passwordButton {
-	clear: both;
-	float: left;
-	margin-left: 21.0443%;
-	width: 57.9113%;
-	display: block;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	background-color: #89188A;
+  clear: both;
+  float: left;
+  margin-left: 21.0443%;
+  width: 57.9113%;
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #89188A;
 }
+
 #emailBody1 {
-	clear: both;
-	float: left;
-	display: block;
+  clear: both;
+  float: left;
+  display: block;
 }
 
 #logoFooter {
-	clear: both;
-	float: left;
-	margin-left: 21.0443%;
-	width: 57.9113%;
-	display: block;
-	margin-top: 5%;
+  clear: both;
+  float: left;
+  margin-left: 21.0443%;
+  width: 57.9113%;
+  display: block;
+  margin-top: 5%;
 }
-
 /* Tablet Layout: 481px to 768px. Inherits styles from: Mobile Layout. */
-
 @media only screen and (min-width: 481px) {
-.gridContainer {
-	width: 96.8984%;
-	padding-left: 1.5507%;
-	padding-right: 1.5507%;
-}
-#LayoutDiv1 {
-	clear: both;
-	float: left;
-	margin-left: 25.8001%;
-	width: 48.3996%;
-	display: block;
-}
-#emailBody {
-	clear: both;
-	float: left;
-	margin-left: 12.9%;
-	width: 74.1998%;
-	display: block;
-}
-#passwordButton {
-	clear: both;
-	float: left;
-	margin-left: 25.8001%;
-	width: 48.3996%;
-	display: block;
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-#emailBody1 {
-	clear: both;
-	float: left;
-	margin-left: 12.9%;
-	width: 74.1998%;
-	display: block;
-}
-#logoFooter {
-	clear: both;
-	float: left;
-	margin-left: 25.8001%;
-	width: 48.3996%;
-	display: block;
-}
-}
+  .gridContainer {
+    width: 96.8984%;
+    padding-left: 1.5507%;
+    padding-right: 1.5507%;
+  }
 
+  #LayoutDiv1 {
+    clear: both;
+    float: left;
+    margin-left: 25.8001%;
+    width: 48.3996%;
+    display: block;
+  }
+
+  #emailBody {
+    clear: both;
+    float: left;
+    margin-left: 12.9%;
+    width: 74.1998%;
+    display: block;
+  }
+
+  #passwordButton {
+    clear: both;
+    float: left;
+    margin-left: 25.8001%;
+    width: 48.3996%;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  #emailBody1 {
+    clear: both;
+    float: left;
+    margin-left: 12.9%;
+    width: 74.1998%;
+    display: block;
+  }
+
+  #logoFooter {
+    clear: both;
+    float: left;
+    margin-left: 25.8001%;
+    width: 48.3996%;
+    display: block;
+  }
+}
 /* Desktop Layout: 769px to a max of 1232px.  Inherits styles from: Mobile Layout and Tablet Layout. */
-
 @media only screen and (min-width: 769px) {
-.gridContainer {
-	width: 97.5187%;
-	max-width: 1232px;
-	padding-left: 1.2406%;
-	padding-right: 1.2406%;
-	margin-top: auto;
-	margin-right: auto;
-	margin-bottom: auto;
-	margin-left: auto;
-}
-#LayoutDiv1 {
-	clear: both;
-	float: left;
-	margin-left: 20.5088%;
-	width: 58.9822%;
-	display: block;
-	margin-top: 10%;
-	margin-right: auto;
-	margin-bottom: auto;
-}
-#emailBody {
-	clear: both;
-	float: left;
-	margin-left: 20.5088%;
-	width: 58.9822%;
-	display: block;
-	margin-top: auto;
-	margin-right: auto;
-	margin-bottom: auto;
-}
-#passwordButton {
-	clear: both;
-	float: left;
-	margin-left: 30.7632%;
-	width: 38.4734%;
-	display: block;
-}
-#emailBody1 {
-	clear: both;
-	float: left;
-	margin-left: 20.5088%;
-	width: 58.9822%;
-	display: block;
-}
-#logoFooter {
-	clear: both;
-	float: left;
-	margin-left: 30.7632%;
-	width: 38.4734%;
-	display: block;
-}
+  .gridContainer {
+    width: 97.5187%;
+    max-width: 1232px;
+    padding-left: 1.2406%;
+    padding-right: 1.2406%;
+    margin: auto;
+  }
+
+  #LayoutDiv1 {
+    clear: both;
+    float: left;
+    margin-left: 20.5088%;
+    width: 58.9822%;
+    display: block;
+    margin-top: 10%;
+    margin-right: auto;
+    margin-bottom: auto;
+  }
+
+  #emailBody {
+    clear: both;
+    float: left;
+    margin-left: 20.5088%;
+    width: 58.9822%;
+    display: block;
+    margin-top: auto;
+    margin-right: auto;
+    margin-bottom: auto;
+  }
+
+  #passwordButton {
+    clear: both;
+    float: left;
+    margin-left: 30.7632%;
+    width: 38.4734%;
+    display: block;
+  }
+
+  #emailBody1 {
+    clear: both;
+    float: left;
+    margin-left: 20.5088%;
+    width: 58.9822%;
+    display: block;
+  }
+
+  #logoFooter {
+    clear: both;
+    float: left;
+    margin-left: 30.7632%;
+    width: 38.4734%;
+    display: block;
+  }
 }
