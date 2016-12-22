@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   has_many :user_groups
   has_many :groups, through: :user_groups
+
+  has_many :user_project_groups
   has_many :project_groups, through: :user_project_groups
 
   validates :groups, :first_name, :last_name, :location, presence: true
