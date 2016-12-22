@@ -23,6 +23,8 @@ gem 'devise'
 
 gem 'premailer-rails'
 
+gem 'sidekiq'
+
 group :development, :test, :macs_development, :macs_test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'
