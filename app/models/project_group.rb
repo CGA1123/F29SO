@@ -2,8 +2,8 @@ class ProjectGroup < ActiveRecord::Base
   has_many :project_group_permissions
   has_many :permissions, through: :project_group_permissions
 
-  has_many :user_project_groups
-  has_many :users, through: :user_project_groups
+  has_many :project_group_users
+  has_many :users, through: :project_group_users
 
   belongs_to :project
 

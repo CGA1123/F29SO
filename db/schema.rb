@@ -69,6 +69,16 @@ ActiveRecord::Schema.define(version: 20161219153058) do
   add_index "project_group_permissions", ["permission_id"], name: "index_project_group_permissions_on_permission_id", using: :btree
   add_index "project_group_permissions", ["project_group_id"], name: "index_project_group_permissions_on_project_group_id", using: :btree
 
+  create_table "project_group_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "project_group_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "project_group_users", ["project_group_id"], name: "index_project_group_users_on_project_group_id", using: :btree
+  add_index "project_group_users", ["user_id"], name: "index_project_group_users_on_user_id", using: :btree
+
   create_table "project_groups", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -95,16 +105,6 @@ ActiveRecord::Schema.define(version: 20161219153058) do
 
   add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id", using: :btree
   add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
-
-  create_table "user_project_groups", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "project_group_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-  end
-
-  add_index "user_project_groups", ["project_group_id"], name: "index_user_project_groups_on_project_group_id", using: :btree
-  add_index "user_project_groups", ["user_id"], name: "index_user_project_groups_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

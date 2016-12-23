@@ -14,6 +14,6 @@ RSpec.describe ProjectGroup, type: :model do
 
   it do
     is_expected.to have_many(:users)
-      .through(:user_project_groups)
+      .through(:project_group_users)
   end
 end
