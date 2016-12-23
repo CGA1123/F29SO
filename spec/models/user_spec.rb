@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it { is_expected.to have_many(:user_groups) }
-  it { is_expected.to have_many(:groups).through(:user_groups) }
+  it { is_expected.to have_many(:group_users) }
+  it { is_expected.to have_many(:groups).through(:group_users) }
   it { is_expected.to have_many(:project_group_users) }
   it { is_expected.to have_many(:project_groups).through(:project_group_users) }
   it { is_expected.to validate_presence_of(:groups) }

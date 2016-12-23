@@ -6,8 +6,8 @@ RSpec.describe Group, type: :model do
   it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
   it { is_expected.to have_many(:group_permissions) }
   it { is_expected.to have_many(:permissions).through(:group_permissions) }
-  it { is_expected.to have_many(:user_groups) }
-  it { is_expected.to have_many(:users).through(:user_groups) }
+  it { is_expected.to have_many(:group_users) }
+  it { is_expected.to have_many(:users).through(:group_users) }
 
   subject(:group) { FactoryGirl.create(:group) }
 
