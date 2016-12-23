@@ -14,9 +14,5 @@ module Devise
     def password_change
       Devise::Mailer.password_change(User.first)
     end
-
-    def invitation_instructions
-      Devise::Mailer.invitation_instructions(User.first, 'token_token')
-    end
   end
 end
