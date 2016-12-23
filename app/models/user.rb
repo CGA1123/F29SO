@@ -2,8 +2,11 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
          :validatable, :confirmable, :timeoutable
 
-  has_many :user_groups
-  has_many :groups, through: :user_groups
+  has_many :group_users
+  has_many :groups, through: :group_users
+
+  has_many :project_group_users
+  has_many :project_groups, through: :project_group_users
 
   validates :groups, :first_name, :last_name, :location, presence: true
 

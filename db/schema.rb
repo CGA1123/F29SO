@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 20161219153058) do
   add_index "group_permissions", ["group_id"], name: "index_group_permissions_on_group_id", using: :btree
   add_index "group_permissions", ["permission_id"], name: "index_group_permissions_on_permission_id", using: :btree
 
+  create_table "group_users", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "group_users", ["group_id"], name: "index_group_users_on_group_id", using: :btree
+  add_index "group_users", ["user_id"], name: "index_group_users_on_user_id", using: :btree
+
   create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -59,40 +69,60 @@ ActiveRecord::Schema.define(version: 20161219153058) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "user_groups", force: :cascade do |t|
+  create_table "project_group_permissions", force: :cascade do |t|
+    t.integer  "project_group_id"
+    t.integer  "permission_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "project_group_permissions", ["permission_id"], name: "index_project_group_permissions_on_permission_id", using: :btree
+  add_index "project_group_permissions", ["project_group_id"], name: "index_project_group_permissions_on_project_group_id", using: :btree
+
+  create_table "project_group_users", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "group_id"
+    t.integer  "project_group_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "project_group_users", ["project_group_id"], name: "index_project_group_users_on_project_group_id", using: :btree
+  add_index "project_group_users", ["user_id"], name: "index_project_group_users_on_user_id", using: :btree
+
+  create_table "project_groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "project_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "project_groups", ["project_id"], name: "index_project_groups_on_project_id", using: :btree
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "code"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "user_groups", ["group_id"], name: "index_user_groups_on_group_id", using: :btree
-  add_index "user_groups", ["user_id"], name: "index_user_groups_on_user_id", using: :btree
-
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: ""
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",          default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.inet     "current_sign_in_ip"
-    t.inet     "last_sign_in_ip"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "invitation_token"
-    t.datetime "invitation_created_at"
-    t.datetime "invitation_sent_at"
-    t.datetime "invitation_accepted_at"
-    t.integer  "invitation_limit"
-    t.integer  "invited_by_id"
-    t.string   "invited_by_type"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "location"
@@ -100,7 +130,6 @@ ActiveRecord::Schema.define(version: 20161219153058) do
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
