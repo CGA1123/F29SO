@@ -43,6 +43,11 @@ class InvitationsController < ApplicationController
     end
   end
 
+  def destroy
+    @invitation = Invitation.find_by(id: params[:invitation_id])
+    redirect_to invitations_path
+  end
+
   private
 
   # invite_params returns the parameters used to create the new invited user.

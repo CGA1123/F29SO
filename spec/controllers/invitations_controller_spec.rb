@@ -188,4 +188,6 @@ RSpec.describe InvitationsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy'
 end
