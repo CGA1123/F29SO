@@ -4,5 +4,6 @@ FactoryGirl.define do
     token Time.now.getlocal.to_s
     groups { [FactoryGirl.create(:group)] }
     sent_at Time.now.getlocal
+    inviter { FactoryGirl.create(:user) }
   end
 end

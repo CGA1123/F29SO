@@ -1,8 +1,9 @@
 class Invitation < ActiveRecord::Base
+  belongs_to :inviter, class_name: 'User', foreign_key: 'inviter_id'
   has_many :invitation_groups
   has_many :groups, through: :invitation_groups
 
-  validates :groups, :email, :token, :sent_at, presence: true
+  validates :groups, :email, :token, :sent_at, :inviter, presence: true
   validates :token, uniqueness: true
   validates :email, uniqueness: { case_sensitive: false }
   validates :email, format: { with: /\A[^@\s]+@[^@\s]+\z/ }

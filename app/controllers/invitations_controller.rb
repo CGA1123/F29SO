@@ -16,6 +16,7 @@ class InvitationsController < ApplicationController
 
   def create
     @invitation = Invitation.new(invite_params)
+    @invitation.inviter = current_user
 
     if @invitation.invite
       redirect_to invitations_path
