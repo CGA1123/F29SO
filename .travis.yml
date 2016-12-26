@@ -15,5 +15,7 @@ script:
   - RAILS_ENV=test bundle exec rake db:test:prepare
   # Run tests
   - RAILS_ENV=test bundle exec rspec -f d
+  # Report test coverage
+  - bundle exec codeclimate-test-reporter
   # Run rubocop
   - bundle exec rubocop -f fu -D -E
