@@ -40,8 +40,8 @@ group :development, :macs_development do
 end
 
 group :test, :macs_test do
-  gem 'simplecov'
   gem 'codeclimate-test-reporter', require: nil
+  gem 'simplecov'
 end
 
 group :macs_test, :macs_development do
