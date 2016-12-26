@@ -16,7 +16,7 @@ RSpec.describe Invitation, type: :model do
 
   describe 'validate that a user with email does not already exist' do
     it 'does not allow invitation to existing user' do
-      invitation = FactoryGirl.build(:invitation, email: existing_user)
+      invitation = FactoryGirl.build(:invitation, email: existing_user.email)
       expect(invitation).not_to be_valid
     end
 
