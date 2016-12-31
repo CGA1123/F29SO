@@ -45,8 +45,17 @@ class InvitationsController < ApplicationController
   end
 
   def destroy
-    @invitation = Invitation.find_by(id: params[:invitation_id])
-    redirect_to invitations_path
+    @invitation = Invitation.find_by(id: params[:id])
+    params = {}
+
+    if @invitation.present? && can_delete?(@invitation)
+      @invitation.destroy
+      params[:notice] = 'Invitation deleted.'
+    else
+      params[:alert] = 'Could not delete invitation.'
+    end
+
+    redirect_to invitations_path, params
   end
 
   private
@@ -98,5 +107,12 @@ class InvitationsController < ApplicationController
     return if @invitation
     redirect_to unauthenticated_root_path,
                 notice: 'Your invitation token is invalid'
+  end
+
+  def can_delete?(invitation)
+    user = current_user
+    user == invitation.inviter ||
+      user.has_permission?('users.invite.delete') ||
+      user.has_permission?("users.invite.#{invitation.group_id}.delete")
   end
 end
