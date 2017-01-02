@@ -6,7 +6,7 @@ module UsersHelper
       'data-width' => size,
       'data-seed' => Random.rand(20),
       'data-char-count' => '2',
-      'data-font-size' => (size * 0.6).round,
+      'data-font-size' => (size * 0.5).round,
       class: 'profile-img img-circle'
     }
 
