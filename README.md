@@ -37,5 +37,5 @@ See [Contibution Guidelines](CONTRIBUTING.md) before making changes to the proje
 - Run the test suite                      `bin/test`
 - Start `postgresql`
 - Start `redis`                           `redis-server`
-- Start up the server                     `foreman start`
+- Start up the server                     `foreman start -f Procfile.dev`
 - Navigate to [`http://localhost:5000`](http://localhost:5000)
