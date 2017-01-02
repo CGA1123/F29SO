@@ -1,8 +1,10 @@
 class Group < ActiveRecord::Base
   has_many :group_permissions
   has_many :permissions, through: :group_permissions
-  has_many :user_groups
-  has_many :users, through: :user_groups
+
+  has_many :group_users
+  has_many :users, through: :group_users
+
   has_many :invitation_groups
   has_many :invitations, through: :invitation_groups
 

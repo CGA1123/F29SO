@@ -44,6 +44,7 @@ end
 
 group :test, :macs_test do
   gem 'codeclimate-test-reporter', require: nil
+  gem 'simplecov'
 end
 
 group :macs_test, :macs_development do
