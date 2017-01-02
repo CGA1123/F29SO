@@ -22,6 +22,8 @@ Current live versions of the project can be accessed:
 - Ruby `2.3.3`
 - Bundler
 - Postgresql
+- Redis
+- Foreman
 
 See [Getting Started](GETTING_STARTED.md) for some more detailed instruction.
 
@@ -33,4 +35,7 @@ See [Contibution Guidelines](CONTRIBUTING.md) before making changes to the proje
 - Get into the project directory          `cd F29SO`
 - Install the gems / setup databses       `bin/setup`
 - Run the test suite                      `bin/test`
-- Start up the rails server               `bundle exec rails server`
+- Start `postgresql`
+- Start `redis`                           `redis-server`
+- Start up the server                     `foreman start`
+- Navigate to [`http://localhost:5000`](http://localhost:5000)

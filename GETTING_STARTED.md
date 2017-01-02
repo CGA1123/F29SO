@@ -35,6 +35,30 @@ Official [Installation Instructions](https://wiki.postgresql.org/wiki/Detailed_i
 
 For MacOS, I found the [App](http://postgresapp.com/) to be the easiest to install.
 
+### Redis
+
+[Official Website](https://redis.io/)
+
+For MacOS, with homebrew, `brew install redis`
+
+For Debian/Ubuntu:
+```
+wget http://download.redis.io/redis-stable.tar.gz
+tar xvzf redis-stable.tar.gz
+cd redis-stable
+make
+```
+
+(Taken from [here](https://redis.io/topics/quickstart))
+
+### Foreman
+
+Foreman helps to manage running multiple services for our server, through a `Procfile`. (Currently we start the `sidekiq` process, and the `rails server` process)
+
+The GitHub for `foreman` can be found [here](https://github.com/ddollar/foreman).
+
+`gem install foreman`
+
 ## Getting the project running
 
 Once all the dependencies are installed, you can start getting the project running.
@@ -57,8 +81,12 @@ Check that everything is working:
 
 *You may need to install the postgresql adapter gem seperately `gem install pg -- --with-pg-config=(path/to/config)`, on MacOS with postgresql app path should be `/Applications/Postgres.app/Contents/Versions/latest/bin/pg_config`*
 
-And then, start up the rails server!
+And then, start up the redis server
 
-`bundle exec rails server`
+`redis-server`
 
-And go to [`http://localhost:3000`](http://localhost:3000).
+Then finally run foreman (which will start sidekiq, and the rails server)
+
+`foreman start`
+
+And go to [`http://localhost:5000`](http://localhost:5000).

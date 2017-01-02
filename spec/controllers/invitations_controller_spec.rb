@@ -32,7 +32,7 @@ RSpec.describe InvitationsController, type: :controller do
 
         it 'does not send an email' do
           expect { post :create, invitation: { email: 't@t.t' } }
-            .to change { ActionMailer::Base.deliveries.count }.by(0)
+            .not_to have_enqueued_job.on_queue('mailers')
         end
       end
 
@@ -44,7 +44,7 @@ RSpec.describe InvitationsController, type: :controller do
 
         it 'sends an email' do
           expect { post :create, valid_params }
-            .to change { ActionMailer::Base.deliveries.count }.by(1)
+            .to have_enqueued_job.on_queue('mailers')
         end
       end
     end
