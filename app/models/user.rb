@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
-         :validatable, :confirmable, :timeoutable, :async
+         :validatable, :confirmable, :timeoutable
 
   has_many :group_users
   has_many :groups, through: :group_users
