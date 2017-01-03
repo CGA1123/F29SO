@@ -28,3 +28,6 @@ Rails/HttpPositionalArguments:
 
 RSpec/DescribedClass:
   Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
