@@ -18,7 +18,7 @@ RSpec.describe InvitationsController, type: :controller do
   let(:raw_token) { tokens[0] }
   let(:stored_token) { tokens[1] }
 
-  let(:invitation) { FactoryGirl.create(:invitation, token: stored_token) }
+  let!(:invitation) { FactoryGirl.create(:invitation, token: stored_token) }
 
   describe 'POST #create' do
     context 'user with users.invite permission' do
@@ -190,5 +190,58 @@ RSpec.describe InvitationsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
+    context 'user w/o users.invite permission' do
+      it do
+        sign_in no_permission
+        expect { delete :destroy, id: 'breh' }
+          .to raise_error(ActionController::RoutingError)
+      end
+    end
+
+    context 'user w/ users.invite permission' do
+      let(:in_group) { FactoryGirl.create(:group, permissions: [users_invite]) }
+      let(:user) { FactoryGirl.create(:user, groups: [in_group]) }
+
+      context 'w/ only users.invite permission' do
+        before do
+          sign_in user
+          delete :destroy, id: invitation.id
+        end
+
+        it do
+          expect(response).to redirect_to(invitations_path)
+        end
+
+        it 'sets alert' do
+          expect(flash[:alert]).to eq('Could not delete invitation.')
+        end
+      end
+
+      context 'w/ users.invite.delete' do
+        let(:invite_delete) do
+          FactoryGirl.create(:permission, name: 'users.invite.delete')
+        end
+
+        before do
+          in_group.permissions << invite_delete
+          sign_in user
+        end
+
+        it do
+          delete :destroy, id: invitation.id
+          expect(response).to redirect_to(invitations_path)
+        end
+
+        it 'sets notice' do
+          delete :destroy, id: invitation.id
+          expect(flash[:notice]).to eq('Invitation deleted.')
+        end
+
+        it 'removes invitation' do
+          expect { delete :destroy, id: invitation.id }
+            .to change(Invitation, :count).by(-1)
+        end
+      end
+    end
   end
 end

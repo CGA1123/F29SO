@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  before_action :authenticate_inviter, only: [:create, :new, :index]
+  before_action :authenticate_inviter, only: [:create, :new, :index, :destroy]
   before_action :check_permissions, only: [:create]
 
   skip_before_action :authenticate_user!, only: [:accept, :create_user]
@@ -111,8 +111,6 @@ class InvitationsController < ApplicationController
 
   def can_delete?(invitation)
     user = current_user
-    user == invitation.inviter ||
-      user.has_permission?('users.invite.delete') ||
-      user.has_permission?("users.invite.#{invitation.group_id}.delete")
+    user == invitation.inviter || user.permission?('users.invite.delete')
   end
 end
