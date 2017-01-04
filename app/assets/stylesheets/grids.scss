@@ -1,186 +1,487 @@
 @charset "utf-8";
-/* Simple fluid media
-   Note: Fluid media requires that you remove the media's height and width attributes from the HTML
-   http://www.alistapart.com/articles/fluid-images/
-*/
-embed,
 img,
 object,
+embed,
 video {
-  max-width: 100%;
+    max-width: 100%;
 }
-/* IE 6 does not support max-width so default to width 100% */
 .ie6 img {
-  width: 100%;
+    width: 100%;
 }
-/*
-	Dreamweaver Fluid Grid Properties
-	----------------------------------
-	dw-num-cols-mobile:		5;
-	dw-num-cols-tablet:		8;
-	dw-num-cols-desktop:	10;
-	dw-gutter-percentage:	33;
-
-	Inspiration from "Responsive Web Design" by Ethan Marcotte
-	http://www.alistapart.com/articles/responsive-web-design
-
-	and Golden Grid System by Joni Korpi
-	http://goldengridsystem.com/
-*/
-/* Mobile Layout: 480px and below. */
-.gridContainer {
+html,
+body {
+    height: 98%;
+}
+body {
+    background-image: url(images/mobile-tab-origami.svg);
+    background-size: contain;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: right top;
+    max-height: 100%;
+    height: 95%;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 5%;
+}
+p{
+	font-size: 12px;
+	font-weight: 200;
+	font-family: 'Roboto', sans-serif;
+	margin: 0px;
+	color: #000;
+	text-align: center;
+	}
+#leidos_logo {
+  max-width: 50%;
   margin-left: auto;
   margin-right: auto;
-  width: 86.4842%;
-  padding-left: 2.2578%;
-  padding-right: 2.2578%;
+  display: block;
 }
-
+#pageTitleDiv {
+    text-align: left;
+}
+.table {
+    text-align: center;
+    width: 100%;
+    alignment-adjust: central;
+    border: medium;
+}
+#layoutDiv1 {
+    text-align: center;
+}
+td {
+    padding: 5px;
+}
+tr {
+    padding: 5px;
+}
+h1 {
+    font-size: 24pt;
+    font-weight: 200;
+    font-family: 'Roboto', sans-serif;
+    margin: 0px;
+    color: #89188A;
+}
+h2 {
+    font-size: 15pt;
+    font-weight: 200;
+    font-family: 'Roboto', sans-serif;
+    margin: 0px;
+    color: #000;
+}
+.textBox {
+    text-align: center;
+    border-bottom-width: medium;
+    border-top-style: none;
+    border-right-style: none;
+    border-bottom-style: solid;
+    border-left-style: none;
+    border-bottom-color: #CCC;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+}
+#submit {
+    background-color: #CCC;
+    color: #FFF;
+    border: none;
+    width: 100%;
+    max-width: 250px;
+}
+.gridContainer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 86.4842%;
+    padding-left: 2.2578%;
+    padding-right: 2.2578%;
+}
 #LayoutDiv1 {
-  clear: both;
-  float: left;
-  margin-left: 0;
-  width: 100%;
-  display: block;
-  margin-top: 10%;
-}
-
-#emailBody {
-  clear: both;
-  float: left;
-  margin-left: 0;
-  width: 100%;
-  display: block;
-}
-
-#passwordButton {
-  clear: both;
-  float: left;
-  margin-left: 21.0443%;
-  width: 57.9113%;
-  display: block;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  background-color: #89188A;
-}
-
-#emailBody1 {
-  clear: both;
-  float: left;
-  display: block;
-}
-
-#logoFooter {
-  clear: both;
-  float: left;
-  margin-left: 21.0443%;
-  width: 57.9113%;
-  display: block;
-  margin-top: 5%;
-}
-/* Tablet Layout: 481px to 768px. Inherits styles from: Mobile Layout. */
-@media only screen and (min-width: 481px) {
-  .gridContainer {
-    width: 96.8984%;
-    padding-left: 1.5507%;
-    padding-right: 1.5507%;
-  }
-
-  #LayoutDiv1 {
     clear: both;
     float: left;
-    margin-left: 25.8001%;
-    width: 48.3996%;
-    display: block;
-  }
-
-  #emailBody {
-    clear: both;
-    float: left;
-    margin-left: 12.9%;
-    width: 74.1998%;
-    display: block;
-  }
-
-  #passwordButton {
-    clear: both;
-    float: left;
-    margin-left: 25.8001%;
-    width: 48.3996%;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  #emailBody1 {
-    clear: both;
-    float: left;
-    margin-left: 12.9%;
-    width: 74.1998%;
-    display: block;
-  }
-
-  #logoFooter {
-    clear: both;
-    float: left;
-    margin-left: 25.8001%;
-    width: 48.3996%;
-    display: block;
-  }
-}
-/* Desktop Layout: 769px to a max of 1232px.  Inherits styles from: Mobile Layout and Tablet Layout. */
-@media only screen and (min-width: 769px) {
-  .gridContainer {
-    width: 97.5187%;
-    max-width: 1232px;
-    padding-left: 1.2406%;
-    padding-right: 1.2406%;
-    margin: auto;
-  }
-
-  #LayoutDiv1 {
-    clear: both;
-    float: left;
-    margin-left: 20.5088%;
-    width: 58.9822%;
+    margin-left: 0;
+    width: 100%;
     display: block;
     margin-top: 10%;
-    margin-right: auto;
-    margin-bottom: auto;
-  }
-
-  #emailBody {
+}
+#emailBody {
     clear: both;
     float: left;
-    margin-left: 20.5088%;
-    width: 58.9822%;
+    margin-left: 0;
+    width: 100%;
     display: block;
-    margin-top: auto;
-    margin-right: auto;
-    margin-bottom: auto;
-  }
-
-  #passwordButton {
+}
+#passwordButton {
     clear: both;
     float: left;
-    margin-left: 30.7632%;
-    width: 38.4734%;
+    margin-left: 21.0443%;
+    width: 57.9113%;
     display: block;
-  }
-
-  #emailBody1 {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #89188A;
+}
+#emailBody1 {
     clear: both;
     float: left;
-    margin-left: 20.5088%;
-    width: 58.9822%;
+    margin-left: 0;
+    width: 100%;
     display: block;
-  }
-
-  #logoFooter {
+}
+#logoFooter {
     clear: both;
     float: left;
-    margin-left: 30.7632%;
-    width: 38.4734%;
+    margin-left: 21.0443%;
+    width: 57.9113%;
     display: block;
-  }
+    margin-top: 5%;
+}
+#titleDiv {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 57.9113%;
+    display: block;
+    margin-top: 5%;
+    margin-bottom: 5px;
+}
+#profileImageDiv {
+    clear: both;
+    float: left;
+    margin-left: 21.0443%;
+    width: 57.9113%;
+    display: block;
+    margin-bottom: 5px;
+}
+#contentDiv {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 100%;
+    display: block;
+}
+#projectTableDiv {
+    margin-top: 5px;
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 100%;
+    display: block;
+}
+.split {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    padding-top: 7px;
+    width: 100%;
+    display: block;
+    background-color: #89188A;
+    margin-bottom: 5px;
+}
+#EditButtonDiv {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 15.8227%;
+    display: block;
+}
+#navigationDiv {
+    clear: none;
+    float: right;
+    margin-left: 5.2215%;
+    margin-top: 5%;
+    width: 36.867%;
+    display: block;
+}
+#ProjectCreationBlock {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 100%;
+    display: block;
+}
+#projectEmployeeContainer {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 100%;
+    display: block;
+}
+#projectNameCont {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 94%;
+    display: block;
+    padding-left: 2%;
+    padding-top: 1%;
+}
+#projectDescCont {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 94%;
+    display: block;
+    padding-left: 2%;
+    padding-top: 1%;
+}
+#projectLocationCont {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 48%;
+    display: block;
+    padding-left: 2%;
+    padding-top: 1%;
+}
+#projectSkillsCont {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 48%;
+    display: block;
+    padding-left: 2%;
+    padding-top: 1%;
+}
+#projectSkillsReturnCont {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 94%;
+    display: block;
+    margin-left: 2%;
+    margin-top: 1%;
+}
+#projectBudgetCont {
+    clear: none;
+    float: left;
+    margin-left: 0;
+    width: 50%;
+    display: block;
+    padding-top: 1%;
+}
+#dateBlockS {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 48%;
+    display: block;
+    padding-left: 2%;
+    padding-top: 1%;
+}
+#dateBlockE {
+    clear: none;
+    float: left;
+    margin-left: 0;
+    width: 50%;
+    display: block;
+    padding-top: 1%;
+}
+#submitDiv {
+    clear: both;
+    float: left;
+    margin-left: 0;
+    width: 100%;
+    display: block;
+    padding-top: 1%;
+}
+/* Desktop view enabled only when aspect ratio exceeds 1:1*/
+
+@media only all and (min-aspect-ratio: 1/1) {
+    body {
+        background-image: url(images/origami-desktop-01.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: left;
+        width: 100%;
+        margin-bottom: 0px;
+        margin-left: 0px;
+        margin-right: 0px;
+        margin-top: 0px;
+        padding-top: 1%;
+    }
+    .gridContainer {
+        width: 97.5187%;
+        max-width: 1232px;
+        padding-left: 1.2406%;
+        padding-right: 1.2406%;
+        margin: auto;
+    }
+    #LayoutDiv1 {
+        clear: both;
+        float: left;
+        margin-left: 20.5088%;
+        width: 58.9822%;
+        display: block;
+        margin-top: 10%;
+        margin-right: auto;
+        margin-bottom: auto;
+    }
+    #emailBody {
+        clear: both;
+        float: left;
+        margin-left: 20.5088%;
+        width: 58.9822%;
+        display: block;
+        margin-top: auto;
+        margin-right: auto;
+        margin-bottom: auto;
+    }
+    #passwordButton {
+        clear: both;
+        float: left;
+        margin-left: 30.7632%;
+        width: 38.4734%;
+        display: block;
+    }
+    #emailBody1 {
+        clear: both;
+        float: left;
+        margin-left: 20.5088%;
+        width: 58.9822%;
+        display: block;
+    }
+    #logoFooter {
+        clear: both;
+        float: left;
+        margin-left: 30.7632%;
+        width: 38.4734%;
+        display: block;
+    }
+    #titleDiv {
+        clear: both;
+        float: left;
+        margin-left: 30.7632%;
+        margin-top: 5%;
+        margin-bottom: 5px;
+        width: 17.9645%;
+        display: block;
+    }
+    #profileImageDiv {
+        clear: both;
+        float: left;
+        margin-left: 30.7632%;
+        width: 17.9645%;
+        display: block;
+        margin-bottom: 20px;
+    }
+    #contentDiv {
+        clear: none;
+        float: left;
+        margin-left: 2.5443%;
+        width: 17.9645%;
+        display: block;
+        margin-bottom: 20px;
+    }
+    #projectTableDiv {
+        clear: both;
+        float: left;
+        margin-left: 30.7632%;
+        width: 38.4734%;
+        display: block;
+    }
+    .split {
+        clear: both;
+        float: left;
+        margin-left: 30.7632%;
+        width: 38.4734%;
+        display: block;
+    }
+    #EditButtonDiv {
+        clear: none;
+        float: left;
+        margin-left: 2.5443%;
+        width: 7.7101%;
+        display: block;
+    }
+    #navigationDiv {
+        clear: none;
+        float: left;
+        margin-left: 2.5443%;
+        width: 17.9645%;
+        display: block;
+        margin-top: 5%;
+    }
+    #ProjectCreationBlock {
+        clear: both;
+        float: left;
+        margin-left: 30.7632%;
+        width: 38.4734%;
+        display: block;
+        margin-bottom: 5px;
+    }
+    #projectEmployeeContainer {
+        clear: both;
+        float: left;
+        margin-left: 30.7632%;
+        width: 38.4734%;
+        display: block;
+        margin-bottom: 0px;
+    }
+    #projectNameCont {
+        clear: both;
+        float: left;
+        margin-left: 0;
+        width: 98%;
+        display: block;
+        padding: 1%;
+    }
+    #projectDescCont {
+        clear: both;
+        float: left;
+        margin-left: 0;
+        width: 97%;
+        display: block;
+        padding: 1%;
+    }
+    #projectLocationCont {
+        clear: both;
+        float: left;
+        margin-left: 0;
+        width: 45%;
+        padding: 1%;
+        display: block;
+    }
+    #projectSkillsCont {
+        clear: both;
+        float: left;
+        margin-left: 0;
+        width: 45%;
+        padding: 1%;
+        display: block;
+    }
+    #projectSkillsReturnCont {
+        clear: both;
+        float: left;
+        margin-left: 1%;
+        width: 94%;
+        display: block;
+        padding: 2%;
+    }
+    #projectBudgetCont {
+        clear: none;
+        float: left;
+        margin-left: 0;
+        width: 45%;
+        padding: 1%;
+        display: block;
+        float: right;
+    }
+    #dateBlockS {
+        clear: both;
+        float: left;
+        margin-left: 0;
+        width: 45%;
+        display: block;
+        padding: 1%;
+    }
+    #dateBlockE {
+        clear: none;
+        float: left;
+        margin-left: 0;
+        width: 45%;
+        display: block;
+        padding: 1%;
+        float: right;
+    }
 }
