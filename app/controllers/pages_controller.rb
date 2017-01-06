@@ -1,4 +1,3 @@
 class PagesController < ApplicationController
-  def user_home
-  end
+  def user_home; end
 end
