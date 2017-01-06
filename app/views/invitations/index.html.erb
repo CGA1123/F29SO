@@ -1,6 +1,6 @@
 <h3>Invitation Index:</h3>
 <ul>
   <% @invitations.each do |invite| %>
-  <li>Invite For: <%= invite.email %></li>
+  <li>Invite For: <%= invite.email %> <%= link_to 'Delete', invitation_path(invite.id), method: :delete %></li>
   <% end %>
 </ul>

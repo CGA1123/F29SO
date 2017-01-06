@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'invitations/new', to: 'invitations#new', as: :new_invitation
   get 'invitations', to: 'invitations#index', as: :invitations
   post 'invitations', to: 'invitations#create'
+  delete 'invitations/:id', to: 'invitations#destroy', as: :invitation
 
   get 'invitations/accept', to: 'invitations#accept', as: :accept_invitation
   post 'invitations/accept', to: 'invitations#create_user'

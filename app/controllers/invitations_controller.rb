@@ -1,5 +1,5 @@
 class InvitationsController < ApplicationController
-  before_action :authenticate_inviter, only: [:create, :new, :index]
+  before_action :authenticate_inviter, only: [:create, :new, :index, :destroy]
   before_action :check_permissions, only: [:create]
 
   skip_before_action :authenticate_user!, only: [:accept, :create_user]
@@ -16,6 +16,7 @@ class InvitationsController < ApplicationController
 
   def create
     @invitation = Invitation.new(invite_params)
+    @invitation.inviter = current_user
 
     if @invitation.invite
       redirect_to invitations_path
@@ -41,6 +42,20 @@ class InvitationsController < ApplicationController
     else
       render :accept
     end
+  end
+
+  def destroy
+    @invitation = Invitation.find_by(id: params[:id])
+    params = {}
+
+    if @invitation.present? && can_delete?(@invitation)
+      @invitation.destroy
+      params[:notice] = 'Invitation deleted.'
+    else
+      params[:alert] = 'Could not delete invitation.'
+    end
+
+    redirect_to invitations_path, params
   end
 
   private
@@ -92,5 +107,10 @@ class InvitationsController < ApplicationController
     return if @invitation
     redirect_to unauthenticated_root_path,
                 notice: 'Your invitation token is invalid'
+  end
+
+  def can_delete?(invitation)
+    user = current_user
+    user == invitation.inviter || user.permission?('users.invite.delete')
   end
 end
