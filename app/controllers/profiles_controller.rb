@@ -38,7 +38,8 @@ class ProfilesController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
+    redirect_to authenticated_root_path, alert: 'User not found.' unless @user
   end
 
   def check_permission
