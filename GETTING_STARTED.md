@@ -81,12 +81,8 @@ Check that everything is working:
 
 *You may need to install the postgresql adapter gem seperately `gem install pg -- --with-pg-config=(path/to/config)`, on MacOS with postgresql app path should be `/Applications/Postgres.app/Contents/Versions/latest/bin/pg_config`*
 
-And then, start up the redis server
+Then finally run foreman (which will start sidekiq, the rails server, & the redis-server)
 
-`redis-server`
-
-Then finally run foreman (which will start sidekiq, and the rails server)
-
-`foreman start`
+`foreman start -f Procfile.dev`
 
 And go to [`http://localhost:5000`](http://localhost:5000).
