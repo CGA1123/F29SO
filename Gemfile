@@ -18,28 +18,26 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'puma'
 gem 'devise'
-gem 'devise-async'
-
+gem 'initialjs-rails'
 gem 'premailer-rails'
-
+gem 'puma'
 gem 'sidekiq'
 
 group :development, :test, :macs_development, :macs_test do
   gem 'byebug'
-  gem 'rspec-rails', '~> 3.5'
-  gem 'shoulda-matchers'
   gem 'factory_girl_rails', require: false
-  gem 'rubocop', '~> 0.45.0', require: false
   gem 'reek'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'rubocop', '~> 0.46.0', require: false
   gem 'rubocop-rspec'
+  gem 'shoulda-matchers'
 end
 
 group :development, :macs_development do
-  gem 'web-console', '~> 2.0'
-  gem 'spring'
   gem 'rails-erd'
+  gem 'spring'
+  gem 'web-console', '~> 2.0'
 end
 
 group :test, :macs_test do

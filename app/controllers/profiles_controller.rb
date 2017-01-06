@@ -8,8 +8,7 @@ class ProfilesController < ApplicationController
     render '_show.html.erb'
   end
 
-  def edit
-  end
+  def edit; end
 
   # :reek:TooManyStatements { max_statements: 7 }
   def update

@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
-         :validatable, :confirmable, :timeoutable, :async
+         :validatable, :confirmable, :timeoutable
 
   has_many :group_users
   has_many :groups, through: :group_users
@@ -21,5 +21,16 @@ class User < ActiveRecord::Base
 
   def name
     "#{first_name} #{last_name}"
+  end
+
+  def initials
+    "#{first_name[0]}#{last_name[0]}"
+  end
+
+  # Override the default `send_devise_notification` to use
+  # `deliver_later` instead of `deliver_now` for async delivery
+  # of emails
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 end

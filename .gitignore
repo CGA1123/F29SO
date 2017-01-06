@@ -24,3 +24,5 @@ coverage/
 
 # Ignore sqlite3 databases
 db/*.sqlite3
+
+dump.rdb
