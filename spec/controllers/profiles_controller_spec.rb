@@ -103,6 +103,18 @@ RSpec.describe ProfilesController, type: :controller do
           it 'renders the edit form' do
             expect(response).to be_success
           end
+
+          context 'user does not exist' do
+            it 'redirects to root' do
+              get :edit, id: 'hello'
+              expect(response).to redirect_to(authenticated_root_path)
+            end
+
+            it 'sets alert' do
+              get :edit, id: 'hello'
+              expect(flash[:alert]).to eq('User not found.')
+            end
+          end
         end
 
         context 'trying to edit anothers profile' do
