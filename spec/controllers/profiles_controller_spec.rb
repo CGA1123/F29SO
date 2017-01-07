@@ -250,6 +250,18 @@ RSpec.describe ProfilesController, type: :controller do
             expect(flash[:alert]).to be_nil
           end
         end
+
+        context 'with invalid params' do
+          it 're renders edit view through html' do
+            patch :update, id: user.id, user: { location: '' }
+            expect(response).to render_template(:edit)
+          end
+
+          it 're renders edit view thorugh js' do
+            xhr :patch, :update, id: user.id, user: { location: '' }
+            expect(response).to render_template(:edit)
+          end
+        end
       end
     end
   end
