@@ -244,4 +244,26 @@ RSpec.describe InvitationsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #index' do
+    context 'no permissions' do
+      it 'throws not found' do
+        sign_in no_permission
+        expect { get :index }.to raise_error(ActionController::RoutingError)
+      end
+    end
+
+    context 'with permissions' do
+      before do
+        sign_in root
+        get :index
+      end
+
+      it { expect(response).to be_success }
+
+      it 'assigns @invitations' do
+        expect(assigns[:invitations]).to eq(Invitation.all)
+      end
+    end
+  end
 end
