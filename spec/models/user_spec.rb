@@ -23,6 +23,11 @@ RSpec.describe User, type: :model do
       expect(user.permission?(permission.name)).to be_truthy
     end
 
+    it 'returns true if User has the relevant project permission' do
+      project_group.permissions << permission
+      expect(user.permission?(permission.name)).to be_truthy
+    end
+
     it 'returns false if User does not have the relevant permission' do
       expect(user.permission?('non.existent.permission')).to be_falsy
     end
@@ -36,6 +41,14 @@ RSpec.describe User, type: :model do
   describe '#permission_strings' do
     it 'returns names of permission held by user' do
       group.permissions << [permission, permission2]
+      other_group.permissions << permission3
+      user.groups << other_group
+      expect(user.permission_strings)
+        .to(match_array([permission.name, permission2.name, permission3.name]))
+    end
+
+    it 'returns names of project permissions held by user' do
+      project_group.permissions << [permission, permission2]
       other_group.permissions << permission3
       user.groups << other_group
       expect(user.permission_strings)
