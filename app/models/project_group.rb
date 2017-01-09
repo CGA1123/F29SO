@@ -9,4 +9,8 @@ class ProjectGroup < ActiveRecord::Base
 
   validates :name, uniqueness: { case_sensitive: false }
   validates :project, :name, presence: true
+
+  def permission_strings
+    permissions.map((&:name).prepend(:project))
+  end
 end

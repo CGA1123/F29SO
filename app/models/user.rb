@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   def permission_strings
-    groups.map(&:permission_strings).flatten.uniq
+    (groups.map(&:permission_strings).flatten.uniq)+(project_groups.map(&:permission_strings).flatten.uniq)
   end
 
   def name
