@@ -1,7 +1,7 @@
 FactoryGirl.define do
-  factory :project_group do
+  factory :project_group do |f|
     sequence(:name) { |n| "Project Group #{n}" }
-    sequence(:project) { |n| n }
+    f.association :project
     sequence(:description) { |n| "This is test group number #{n}" }
   end
 end

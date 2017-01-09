@@ -11,6 +11,6 @@ class ProjectGroup < ActiveRecord::Base
   validates :project, :name, presence: true
 
   def permission_strings
-    permissions.map(&:name).prepend(:project)
+    permissions.map(&:name).prepend(&:project)
   end
 end
