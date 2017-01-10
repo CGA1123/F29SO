@@ -5,12 +5,15 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:groups).through(:group_users) }
   it { is_expected.to have_many(:project_group_users) }
   it { is_expected.to have_many(:project_groups).through(:project_group_users) }
+  it { is_expected.to validate_presence_of(:project_groups) }
   it { is_expected.to validate_presence_of(:groups) }
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
 
   let(:user) { FactoryGirl.create(:user) }
 
+  let(:project_group) { user.project_groups.first }
+  let(:other_project_group) {FactoryGirl.create(:project_group) }
   let(:group) { user.groups.first }
   let(:other_group) { FactoryGirl.create(:group) }
   let(:permission) { FactoryGirl.create(:permission) }
@@ -52,7 +55,7 @@ RSpec.describe User, type: :model do
       other_group.permissions << permission3
       user.groups << other_group
       expect(user.permission_strings)
-        .to(match_array([permission.name, permission2.name, permission3.name]))
+        .to(match_array(["#{project_group.id}.#{permission.name}", "#{project_group.id}.#{permission2.name}", "#{other_project_group.id}.#{permission3.name}]))
     end
   end
 

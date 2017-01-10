@@ -11,6 +11,6 @@ class ProjectGroup < ActiveRecord::Base
   validates :project, :name, presence: true
 
   def permission_strings
-    permissions.map(&:name).prepend(&:project)
+    permissions.map {|permission| "#{id}.#{permission.name}" }
   end
 end
