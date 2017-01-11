@@ -57,7 +57,7 @@ RSpec.describe User, type: :model do
       user.project_groups << project_group
       expect(user.permission_strings)
         .to(match_array(["#{project_group.project_id}.#{permission.name}",
-          "#{project_group.project_id}.#{permission2.name}"]))
+                         "#{project_group.project_id}.#{permission2.name}"]))
     end
   end
 
