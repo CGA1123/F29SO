@@ -5,14 +5,14 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:groups).through(:group_users) }
   it { is_expected.to have_many(:project_group_users) }
   it { is_expected.to have_many(:project_groups).through(:project_group_users) }
-  it { is_expected.to validate_presence_of(:project_groups) }
+
   it { is_expected.to validate_presence_of(:groups) }
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
 
   let(:user) { FactoryGirl.create(:user) }
 
-  let(:project_group) { user.project_groups.first }
+  let(:project_group) { FactoryGirl.create(:project_group) }
   let(:other_project_group) {FactoryGirl.create(:project_group) }
   let(:group) { user.groups.first }
   let(:other_group) { FactoryGirl.create(:group) }
@@ -52,10 +52,10 @@ RSpec.describe User, type: :model do
 
     it 'returns names of project permissions held by user' do
       project_group.permissions << [permission, permission2]
-      other_group.permissions << permission3
-      user.groups << other_group
+      other_project_group.permissions << permission3
+      user.project_groups << other_project_group
       expect(user.permission_strings)
-        .to(match_array(["#{project_group.id}.#{permission.name}", "#{project_group.id}.#{permission2.name}", "#{other_project_group.id}.#{permission3.name}]))
+        .to(match_array(["#{project_group.project_id}.#{permission.name}", "#{project_group.project_id}.#{permission2.name}", "#{other_project_group.project_id}.#{permission3.name}"]))
     end
   end
 

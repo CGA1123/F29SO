@@ -29,7 +29,7 @@ RSpec.describe ProjectGroup, type: :model do
       perm2 = FactoryGirl.create(:permission)
       _perm3 = FactoryGirl.create(:permission)
       project_group.permissions << [perm1, perm2]
-      expect(project_group.permission_strings).to match_array(["#{project_group.id}.#{perm1.name}", "#{project_group.id}.#{perm2.name}"])
+      expect(project_group.permission_strings).to match_array(["#{project_group.project_id}.#{perm1.name}", "#{project_group.project_id}.#{perm2.name}"])
     end
   end
 

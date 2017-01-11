@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :project_group_users
   has_many :project_groups, through: :project_group_users
 
-  validates :project_groups, :groups, :first_name, :last_name, :location, presence: true
+  validates :groups, :first_name, :last_name, :location, presence: true
 
   def permission?(permission_name)
     return true if groups.map(&:name).include?('root')
@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   def permission_strings
-    (groups.map(&:permission_strings) + (project_groups.map(&:permission_strings)).flatten.uniq)
+    (groups.map(&:permission_strings).flatten.uniq) + (project_groups.map(&:permission_strings).flatten.uniq)
   end
 
   def name
