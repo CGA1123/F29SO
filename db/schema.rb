@@ -109,7 +109,7 @@ ActiveRecord::Schema.define(version: 20170111161406) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
-    t.integer  "code"
+    t.string   "code"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "project_type_id"
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20170111161406) do
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "skill_id"
+    t.integer  "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
