@@ -20,7 +20,13 @@ Rails.application.routes.draw do
   get 'invitations', to: 'invitations#index', as: :invitations
   post 'invitations', to: 'invitations#create'
   delete 'invitations/:id', to: 'invitations#destroy', as: :invitation
-
   get 'invitations/accept', to: 'invitations#accept', as: :accept_invitation
   post 'invitations/accept', to: 'invitations#create_user'
+
+  # Project Paths
+  get 'projects', to: 'projects#index'
+  get 'projects/:id', to: 'projects#show', as: :project
+  patch 'projects/:id', to: 'projects#update'
+
+  get 'projects/:id/edit', to: 'projects#edit', as: :edit_project
 end
