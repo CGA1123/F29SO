@@ -14,7 +14,7 @@ RSpec.describe User, type: :model do
   let(:user) { FactoryGirl.create(:user, groups: [group]) }
 
   let(:project_group) { FactoryGirl.create(:project_group) }
-  let(:other_project_group) {FactoryGirl.create(:project_group) }
+  let(:other_project_group) { FactoryGirl.create(:project_group) }
   let(:other_group) { FactoryGirl.create(:group) }
   let(:permission) { FactoryGirl.create(:permission) }
   let(:permission2) { FactoryGirl.create(:permission) }
@@ -56,7 +56,8 @@ RSpec.describe User, type: :model do
       other_project_group.permissions << permission3
       user.project_groups << project_group
       expect(user.permission_strings)
-        .to(match_array(["#{project_group.project_id}.#{permission.name}", "#{project_group.project_id}.#{permission2.name}"]))
+        .to(match_array(["#{project_group.project_id}.#{permission.name}",
+          "#{project_group.project_id}.#{permission2.name}"]))
     end
   end
 
