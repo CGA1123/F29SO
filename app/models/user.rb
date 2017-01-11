@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
   has_many :project_group_users
   has_many :project_groups, through: :project_group_users
 
+  has_many :user_skills
+  has_many :skills, through: :user_skills
+
   validates :groups, :first_name, :last_name, :location, presence: true
 
   def permission?(permission_name)
