@@ -26,3 +26,5 @@ coverage/
 db/*.sqlite3
 
 dump.rdb
+
+.idea/

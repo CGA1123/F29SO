@@ -5,7 +5,8 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:groups).through(:group_users) }
   it { is_expected.to have_many(:project_group_users) }
   it { is_expected.to have_many(:project_groups).through(:project_group_users) }
-
+  it { is_expected.to have_many(:user_skills) }
+  it { is_expected.to have_many(:skills).through(:user_skills) }
   it { is_expected.to validate_presence_of(:groups) }
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
