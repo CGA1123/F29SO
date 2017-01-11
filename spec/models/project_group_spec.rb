@@ -18,21 +18,18 @@ RSpec.describe ProjectGroup, type: :model do
   end
 
   subject(:project_group) { FactoryGirl.create(:project_group) }
+  let(:perm1) { FactoryGirl.create(:permission) }
+  let(:perm2) { FactoryGirl.create(:permission) }
 
   describe '#permission_strings' do
-    # _perm3 is not used, however we need to create it to check that
-    # Group#permission_strings only return permissions that are assigned to
-    # the Group, as opposed to simply returning all permissions in the
-    # database.
     it 'returns names of all permissions held by group' do
-      perm1 = FactoryGirl.create(:permission)
-      perm2 = FactoryGirl.create(:permission)
-      _perm3 = FactoryGirl.create(:permission)
+      # We need to create an extra permission to make sure that this method only
+      # returns the correct permissions, rather than all permissions
+      FactoryGirl.create(:permission)
       project_group.permissions << [perm1, perm2]
-      expect(project_group.permission_strings).to match_array(
+      expect(project_group.permission_strings).to match_array \
         ["#{project_group.project_id}.#{perm1.name}",
          "#{project_group.project_id}.#{perm2.name}"]
-      )
     end
   end
 end
