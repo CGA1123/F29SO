@@ -8,9 +8,9 @@ class ProfilesController < ApplicationController
     render '_show.html.erb'
   end
 
-  def edit
-  end
+  def edit; end
 
+  # :reek:TooManyStatements { max_statements: 7 }
   def update
     respond_to do |format|
       if @user.update(profile_params)
@@ -38,7 +38,8 @@ class ProfilesController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
+    redirect_to authenticated_root_path, alert: 'User not found.' unless @user
   end
 
   def check_permission

@@ -2,6 +2,11 @@
 IrresponsibleModule:
   enabled: false
 
+# Disable InstanceVariableAssumption (https://github.com/troessner/reek/blob/master/docs/Instance-Variable-Assumption.md)
+# Using rails means that we use instance variables differently.
+InstanceVariableAssumption:
+  enabled: false
+
 # Paths that will not be scanned for code smells
 exclude_paths:
   - db/migrate

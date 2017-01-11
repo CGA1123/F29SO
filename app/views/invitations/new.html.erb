@@ -1,0 +1,13 @@
+<%= form_for @invitation, url: invitations_path, method: :post do |f| %>
+  <ul>
+  <% @invitation.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+
+  <p><%= f.label 'email' %><br />
+  <%= f.text_field :email %></p>
+
+  <%= f.collection_check_boxes :groups, Group.all, :id, :name %>
+  <p><%= f.submit t("devise.invitations.new.submit_button") %></p>
+<% end %>

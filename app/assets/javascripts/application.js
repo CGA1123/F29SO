@@ -12,5 +12,14 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require initial
 //= require turbolinks
-//= require_tree .
+//= require_tree
+
+var ready;
+ready = function() {
+  $('.profile-img').initial();
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
