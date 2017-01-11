@@ -27,8 +27,10 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns true if User has the relevant project permission' do
+      user.project_groups << project_group
       project_group.permissions << permission
-      expect(user.permission?(permission.name)).to be_truthy
+      expect(user.permission?("#{project_group.project_id}.#{permission.name}"))
+        .to be_truthy
     end
 
     it 'returns false if User does not have the relevant permission' do
@@ -53,9 +55,10 @@ RSpec.describe User, type: :model do
     it 'returns names of project permissions held by user' do
       project_group.permissions << [permission, permission2]
       other_project_group.permissions << permission3
-      user.project_groups << other_project_group
+      user.project_groups << project_group
       expect(user.permission_strings)
-        .to(match_array(["#{project_group.project_id}.#{permission.name}", "#{project_group.project_id}.#{permission2.name}", "#{other_project_group.project_id}.#{permission3.name}"]))
+        .to(match_array(["#{project_group.project_id}.#{permission.name}",
+          "#{project_group.project_id}.#{permission2.name}"]))
     end
   end
 
