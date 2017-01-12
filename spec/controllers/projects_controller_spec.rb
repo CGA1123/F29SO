@@ -6,9 +6,14 @@ RSpec.describe ProjectsController, type: :controller do
   before { sign_in root_user }
 
   describe 'GET #index' do
+    before { get :index }
+
     it do
-      get :index
       expect(response).to be_success
+    end
+
+    it 'assigns @projects' do
+      expect(assigns[:projects]).to eq(Project.all)
     end
   end
 
