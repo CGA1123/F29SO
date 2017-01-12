@@ -25,8 +25,8 @@ Rails.application.routes.draw do
 
   # Project Paths
   get 'projects', to: 'projects#index'
-  get 'projects/:id', to: 'projects#show', as: :project
-  patch 'projects/:id', to: 'projects#update'
+  get 'projects/:code', to: 'projects#show', as: :project
+  patch 'projects/:code', to: 'projects#update'
 
-  get 'projects/:id/edit', to: 'projects#edit', as: :edit_project
+  get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
 end
