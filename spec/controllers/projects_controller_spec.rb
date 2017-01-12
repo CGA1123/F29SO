@@ -32,7 +32,7 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe 'PATCH #update' do
-    it 'returns http success' do
+    it do
       patch :update, code: project.code
       expect(response).to redirect_to(projects_path)
     end
