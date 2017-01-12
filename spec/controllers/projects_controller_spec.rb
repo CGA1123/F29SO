@@ -18,23 +18,65 @@ RSpec.describe ProjectsController, type: :controller do
   end
 
   describe 'GET #show' do
-    it do
-      get :show, code: project.code
-      expect(response).to be_success
+    context 'project exists' do
+      it do
+        get :show, code: project.code
+        expect(response).to be_success
+      end
+    end
+
+    context 'project does not existt' do
+      before { get :show, code: 'waddup' }
+
+      it do
+        expect(response).to redirect_to projects_path
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('Project not found.')
+      end
     end
   end
 
   describe 'GET #edit' do
-    it do
-      get :edit, code: project.code
-      expect(response).to be_success
+    context 'project exists' do
+      it do
+        get :edit, code: project.code
+        expect(response).to be_success
+      end
+    end
+
+    context 'project does not existt' do
+      before { get :edit, code: 'waddup' }
+
+      it do
+        expect(response).to redirect_to projects_path
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('Project not found.')
+      end
     end
   end
 
   describe 'PATCH #update' do
-    it do
-      patch :update, code: project.code
-      expect(response).to redirect_to(projects_path)
+    context 'project exists' do
+      it do
+        patch :update, code: project.code
+        expect(response).to redirect_to(projects_path)
+      end
+    end
+
+    context 'project does not existt' do
+      before { patch :update, code: 'waddup' }
+
+      it do
+        expect(response).to redirect_to projects_path
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('Project not found.')
+      end
     end
   end
 
