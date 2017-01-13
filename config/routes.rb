@@ -24,7 +24,9 @@ Rails.application.routes.draw do
   post 'invitations/accept', to: 'invitations#create_user'
 
   # Project Paths
-  get 'projects', to: 'projects#index'
+  get 'projects', to: 'projects#index', as: :projects
+  post 'projects', to: 'projects#create'
+  get 'projects/new', to: 'projects#new', as: :new_project
   get 'projects/:code', to: 'projects#show', as: :project
   patch 'projects/:code', to: 'projects#update'
 

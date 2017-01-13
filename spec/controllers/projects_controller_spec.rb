@@ -17,6 +17,53 @@ RSpec.describe ProjectsController, type: :controller do
     end
   end
 
+  describe 'GET #new' do
+    before { get :new }
+    it do
+      expect(response).to be_success
+    end
+
+    it 'assigns @project' do
+      expect(assigns[:project]).not_to be_nil
+    end
+  end
+
+  describe 'POST #create' do
+    context 'params valid' do
+      let(:proj_type) { FactoryGirl.create(:project_type) }
+      let(:valid_params) do
+        { project: { name: 'ProjX', code: 'X', project_type_id: proj_type.id } }
+      end
+
+      it do
+        post :create, valid_params
+        expect(response).to \
+          redirect_to(project_path(code: valid_params[:project][:code]))
+      end
+
+      it 'creates a new Project' do
+        expect { post :create, valid_params }
+          .to change(Project, :count).by(1)
+      end
+    end
+
+    context 'params invalid' do
+      let(:invalid_params) do
+        { project: { name: 'hello' } }
+      end
+
+      it do
+        post :create, invalid_params
+        expect(response).to render_template(:new)
+      end
+
+      it 'does not create a new Project' do
+        expect { post :create, invalid_params }
+          .not_to change(Project, :count)
+      end
+    end
+  end
+
   describe 'GET #show' do
     context 'project exists' do
       it do
@@ -25,7 +72,7 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
 
-    context 'project does not existt' do
+    context 'project does not exist' do
       before { get :show, code: 'waddup' }
 
       it do
@@ -46,7 +93,7 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
 
-    context 'project does not existt' do
+    context 'project does not exist' do
       before { get :edit, code: 'waddup' }
 
       it do
@@ -67,7 +114,7 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
 
-    context 'project does not existt' do
+    context 'project does not exist' do
       before { patch :update, code: 'waddup' }
 
       it do
@@ -79,5 +126,4 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
   end
-
 end
