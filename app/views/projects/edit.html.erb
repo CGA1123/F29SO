@@ -1,2 +1,12 @@
 <h1>Projects#edit</h1>
-<p>Find me in app/views/projects/edit.html.erb</p>
+<%= form_for @project, url: project_path(@project.code), method: :patch do |f| %>
+  <ul>
+  <% @project.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+  <%= f.text_field :code, placeholder: 'Project Code' %>
+  <%= f.text_field :name, placeholder: 'Project Name' %>
+  <%= f.collection_select(:project_type_id, ProjectType.all, :id, :name) %>
+  <%= f.submit 'Update Project' %>
+<% end %>

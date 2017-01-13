@@ -108,9 +108,36 @@ RSpec.describe ProjectsController, type: :controller do
 
   describe 'PATCH #update' do
     context 'project exists' do
-      it do
-        patch :update, code: project.code
-        expect(response).to redirect_to(projects_path)
+      context 'params valid' do
+        let(:valid_params) do
+          { code: project.code, project: { code: 'hello' } }
+        end
+
+        before { patch :update, valid_params }
+
+        it 'updates the Project' do
+          expect(project.reload.code).to eq('hello')
+        end
+
+        it do
+          expect(response).to redirect_to(project_path(project.reload.code))
+        end
+      end
+
+      context 'params invalid' do
+        let(:invalid_params) do
+          { code: project.code, project: { code: '' } }
+        end
+
+        it 'updates the Project' do
+          expect { patch :update, invalid_params }
+            .not_to change { project.reload.code }
+        end
+
+        it do
+          patch :update, invalid_params
+          expect(response).to render_template(:edit)
+        end
       end
     end
 

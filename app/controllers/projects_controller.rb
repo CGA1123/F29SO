@@ -23,7 +23,12 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def update
-    redirect_to projects_path
+    if @project.update(project_params)
+      redirect_to project_path(@project.reload.code)
+    else
+      @project.reload
+      render :edit
+    end
   end
 
   private
