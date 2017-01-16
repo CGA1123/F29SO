@@ -1,0 +1,12 @@
+<h1>Projects#index</h1>
+<div id='projects'>
+  <% if @projects.present? %>
+    <% @projects.each do |project| %>
+      <div class="project project-<%= project.id %>">
+        <%= "#{project.code} - #{project.name}" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p id='no-records'>No Projects. <%= link_to 'Create one.', new_project_path %></p>
+  <% end %>
+</div>
