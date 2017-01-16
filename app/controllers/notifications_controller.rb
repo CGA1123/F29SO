@@ -1,4 +1,4 @@
-class NotificationsControllerController < ApplicationController
+class NotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
@@ -8,4 +8,5 @@ class NotificationsControllerController < ApplicationController
   def mark_as_read
     @notifications = Notification.where(recipient: current_user).unread
     @notifications.update_all(read_at: Time.zone.now)
+  end
 end
