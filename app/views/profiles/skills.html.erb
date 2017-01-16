@@ -1,0 +1,12 @@
+<h1>Profile#skills</h1>
+<div id='skills'>
+  <% if @skills.present? %>
+    <% @skills.each do |skill| %>
+      <div class="skill skill-<%= skill.name %>">
+        <%= "#{skill.name} - #{skill.description} - #{skill.rating}" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p id='no-skills'>User has no Skills.</p>
+  <% end %>
+</div>
