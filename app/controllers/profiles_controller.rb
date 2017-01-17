@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
   private
 
   def profile_params
-    params.require(:user).permit(:first_name, :last_name, :location)
+    params.require(:user).permit(:first_name, :last_name, :location_id)
   end
 
   # set @can_edit true/false

@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  it { is_expected.to belong_to(:location) }
   it { is_expected.to have_many(:group_users) }
   it { is_expected.to have_many(:groups).through(:group_users) }
   it { is_expected.to have_many(:project_group_users) }
@@ -10,6 +11,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:groups) }
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
+  it { is_expected.to validate_presence_of(:location) }
 
   let(:group) { FactoryGirl.create(:group) }
   let(:user) { FactoryGirl.create(:user, groups: [group]) }

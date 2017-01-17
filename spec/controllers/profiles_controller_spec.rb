@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ProfilesController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
-  let(:another_user) { FactoryGirl.create(:user) }
+  let(:other_user) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
 
   let(:edit_perm) { FactoryGirl.create(:permission, name: 'profile.edit') }
@@ -15,6 +15,8 @@ RSpec.describe ProfilesController, type: :controller do
     FactoryGirl.create(:group, permissions: [edit_others_perm])
   end
 
+  let(:location) { FactoryGirl.create(:location) }
+
   context 'User is signed in' do
     before { sign_in user }
 
@@ -26,9 +28,9 @@ RSpec.describe ProfilesController, type: :controller do
             expect(assigns['user']).to eq(user)
           end
 
-          it 'equals another_user' do
-            get :show, id: another_user.id
-            expect(assigns['user']).to eq(another_user)
+          it 'equals other_user' do
+            get :show, id: other_user.id
+            expect(assigns['user']).to eq(other_user)
           end
         end
 
@@ -42,8 +44,8 @@ RSpec.describe ProfilesController, type: :controller do
           expect(assigns['can_edit']).to eq(false)
         end
 
-        it 'assigns @can_edit on another_user profile correctly' do
-          get :show, id: another_user.id
+        it 'assigns @can_edit on other_user profile correctly' do
+          get :show, id: other_user.id
           expect(assigns['can_edit']).to eq(false)
         end
       end
@@ -56,8 +58,8 @@ RSpec.describe ProfilesController, type: :controller do
           expect(assigns['can_edit']).to eq(true)
         end
 
-        it 'assigns @can_edit on another_user profile correctly' do
-          get :show, id: another_user.id
+        it 'assigns @can_edit on other_user profile correctly' do
+          get :show, id: other_user.id
           expect(assigns['can_edit']).to eq(false)
         end
       end
@@ -70,8 +72,8 @@ RSpec.describe ProfilesController, type: :controller do
           expect(assigns['can_edit']).to eq(true)
         end
 
-        it 'assigns @can_edit on another_user profile correctly' do
-          get :show, id: another_user.id
+        it 'assigns @can_edit on other_user profile correctly' do
+          get :show, id: other_user.id
           expect(assigns['can_edit']).to eq(true)
         end
       end
@@ -87,9 +89,9 @@ RSpec.describe ProfilesController, type: :controller do
         end
 
         context 'trying to edit anothers profile' do
-          before { get :edit, id: another_user.id }
+          before { get :edit, id: other_user.id }
           include_examples 'insufficient permission' do
-            let(:id) { another_user.id }
+            let(:id) { other_user.id }
           end
         end
       end
@@ -118,10 +120,10 @@ RSpec.describe ProfilesController, type: :controller do
         end
 
         context 'trying to edit anothers profile' do
-          before { get :edit, id: another_user.id }
+          before { get :edit, id: other_user.id }
 
           include_examples 'insufficient permission' do
-            let(:id) { another_user.id }
+            let(:id) { other_user.id }
           end
         end
       end
@@ -138,7 +140,7 @@ RSpec.describe ProfilesController, type: :controller do
 
         context 'trying to edit anothers profile' do
           it 'renders the edit form' do
-            get :edit, id: another_user.id
+            get :edit, id: other_user.id
             expect(response).to be_success
           end
         end
@@ -149,11 +151,11 @@ RSpec.describe ProfilesController, type: :controller do
       context 'with no permission' do
         context 'trying to edit his own profile' do
           before do
-            patch :update, id: user.id, user: { location: 'Earth' }
+            patch :update, id: user.id, user: { location_id: location.id }
           end
 
           it 'does not update the profile' do
-            expect(user.reload.location).not_to eq('Earth')
+            expect(user.reload.location).not_to eq(location)
           end
 
           include_examples 'insufficient permission' do
@@ -163,15 +165,15 @@ RSpec.describe ProfilesController, type: :controller do
 
         context 'trying to edit anothers profile' do
           before do
-            patch :update, id: another_user.id, user: { location: 'Earth' }
+            patch :update, id: other_user.id, user: { location_id: location.id }
           end
 
           it 'does not update the profile' do
-            expect(another_user.reload.location).not_to eq('Earth')
+            expect(other_user.reload.location).not_to eq(location)
           end
 
           include_examples 'insufficient permission' do
-            let(:id) { another_user.id }
+            let(:id) { other_user.id }
           end
         end
       end
@@ -181,11 +183,11 @@ RSpec.describe ProfilesController, type: :controller do
 
         context 'trying to edit his own profile' do
           before do
-            patch :update, id: user.id, user: { location: 'Earth' }
+            patch :update, id: user.id, user: { location_id: location.id }
           end
 
           it 'updates the profile' do
-            expect(user.reload.location).to eq('Earth')
+            expect(user.reload.location).to eq(location)
           end
 
           it 'redirects to #show' do
@@ -199,15 +201,15 @@ RSpec.describe ProfilesController, type: :controller do
 
         context 'trying to edit anothers profile' do
           before do
-            patch :update, id: another_user.id, user: { location: 'Earth' }
+            patch :update, id: other_user.id, user: { location_id: location.id }
           end
 
           it 'does not update the profile' do
-            expect(another_user.reload.location).not_to eq('Earth')
+            expect(other_user.reload.location).not_to eq(location)
           end
 
           include_examples 'insufficient permission' do
-            let(:id) { another_user.id }
+            let(:id) { other_user.id }
           end
         end
       end
@@ -217,11 +219,11 @@ RSpec.describe ProfilesController, type: :controller do
 
         context 'trying to edit his own profile' do
           before do
-            patch :update, id: user.id, user: { location: 'Earth' }
+            patch :update, id: user.id, user: { location_id: location.id }
           end
 
           it 'updates the profile' do
-            expect(user.reload.location).to eq('Earth')
+            expect(user.reload.location).to eq(location)
           end
 
           it 'redirects to #show' do
@@ -235,15 +237,15 @@ RSpec.describe ProfilesController, type: :controller do
 
         context 'trying to edit anothers profile' do
           before do
-            patch :update, id: another_user.id, user: { location: 'Earth' }
+            patch :update, id: other_user.id, user: { location_id: location.id }
           end
 
           it 'updates the profile' do
-            expect(another_user.reload.location).to eq('Earth')
+            expect(other_user.reload.location).to eq(location)
           end
 
           it 'redirects to #show' do
-            expect(response).to redirect_to(profile_path(id: another_user.id))
+            expect(response).to redirect_to(profile_path(id: other_user.id))
           end
 
           it 'does not displays an alert' do
@@ -253,12 +255,12 @@ RSpec.describe ProfilesController, type: :controller do
 
         context 'with invalid params' do
           it 're renders edit view through html' do
-            patch :update, id: user.id, user: { location: '' }
+            patch :update, id: user.id, user: { location_id: 'breh' }
             expect(response).to render_template(:edit)
           end
 
           it 're renders edit view thorugh js' do
-            xhr :patch, :update, id: user.id, user: { location: '' }
+            xhr :patch, :update, id: user.id, user: { location_id: 'breh' }
             expect(response).to render_template(:edit)
           end
         end

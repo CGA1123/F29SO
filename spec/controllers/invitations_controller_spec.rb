@@ -18,6 +18,8 @@ RSpec.describe InvitationsController, type: :controller do
   let(:raw_token) { tokens[0] }
   let(:stored_token) { tokens[1] }
 
+  let(:location) { FactoryGirl.create(:location) }
+
   let!(:invitation) { FactoryGirl.create(:invitation, token: stored_token) }
 
   describe 'POST #create' do
@@ -162,7 +164,7 @@ RSpec.describe InvitationsController, type: :controller do
               token: raw_token,
               user: { first_name: 'f',
                       last_name: 'l',
-                      location: 'l',
+                      location_id: location.id,
                       password: 'password',
                       password_confirmation: 'password' }
             }
