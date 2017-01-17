@@ -1,5 +1,3 @@
-require 'rails_helper'
-
 RSpec.shared_examples 'insufficient permission' do
   it 'redirects to #show' do
     expect(response).to redirect_to(profile_path(id: id))
