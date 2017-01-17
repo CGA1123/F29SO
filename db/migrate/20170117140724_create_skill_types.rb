@@ -5,7 +5,5 @@ class CreateSkillTypes < ActiveRecord::Migration
       t.string :description
       t.timestamps null: false
     end
-
-    add_column :skills, :skill_type_id, :integer, index: true
   end
 end
