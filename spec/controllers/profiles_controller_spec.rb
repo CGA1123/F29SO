@@ -150,30 +150,16 @@ RSpec.describe ProfilesController, type: :controller do
     describe 'PATCH #update' do
       context 'with no permission' do
         context 'trying to edit his own profile' do
-          before do
-            patch :update, id: user.id, user: { location_id: location.id }
-          end
-
-          it 'does not update the profile' do
-            expect(user.reload.location).not_to eq(location)
-          end
-
-          include_examples 'insufficient permission' do
-            let(:id) { user.id }
+          it_behaves_like 'unsuccessful update' do
+            let(:edit_user_id) { user.id }
+            let(:location_id) { location.id }
           end
         end
 
         context 'trying to edit anothers profile' do
-          before do
-            patch :update, id: other_user.id, user: { location_id: location.id }
-          end
-
-          it 'does not update the profile' do
-            expect(other_user.reload.location).not_to eq(location)
-          end
-
-          include_examples 'insufficient permission' do
-            let(:id) { other_user.id }
+          it_behaves_like 'unsuccessful update' do
+            let(:edit_user_id) { other_user.id }
+            let(:location_id) { location.id }
           end
         end
       end
@@ -182,34 +168,16 @@ RSpec.describe ProfilesController, type: :controller do
         before { user.groups << edit_group }
 
         context 'trying to edit his own profile' do
-          before do
-            patch :update, id: user.id, user: { location_id: location.id }
-          end
-
-          it 'updates the profile' do
-            expect(user.reload.location).to eq(location)
-          end
-
-          it 'redirects to #show' do
-            expect(response).to redirect_to(profile_path(id: user.id))
-          end
-
-          it 'does not display an alert' do
-            expect(flash[:alert]).to be_nil
+          it_behaves_like 'successful update' do
+            let(:edit_user_id) { user.id }
+            let(:location_id) { location.id }
           end
         end
 
         context 'trying to edit anothers profile' do
-          before do
-            patch :update, id: other_user.id, user: { location_id: location.id }
-          end
-
-          it 'does not update the profile' do
-            expect(other_user.reload.location).not_to eq(location)
-          end
-
-          include_examples 'insufficient permission' do
-            let(:id) { other_user.id }
+          it_behaves_like 'unsuccessful update' do
+            let(:edit_user_id) { other_user.id }
+            let(:location_id) { location.id }
           end
         end
       end
@@ -218,38 +186,16 @@ RSpec.describe ProfilesController, type: :controller do
         before { user.groups << edit_others_group }
 
         context 'trying to edit his own profile' do
-          before do
-            patch :update, id: user.id, user: { location_id: location.id }
-          end
-
-          it 'updates the profile' do
-            expect(user.reload.location).to eq(location)
-          end
-
-          it 'redirects to #show' do
-            expect(response).to redirect_to(profile_path(id: user.id))
-          end
-
-          it 'does not display an alert' do
-            expect(flash[:alert]).to be_nil
+          it_behaves_like 'successful update' do
+            let(:edit_user_id) { user.id }
+            let(:location_id) { location.id }
           end
         end
 
         context 'trying to edit anothers profile' do
-          before do
-            patch :update, id: other_user.id, user: { location_id: location.id }
-          end
-
-          it 'updates the profile' do
-            expect(other_user.reload.location).to eq(location)
-          end
-
-          it 'redirects to #show' do
-            expect(response).to redirect_to(profile_path(id: other_user.id))
-          end
-
-          it 'does not displays an alert' do
-            expect(flash[:alert]).to be_nil
+          it_behaves_like 'successful update' do
+            let(:edit_user_id) { other_user.id }
+            let(:location_id) { location.id }
           end
         end
 
@@ -269,27 +215,25 @@ RSpec.describe ProfilesController, type: :controller do
   end
 
   context 'User is not signed in' do
-    param = { id: 'id_shouldnt_matter' }
-
     describe 'GET #show' do
       it_behaves_like 'unauthenticated request',
                       method: 'get',
                       action: :show,
-                      params: param
+                      params: { id: 'id_shouldnt_matter' }
     end
 
     describe 'GET #edit' do
       it_behaves_like 'unauthenticated request',
                       method: 'get',
                       action: :edit,
-                      params: param
+                      params: { id: 'id_shouldnt_matter' }
     end
 
     describe 'PATCH #update' do
       it_behaves_like 'unauthenticated request',
                       method: 'patch',
                       action: :update,
-                      params: param
+                      params: { id: 'id_shouldnt_matter' }
     end
   end
 end
