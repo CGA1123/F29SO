@@ -35,4 +35,7 @@ Rails.application.routes.draw do
 
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
+  post 'groups', to: 'groups#create'
+  delete 'groups', to: 'groups#destroy'
+  get 'groups/:name', to: 'groups#show', as: :group
 end

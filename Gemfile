@@ -24,6 +24,8 @@ gem 'premailer-rails'
 gem 'puma'
 gem 'sidekiq'
 
+gem 'octicons_helper'
+
 group :development, :test, :macs_development, :macs_test do
   gem 'byebug'
   gem 'factory_girl_rails', require: false

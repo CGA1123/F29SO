@@ -11,7 +11,15 @@ class Group < ActiveRecord::Base
   validates :name, :description, presence: true
   validates :name, uniqueness: { case_sensitive: false }
 
+  before_destroy :check_if_root
+
   def permission_strings
     permissions.map(&:name)
+  end
+
+  private
+
+  def check_if_root
+    name != 'root'
   end
 end
