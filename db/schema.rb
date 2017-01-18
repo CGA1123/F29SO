@@ -141,6 +141,8 @@ ActiveRecord::Schema.define(version: 20170117150724) do
     t.integer  "skill_type_id"
   end
 
+  add_index "skills", ["skill_type_id"], name: "index_skills_on_skill_type_id", using: :btree
+
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "skill_id"

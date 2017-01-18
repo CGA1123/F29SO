@@ -1,5 +1,7 @@
 class AddSkillTypeForeignKey < ActiveRecord::Migration
   def change
-    add_column :skills, :skill_type_id, :integer, index: true
+    change_table :skills do |t|
+      t.belongs_to :skill_type, index: true
+    end
   end
 end
