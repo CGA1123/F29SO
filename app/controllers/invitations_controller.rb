@@ -79,7 +79,7 @@ class InvitationsController < ApplicationController
                   :password_confirmation,
                   :first_name,
                   :last_name,
-                  :location)
+                  :location_id)
   end
 
   # Need to ensure that the inviting user has the right permissions

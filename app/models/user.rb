@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable,
          :validatable, :confirmable, :timeoutable
 
+  belongs_to :location
+
   has_many :group_users
   has_many :groups, through: :group_users
 
