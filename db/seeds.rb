@@ -8,4 +8,6 @@
 
 # Create Root Group
 root = Group.create!(name: 'root', description: 'super user group, this group has all permissions on the system.')
-User.create!(email: 'admin@reaf-rms.local', password: '12345678', password_confirmation: '12345678', groups: [root], confirmed_at: Time.now, first_name: 'Admin', last_name: 'User', location: 'Earth')
+location = Location.create!(name: 'Earth')
+User.create!(email: 'admin@reaf-rms.local', password: '12345678', password_confirmation: '12345678', groups: [root], confirmed_at: Time.now, first_name: 'Admin', last_name: 'User', location: location)
+ProjectType.create!(name: 'Type', description: 'Example Project Type')
