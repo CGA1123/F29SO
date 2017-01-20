@@ -8,8 +8,7 @@ video {
 .ie6 img {
     width: 100%;
 }
-html,
-body {
+html{
     height: 98%;
 }
 body {
@@ -39,6 +38,35 @@ p{
   margin-right: auto;
   display: block;
 }
+
+button, input[type=submit] {
+  background: #cb8acc;
+  background-image: -webkit-linear-gradient(top, #cb8acc, #89188A);
+  background-image: -moz-linear-gradient(top, #cb8acc, #89188A);
+  background-image: -ms-linear-gradient(top, #cb8acc, #89188A);
+  background-image: -o-linear-gradient(top, #cb8acc, #89188A);
+  background-image: linear-gradient(to bottom, #cb8acc, #89188A);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  border-width:0px;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 2px 15px 2px 15px;
+  text-decoration: none;
+}
+
+button:hover {
+  background: #cb8acc;
+  background-image: -webkit-linear-gradient(top, #cb8acc, #c16ec2);
+  background-image: -moz-linear-gradient(top, #cb8acc, #c16ec2);
+  background-image: -ms-linear-gradient(top, #cb8acc, #c16ec2);
+  background-image: -o-linear-gradient(top, #cb8acc, #c16ec2);
+  background-image: linear-gradient(to bottom, #cb8acc, #c16ec2);
+  text-decoration: none;
+}
+
 #pageTitleDiv {
     text-align: left;
 }
@@ -119,7 +147,7 @@ h2 {
     display: block;
     padding-top: 5px;
     padding-bottom: 5px;
-    background-color: #89188A;
+	background-color: #89188A;
 }
 #emailBody1 {
     clear: both;
