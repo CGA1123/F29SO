@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Reaf Company Website">
+    <meta name="description" content="">
     <meta name="author" content="Hi There" >
 
     <title>Reaf Inc.</title>
@@ -21,8 +21,16 @@
     <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-	
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
+
 <body>
 
     <!-- Navigation -->
@@ -34,7 +42,7 @@
                     <span class="sr-only">Toggle navigation</span>
                     Menu <i class="fa fa-bars"></i>
                 </button>
-					<img src="img/logo.png" alt="REAF Logo tm." style="width:180px;height:160px; margin: 30px 30px">
+                <a class="navbar-brand" href="index.html">Navigate to ...</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -47,7 +55,7 @@
                         <a href="about.html">About</a>
                     </li>
                     <li>
-                        <a href="new.html">What's New</a>
+                        <a href="post.html">What's New</a>
                     </li>
                     <li>
                         <a href="contact.html">Contact</a>
@@ -61,14 +69,14 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('img/home-bg.jpg')">
+    <header class="intro-header" style="background-image: url('img/contact-bg.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                    <h1> R.E.A.F </h1>
+                    <div class="page-heading">
+                        <h1>Contact Us</h1>
                         <hr class="small">
-                        <span class="subheading">Welcome.</span>
+                        <span class="subheading">Have questions? We have answers.</span>
                     </div>
                 </div>
             </div>
@@ -76,77 +84,54 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container">        
-        <div class="row">  
-        			
-        			<div class="col-md-4">
-					<div class="title2" >
-							Current Project (2016 - 2017) :- 
-						<p class="subtitle2" >
-						<br>Leidos Resource Management Project <br><br> Overall project efficiency : 90% Efficiency.
-						</p>
-						<hr>
-						
-					</div>        			
-        			</div>
-        		  <div class="col-md-8 "> <!-- col-lg-offset-2 col-md-10 col-md-offset-1 -->
-                <div class="post-preview">
-                    <a href="project.html">
-                        <h2 class="post-title">
-                            Latest Project Update.
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Development for our latest group project has recently entered into sprint 4.
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Admin</a> on January 11, 2017</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Season's Greetings.
-                        </h2>
-                        <h3 class="post-subtitle">
-                        	From all of us at R.E.A.F to each and every follower around the world, we wish you the warmest of holidays.
-                        	</h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Admin</a> on January 01, 2017</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Project Specification Analysis.
-                        </h2>
-                        <h3 class="post-subtitle">
-                            Final analysis document posted.
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Admin</a> on December 14, 2016</p>
-                </div>
-                <hr>
-                <div class="post-preview">
-                    <a href="post.html">
-                        <h2 class="post-title">
-                            Client has requested Project Specification Analysis.
-                        </h2>
-                        <h3 class="post-subtitle">
-                           Hello all. Quick reminder to tell you that our first deadline is coming up on 15 December.	
-                        </h3>
-                    </a>
-                    <p class="post-meta">Posted by <a href="#">Admin</a> on November 27, 2016</p>
-                </div>
-                <hr>
-                <!-- Pager -->
-                <ul class="pager">
-                    <li class="next">
-                        <a href="#">Older Posts &rarr;</a>
-                    </li>
-                </ul>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>Want to get in touch with us? Fill out the form below to send us a message and we will try to back to you within a couple of business days.</p>
+                <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+                <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+                <!-- NOTE: To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+                <form name="sentMessage" id="contactForm" novalidate>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Name</label>
+                            <input type="text" class="form-control" placeholder="Name" id="name" required data-validation-required-message="Please enter your name.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Email Address</label>
+                            <input type="email" class="form-control" placeholder="Email Address" id="email" required data-validation-required-message="Please enter your email address.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" placeholder="Phone Number" id="phone" required data-validation-required-message="Please enter your phone number.">
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <div class="row control-group">
+                        <div class="form-group col-xs-12 floating-label-form-group controls">
+                            <label>Message</label>
+                            <textarea rows="5" class="form-control" placeholder="Message" id="message" required data-validation-required-message="Please enter a message."></textarea>
+                            <p class="help-block text-danger"></p>
+                        </div>
+                    </div>
+                    <br>
+                    <div id="success"></div>
+                    <div class="row">
+                        <div class="form-group col-xs-12">
+                            <button type="submit" class="btn btn-default">Send</button>
+                        </div>
+                    </div>
+                </form>
             </div>
+        </div>
     </div>
-	</div>
+
     <hr>
 
     <!-- Footer -->
@@ -180,13 +165,14 @@
                             </a>
                         </li>
                     </ul>
-                    <p class="copyright text-muted">Copyright &copy; Reaf Inc. 2017</p>
+                    <p class="copyright text-muted">Copyright &copy; Reaf Inc.</p>
                 </div>
             </div>
         </div>
     </footer>
 
-
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
