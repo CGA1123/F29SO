@@ -12,6 +12,7 @@ This file contains a record of all permissions registered in the system.
 | `users.invite.delete` | `InvitationsController#destroy` | Allows a user to delete any invitation |
 | `profile.edit` | `ProfilesController#edit` & `ProfilesController#update` | Allows a user to edit his own profile |
 | `profile.edit.others` | `ProfilesController#edit` & `ProfilesController#update` | Allows a user to edit others profile (A user with this permission can **also** edit his own profile) |
+| `admin.groups` | `GroupsController` (all actions) | Allows user to manage groups |
 
 
 ### Actions requiring only a user account
