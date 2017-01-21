@@ -24,4 +24,11 @@ RSpec.describe Group, type: :model do
       expect(group.permission_strings).to match_array([perm1.name, perm2.name])
     end
   end
+
+  describe 'before_destroy check_if_root' do
+    let(:root_group) { FactoryGirl.create(:group, name: 'root') }
+    it 'does not delete root group' do
+      expect(root_group.destroy).to be_falsy
+    end
+  end
 end
