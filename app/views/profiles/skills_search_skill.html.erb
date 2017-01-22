@@ -1,0 +1,11 @@
+<% if skills.nil? %>
+  <div>
+    No skills found.
+  </div>
+<% else %>
+  <% skills.each do |skill| %>
+    <div skill-name="<%= skill.name %>">
+      <%= "#{skill.name}" %>
+    </div>
+  <% end %>
+<% end %>
