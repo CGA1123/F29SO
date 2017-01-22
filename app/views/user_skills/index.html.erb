@@ -1,0 +1,16 @@
+<h1>Profile#skills</h1>
+<div id='skill-form'>
+  <%= render 'user_skills/search_form' %>
+  <div id='skill_search_results'></div>
+</div>
+<div div='skills'>
+  <% if @user_skills.present? %>
+    <% @user_skills.each do |user_skill| %>
+      <div class="skill" id="skill-<%= skill.name %>">
+        <%= "#{user_skill.name} - #{user_skill.description} - #{user_skill.rating}" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p id='no-skills'>User has no Skills.</p>
+  <% end %>
+</div>

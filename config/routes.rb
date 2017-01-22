@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   get 'profile/:id', to: 'profiles#show', as: :profile
   patch 'profile/:id', to: 'profiles#update'
   get 'profile/:id/edit', to: 'profiles#edit', as: :edit_profile
+  get 'profile/:id/skills', to: 'user_skills#index', as: :user_skills
+  post 'profile/:id/skills/search', to: 'user_skills#search', as: :user_skills_search
 
   # InvitationsController Routes
   get 'invitations/new', to: 'invitations#new', as: :new_invitation

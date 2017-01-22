@@ -1,0 +1,3 @@
+console.log("Search for @search_string: <%= @search_string %>");
+console.log("@skills: <%= @skills.to_json %>");
+$('#skill_search_results').html("<%= j render 'user_skills/search_results', skills: @skills %>");
