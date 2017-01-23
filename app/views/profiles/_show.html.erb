@@ -1,6 +1,6 @@
 <div class="user-info">
-  <h3 id='name'><%= "#{@user.first_name} #{@user.last_name}" %></h3>
-  <h4 id='location'><%= @user.location %></h4>
+  <h3 id='name'>Name: <%= "#{@user.first_name} #{@user.last_name}" %></h3>
+  <h4 id='location'>Location: <%= @user.location.name %></h4>
   <% if @can_edit %>
     <%= link_to 'Edit', edit_profile_path(id: @user.id), remote: true %>
   <% end %>
