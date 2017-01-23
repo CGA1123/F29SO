@@ -14,7 +14,7 @@
   <%= f.text_field :first_name, placeholder: 'Joe' %>
   <%= f.text_field :last_name, placeholder: 'Bloggs' %>
   <br />
-  <%= f.text_field :location, placeholder: 'Edinburgh' %>
+  <%= f.collection_select(:location_id, Location.all, :id, :name) %>
   <%= f.submit 'Update' %>
 <% end %>
 

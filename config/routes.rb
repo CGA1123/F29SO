@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   # ProfilesController Routes
   get 'profile/:id', to: 'profiles#show', as: :profile
-  patch 'profile', to: 'profiles#update'
+  patch 'profile/:id', to: 'profiles#update'
   get 'profile/:id/edit', to: 'profiles#edit', as: :edit_profile
 
   # InvitationsController Routes
