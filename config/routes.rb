@@ -41,4 +41,6 @@ Rails.application.routes.draw do
 
   # LocationsController Routes
   get 'locations', to: 'locations#index', as: :locations
+  patch 'locations', to: 'locations#update'
+  get 'locations/:id/edit', to: 'locations#edit', as: :location
 end
