@@ -2,7 +2,8 @@ class UserSkillsController < ApplicationController
   before_action :set_user
 
   def search
-    @skill_type_id = SkillType.find(id: params[:skill_type_id])
+    @skill_type = SkillType.find(params[:skill_type_id])
+    @skill_type_id = @skill_type.id
     @search_string = params[:skill_name].downcase
     @skills = Skill.where('lower(name) LIKE ? AND skill_type_id = ?', "%#{@search_string}%", "#{@skill_type_id}")
     @skills = nil if @search_string.blank? || @skills.empty?
