@@ -2,28 +2,18 @@ class UserSkillsController < ApplicationController
   before_action :set_user
 
   def search
-    @skill_type = SkillType.where(id: params[:skill_type_id])
-    @skill_type.each{ |x| @skill_type_id = x.id }
+    @skill_type_id = SkillType.find(id: params[:skill_type_id])
     @search_string = params[:skill_name].downcase
     @skills = Skill.where('lower(name) LIKE ? AND skill_type_id = ?', "%#{@search_string}%", "#{@skill_type_id}")
     @skills = nil if @search_string.blank? || @skills.empty?
   end
 
   def index
-    # get all skills for this user
-    @user_skill = UserSkill.new
-    @user_skills = UserSkill.find_by(user: @user)
-    # BELOW WILL BE USEFUL TO RENDER EACH RESULT AS RETURNED
-    # SELECT skill_name FROM userskill INNER JOIN skill
-    # ON skill.skill_name = userskill.name WHERE user_id = 'user_id'
-    # UserSkill.select(:skill_name).joins(:skill).where(user_id: params[:user_id]).find_each do |skill|
-      # RENDER VIEW
-    # end
+    @user_skills = UserSkill.where(user: @user)
   end
 
-  def create
-    # add a skill to user's skill list
-    @user_skill = UserSkill.new(skill_params)
+  def add
+    @user_skill = UserSkill.new(user: @user, skill: Skill.find(1), rating: 'novice')
     if @skill.save
       # success
     else
@@ -32,9 +22,7 @@ class UserSkillsController < ApplicationController
   end
 
   def edit
-    # update a skill from user's skill list
-    @skill = UserSkill.where(user: params[:user_id], skill: params[:skill_id])
-    @skill.rating = # UPDATED RATING
+    @skill.rating = 'dropdown value from relevant skill'
     if @skill.save
       # success
     else
@@ -43,8 +31,7 @@ class UserSkillsController < ApplicationController
   end
 
   def remove
-    # remove a skill from user's skill list
-    @skill = UserSkill.where(user: params[:user_id], skill: params[:skill_id])
+    @skill = UserSkill.find('id of skill from relevant remove button')
     if @skill.destroy
       # success
     else
@@ -53,10 +40,6 @@ class UserSkillsController < ApplicationController
   end
 
   private
-
-  def skill_params
-    params.require(:user_skill).permit(:skill_id, :rating)
-  end
 
   def set_user
     @user = User.find_by(id: params[:id])

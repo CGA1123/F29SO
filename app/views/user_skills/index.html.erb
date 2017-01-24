@@ -5,11 +5,17 @@
 </div>
 <div div='skills'>
   <% if @user_skills.present? %>
-    <% @user_skills.each do |user_skill| %>
-      <div class="skill" id="skill-<%= skill.name %>">
-        <%= "#{user_skill.name} - #{user_skill.description} - #{user_skill.rating}" %>
-      </div>
-    <% end %>
+    <table>
+      <% @user_skills.each do |user_skill| %>
+        <tr class="skill" id="skill-<%= user_skill.skill.name %>">
+          <td><%= "#{user_skill.skill.name}" %></td>
+          <td><%= "#{user_skill.skill.description}" %></td>
+          <td><%= "#{user_skill.rating}" %></td>
+          <td><%= button_tag :edit %></td>
+          <td><%= button_tag :remove %></td>
+        </tr>
+        <% end %>
+      </table>
   <% else %>
     <p id='no-skills'>User has no Skills.</p>
   <% end %>
