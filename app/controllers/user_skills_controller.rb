@@ -2,15 +2,20 @@ class UserSkillsController < ApplicationController
   before_action :set_user
 
   def search
-    @skill_type = SkillType.find(params[:skill_type_id])
-    @skill_type_id = @skill_type.id
-    @search_string = params[:skill_name].downcase
-    @skills = Skill.where('lower(name) LIKE ? AND skill_type_id = ?', "%#{@search_string}%", "#{@skill_type_id}")
+  @search_string = params[:skill_name].downcase
+    if (params[:skill_type_id] == '0')
+      @skills = Skill.where('lower(name) LIKE ?', "%#{@search_string}%")
+    else
+      @skill_type = SkillType.find(params[:skill_type_id])
+      @skills = Skill.where('lower(name) LIKE ? AND skill_type_id = ?', "%#{@search_string}%", "#{@skill_type.id}")
+    end
     @skills = nil if @search_string.blank? || @skills.empty?
   end
 
   def index
     @user_skills = UserSkill.where(user: @user)
+    @skill_types = SkillType.all
+    @skill_types.unshift(SkillType.new(id: 0, name: 'All Skills', description: 'Get all skills'))
   end
 
   def add

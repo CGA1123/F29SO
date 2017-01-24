@@ -11,8 +11,8 @@
           <td><%= "#{user_skill.skill.name}" %></td>
           <td><%= "#{user_skill.skill.description}" %></td>
           <td><%= "#{user_skill.rating}" %></td>
-          <td><%= button_tag :edit %></td>
-          <td><%= button_tag :remove %></td>
+          <td><%= button_tag :edit, :id => "#{user_skill.id}", :onclick => 'edit()' %></td>
+          <td><%= button_tag :remove, :id => "#{user_skill.id}", :onclick => 'remove()' %></td>
         </tr>
         <% end %>
       </table>
