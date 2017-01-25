@@ -134,6 +134,8 @@ ActiveRecord::Schema.define(version: 20170125164005) do
     t.integer  "project_type_id"
   end
 
+  add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree
+
   create_table "skill_types", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
