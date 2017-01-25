@@ -11,7 +11,7 @@
           <td><%= "#{user_skill.skill.name}" %></td>
           <td><%= "#{user_skill.skill.description}" %></td>
           <td><%= "#{user_skill.rating}" %></td>
-          <td><%= button_tag :edit, :id => "#{user_skill.id}", :onclick => 'edit()' %></td>
+          <td><%= button_to "Edit", edit_user_skill_path(id: user_skill.user_id, user_skill_id: user_skill.id), method: :get %></td>
           <td><%= button_tag :remove, :id => "#{user_skill.id}", :onclick => 'remove()' %></td>
         </tr>
         <% end %>

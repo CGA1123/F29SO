@@ -18,7 +18,7 @@ class UserSkillsController < ApplicationController
     @skill_types.unshift(SkillType.new(id: 0, name: 'All Skills', description: 'Get all skills'))
   end
 
-  def add
+  def create
     @user_skill = UserSkill.new(user: @user, skill: Skill.find(1), rating: 'novice')
     if @skill.save
       # success
