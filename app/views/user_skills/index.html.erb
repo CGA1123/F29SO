@@ -12,7 +12,7 @@
           <td><%= "#{user_skill.skill.description}" %></td>
           <td><%= "#{user_skill.rating}" %></td>
           <td><%= button_to "Edit", edit_user_skill_path(id: user_skill.user_id, user_skill_id: user_skill.id), method: :get %></td>
-          <td><%= button_tag :remove, :id => "#{user_skill.id}", :onclick => 'remove()' %></td>
+          <td><%= button_to "Remove", remove_user_skill_path(id: user_skill.user_id, user_skill_id: user_skill.id), method: :get %></td>
         </tr>
         <% end %>
       </table>

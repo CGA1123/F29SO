@@ -17,7 +17,10 @@ Rails.application.routes.draw do
   get 'profile/:id/edit', to: 'profiles#edit', as: :edit_profile
   get 'profile/:id/skills', to: 'user_skills#index', as: :user_skills
   post 'profile/:id/skills/search', to: 'user_skills#search', as: :user_skills_search
+  get 'profile/:id/skills/:skill_id/create', to: 'user_skills#create', as: :create_user_skill
   get 'profile/:id/skills/:user_skill_id/edit', to: 'user_skills#edit', as: :edit_user_skill
+  get 'profile/:id/skills/:user_skill_id/update', to: 'user_skills#update', as: :update_user_skill
+  get 'profile/:id/skills/:user_skill_id/remove', to: 'user_skills#remove', as: :remove_user_skill
 
   # InvitationsController Routes
   get 'invitations/new', to: 'invitations#new', as: :new_invitation

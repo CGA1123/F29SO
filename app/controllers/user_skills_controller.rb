@@ -3,13 +3,10 @@ class UserSkillsController < ApplicationController
 
   def search
   @search_string = params[:skill_name].downcase
-    if (params[:skill_type_id] == '0')
-      @skills = Skill.where('lower(name) LIKE ?', "%#{@search_string}%")
-    else
-      @skill_type = SkillType.find(params[:skill_type_id])
-      @skills = Skill.where('lower(name) LIKE ? AND skill_type_id = ?', "%#{@search_string}%", "#{@skill_type.id}")
-    end
-    @skills = nil if @search_string.blank? || @skills.empty?
+  @skill_type = params[:skill_type_id]
+  @skills = @skill_type == '0' ? Skill.all : Skill.where(skill_type_id: @skill_type)
+  @skills = @skills.where('lower(name) LIKE ?', "%#{@search_string}%")
+  @skills = nil if @search_string.blank? || @skills.empty?
   end
 
   def index
@@ -19,30 +16,22 @@ class UserSkillsController < ApplicationController
   end
 
   def create
-    @user_skill = UserSkill.new(user: @user, skill: Skill.find(1), rating: 'novice')
-    if @skill.save
-      # success
-    else
-      # failure
-    end
+    @user_skill = UserSkill.new(user: @user, skill: Skill.find(params[:skill_id]), rating: 'novice')
+    @user_skill.save
   end
 
   def edit
-    @skill.rating = 'dropdown value from relevant skill'
-    if @skill.save
-      # success
-    else
-      # failure
-    end
+  end
+
+  def update
+    @user_skill = UserSkill.find(params[:user_skill_id])
+    @user_skill.rating = params[:skill_rating]
+    @user_skill.save
   end
 
   def remove
-    @skill = UserSkill.find('id of skill from relevant remove button')
-    if @skill.destroy
-      # success
-    else
-      # failure
-    end
+    @user_skill = UserSkill.find(params[:user_skill_id])
+    @user_skill.destroy
   end
 
   private
