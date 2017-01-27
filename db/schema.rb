@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117201036) do
+ActiveRecord::Schema.define(version: 20170125170821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20170117201036) do
     t.datetime "updated_at",  null: false
     t.integer  "inviter_id"
   end
+
+  add_index "invitations", ["inviter_id"], name: "index_invitations_on_inviter_id", using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -132,6 +134,8 @@ ActiveRecord::Schema.define(version: 20170117201036) do
     t.integer  "project_type_id"
   end
 
+  add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree
+
   create_table "skill_types", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -187,4 +191,23 @@ ActiveRecord::Schema.define(version: 20170117201036) do
   add_index "users", ["location_id"], name: "index_users_on_location_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "group_permissions", "groups"
+  add_foreign_key "group_permissions", "permissions"
+  add_foreign_key "group_users", "groups"
+  add_foreign_key "group_users", "users"
+  add_foreign_key "invitation_groups", "groups"
+  add_foreign_key "invitation_groups", "invitations"
+  add_foreign_key "invitations", "users", column: "inviter_id"
+  add_foreign_key "project_group_permissions", "permissions"
+  add_foreign_key "project_group_permissions", "project_groups"
+  add_foreign_key "project_group_users", "project_groups"
+  add_foreign_key "project_group_users", "users"
+  add_foreign_key "project_groups", "projects"
+  add_foreign_key "project_skills", "projects"
+  add_foreign_key "project_skills", "skills"
+  add_foreign_key "projects", "project_types"
+  add_foreign_key "skills", "skill_types"
+  add_foreign_key "user_skills", "skills"
+  add_foreign_key "user_skills", "users"
+  add_foreign_key "users", "locations"
 end
