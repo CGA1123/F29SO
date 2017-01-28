@@ -28,8 +28,7 @@ class LocationsController < ApplicationController
         format.html { redirect_to locations_path }
         format.js { render :create_success }
       else
-        alert = 'Location creation failed.'
-        format.html { redirect_to locations_path, alert: alert }
+        format.html { redirect_to locations_path, alert: 'Creation failed.' }
         format.js { render :create_fail }
       end
     end

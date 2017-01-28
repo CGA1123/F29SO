@@ -178,7 +178,7 @@ RSpec.describe LocationsController, type: :controller do
 
           it do
             post :create, params
-            expect(flash[:alert]).to eq('Location creation failed.')
+            expect(flash[:alert]).to eq('Creation failed.')
           end
         end
       end
