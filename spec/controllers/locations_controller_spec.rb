@@ -78,8 +78,8 @@ RSpec.describe LocationsController, type: :controller do
   describe 'PATCH #update' do
     context 'user not signed in' do
       it_behaves_like 'unauthenticated request',
-                      method: :get,
-                      action: :index,
+                      method: :patch,
+                      action: :update,
                       params: { id: 'no_id' }
     end
 
@@ -123,6 +123,62 @@ RSpec.describe LocationsController, type: :controller do
           it 'sets alert' do
             patch :update, params
             expect(flash[:alert]).to eq('Update failed.')
+          end
+        end
+      end
+    end
+  end
+
+  describe 'POST #create' do
+    context 'user not signed in' do
+      it_behaves_like 'unauthenticated request',
+                      method: :post,
+                      action: :create,
+                      params: { id: 'no_id' }
+    end
+
+    context 'user is signed in' do
+      context 'user does not have permission' do
+        before { sign_in user }
+        it_behaves_like 'no permission',
+                        method: :post,
+                        action: :create,
+                        params: { id: 'no_id' }
+      end
+
+      context 'user has permission' do
+        before { sign_in root_user }
+
+        context 'valid params' do
+          let(:params) { { location: { name: 'valid' } } }
+
+          it 'creates a new record' do
+            expect { post :create, params }
+              .to change(Location, :count).by(1)
+          end
+
+          it do
+            post :create, params
+            expect(response).to redirect_to locations_path
+          end
+        end
+
+        context 'invalid params' do
+          let(:params) { { location: { name: '' } } }
+
+          it 'does not create a new record' do
+            expect { post :create, params }
+              .to change(Location, :count).by(0)
+          end
+
+          it do
+            post :create, params
+            expect(response).to redirect_to locations_path
+          end
+
+          it do
+            post :create, params
+            expect(flash[:alert]).to eq('Location creation failed.')
           end
         end
       end
