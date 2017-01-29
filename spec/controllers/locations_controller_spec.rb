@@ -184,4 +184,79 @@ RSpec.describe LocationsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'user not signed in' do
+      it_behaves_like 'unauthenticated request',
+                      method: :delete,
+                      action: :destroy,
+                      params: { id: 'no_id' }
+    end
+
+    context 'user is signed in' do
+      context 'user does not have permission' do
+        before { sign_in user }
+        it_behaves_like 'no permission',
+                        method: :delete,
+                        action: :destroy,
+                        params: { id: 'no_id' }
+      end
+
+      context 'user has permission' do
+        before do
+          sign_in root_user
+        end
+
+        context 'valid params' do
+          loc = FactoryGirl.create(:location)
+
+          context 'a record point to the location' do
+            before do
+              root_user.location = loc
+              root_user.save
+            end
+
+            it 'does not delete a location' do
+              expect { delete :destroy, id: loc.id }
+                .not_to change(Location, :count)
+            end
+
+            it do
+              delete :destroy, id: loc.id
+              expect(response).to redirect_to(locations_path)
+            end
+
+            it do
+              delete :destroy, id: loc.id
+              expect(flash[:alert]).to eq('This location is still has a user')
+            end
+          end
+
+          context 'no record points to the location' do
+            it 'deletes the location' do
+              expect { delete :destroy, id: loc.id }
+                .to change(Location, :count).by(-1)
+            end
+
+            it do
+              delete :destroy, id: loc.id
+              expect(response).to redirect_to(locations_path)
+            end
+          end
+        end
+
+        context 'invalid params' do
+          it 'does not delete a location' do
+            expect { delete :destroy, id: 'does not exist' }
+              .not_to change(Location, :count)
+          end
+
+          it do
+            delete :destroy, id: 'does not exist'
+            expect(response).to redirect_to(locations_path)
+          end
+        end
+      end
+    end
+  end
 end

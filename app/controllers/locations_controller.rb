@@ -1,6 +1,6 @@
 class LocationsController < ApplicationController
   before_action :check_permission
-  before_action :set_location, only: [:edit, :update]
+  before_action :set_location, only: [:edit, :update, :destroy]
 
   def index
     @locations = Location.all
@@ -33,6 +33,23 @@ class LocationsController < ApplicationController
       end
     end
   end
+
+  # rubocop:disable Metrics/MethodLength
+  def destroy
+    respond_to do |format|
+      if @location.users.any?
+        format.html do
+          redirect_to locations_path, alert: 'This location is still has a user'
+        end
+        format.js { render :destroy_fail }
+      else
+        @location.destroy
+        format.html { redirect_to locations_path }
+        format.js { render :destroy_success }
+      end
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
 
   private
 

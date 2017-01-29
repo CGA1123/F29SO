@@ -1,6 +1,12 @@
 <div class="location" id="location-<%= location.id %>">
-  <p><%= link_to location_path(location.id), remote: true do %>
+  <p>
+  <%= link_to location_path(location.id), remote: true do %>
     <%= octicon 'pencil' %>
   <% end %>
-  <%= location.name %></p>
+  <%= location.name %>
+
+  <%= link_to locations_path(id: location.id), remote: true, method: :delete do %>
+    <%= octicon 'trashcan' %>
+  <% end %>
+  </p>
 </div>
