@@ -38,4 +38,11 @@ Rails.application.routes.draw do
   post 'groups', to: 'groups#create'
   delete 'groups', to: 'groups#destroy'
   get 'groups/:name', to: 'groups#show', as: :group
+
+  # LocationsController Routes
+  get 'locations', to: 'locations#index', as: :locations
+  patch 'locations', to: 'locations#update'
+  post 'locations', to: 'locations#create'
+  delete 'locations', to: 'locations#destroy'
+  get 'locations/:id/edit', to: 'locations#edit', as: :location
 end
