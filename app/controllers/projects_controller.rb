@@ -41,4 +41,9 @@ class ProjectsController < ApplicationController
   def project_params
     params.require(:project).permit(:code, :name, :project_type_id)
   end
+
+  def check_permission(permission_name)
+    not_found unless current_user.permission?
+      ("#{project_id}.#{permission_name}")
+  end
 end

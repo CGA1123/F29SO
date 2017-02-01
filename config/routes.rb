@@ -33,6 +33,11 @@ Rails.application.routes.draw do
 
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
 
+  # ProjectGroupsController Routes
+  get 'projects/:code/groups', to: 'project_groups#index', as: :project_groups
+  post 'projects/:code/groups', to: 'project_groups#create'
+  get 'project_group/new', to: 'project#new', as: :new_project_group
+
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
   post 'groups', to: 'groups#create'
