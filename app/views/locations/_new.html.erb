@@ -1,0 +1,6 @@
+<%= form_for location, url: locations_path, remote: true, method: :post do |f| %>
+  <%= f.text_field :name, placeholder: 'Location Name', autofocus: 'autofocus', onfocus: "this.value = this.value;" %>
+  <%= f.button do %>
+    <%= octicon 'check', class: 'white' %>
+  <% end %>
+<% end %>

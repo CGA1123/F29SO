@@ -37,7 +37,7 @@ class InvitationsController < ApplicationController
     @user.skip_confirmation!
 
     if @user.save
-      @invitation.destroy!
+      @invitation.destroy
       redirect_to unauthenticated_root_path
     else
       render :accept
@@ -79,7 +79,7 @@ class InvitationsController < ApplicationController
                   :password_confirmation,
                   :first_name,
                   :last_name,
-                  :location)
+                  :location_id)
   end
 
   # Need to ensure that the inviting user has the right permissions
