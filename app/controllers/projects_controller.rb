@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update]
+  before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :check_create_permission, only: [:new, :create]
   before_action :check_update_permissions, only: [:edit, :update]
   before_action :check_destroy_permission, only: [:destroy]
@@ -36,7 +36,8 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    redirect_to projects_path, alert: 'Deletion not yet implemented'
+    @project.destroy
+    redirect_to projects_path, alert: 'Project Deleted.'
   end
 
   private

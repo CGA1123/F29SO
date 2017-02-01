@@ -242,4 +242,46 @@ RSpec.describe ProjectsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'user has permission' do
+      before { sign_in root_user }
+
+      context 'project does not exist' do
+        before { delete :destroy, code: 'waddup' }
+
+        it do
+          expect(response).to redirect_to projects_path
+        end
+
+        it 'sets alert' do
+          expect(flash[:alert]).to eq('Project not found.')
+        end
+      end
+
+      context 'project exists' do
+        before { delete :destroy, code: project.code }
+        it 'deletes project' do
+          expect(Project.find_by(code: project.code)).to be_nil
+        end
+
+        it do
+          expect(response).to redirect_to(projects_path)
+        end
+      end
+    end
+
+    context 'user does not have permission' do
+      before do
+        sign_in user
+        delete :destroy, code: project.code
+      end
+
+      it { expect(response).to redirect_to(projects_path) }
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('You cannot do that.')
+      end
+    end
+  end
 end
