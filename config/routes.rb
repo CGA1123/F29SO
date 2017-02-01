@@ -39,6 +39,11 @@ Rails.application.routes.draw do
   delete 'groups', to: 'groups#destroy'
   get 'groups/:name', to: 'groups#show', as: :group
 
+  # GroupUsersController
+  get 'groups/:name/users', to: 'group_users#index', as: :group_users
+  post 'groups/:name/users', to: 'group_users#create'
+  delete 'groups/:name/users', to: 'group_users#destroy'
+
   # LocationsController Routes
   get 'locations', to: 'locations#index', as: :locations
   patch 'locations', to: 'locations#update'
