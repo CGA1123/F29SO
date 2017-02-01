@@ -12,6 +12,13 @@ This file contains a record of all permissions registered in the system.
 | `users.invite.delete` | `InvitationsController#destroy` | Allows a user to delete any invitation |
 | `profile.edit` | `ProfilesController#edit` & `ProfilesController#update` | Allows a user to edit his own profile |
 | `profile.edit.others` | `ProfilesController#edit` & `ProfilesController#update` | Allows a user to edit others profile (A user with this permission can **also** edit his own profile) |
+| `projects.view` | `ProjectsController#show` | Gives **global** permission to view any project |
+| `<project_id>.projects.view` | `ProjectsController#show` | Gives **scoped** permission to view a specific project |
+| `projects.edit` | `ProjectsController#update` & `ProjectsController#edit` | Gives **global** permission to edit any project |
+| `<project_id>.projects.edit` | `ProjectsController#update` & `ProjectsController#edit` | Gives **scoped** permission to edit a specific project |
+| `projects.delete` | `ProjectsController#destroy` | Gives **global** permission to delete any project |
+| `<project_id>.projects.delete` | `ProjectsController#destroy` | Gives **scoped** permission to delete a specific project |
+| `project.create` | `ProjectsController#create` | Gives permission to create a new project |
 | `admin.groups` | `GroupsController` (all actions) | Allows user to manage groups |
 
 
