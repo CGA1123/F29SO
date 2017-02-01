@@ -4,6 +4,9 @@
     <% @projects.each do |project| %>
       <div class="project project-<%= project.id %>">
         <%= "#{project.code} - #{project.name}" %>
+        <%= link_to projects_path(code: project.code), method: :delete, remote: true do %>
+          <%= octicon 'trashcan' %>
+        <% end %>
       </div>
     <% end %>
   <% else %>

@@ -27,10 +27,10 @@ Rails.application.routes.draw do
   # ProjectsController Routes
   get 'projects', to: 'projects#index', as: :projects
   post 'projects', to: 'projects#create'
+  delete 'projects', to: 'projects#destroy'
+  patch 'projects', to: 'projects#update'
   get 'projects/new', to: 'projects#new', as: :new_project
   get 'projects/:code', to: 'projects#show', as: :project
-  patch 'projects/:code', to: 'projects#update'
-
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
 
   # GroupsController Routes
