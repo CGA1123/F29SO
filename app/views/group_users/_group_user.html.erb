@@ -1,0 +1,7 @@
+<div class='group-user' id='group-user-<%= group_user.id %>'>
+  <%= user_avatar(group_user.user) %>
+  <span class='name'><%= group_user.user.name %></span>
+  <%= link_to group_users_path(name: group_user.group.name, id: group_user.id), method: :delete, remote: true do %>
+  <%= octicon 'x', class: 'red' %>
+  <% end %>
+</div>

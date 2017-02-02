@@ -1,7 +1,9 @@
 class GroupUsersController < ApplicationController
   before_action :set_group
 
-  def index; end
+  def index
+    @group_users = GroupUser.where(group: @group)
+  end
 
   def create
     redirect_to group_users_path
