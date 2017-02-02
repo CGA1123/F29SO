@@ -7,7 +7,10 @@ class ProjectGroupsController < ApplicationController
 
   def create
     @project_group = ProjectGroup.new(project_group_params)
+<<<<<<< bc389baefb24ff10d6efa2172b953e3096f49f37
     @project_group.project = @project
+=======
+>>>>>>> Create method first attempt
     @project_groups = ProjectGroup.where(project: @project)
 
     @project_group.save
@@ -15,12 +18,15 @@ class ProjectGroupsController < ApplicationController
     render :index
   end
 
+<<<<<<< bc389baefb24ff10d6efa2172b953e3096f49f37
   def search
     string = params[:user]
     @results = User.search(string) unless string.blank?
     render 'project_group_users/search'
   end
 
+=======
+>>>>>>> Create method first attempt
   private
 
   def check_permissions(permission)
@@ -31,7 +37,11 @@ class ProjectGroupsController < ApplicationController
   end
 
   def project_group_params
+<<<<<<< bc389baefb24ff10d6efa2172b953e3096f49f37
     params.require(:project_group).permit(:name)
+=======
+    params.require(:project).permit(:name)
+>>>>>>> Create method first attempt
   end
 
   def set_project

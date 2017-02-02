@@ -43,8 +43,9 @@ Rails.application.routes.draw do
   # ProjectGroupsController Routes
   get 'projects/:code/groups', to: 'project_groups#index', as: :project_groups
   post 'projects/:code/groups', to: 'project_groups#create'
-  get 'projects/:code/groups/new', to: 'project_group#new', as: :new_project_group
-  get 'projects/:code/groups/:name', to: 'project_group#show', as: :project_group
+  get 'projects/:code/groups/new', to: 'project_groups#new', as: :new_project_group
+  get 'projects/:code/groups/:name', to: 'project_groups#show', as: :project_group
+  delete 'projects/:code/groups', to: 'project_groups#destroy'
 
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
