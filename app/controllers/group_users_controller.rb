@@ -10,6 +10,7 @@ class GroupUsersController < ApplicationController
     redirect_to group_users_path
   end
 
+  # rubocop:disable Metrics/MethodLength
   def destroy
     respond_to do |format|
       if @group_user.destroy
@@ -24,6 +25,7 @@ class GroupUsersController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
