@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   belongs_to :location
 
-  has_many :group_users
+  has_many :group_users, dependent: :delete_all
   has_many :groups, through: :group_users
 
   has_many :project_group_users

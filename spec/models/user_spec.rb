@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { is_expected.to belong_to(:location) }
-  it { is_expected.to have_many(:group_users) }
+  it { is_expected.to have_many(:group_users).dependent(:delete_all) }
   it { is_expected.to have_many(:groups).through(:group_users) }
   it { is_expected.to have_many(:project_group_users) }
   it { is_expected.to have_many(:project_groups).through(:project_group_users) }
