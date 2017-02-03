@@ -5,11 +5,11 @@ class GroupUser < ActiveRecord::Base
   validates :group_id, uniqueness: { scope: :user_id }
   validates :user, :group, presence: true
 
-  before_destroy :check_if_last_group
+  before_destroy :multiple_groups?
 
   private
 
-  def check_if_last_group
+  def multiple_groups?
     user.groups.count > 1
   end
 end
