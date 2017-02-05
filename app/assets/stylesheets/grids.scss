@@ -76,9 +76,7 @@ button:hover {
     alignment-adjust: central;
     border: medium;
 }
-#layoutDiv1 {
-    text-align: center;
-}
+
 td {
     padding: 5px;
 }
@@ -131,6 +129,7 @@ h2 {
     width: 100%;
     display: block;
     margin-top: 10%;
+    text-align: center;
 }
 #emailBody {
     clear: both;

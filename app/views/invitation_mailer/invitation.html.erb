@@ -1,3 +1,25 @@
-<p>Hello <%= @email %>,</p>
-<p>You have been invited to join the Leidos Resource Management System.</p>
-<p>Please click to following link to create your account: <%= accept_invitation_url(token: @token) %></p>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+
+<div id="LayoutDiv1">
+  <h1>Welcome to the team!</h1>
+</div>
+<div id="emailBody">
+  <p>Welcome to the Leidos Resource Management System. An account has been created for you using this email address.</p>
+</div>
+
+<%= link_to accept_invitation_url(token: @token) do %>
+  <div id="passwordButton">
+    <p style="color:#FFF; font-weight:400;">Create your password</p>
+  </div>
+<% end %>
+
+<div id="emailBody1">
+  <p>Once you've created your password for your account you will be able to log in from the <%= link_to 'login portal', unauthenticated_root_url %>.</p>
+</div>
+
+<div id="logoFooter">
+  <%= image_tag 'leidos_logo.jpg', id: 'leidos_logo' %>
+  <p>&nbsp;</p>
+  <p>Copyright Leidos Inc.</p>
+  <p>If you have received this email in error, please discard of it immediately and contact the sender.</p>
+</div>
