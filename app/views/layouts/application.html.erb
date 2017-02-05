@@ -15,9 +15,36 @@
   <% if alert %>
     <p id='alert'><%= alert %></p>
   <% end %>
-</div>
+  </div>
+  <div class="topnav">
+    <ul id="myTopnav">
+      <li class='logo'><%=link_to '/' do %><%= image_tag 'leidos_logo.jpg' %><% end %></li>
+      <li><a href="#"><%= octicon 'search' %></a></li>
+      <li><a href="#">Projects</a></li>
+
+      <li class='log-out'>
+        <%= link_to destroy_user_session_path, method: :delete do %>
+          <%= octicon 'sign-out' %>
+        <% end %>
+      </li>
+
+      <li class='log-out'>
+        <%= link_to '', method: :delete do %>
+          <%= octicon 'gear' %>
+        <% end %>
+      </li>
+
+      <li class='log-out'>
+        <%= link_to '' do %>
+          <%= octicon 'bell' %>
+        <% end %>
+      </li>
+      <li class="icon">
+        <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+      </li>
+    </ul>
+  </div>
   <% if user_signed_in? %>
-    <%= link_to 'Log Out', destroy_user_session_path, method: :delete %>
   <% end %>
   <div class="yielded">
     <%= yield %>

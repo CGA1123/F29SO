@@ -1,0 +1,72 @@
+/* Remove margins and padding from the list, and add a black background color */
+.topnav {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #ffffff;
+  border-bottom: #d8d4d5 2px solid;
+  ul {
+    margin: 0;
+    padding: 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    list-style-type: none;
+  }
+
+  li {
+    float: left;
+
+    a {
+      display: inline-block;
+      color: #760F88;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 17px;
+
+      &:hover { background-color: #f0f0f0; }
+    }
+  }
+
+  .icon { display: none; }
+
+  .log-out {
+    float: right;
+    a {
+      font-size: 13px;
+    }
+  }
+
+  li:first-child {
+    a {
+      padding: 0;
+    }
+    img {
+      height: 20px;
+    }
+
+    :hover { background-color: inherit; }
+
+    padding: 10px 16px;
+
+  }
+
+  .octicon {
+    fill: #760F88;
+  }
+}
+
+/* Style the links inside the list items */
+
+
+
+/* Hide the list item that contains the link that should open and close the topnav on small screens */
+@media only all and (max-aspect-ratio: 1/1) {
+  .topnav ul li:not(:first-child) {display: none;}
+  .topnav ul li.icon {
+    float: right;
+    display: inline-block;
+  }
+}
