@@ -1,0 +1,6 @@
+console.log("Searched: <%= @search_string %>");
+<% if @results.blank? %>
+  $('#search_results').html('<p>No results</p>');
+<% else %>
+  $('#search_results').html("<%= j render 'group_users/results', results: @results, group: @group %>");
+<% end %>

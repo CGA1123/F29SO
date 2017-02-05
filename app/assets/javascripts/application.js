@@ -21,5 +21,9 @@ ready = function() {
   $('.profile-img').initial();
 };
 
+var search = function() {
+  $('#search-form').submit();
+};
+
 $(document).ready(ready);
 $(document).on('page:load', ready);

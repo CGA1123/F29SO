@@ -1,0 +1,4 @@
+<%= form_tag group_users_search_path, method: :post, remote: true, id: 'search-form' do %>
+  <%= text_field_tag :user, '', placeholder: 'Search Users', onkeyup: 'search();' %>
+<% end %>
+<div id='search_results'></div>

@@ -1,13 +1,25 @@
 class GroupUsersController < ApplicationController
   before_action :set_group
   before_action :set_group_user, only: [:destroy]
+  before_action :set_user, only: [:create]
 
   def index
     @group_users = GroupUser.where(group: @group)
   end
 
   def create
-    redirect_to group_users_path
+    @group_user = GroupUser.new(user: @user, group: @group)
+    respond_to do |format|
+      if @group_user.save
+        format.html do
+          redirect_to group_path(name: @group.name), notice: 'User Added.'
+        end
+      else
+        format.html do
+          redirect_to group_path(name: @group.name), alert: 'User could not be added.'
+        end
+      end
+    end
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -27,6 +39,12 @@ class GroupUsersController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength
 
+  def search
+    @search_string = params[:user].downcase
+    @results = User.where("lower(concat(first_name, ' ', last_name)) LIKE ? OR lower(email) LIKE ?", "%#{@search_string}%", "%#{@search_string}%") unless @search_string.blank?
+    render 'group_users/search.js.erb'
+  end
+
   private
 
   def set_group
@@ -37,5 +55,12 @@ class GroupUsersController < ApplicationController
   def set_group_user
     @group_user = GroupUser.find_by(id: params[:id])
     redirect_to group_users_path, alert: 'User not found.' unless @group_user
+  end
+
+  def set_user
+    @user = User.find_by(id: params[:id])
+    redirect_to group_path(name: @group.name), alert: 'User not found.' \
+      unless @user
+
   end
 end
