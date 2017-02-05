@@ -15,6 +15,13 @@ class User < ActiveRecord::Base
 
   validates :groups, :first_name, :last_name, :location, presence: true
 
+  def self.search(string)
+    where('lower(first_name) LIKE :string OR ' \
+          'lower(email) LIKE :string OR ' \
+          'lower(last_name) LIKE :string',
+          string: "%#{string.downcase}%")
+  end
+
   def permission?(permission_name)
     return true if groups.map(&:name).include?('root')
     permission_strings.include?(permission_name)

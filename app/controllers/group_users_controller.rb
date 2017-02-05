@@ -16,7 +16,8 @@ class GroupUsersController < ApplicationController
         end
       else
         format.html do
-          redirect_to group_path(name: @group.name), alert: 'User could not be added.'
+          redirect_to group_path(name: @group.name),
+                      alert: 'User could not be added.'
         end
       end
     end
@@ -40,8 +41,9 @@ class GroupUsersController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   def search
-    @search_string = params[:user].downcase
-    @results = User.where("lower(concat(first_name, ' ', last_name)) LIKE ? OR lower(email) LIKE ?", "%#{@search_string}%", "%#{@search_string}%") unless @search_string.blank?
+    string = params[:user]
+    @results = User.search(string) unless string.blank?
+
     render 'group_users/search.js.erb'
   end
 
@@ -61,6 +63,5 @@ class GroupUsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     redirect_to group_path(name: @group.name), alert: 'User not found.' \
       unless @user
-
   end
 end
