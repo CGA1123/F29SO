@@ -9,16 +9,13 @@ class GroupUsersController < ApplicationController
 
   def create
     @group_user = GroupUser.new(user: @user, group: @group)
+    path = group_path(name: @group.name)
+
     respond_to do |format|
       if @group_user.save
-        format.html do
-          redirect_to group_path(name: @group.name), notice: 'User Added.'
-        end
+        format.html { redirect_to path, notice: 'User Added.' }
       else
-        format.html do
-          redirect_to group_path(name: @group.name),
-                      alert: 'User could not be added.'
-        end
+        format.html { redirect_to path, alert: 'User could not be added.' }
       end
     end
   end
