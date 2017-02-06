@@ -25,5 +25,14 @@ var search = function() {
   $('#search-form').submit();
 };
 
+var toggle_nav = function() {
+  var x = $('#topnav');
+  if(x.hasClass('responsive')) {
+    x.removeClass('responsive');
+  } else {
+    x.addClass('responsive');
+  }
+}
+
 $(document).ready(ready);
 $(document).on('page:load', ready);

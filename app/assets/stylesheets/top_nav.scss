@@ -31,6 +31,7 @@
   }
 
   .icon { display: none; }
+  .text { display: none; }
 
   .log-out {
     float: right;
@@ -40,17 +41,15 @@
   }
 
   li:first-child {
-    a {
-      padding: 0;
-    }
     img {
       height: 20px;
     }
 
+    a {
+      padding: 13px 16px;
+    }
+
     :hover { background-color: inherit; }
-
-    padding: 10px 16px;
-
   }
 
   .octicon {
@@ -64,9 +63,27 @@
 
 /* Hide the list item that contains the link that should open and close the topnav on small screens */
 @media only all and (max-aspect-ratio: 1/1) {
-  .topnav ul li:not(:first-child) {display: none;}
-  .topnav ul li.icon {
+  ul#topnav li:not(:first-child) { display: none; }
+  ul#topnav li.icon {
     float: right;
     display: inline-block;
   }
+
+  ul#topnav.responsive {position: relative;}
+  ul#topnav.responsive li.icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  ul#topnav.responsive li {
+    float: none;
+    display: inline;
+  }
+  ul#topnav.responsive li a {
+    display: block;
+    text-align: left;
+  }
+
+  ul#topnav.responsive span.text { display: inline-block; }
+
 }
