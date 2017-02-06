@@ -75,4 +75,16 @@ RSpec.describe GroupUsersController, type: :controller do
       end
     end
   end
+
+  describe 'POST #search' do
+    before { xhr :post, :search, name: group.name, user: user.first_name }
+
+    it 'sets @results to matching users' do
+      expect(assigns[:results]).to match(User.search(user.first_name))
+    end
+
+    it do
+      expect(response).to render_template('group_users/search.js.erb')
+    end
+  end
 end
