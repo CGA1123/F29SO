@@ -84,7 +84,7 @@ RSpec.describe GroupUsersController, type: :controller do
     end
 
     it do
-      expect(response).to render_template('group_users/search.js.erb')
+      expect(response).to render_template('group_users/search')
     end
   end
 end

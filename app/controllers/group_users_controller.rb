@@ -40,8 +40,7 @@ class GroupUsersController < ApplicationController
   def search
     string = params[:user]
     @results = User.search(string) unless string.blank?
-
-    render 'group_users/search.js.erb'
+    render 'group_users/search'
   end
 
   private
