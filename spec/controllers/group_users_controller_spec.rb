@@ -17,12 +17,26 @@ RSpec.describe GroupUsersController, type: :controller do
   end
 
   describe 'POST #create' do
-    before { post :create, name: group.name }
+    before { post :create, name: group.name, id: user.id }
 
     it { expect(response).to be_redirect }
 
     it 'sets @group' do
       expect(assigns[:group]).to eq(group)
+    end
+
+    it 'adds user to group' do
+      expect(group.users).to include(user)
+    end
+
+    context 'params invalid' do
+      before { post :create, name: group.name, id: 'id' }
+
+      it { redirect_to group_path(name: group.name) }
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('User not found.')
+      end
     end
   end
 
