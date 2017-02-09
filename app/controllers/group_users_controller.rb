@@ -1,4 +1,5 @@
 class GroupUsersController < ApplicationController
+  before_action :check_permissions
   before_action :set_group
   before_action :set_group_user, only: [:destroy]
   before_action :set_user, only: [:create]
@@ -59,5 +60,9 @@ class GroupUsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     redirect_to group_path(name: @group.name), alert: 'User not found.' \
       unless @user
+  end
+
+  def check_permissions
+    not_found unless current_user.permission?('admin.groups')
   end
 end
