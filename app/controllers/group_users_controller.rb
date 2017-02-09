@@ -1,5 +1,6 @@
 class GroupUsersController < ApplicationController
-  before_action :check_permissions
+  before_action :check_view_permission, only: [:index]
+  before_action :check_manage_permission, only: [:create, :destroy, :search]
   before_action :set_group
   before_action :set_group_user, only: [:destroy]
   before_action :set_user, only: [:create]
@@ -62,7 +63,16 @@ class GroupUsersController < ApplicationController
       unless @user
   end
 
-  def check_permissions
-    not_found unless current_user.permission?('admin.groups')
+  def check_view_permission
+    check_permission('admin.groups.view')
+  end
+
+  def check_manage_permission
+    check_permission('admin.groups.manage.users') ||
+      check_permission('admin.groups.manage')
+  end
+
+  def check_permission(permission)
+    not_found unless current_user.permission?(permission)
   end
 end
