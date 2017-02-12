@@ -1,6 +1,6 @@
 class ProjectTypesController < ApplicationController
   before_action :check_permission
-  before_action :set_project_type, only: [:destroy]
+  before_action :set_project_type, only: [:destroy, :edit, :update]
 
   def index
     @project_types = ProjectType.all
@@ -22,6 +22,17 @@ class ProjectTypesController < ApplicationController
     respond_to do |format|
       format.js {}
     end
+  end
+
+  def edit
+    respond_to do |format|
+      format.js {}
+    end
+  end
+
+  def update
+    @update_success = @project_type.update(project_type_params)
+    @project_type.reload
   end
 
   private
