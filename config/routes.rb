@@ -36,6 +36,7 @@ Rails.application.routes.draw do
   # ProjectTypesController
   get 'project_types', to: 'project_types#index', as: :project_types
   post 'project_types', to: 'project_types#create'
+  delete 'project_types', to: 'project_types#destroy'
 
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups

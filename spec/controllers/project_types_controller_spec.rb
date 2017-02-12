@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe ProjectTypesController, type: :controller do
   let(:no_permission) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
+  let(:project_type) { FactoryGirl.create(:project_type) }
 
   describe 'GET #index' do
     context 'no permission' do
@@ -70,6 +71,59 @@ RSpec.describe ProjectTypesController, type: :controller do
         it do
           expect(response).to render_template('project_types/create')
         end
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    context 'no permission' do
+      before { sign_in no_permission }
+
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :delete, action: :destroy, params: {}, xhr: true }
+        end
+      end
+    end
+
+    context 'has permission' do
+      before { sign_in root_user }
+
+      context 'valid params' do
+        before { xhr :delete, :destroy, id: project_type.id }
+
+        it { expect(response).to be_success }
+
+        it 'deletes project type' do
+          expect(ProjectType.find_by(id: project_type.id)).to be_nil
+        end
+
+        it { expect(response).to render_template('project_types/destroy') }
+      end
+
+      context 'invalid params' do
+        before { xhr :delete, :destroy, id: 'breh' }
+
+        it 'does not delete project type' do
+          expect(ProjectType.find_by(id: project_type.id)).to be_present
+        end
+
+        it { expect(response.location).to eq(project_types_url) }
+      end
+
+      context 'project type has projects' do
+        before do
+          FactoryGirl.create(:project, project_type: project_type)
+          xhr :delete, :destroy, id: project_type.id
+        end
+
+        it { expect(response).to be_success }
+
+        it 'does not delete project type' do
+          expect(ProjectType.find_by(id: project_type.id)).to be_present
+        end
+
+        it { expect(response).to render_template('project_types/destroy') }
       end
     end
   end
