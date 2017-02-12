@@ -45,6 +45,11 @@ Rails.application.routes.draw do
   delete 'groups/:name/users', to: 'group_users#destroy'
   post 'groups/:name/users/search', to: 'group_users#search', as: :group_users_search
 
+  # GroupPermissionsController
+  get 'groups/:name/permissions', to: 'group_permissions#index', as: :group_permissions
+  post 'groups/:name/permissions', to: 'group_permissions#create'
+  delete 'groups/:name/permissions', to: 'group_permissions#destroy'
+
   # LocationsController Routes
   get 'locations', to: 'locations#index', as: :locations
   patch 'locations', to: 'locations#update'
