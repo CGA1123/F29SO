@@ -1,0 +1,4 @@
+<%= form_for user_skill, url: user_skills_path(id: user.id, user_skill_id: user_skill.id), method: :patch, remote: true do |f|%>
+  <%= f.select :rating, options_for_select(UserSkill.ratings) %>
+  <%= f.submit %>
+<% end %>

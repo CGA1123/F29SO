@@ -109,9 +109,8 @@ RSpec.describe GroupsController, type: :controller do
   describe 'POST #create' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) { { method: :delete, action: :destroy, params: {} } }
-      end
+      it_behaves_like 'no permission',
+                       method: :post, action: :create, params: {}
     end
 
     context 'User does have permission' do

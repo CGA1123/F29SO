@@ -6,7 +6,7 @@
 <% else %>
   <% skills.each do |skill| %>
     <div skill-name="<%= skill.name %>">
-      <%= button_to "#{skill.name}", create_user_skill_path(skill_id: skill.id), method: :get %>
+      <%= button_to "#{skill.name}", user_skills_path(skill_id: skill.id), method: :post %>
     </div>
   <% end %>
 <% end %>
