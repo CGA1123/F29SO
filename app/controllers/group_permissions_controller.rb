@@ -3,7 +3,9 @@ class GroupPermissionsController < ApplicationController
   before_action :check_view_permission, only: [:index]
   before_action :set_group
 
-  def index; end
+  def index
+    @group_permissions = @group.permissions
+  end
 
   def create; end
 

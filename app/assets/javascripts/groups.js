@@ -4,3 +4,10 @@ var loadGroupUsers = function(group) {
     cache: false
   });
 };
+
+var loadGroupPermissions = function(group) {
+  $.ajax({
+    url: "/groups/"+group+"/permissions.js",
+    cache: false
+  });
+};

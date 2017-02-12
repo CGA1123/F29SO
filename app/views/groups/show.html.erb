@@ -6,6 +6,11 @@
 <div id='group-users'>
 </div>
 
+<h2>Permissions:</h2>
+<div id='group-permissions'>
+</div>
+
 <script>
   loadGroupUsers('<%= @group.name %>');
+  loadGroupPermissions('<%= @group.name %>')
 </script>
