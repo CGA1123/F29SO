@@ -1,5 +1,9 @@
 <h1>Project Types</h1>
-
+<%= render 'project_types/form' %>
 <div id='project_types'>
-  <%= render @project_types %>
+  <% if @project_types.present? %>
+    <%= render @project_types %>
+  <% else %>
+    <p id='empty'>No Project Types.</p>
+  <% end %>
 </div>
