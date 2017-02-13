@@ -1,1 +1,10 @@
-<%= render @group_permissions %>
+<%= form_tag group_permissions_path, method: :patch, authenticity_token: true, remote: true do %>
+  <% Permission.all.each do |permission| %>
+    <%= check_box_tag 'permission',
+                      permission.id,
+                      @group_permissions.include?(permission),
+                      onclick: "updatePermission('#{@group.name}', this);",
+                      disabled: @disabled %>
+    <%= label_tag permission.name, permission.name %>
+  <% end %>
+<% end %>
