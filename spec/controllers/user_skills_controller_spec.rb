@@ -52,7 +52,11 @@ RSpec.describe UserSkillsController, type: :controller do
       before { sign_in root_user }
 
       context 'valid params' do
-        let(:params) { { user_skill: { user: :root_user, skill: :skill_type, rating: 'novice' } } }
+        let(:params) do
+          { user_skill: { user: :root_user,
+                          skill: :skill_type,
+                          rating: 'novice' } }
+        end
 
         it 'creates a new user skill' do
           expect { post :create, params }.to change(UserSkill, :count).by(1)
