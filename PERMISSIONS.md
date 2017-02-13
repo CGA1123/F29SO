@@ -20,9 +20,9 @@ This file contains a record of all permissions registered in the system.
 | `<project_id>.projects.delete` | `ProjectsController#destroy` | Gives **scoped** permission to delete a specific project |
 | `project.create` | `ProjectsController#create` | Gives permission to create a new project |
 | `admin.groups.view` | `GroupsController#show, #index` & `GroupUsersController#index`  | Allows user to views groups (And group users) |
-| `admin.groups.manage` | `GroupsController#create, #destroy` & `GroupUsersController#create, #search, #destroy` & `GroupPermissionsController#update` | Allows a user to manage groups (creation/deletion), as well as group users (addition, removal), and group permissions (adding/removing) |
+| `admin.groups.manage` | `GroupsController#create, #destroy` & `GroupUsersController#create, #search, #destroy` & `GroupPermissionsController#create` & `#destroy` | Allows a user to manage groups (creation/deletion), as well as group users (addition, removal), and group permissions (adding/removing) |
 | `admin.groups.manage.users` | `GroupUsersController#create, #destroy #search` | Allows user to manage users within a group (addition, removal) |
-| `admin.groups.manage.permissions` | `GroupPermissionsController#update` | Allows user to manage permissions that a group has |
+| `admin.groups.manage.permissions` | `GroupPermissionsController#create` & `#destroy` | Allows user to manage permissions that a group has |
 
 ### Actions requiring only a user account
 
