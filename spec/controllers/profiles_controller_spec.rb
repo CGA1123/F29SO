@@ -216,24 +216,21 @@ RSpec.describe ProfilesController, type: :controller do
 
   context 'User is not signed in' do
     describe 'GET #show' do
-      it_behaves_like 'unauthenticated request',
-                      method: 'get',
-                      action: :show,
-                      params: { id: 'id_shouldnt_matter' }
+      it_behaves_like 'unauthenticated request' do
+        let(:req) { { method: :get, action: :show, params: { id: 'id' } } }
+      end
     end
 
     describe 'GET #edit' do
-      it_behaves_like 'unauthenticated request',
-                      method: 'get',
-                      action: :edit,
-                      params: { id: 'id_shouldnt_matter' }
+      it_behaves_like 'unauthenticated request' do
+        let(:req) { { method: :get, action: :edit, params: { id: 'id' } } }
+      end
     end
 
     describe 'PATCH #update' do
-      it_behaves_like 'unauthenticated request',
-                      method: 'patch',
-                      action: :update,
-                      params: { id: 'id_shouldnt_matter' }
+      it_behaves_like 'unauthenticated request' do
+        let(:req) { { method: :patch, action: :update, params: { id: 'id' } } }
+      end
     end
   end
 end
