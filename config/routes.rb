@@ -51,4 +51,7 @@ Rails.application.routes.draw do
   post 'locations', to: 'locations#create'
   delete 'locations', to: 'locations#destroy'
   get 'locations/:id/edit', to: 'locations#edit', as: :location
+
+  # AdminPanelController Routes
+  get 'admin', to: 'admin_panel#home', as: :admin_home
 end
