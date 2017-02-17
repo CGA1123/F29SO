@@ -8,6 +8,11 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:project_groups).through(:project_group_users) }
   it { is_expected.to have_many(:user_skills) }
   it { is_expected.to have_many(:skills).through(:user_skills) }
+
+  it do
+    is_expected.to have_many(:notifications).with_foreign_key(:recipient_id)
+  end
+
   it { is_expected.to validate_presence_of(:groups) }
   it { is_expected.to validate_presence_of(:first_name) }
   it { is_expected.to validate_presence_of(:last_name) }
