@@ -15,4 +15,22 @@ RSpec.describe NotificationsController, type: :controller do
         eq(Notification.where(recipient: no_permission, read_at: nil))
     end
   end
+
+  describe 'PATCH #mark_as_read' do
+    before do
+      FactoryGirl.create(:notification)
+      patch :mark_as_read, format: :json
+    end
+
+    it { expect(response).to be_success }
+
+    it 'sets all notifications to read' do
+      expect(Notification.where(recipient: no_permission).unread).to be_empty
+    end
+
+    it 'sets @notifications' do
+      expect(assigns[:notifications]).to \
+        eq(Notification.where(recipient: no_permission, read_at: nil))
+    end
+  end
 end
