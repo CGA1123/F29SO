@@ -3,6 +3,6 @@ FactoryGirl.define do
     association :recipient, factory: :user
     association :actor, factory: :user
     association :notifiable, factory: :group
-    action "added you to"
+    action 'added you to'
   end
 end
