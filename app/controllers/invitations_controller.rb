@@ -35,9 +35,12 @@ class InvitationsController < ApplicationController
     @user.email = @invitation.email
     @user.groups = @invitation.groups
     @user.skip_confirmation!
-
     if @user.save
-      @invitation.destroy
+      @invitation.destroy!
+      Notification.create(recipient: @user,
+                          actor: @invitation.inviter,
+                          action: 'welcome',
+                          notifiable_type: @invitation)
       redirect_to unauthenticated_root_path
     else
       render :accept
