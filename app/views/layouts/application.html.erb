@@ -8,6 +8,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <% if user_signed_in? %>
+    <%= render 'layouts/top_nav' %>
+  <% end %>
+
   <div id='flash'>
   <% if notice %>
     <p id='notice'><%= notice %></p>
@@ -16,10 +20,6 @@
     <p id='alert'><%= alert %></p>
   <% end %>
   </div>
-
-  <% if user_signed_in? %>
-    <%= render 'layouts/top_nav' %>
-  <% end %>
 
   <div class="yielded">
     <%= yield %>
