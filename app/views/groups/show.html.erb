@@ -1,6 +1,10 @@
 <h1>Group: <%= @group.name %></h1>
 <p><%= @group.description %></p>
 
+<h2>Permissions:</h2>
+<div id='group-permissions'>
+</div>
+
 <%= render 'group_users/search_form' %>
 <h2>Users:</h2>
 <div id='group-users'>
@@ -8,4 +12,5 @@
 
 <script>
   loadGroupUsers('<%= @group.name %>');
+  loadGroupPermissions('<%= @group.name %>')
 </script>
