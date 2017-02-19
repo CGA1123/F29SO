@@ -29,7 +29,8 @@ class InvitationsController < ApplicationController
     @user = User.new
   end
 
-  # :reek:TooManyStatements { max_statements: 7 }
+  # :reek:TooManyStatements { max_statements: 8 }
+  # rubocop:disable Metrics/MethodLength
   def create_user
     @user = User.new(accept_params)
     @user.email = @invitation.email
@@ -46,6 +47,7 @@ class InvitationsController < ApplicationController
       render :accept
     end
   end
+  # rubobop:enable Metrics/MethodLength
 
   def destroy
     @invitation = Invitation.find_by(id: params[:id])
