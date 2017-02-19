@@ -4,10 +4,13 @@
       <li><a href="#"><%= octicon 'search' %></a></li>
       <li><a href="#">Projects</a></li>
       <div class='right'>
-        <li id='notifications'>
-          <%= link_to '#' do %>
-            <%= octicon 'bell' %>
+        <li class='dropdown' id='notifications'>
+          <%= link_to 'javascript:toggle_notification();' do %>
+	    <%= octicon 'bell' %> <span id='notifications-count'>5</span>
           <% end %>
+	  <div class='dropdown-content' id='notification-dropdown'>
+	    <span>hello</span>
+	  </div>
         </li>
 
         <li id='settings'>
