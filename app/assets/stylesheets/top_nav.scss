@@ -5,6 +5,7 @@
   overflow: hidden;
   background-color: #ffffff;
   border-bottom: #d8d4d5 2px solid;
+
   ul {
     margin: 0;
     padding: 0;
@@ -25,20 +26,14 @@
       text-decoration: none;
       transition: 0.3s;
       font-size: 17px;
-
-      &:hover { background-color: #f0f0f0; }
     }
+
+    :hover { background-color: #f0f0f0; }
   }
 
   .icon { display: none; }
   .text { display: none; }
-
-  .log-out {
-    float: right;
-    a {
-      font-size: 13px;
-    }
-  }
+  .right { float: right; }
 
   li:first-child {
     img {
@@ -63,22 +58,24 @@
 
 /* Hide the list item that contains the link that should open and close the topnav on small screens */
 @media only all and (max-aspect-ratio: 1/1) {
-  ul#topnav li:not(:first-child) { display: none; }
-  ul#topnav li.icon {
-    float: right;
-    display: inline-block;
-  }
+  .right { float: none !important; }
 
-  ul#topnav.responsive {position: relative;}
-  ul#topnav.responsive li.icon {
+  ul#topnav li:not(:first-child) { display: none; }
+
+  ul#topnav.responsive { position: relative; }
+
+  ul#topnav li.icon {
+    display: inline-block;
     position: absolute;
     right: 0;
     top: 0;
   }
+
   ul#topnav.responsive li {
     float: none;
     display: inline;
   }
+
   ul#topnav.responsive li a {
     display: block;
     text-align: left;
@@ -86,4 +83,10 @@
 
   ul#topnav.responsive span.text { display: inline-block; }
 
+  ul#topnav li#notifications {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 48px;
+  }
 }

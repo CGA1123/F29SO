@@ -16,40 +16,11 @@
     <p id='alert'><%= alert %></p>
   <% end %>
   </div>
+
   <% if user_signed_in? %>
-  <div class="topnav">
-    <ul id="topnav">
-      <li class='logo'><%=link_to '/' do %><%= image_tag 'leidos_logo.jpg' %><% end %></li>
-      <li><a href="#"><%= octicon 'search' %></a></li>
-      <li><a href="#">Projects</a></li>
-
-      <li id='notifications'>
-        <%= link_to '' do %>
-          <%= octicon 'bell' %>
-          <span class='text'>Notifications</span>
-
-        <% end %>
-      </li>
-
-      <li id='settings'>
-        <%= link_to '', method: :delete do %>
-          <%= octicon 'gear' %>
-          <span class='text'>Settings</span>
-        <% end %>
-      </li>
-
-      <li id='log-out'>
-        <%= link_to destroy_user_session_path, method: :delete do %>
-          <%= octicon 'sign-out' %>
-          <span class='text'>Sign Out</span>
-        <% end %>
-      </li>
-      <li class="icon">
-        <a href="javascript:void(0);" onclick="toggle_nav();">&#9776;</a>
-      </li>
-    </ul>
-  </div>
+    <%= render 'layouts/top_nav' %>
   <% end %>
+
   <div class="yielded">
     <%= yield %>
   </div>
