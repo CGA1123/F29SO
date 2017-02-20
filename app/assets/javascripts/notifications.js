@@ -13,7 +13,15 @@ var getNotifications = function () {
 };
 
 var showNotifications = function(data) {
-  $('#notifications-count').html(data.length);
+  length = data.length;
+  $('#notifications-count').html(length);
+  dropdown = $('#notification-dropdown');
+  dropdown.empty();
+  for(var i = 0; i < length; i++) {
+    notification = data[i];
+    notification_html = '<a href=' + notification['url'] + '>' + notification['message'] + '</a>'
+    dropdown.append(notification_html);
+  }
 };
 
 // call getNotifications() on document ready
