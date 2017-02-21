@@ -24,5 +24,6 @@ var showNotifications = function(data) {
   }
 };
 
-// call getNotifications() on document ready
-$(getNotifications);
+// call getNotifications() on document ready (through turbolinks)
+$(document).on('turbolinks:load', function() { getNotifications(); });
+
