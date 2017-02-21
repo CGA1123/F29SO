@@ -11,5 +11,19 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe NotificationsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:notification) { FactoryGirl.create(:notification) }
+
+  describe '#notification_path_helper' do
+    it 'returns nil' do
+      expect(notification_path_helper(notification)).to be_nil
+    end
+  end
+
+  describe '#notification_message_helper' do
+    it 'is not yet implemented' do
+      expect(notification_message_helper(notification))
+        .to eq 'Not yet implemented. ' \
+               'See NotificationsHelper#notification_message_helper'
+    end
+  end
 end
