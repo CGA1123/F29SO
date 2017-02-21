@@ -13,11 +13,11 @@ var getNotifications = function () {
 };
 
 var showNotifications = function(data) {
-  length = data.length;
-  $('#notifications-count').html(length);
+  l = data.length;
+  $('#notifications-count').html(l);
   dropdown = $('#notification-dropdown');
   dropdown.empty();
-  for(var i = 0; i < length; i++) {
+  for(var i = 0; i < l; i++) {
     notification = data[i];
     notification_html = '<a href=' + notification['url'] + '>' + notification['message'] + '</a>'
     dropdown.append(notification_html);
