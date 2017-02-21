@@ -30,7 +30,6 @@ class InvitationsController < ApplicationController
   end
 
   # :reek:TooManyStatements { max_statements: 8 }
-  # rubocop:disable Metrics/MethodLength
   def create_user
     @user = User.new(accept_params)
     @user.email = @invitation.email
@@ -38,16 +37,11 @@ class InvitationsController < ApplicationController
     @user.skip_confirmation!
     if @user.save
       @invitation.destroy!
-      Notification.create(recipient: @user,
-                          actor: @invitation.inviter,
-                          action: 'welcome',
-                          notifiable_type: @invitation)
       redirect_to unauthenticated_root_path
     else
       render :accept
     end
   end
-  # rubobop:enable Metrics/MethodLength
 
   def destroy
     @invitation = Invitation.find_by(id: params[:id])
