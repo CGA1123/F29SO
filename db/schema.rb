@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213133436) do
+ActiveRecord::Schema.define(version: 20170217152930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,17 @@ ActiveRecord::Schema.define(version: 20170213133436) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "description"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "recipient_id"
+    t.integer  "actor_id"
+    t.datetime "read_at"
+    t.string   "action"
+    t.string   "notifiable_type"
+    t.integer  "notifiable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "permissions", force: :cascade do |t|
@@ -199,6 +210,8 @@ ActiveRecord::Schema.define(version: 20170213133436) do
   add_foreign_key "invitation_groups", "groups"
   add_foreign_key "invitation_groups", "invitations"
   add_foreign_key "invitations", "users", column: "inviter_id"
+  add_foreign_key "notifications", "users", column: "actor_id"
+  add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "project_group_permissions", "permissions"
   add_foreign_key "project_group_permissions", "project_groups"
   add_foreign_key "project_group_users", "project_groups"

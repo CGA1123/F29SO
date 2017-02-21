@@ -2,12 +2,13 @@
     <ul id="topnav">
       <li class='logo'><%=link_to '/' do %><%= image_tag 'leidos_logo.jpg' %><% end %></li>
       <li><a href="#"><%= octicon 'search' %></a></li>
-      <li><a href="#">Projects</a></li>
+      <li><%= link_to 'Projects', projects_path %></li>
       <div class='right'>
         <li id='notifications'>
-          <%= link_to '#' do %>
-            <%= octicon 'bell' %>
+          <%= link_to 'javascript:toggle_notification();' do %>
+	    <%= octicon 'bell' %> <span id='notifications-count'>0</span>
           <% end %>
+	  <div class='dropdown-content' id='notification-dropdown'></div>
         </li>
 
         <li id='settings'>

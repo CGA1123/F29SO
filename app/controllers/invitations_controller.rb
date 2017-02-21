@@ -29,15 +29,14 @@ class InvitationsController < ApplicationController
     @user = User.new
   end
 
-  # :reek:TooManyStatements { max_statements: 7 }
+  # :reek:TooManyStatements { max_statements: 8 }
   def create_user
     @user = User.new(accept_params)
     @user.email = @invitation.email
     @user.groups = @invitation.groups
     @user.skip_confirmation!
-
     if @user.save
-      @invitation.destroy
+      @invitation.destroy!
       redirect_to unauthenticated_root_path
     else
       render :accept

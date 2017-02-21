@@ -59,4 +59,8 @@ Rails.application.routes.draw do
 
   # AdminPanelController Routes
   get 'admin', to: 'admin_panel#home', as: :admin_home
+
+  # NotificationsController Routes
+  get 'notifications', to: 'notifications#index', as: :notifications
+  patch 'notifications', to: 'notifications#mark_as_read'
 end
