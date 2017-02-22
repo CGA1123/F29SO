@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe UserSkillsController, type: :controller do
   let(:no_permission) { FactoryGirl.create(:user) }
-  let(:no_perm_id) { no_permission.id }
   let(:root_user) { FactoryGirl.create(:root_user) }
   let(:user_skill) { FactoryGirl.create(:user_skill, user: root_user) }
   let(:skill) { FactoryGirl.create(:skill) }
@@ -13,9 +12,13 @@ RSpec.describe UserSkillsController, type: :controller do
   describe 'GET #index' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-       # it_behaves_like 'no permission', method: :get,
-      #                               action: :index,
-      #                                 params: { id: no_perm_id }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :get,
+            action: :index,
+            params: { id: no_permission.id } }
+        end
+      end
     end
 
     context 'User does have permission' do
@@ -45,9 +48,13 @@ RSpec.describe UserSkillsController, type: :controller do
   describe 'POST #create' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      #it_behaves_like 'no permission', method: :post,
-      #                                 action: :create,
-      #                                 params: { id: no_perm_id }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :post,
+            action: :create,
+            params: { id: no_permission.id } }
+        end
+      end
     end
 
     context 'User does have permission' do
@@ -92,9 +99,13 @@ RSpec.describe UserSkillsController, type: :controller do
   describe 'GET #edit' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      #it_behaves_like 'no permission', method: :get,
-      #                                 action: :edit,
-      #                                 params: { id: no_perm_id }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :get,
+            action: :edit,
+            params: { id: no_permission.id } }
+        end
+      end
     end
 
     context 'User does have permission' do
@@ -120,15 +131,23 @@ RSpec.describe UserSkillsController, type: :controller do
   describe 'PATCH #update' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      #it_behaves_like 'no permission', method: :patch,
-      #                                 action: :update,
-      #                                 params: { id: no_perm_id }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :patch,
+            action: :update,
+            params: { id: no_permission.id } }
+        end
+      end
     end
 
     context 'User does have permission' do
       before do
         sign_in root_user
-        xhr :patch, :update, id: root_user.id, user_skill_id: user_skill.id, user_skill: { rating: 1 }
+        xhr :patch,
+            :update,
+            id: root_user.id,
+            user_skill_id: user_skill.id,
+            user_skill: { rating: 1 }
       end
 
       it do
@@ -140,7 +159,7 @@ RSpec.describe UserSkillsController, type: :controller do
       end
 
       it 'assigns @user_skills.rating' do
-        expect(assigns[:user_skill].rating).to eq("novice")
+        expect(assigns[:user_skill].rating).to eq('novice')
       end
 
       it do
@@ -152,9 +171,13 @@ RSpec.describe UserSkillsController, type: :controller do
   describe 'DELETE #destroy' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      # it_behaves_like 'no permission', method: :delete,
-      #                                 action: :destroy,
-      #                                 params: { id: no_perm_id }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :delete,
+            action: :destroy,
+            params: { id: no_permission.id } }
+        end
+      end
     end
 
     context 'User does have permission' do
@@ -174,9 +197,11 @@ RSpec.describe UserSkillsController, type: :controller do
   describe 'POST #search' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      #it_behaves_like 'no permission', method: :post,
-      #                                 action: :search,
-      #                                 params: { id: no_perm_id }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :post, action: :search, params: { id: no_permission.id } }
+        end
+      end
     end
 
     context 'User does have permission' do
@@ -191,15 +216,19 @@ RSpec.describe UserSkillsController, type: :controller do
 
       context 'non empty search string' do
         before do
-          xhr :post, :search, id: root_user.id, skill_name: skill.name, skill_type_id: '0'
+          xhr :post,
+              :search,
+              id: root_user.id,
+              skill_name: skill.name,
+              skill_type_id: '0'
         end
 
         it 'finds a skill mofos' do
           expect(assigns[:skills]).to include(skill)
         end
 
-        it 'assigns @skill_type' do
-          expect(assigns[:skill_type]).to eq('0')
+        it 'assigns @type' do
+          expect(assigns[:type]).to eq('0')
         end
       end
     end

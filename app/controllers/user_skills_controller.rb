@@ -11,12 +11,10 @@ class UserSkillsController < ApplicationController
 
   def search
     @search_string = params[:skill_name].downcase
-    @skill_type = params[:skill_type_id]
-    if @skill_type == '0'
-      @skills = Skill.all
-    else
-      @skills = Skill.where(skill_type_id: @skill_type)
-    end
+    @type = params[:skill_type_id]
+
+    @skills = @type == '0' ? Skill.all : Skill.where(skill_type_id: @type)
+
     @skills = @skills.where('lower(name) LIKE ?', "%#{@search_string}%")
     @skills = nil if @search_string.blank? || @skills.empty?
   end
@@ -25,7 +23,8 @@ class UserSkillsController < ApplicationController
     @user_skill = UserSkill.new(
       user: @user,
       skill: Skill.find_by(id: params[:user_skill][:skill_id]),
-      rating: 'novice')
+      rating: 'novice'
+    )
     @user_skill.save
 
     redirect_to user_skills_path(id: @user.id)
