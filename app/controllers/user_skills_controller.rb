@@ -1,5 +1,6 @@
 class UserSkillsController < ApplicationController
   before_action :set_user
+  before_action :set_user_skill, only: [:destroy, :edit, :update]
 
   def index
     @user_skills = UserSkill.where(user: @user)
@@ -31,14 +32,12 @@ class UserSkillsController < ApplicationController
   end
 
   def edit
-    @user_skill = UserSkill.find(params[:user_skill_id])
     respond_to do |format|
       format.js {}
     end
   end
 
   def update
-    @user_skill = UserSkill.find(params[:user_skill_id])
     @user_skill.rating = params[:user_skill][:rating].to_i
     @user_skill.save
     respond_to do |format|
@@ -47,7 +46,6 @@ class UserSkillsController < ApplicationController
   end
 
   def destroy
-    @user_skill = UserSkill.find(params[:user_skill_id])
     @user_skill.destroy
     respond_to do |format|
       format.js {}
@@ -56,6 +54,12 @@ class UserSkillsController < ApplicationController
   end
 
   private
+
+  def set_user_skill
+    @user_skill = UserSkill.find_by(id: params[:user_skill_id])
+    redirect_to user_skills_path(id: @user.id), alert: 'Skill not found' \
+      unless @user_skill
+  end
 
   def set_user
     @user = User.find_by(id: params[:id])
