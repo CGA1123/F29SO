@@ -23,6 +23,7 @@ This file contains a record of all permissions registered in the system.
 | `admin.groups.manage` | `GroupsController#create, #destroy` & `GroupUsersController#create, #search, #destroy` & `GroupPermissionsController#create` & `#destroy` | Allows a user to manage groups (creation/deletion), as well as group users (addition, removal), and group permissions (adding/removing) |
 | `admin.groups.manage.users` | `GroupUsersController#create, #destroy #search` | Allows user to manage users within a group (addition, removal) |
 | `admin.groups.manage.permissions` | `GroupPermissionsController#create` & `#destroy` | Allows user to manage permissions that a group has |
+| `admin.project_types` | `ProjectTypesController` (all actions) | Allows user to manage `ProjectType` (creation/deletion/updating) |
 
 ### Actions requiring only a user account
 

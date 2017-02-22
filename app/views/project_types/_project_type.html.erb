@@ -1,0 +1,9 @@
+<div class='project_type' id='project-type-<%= project_type.id %>'>
+  <%= project_type.name %> - <%= project_type.description %>
+  <%= link_to edit_project_type_path(id: project_type.id), remote: true do %>
+    <%= octicon 'pencil' %>
+  <% end %>
+  <%= link_to project_type_path(id: project_type.id), method: :delete, remote: true do %>
+    <%= octicon 'trashcan' %>
+  <% end %>
+</div>

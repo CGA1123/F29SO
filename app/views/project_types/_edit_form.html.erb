@@ -1,0 +1,5 @@
+<%= form_for @project_type, url: project_type_path(id: @project_type.id), remote: true do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :description %>
+  <%= f.button 'Submit' %>
+<% end %>

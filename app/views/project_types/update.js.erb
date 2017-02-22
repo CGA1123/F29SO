@@ -1,0 +1,7 @@
+<% if @update_success %>
+  $('#flash').empty();
+<% else %>
+  $('#flash').html("<p id='alert'>Could not update project type.</p>");
+<% end %>
+
+$('#project-type-<%= @project_type.id %>').html("<%= j render 'project_types/project_type', project_type: @project_type %>");
