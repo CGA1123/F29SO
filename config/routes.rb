@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   post 'projects/:code/groups', to: 'project_groups#create'
   get 'projects/:code/groups/new', to: 'project_groups#new', as: :new_project_group
   get 'projects/:code/groups/:name', to: 'project_groups#show', as: :project_group
+  post 'projects/:code/groups/:name/users/search', to: 'project_group_users#search', as: :project_group_users_search
   delete 'projects/:code/groups', to: 'project_groups#destroy'
 
   # GroupsController Routes
