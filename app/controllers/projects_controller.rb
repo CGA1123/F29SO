@@ -51,6 +51,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:code, :name, :project_type_id)
   end
 
+<<<<<<< f3a0b3b69bf938766d9657b207e7375c361b1d4b
   def check_create_permission
     user = current_user
     redirect_to projects_path, alert: 'You cannot do that.' unless \
@@ -74,5 +75,10 @@ class ProjectsController < ApplicationController
     redirect_to projects_path, alert: 'You cannot do that.' unless \
       user.permission?("projects.#{permission}") ||
       user.permission?("#{@project.id}.projects.#{permission}")
+=======
+  def check_permission(permission_name)
+    not_found unless current_user.permission?
+      ("#{project_id}.#{permission_name}")
+>>>>>>> Started project_groups_controller implementation
   end
 end
