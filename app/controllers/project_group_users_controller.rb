@@ -1,0 +1,2 @@
+class ProjectGroupUsersController < ApplicationController
+end

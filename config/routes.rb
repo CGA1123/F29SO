@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'projects/:code', to: 'projects#show', as: :project
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
 
+<<<<<<< HEAD
   # ProjectTypesController
   get 'project_types', to: 'project_types#index', as: :project_types
   post 'project_types', to: 'project_types#create', as: :project_type
@@ -45,6 +46,15 @@ Rails.application.routes.draw do
   post 'projects/:code/groups', to: 'project_groups#create'
   get 'projects/:code/groups/new', to: 'project_group#new', as: :new_project_group
   get 'projects/:code/groups/:name', to: 'project_group#show', as: :project_group
+=======
+  # ProjectGroupsController Routes
+  get 'projects/:code/groups', to: 'project_groups#index', as: :project_groups
+  post 'projects/:code/groups', to: 'project_groups#create'
+  get 'projects/:code/groups/new', to: 'project_groups#new', as: :new_project_group
+  get 'projects/:code/groups/:name', to: 'project_groups#show', as: :project_group
+  post 'projects/:code/groups/:name/users/search', to: 'project_group_users#search', as: :project_group_users_search
+  delete 'projects/:code/groups', to: 'project_groups#destroy'
+>>>>>>> 078e52cb565b33078485fb74688b0b6e3a9da05d
 
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
