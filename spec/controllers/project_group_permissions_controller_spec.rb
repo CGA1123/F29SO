@@ -76,7 +76,7 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
 
       context 'invalid params' do
         before do
-          xhr :post, :create, name: project_group.name, permissions: 0
+          xhr :post, :create, code: project_group.project.code, name: project_group.name, permissions: 0
         end
 
         it 'assigns @permission to nil' do
@@ -84,16 +84,16 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
         end
 
         it 'cannot add permission to group' do
-          expect(group.permissions).not_to include(permission)
+          expect(project_group.permissions).not_to include(permission)
         end
 
         it 'redirects on http request' do
-          post :create, name: group.name, permissions: 0
+          post :create,code: project_code.project.code, name: project_group.name, permissions: 0
           expect(response).to redirect_to(project_group_path(name: group.name))
         end
 
         it 'sets alert' do
-          post :create, name: group.name, permissions: 0
+          post :create, code: project_group.project.code, name: project_group.name, permissions: 0
           expect(flash[:alert]).not_to be_nil
         end
       end
@@ -119,7 +119,7 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
 
       context 'valid params' do
         let(:gp) do
-          ProjectGroupPermission.create(project: project, group: project_group, permission: permission)
+          ProjectGroupPermission.create(project_group: project_group, permission: permission)
         end
 
         before do
@@ -165,7 +165,7 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
 
         context 'group does not have that permission' do
           before do
-            xhr :delete, :destroy, name: project_group.name, permissions: permission.id
+            xhr :delete, :destroy, code: project.code, name: project_group.name, permissions: permission.id
           end
 
           it 'sets @permission' do

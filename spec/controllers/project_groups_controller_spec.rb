@@ -20,7 +20,7 @@ RSpec.describe ProjectGroupsController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        get :index, code: project.code
+        get :index, code: project_group.project.code
       end
 
       it { expect(response).to be_success }
@@ -30,35 +30,47 @@ RSpec.describe ProjectGroupsController, type: :controller do
       end
 
       it 'sets @project' do
-        expect(assigns[:project]).to eq(project)
+        expect(assigns[:project]).to eq(project_group.project)
       end
     end
   end
 
   describe 'POST #create' do
-    before do
-      sign_in user
+
+    context 'no permission' do
+      before { sign_in user }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :get, action: :create, params: { code: project_group.project.code } }
+        end
+      end
     end
 
-    context 'valid params' do
+    context 'has permission' do
       before do
-        post :create, code: project.code, project_group: { name: 'test' }
+        sign_in root_user
       end
 
-      it do
-        expect(response).to be_success
+      context 'valid params' do
+        before do
+          post :create, code: project.code, project_group: { name: 'test' }
+        end
+
+        it do
+          expect(response).to be_success
+        end
+
+        it 'creates a new group' do
+          expect(ProjectGroup.find_by(name: 'test', project: project))
+            .not_to be_nil
+        end
       end
 
-      it 'creates a new group' do
-        expect(ProjectGroup.find_by(name: 'test', project: project))
-          .not_to be_nil
-      end
-    end
-
-    context 'invalid params' do
-      let(:params) { { code: {} } }
-      it 'does not create a new project_group' do
-        expect { post :create, project.code, params }.to change(ProjectGroup, :count).by(0)
+      context 'invalid params' do
+        let(:params) { { code: {} } }
+        it 'does not create a new project_group' do
+          expect { post :create, project.code, params }.to change(ProjectGroup, :count).by(0)
+        end
       end
     end
   end
