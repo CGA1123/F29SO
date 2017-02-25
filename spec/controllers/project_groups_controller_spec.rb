@@ -8,12 +8,10 @@ RSpec.describe ProjectGroupsController, type: :controller do
 
 
   describe 'GET #index' do
-    context 'no permission' do
+    context 'User does not have permission' do
       before { sign_in user }
       it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :get, action: :index, params: { code: project_group.project.code } }
-        end
+        let(:req) { { method: :get, action: :index, params: {code: project.code} } }
       end
     end
 

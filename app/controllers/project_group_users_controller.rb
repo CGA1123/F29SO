@@ -1,4 +1,5 @@
 class ProjectGroupUsersController < ApplicationController
+=begin
   before_action :check_view_permission, only: [:index]
   before_action :check_manage_permission, only: [:create, :destroy, :search]
   before_action :set_project_group
@@ -77,4 +78,5 @@ class ProjectGroupUsersController < ApplicationController
     user.permission?("project.groups.#{permission}") ||
     user.permission?("#{project_id}.projects.groups.#{permission}")
   end
+=end
 end

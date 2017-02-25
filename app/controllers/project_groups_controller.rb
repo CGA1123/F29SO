@@ -5,12 +5,13 @@ class ProjectGroupsController < ApplicationController
 
   def index
     @project_groups = ProjectGroup.where(project: @project)
+    @project_group = ProjectGroup.new
   end
 
   def create
     @project_group = ProjectGroup.new(project_group_params)
+
     @project_group.project = @project
-    @project_groups = ProjectGroup.where(project: @project)
 
     @project_group.save
 
@@ -25,19 +26,18 @@ class ProjectGroupsController < ApplicationController
 
   private
 
+  def check_permission(permission)
+    not_found unless \
+    current_user.permission?("projects.groups.#{permission}") ||
+    current_user.permission?("#{@project.id}.projects.groups.#{permission}")
+  end
+
   def check_view_permission
     check_permission('view')
   end
 
   def check_manage_permission
     check_permission('manage')
-  end
-
-  def check_permission(permission)
-    user = current_user
-    redirect_to projects_path, alert: 'You cannot perform this action.' unless \
-    user.permission?("project.groups.#{permission}") ||
-    user.permission?("#{@project.id}.projects.groups.#{permission}")
   end
 
   def project_group_params
@@ -50,7 +50,8 @@ class ProjectGroupsController < ApplicationController
   end
 
   def set_project_group
-    @project_group = ProjectGroup.find_by(name: params[:name])
-    redirect_to group_projects_path, alert: 'Group not found' unless @projectGroup
+    @project_group = ProjectGroup.find_by(project: params[@project])
+    redirect_to group_projects_path, alert: 'Group not found' unless \
+    @projectGroup
   end
 end
