@@ -1,5 +1,7 @@
 class ProjectGroupsController < ApplicationController
   before_action :set_project, only: [:index, :create]
+  before_action :check_manage_permission, only: [:create]
+  before_action :check_view_permission, only: [:index]
 
   def index
     @project_groups = ProjectGroup.where(project: @project)
@@ -15,13 +17,21 @@ class ProjectGroupsController < ApplicationController
     render :index
   end
 
-  def search
-    string = params[:user]
-    @results = User.search(string) unless string.blank?
-    render 'project_group_users/search'
+  def destroy
+    @project_group.destroy
+
+    redirect_to groups_path, alert: 'Project group deleted.'
   end
 
   private
+
+  def check_view_permission
+    check_permission('view')
+  end
+
+  def check_manage_permission
+    check_permission('manage')
+  end
 
   def check_permissions(permission)
     user = current_user
