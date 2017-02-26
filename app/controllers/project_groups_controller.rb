@@ -11,13 +11,15 @@ class ProjectGroupsController < ApplicationController
 
   def create
     @project_group = ProjectGroup.new(project_group_params)
-
     @project_group.project = @project
+    @project_groups = ProjectGroup.where(project: @project)
 
     @project_group.save
 
     render :index
   end
+
+  def show; end
 
   def destroy
     @project_group.destroy

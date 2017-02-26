@@ -60,6 +60,10 @@ RSpec.describe ProjectGroupsController, type: :controller do
           expect(response).to be_success
         end
 
+        it do
+          expect(response).to render_template(:index)
+        end
+
         it 'creates a new group' do
           expect(ProjectGroup.find_by(name: 'test', project: project))
             .not_to be_nil

@@ -1,7 +1,7 @@
 <div class='group', id='project_group-<%= project_group.id %>'>
-  <%= link_to project_group.name, project_group_path(name: project_group.name) %>
+  <%= link_to project_group.name, project_group_path(code: project_group.project.code, name: project_group.name) %>
   <%= octicon 'organization' %> Members: <%= project_group.users.count %>
-  <%= link_to groups_path(name: project_group.name), method: :delete do %>
+  <%= link_to project_groups_path(code: project_group.project.code, name: project_group.name), method: :delete do %>
     <%= octicon 'trashcan' %>
     Delete
   <% end %>
