@@ -12,7 +12,9 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
       before { sign_in user }
       it_behaves_like 'no permission' do
         let(:req) do
-          { method: :get, action: :index, params: { code: project_group.project.code, name: project_group.name } }
+          { method: :get, action: :index,
+            params: { code: project_group.project.code,
+                      name: project_group.name } }
         end
       end
     end
@@ -38,7 +40,9 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         let(:req) do
           { method: :post,
             action: :create,
-            params: { code: project_group.project.code, name: project_group.name, id: user.id } }
+            params: { code: project_group.project.code,
+                      name: project_group.name,
+                      id: user.id } }
         end
       end
     end
@@ -46,7 +50,9 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        post :create, code: project_group.project.code, name: project_group.name, id: root_user.id
+        post :create, code: project_group.project.code,
+                      name: project_group.name,
+                      id: root_user.id
       end
 
       it { expect(response).to be_redirect }
@@ -60,9 +66,12 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
       end
 
       context 'params invalid' do
-        before { post :create, code: project_group.project.code, name: project_group.name, id: 'id' }
+        before { post :create, code: project_group.project.code,
+                               name: project_group.name,
+                               id: 'id' }
 
-        it { redirect_to project_group_path(code: project_group.project.code, name: project_group.name) }
+        it { redirect_to project_group_path
+               (code: project_group.project.code, name: project_group.name) }
 
         it 'sets alert' do
           expect(flash[:alert]).to eq('User not found.')
@@ -78,7 +87,9 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         let(:req) do
           { method: :post,
             action: :create,
-            params: { code: project_group.project.code, name: project_group.name, id: user.id } }
+            params: { code: project_group.project.code,
+                      name: project_group.name,
+                      id: user.id } }
         end
       end
     end
@@ -86,7 +97,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        delete :destroy, code: project_group.project.code, name: project_group.name
+        delete :destroy, code: project_group.project.code,
+                         name: project_group.name
       end
 
       it 'sets @group' do
@@ -96,9 +108,12 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
       it { expect(response).to be_redirect }
 
       context 'removing user w/ multiple groups from a project_group' do
-        let(:project_group_user) { ProjectGroupUser.create(user: root_user, projectgroup: project_group) }
+        let(:project_group_user)
+          { ProjectGroupUser.create(user: root_user,
+                                    projectgroup: project_group) }
 
-        before { delete :destroy, name: project_group.name, id: project_group_user.id }
+        before { delete :destroy, name: project_group.name,
+                                  id: project_group_user.id }
 
         it 'removes user from project_group' do
           expect(root_user.project_groups).not_to include(project_group)
@@ -108,10 +123,12 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
       context 'removing user w/ only 1 project_group' do
         let(:project_group) { root_user.project_groups.first }
         let(:project_group_user) do
-          ProjectGroupUser.where(user: root_user, project_group: project_group).first
+          ProjectGroupUser.where(user: root_user,
+                                 project_group: project_group).first
         end
 
-        before { delete :destroy, name: project_group.name, id: project_group_user.id }
+        before { delete :destroy, name: project_group.name,
+                                  id: project_group_user.id }
 
         it 'does not remove group' do
           expect(root_user.project_groups).to include(project_group)
@@ -131,7 +148,9 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
           let(:req) do
             { method: :post,
               action: :search,
-              params: { code: project_group.project.code, name: 'test', user: user.first_name },
+              params: { code: project_group.project.code,
+                        name: 'test',
+                        user: user.first_name },
               xhr: true }
           end
         end
@@ -140,7 +159,9 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-          xhr :post, :search, code: project.code, name: 'test', user: root_user.first_name
+          xhr :post, :search, code: project.code,
+                              name: 'test',
+                              user: root_user.first_name
       end
 
       it 'sets @results to matching users' do

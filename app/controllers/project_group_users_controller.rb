@@ -11,8 +11,10 @@ class ProjectGroupUsersController < ApplicationController
   end
 
   def create
-    @project_group_user = ProjectGroupUser.new(user: @user, group: @project_group)
-    path = project_group_path(code: @project_group.project.code, name: @project_group.name)
+    @project_group_user =
+      ProjectGroupUser.new(user: @user, group: @project_group)
+    path = project_group_path
+      (code: @project_group.project.code, name: @project_group.name)
 
     respond_to do |format|
       if @project_group_user.save
@@ -32,7 +34,8 @@ class ProjectGroupUsersController < ApplicationController
       else
         format.js { render :destroy_fail }
         format.html do
-          redirect_to project_group_users_path, alert: "Can't remove user from group."
+          redirect_to project_group_users_path,
+            alert: "Can't remove user from group."
         end
       end
     end
@@ -49,17 +52,21 @@ class ProjectGroupUsersController < ApplicationController
 
   def set_project_group
     @project_group = ProjectGroup.find_by(name: params[:name])
-    redirect_to project_groups_path, alert: 'Group not found.' unless @project_group
+    redirect_to project_groups_path,
+      alert: 'Group not found.' unless @project_group
   end
 
   def set_project_group_user
-    @project_group_user = ProjectGroupUser.find_by(id: params[:id])
-    redirect_to project_group_users_path, alert: 'User not found.' unless @project_group_user
+    @project_group_user =
+      ProjectGroupUser.find_by(id: params[:id])
+    redirect_to project_group_users_path,
+      alert: 'User not found.' unless @project_group_user
   end
 
   def set_user
     @user = User.find_by(id: params[:id])
-    redirect_to project_group_path(name: @project_group.name), alert: 'User not found.' \
+    redirect_to project_group_path
+      (name: @project_group.name), alert: 'User not found.' \
       unless @user
   end
 

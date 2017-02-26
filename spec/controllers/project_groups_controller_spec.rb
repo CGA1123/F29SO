@@ -6,12 +6,14 @@ RSpec.describe ProjectGroupsController, type: :controller do
   let(:project) { FactoryGirl.create(:project) }
   let(:project_group) { FactoryGirl.create(:project_group, project: project) }
 
-
   describe 'GET #index' do
     context 'User does not have permission' do
       before { sign_in user }
       it_behaves_like 'no permission' do
-        let(:req) { { method: :get, action: :index, params: {code: project.code} } }
+        let(:params) do
+          { method: :get, action: :index, params: { code: project.code } }
+        end
+        let(:req) { params }
       end
     end
 
@@ -34,12 +36,12 @@ RSpec.describe ProjectGroupsController, type: :controller do
   end
 
   describe 'POST #create' do
-
     context 'no permission' do
       before { sign_in user }
       it_behaves_like 'no permission' do
         let(:req) do
-          { method: :get, action: :create, params: { code: project_group.project.code } }
+          { method: :get, action: :create,
+            params: { code: project_group.project.code } }
         end
       end
     end
@@ -67,7 +69,8 @@ RSpec.describe ProjectGroupsController, type: :controller do
       context 'invalid params' do
         let(:params) { { code: {} } }
         it 'does not create a new project_group' do
-          expect { post :create, project.code, params }.to change(ProjectGroup, :count).by(0)
+          expect { post :create, project.code, params }
+            .to change(ProjectGroup, :count).by(0)
         end
       end
     end

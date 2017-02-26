@@ -29,7 +29,8 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
       end
 
       it { expect(response).to be_success }
-      it { expect(response).to render_template('project_group_permissions/index') }
+      it { expect(response).to render_template
+        ('project_group_permissions/index') }
 
       it 'assigns @group_permissions' do
         expect(assigns[:project_groups]).to eq(project.project_groups)
@@ -56,7 +57,9 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
 
       context 'valid params' do
         before do
-          xhr :post, :create, code: project.code, name: project_group.name, permissions: permission.id
+          xhr :post, :create, code: project.code,
+                              name: project_group.name,
+                              permissions: permission.id
         end
 
         it { expect(response).to be_success }
@@ -71,13 +74,15 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
 
         it 'redirects on http request' do
           post :create, name: group.name, permissions: permission.id
-          expect(response).to redirect_to(project_group_path(name: project_group.name))
+          expect(response).to redirect_to
+            (project_group_path(name: project_group.name))
         end
       end
 
       context 'invalid params' do
         before do
-          xhr :post, :create, code: project_group.project.code, name: project_group.name, permissions: 0
+          xhr :post, :create, code: project_group.project.code,
+                              name: project_group.name, permissions: 0
         end
 
         it 'assigns @permission to nil' do
@@ -89,12 +94,14 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
         end
 
         it 'redirects on http request' do
-          post :create,code: project_code.project.code, name: project_group.name, permissions: 0
+          post :create,code: project_code.project.code,
+                       name: project_group.name, permissions: 0
           expect(response).to redirect_to(project_group_path(name: group.name))
         end
 
         it 'sets alert' do
-          post :create, code: project_group.project.code, name: project_group.name, permissions: 0
+          post :create, code: project_group.project.code,
+                        name: project_group.name, permissions: 0
           expect(flash[:alert]).not_to be_nil
         end
       end
@@ -120,11 +127,14 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
 
       context 'valid params' do
         let(:gp) do
-          ProjectGroupPermission.create(project_group: project_group, permission: permission)
+          ProjectGroupPermission.create
+            (project_group: project_group, permission: permission)
         end
 
         before do
-          xhr :delete, :destroy, code: project.code, name: project_group.name, permissions: gp.permission.id
+          xhr :delete, :destroy, code: project.code,
+                                 name: project_group.name,
+                                 permissions: gp.permission.id
         end
 
         it { expect(response).to be_success }
@@ -138,15 +148,20 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
         end
 
         it 'redirects on http request' do
-          delete :destroy, code: project.code, name: project_group.name, permissions: gp.permission.id
-          expect(response).to redirect_to(project_group_path(code: project.code, name: project_group.name))
+          delete :destroy, code: project.code,
+                          name: project_group.name,
+                          permissions: gp.permission.id
+          expect(response).to redirect_to
+            (project_group_path(code: project.code, name: project_group.name))
         end
       end
 
       context 'invalid params' do
         context 'permission doesnt exist' do
           before do
-            xhr :delete, :destroy, code: project.code, name: project_group.name, permissions: 0
+            xhr :delete, :destroy, code: project.code,
+                                   name: project_group.name,
+                                   permissions: 0
           end
 
           it 'assigns @permission to nil' do
@@ -154,19 +169,27 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
           end
 
           it 'redirects on http request' do
-            delete :destroy, code: project.code, name: project_group.name, permissions: 0
-            expect(response).to redirect_to(project_group_path(code: project.code, name: project_group.name))
+            delete :destroy, code: project.code,
+                             name: project_group.name,
+                             permissions: 0
+            expect(response).to redirect_to
+              (project_group_path
+                (code: project.code, name: project_group.name))
           end
 
           it 'sets alert' do
-            delete :destroy, code: project.code, name: project_group.name, permissions: 0
+            delete :destroy, code: project.code,
+                             name: project_group.name,
+                             permissions: 0
             expect(flash[:alert]).not_to be_nil
           end
         end
 
         context 'group does not have that permission' do
           before do
-            xhr :delete, :destroy, code: project.code, name: project_group.name, permissions: permission.id
+            xhr :delete, :destroy, code: project.code,
+                                   name: project_group.name,
+                                   permissions: permission.id
           end
 
           it 'sets @permission' do
@@ -178,12 +201,17 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
           end
 
           it 'redirects on http request' do
-            delete :destroy, code: project.code, name: project_group.name, permissions: permission.id
-            expect(response).to redirect_to(project_group_path(code: project.code, name: project_group.name))
+            delete :destroy, code: project.code,
+                            name: project_group.name,
+                            permissions: permission.id
+            expect(response).to redirect_to
+              (project_group_path(code: project.code,
+                                  name: project_group.name))
           end
 
           it 'sets alert' do
-            delete :destroy, name: project_group.name, permissions: permission.id
+            delete :destroy, name: project_group.name,
+                            permissions: permission.id
             expect(flash[:alert]).not_to be_nil
           end
         end
