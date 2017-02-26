@@ -39,3 +39,4 @@ See [Contibution Guidelines](CONTRIBUTING.md) before making changes to the proje
 - Start `redis`                           `redis-server`
 - Start up the server                     `foreman start -f Procfile.dev`
 - Navigate to [`http://localhost:5000`](http://localhost:5000)
+- The default login credentials for the `root` user are: `admin@reaf-rms.local` & `12345678`
