@@ -1,4 +1,5 @@
 class ProjectGroupsController < ApplicationController
+  before_action :set_project_group, only: [:destroy]
   before_action :set_project, only: [:index, :create]
   before_action :check_manage_permission, only: [:create]
   before_action :check_view_permission, only: [:index]
@@ -51,6 +52,7 @@ class ProjectGroupsController < ApplicationController
 
   def set_project_group
     @project_group = ProjectGroup.find_by(project: params[@project])
-    redirect_to group_projects_path, alert: 'Group not found' unless @projectGroup
+    redirect_to group_projects_path, alert: 'Project group not found' unless \
+      @project_group
   end
 end
