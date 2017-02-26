@@ -1,0 +1,10 @@
+<%= form_for @project_group, url: project_groups_path do |f| %>
+  <ul>
+  <% @project_group.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+  <%= f.text_field :name %>
+  <%= f.text_field :description %>
+  <%= f.submit %>
+<% end %>
