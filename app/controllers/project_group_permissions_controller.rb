@@ -1,2 +1,0 @@
-class ProjectGroupPermissionsController < ApplicationController
-end
