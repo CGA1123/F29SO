@@ -50,14 +50,14 @@ class ProjectGroupsController < ApplicationController
 
   def set_project
     @project = Project.find_by(code: params[:code])
-    return if  @project
-    redirect_to projects_path(code: @project.code), alert: 'Project not found'
+    redirect_to projects_path, alert: 'Project not found' \
+      unless @project
   end
 
   def set_project_group
-    @project_group = ProjectGroup.find_by(project: @project)
-    return unless @project_group
-    redirect_to project_groups_path(code: project.code),
-                alert: 'Project group not found'
+    @project_group = ProjectGroup.find_by(project: @project,
+                                          name: params[:name])
+    redirect_to project_groups_path(code: @project.code), alert: 'Not found' \
+      unless @project_group
   end
 end

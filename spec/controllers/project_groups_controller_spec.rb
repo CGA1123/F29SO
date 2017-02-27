@@ -20,17 +20,33 @@ RSpec.describe ProjectGroupsController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        get :index, code: project_group.project.code
       end
 
-      it { expect(response).to be_success }
+      context 'project exists' do
+        before { get :index, code: project_group.project.code }
+        it { expect(response).to be_success }
 
-      it 'sets @project_groups' do
-        expect(assigns[:project_groups]).to eq(project.project_groups)
+        it 'sets @project_groups' do
+          expect(assigns[:project_groups]).to eq(project.project_groups)
+        end
+
+        it 'sets @project' do
+          expect(assigns[:project]).to eq(project_group.project)
+        end
       end
 
-      it 'sets @project' do
-        expect(assigns[:project]).to eq(project_group.project)
+      context 'project does not exist' do
+        before { get :index, code: 'lel_no_project_to_see_here' }
+
+        it 'sets @project to nil' do
+          expect(assigns[:project]).to be_nil
+        end
+
+        it { expect(response).to redirect_to(projects_path) }
+
+        it 'sets alert' do
+          expect(flash[:alert]).to eq('Project not found')
+        end
       end
     end
   end
