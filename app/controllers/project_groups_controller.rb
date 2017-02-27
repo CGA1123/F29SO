@@ -1,8 +1,8 @@
 class ProjectGroupsController < ApplicationController
-  before_action :set_project_group, only: [:destroy]
-  before_action :set_project, only: [:index, :create]
-  before_action :check_manage_permission, only: [:create]
-  before_action :check_view_permission, only: [:index]
+  before_action :set_project, only: [:index, :create, :destroy, :show]
+  before_action :set_project_group, only: [:destroy, :show]
+  before_action :check_manage_permission, only: [:create, :destroy]
+  before_action :check_view_permission, only: [:index, :show]
 
   def index
     @project_groups = ProjectGroup.where(project: @project)
@@ -24,7 +24,8 @@ class ProjectGroupsController < ApplicationController
   def destroy
     @project_group.destroy
 
-    redirect_to groups_path, alert: 'Project group deleted.'
+    redirect_to project_groups_path(code: @project.code),
+                alert: 'Project group deleted.'
   end
 
   private
@@ -49,12 +50,14 @@ class ProjectGroupsController < ApplicationController
 
   def set_project
     @project = Project.find_by(code: params[:code])
-    redirect_to projects_path, alert: 'Project not found' unless @project
+    return if  @project
+    redirect_to projects_path(code: @project.code), alert: 'Project not found'
   end
 
   def set_project_group
-    @project_group = ProjectGroup.find_by(project: params[@project])
-    redirect_to group_projects_path, alert: 'Project group not found' unless \
-      @project_group
+    @project_group = ProjectGroup.find_by(project: @project)
+    return unless @project_group
+    redirect_to project_groups_path(code: project.code),
+                alert: 'Project group not found'
   end
 end
