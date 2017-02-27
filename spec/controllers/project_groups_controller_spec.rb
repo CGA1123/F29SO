@@ -10,10 +10,9 @@ RSpec.describe ProjectGroupsController, type: :controller do
     context 'User does not have permission' do
       before { sign_in user }
       it_behaves_like 'no permission' do
-        let(:params) do
+        let(:req) do
           { method: :get, action: :index, params: { code: project.code } }
         end
-        let(:req) { params }
       end
     end
 
@@ -23,7 +22,7 @@ RSpec.describe ProjectGroupsController, type: :controller do
       end
 
       context 'project exists' do
-        before { get :index, code: project_group.project.code }
+        before { get :index, code: project.code }
         it { expect(response).to be_success }
 
         it 'sets @project_groups' do
@@ -56,8 +55,7 @@ RSpec.describe ProjectGroupsController, type: :controller do
       before { sign_in user }
       it_behaves_like 'no permission' do
         let(:req) do
-          { method: :get, action: :create,
-            params: { code: project_group.project.code } }
+          { method: :get, action: :create, params: { code: project.code } }
         end
       end
     end
@@ -93,6 +91,69 @@ RSpec.describe ProjectGroupsController, type: :controller do
         it 'does not create a new project_group' do
           expect { post :create, params }
             .to change(ProjectGroup, :count).by(0)
+        end
+      end
+    end
+  end
+
+  describe 'GET #show' do
+    context 'no permission' do
+      before { sign_in user }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :get, action: :show, params: { code: project.code,
+                                                   name: project_group.name } }
+        end
+      end
+    end
+
+    context 'has permission' do
+      before { sign_in root_user }
+
+      context 'invalid project' do
+        before { get :show, code: 'lel_no_project_to_see_here', name: 'lol' }
+
+        it 'sets @project to nil' do
+          expect(assigns[:project]).to be_nil
+        end
+
+        it { expect(response).to redirect_to(projects_path) }
+
+        it 'sets alert' do
+          expect(flash[:alert]).to eq('Project not found')
+        end
+      end
+
+      context 'valid project' do
+        context 'valid group' do
+          before { get :show, code: project.code, name: project_group.name }
+
+          it 'sets @project' do
+            expect(assigns[:project]).to eq(project)
+          end
+
+          it 'sets @project_group' do
+            expect(assigns[:project_group]).to eq(project_group)
+          end
+
+          it { expect(response).to render_template('project_groups/show') }
+        end
+
+        context 'invalid group' do
+          before { get :show, code: project.code, name: 'lol' }
+
+          it 'sets @project' do
+            expect(assigns[:project]).to eq(project)
+          end
+
+          it do
+            expect(response) \
+              .to redirect_to(project_groups_path(code: project.code))
+          end
+
+          it 'sets alert' do
+            expect(flash[:alert]).to eq('Not found')
+          end
         end
       end
     end
