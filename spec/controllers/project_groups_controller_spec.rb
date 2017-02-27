@@ -71,8 +71,11 @@ RSpec.describe ProjectGroupsController, type: :controller do
       end
 
       context 'invalid params' do
+        let(:params) do
+          { code: project.code, project_group: { name: '' } }
+        end
         it 'does not create a new project_group' do
-          expect { post :create, code: project.code, project_group: { name: '' } }
+          expect { post :create, params }
             .to change(ProjectGroup, :count).by(0)
         end
       end
