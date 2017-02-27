@@ -158,4 +158,31 @@ RSpec.describe ProjectGroupsController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'no permission' do
+      before { sign_in user }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :get, action: :show, params: { code: project.code,
+                                                   name: project_group.name } }
+        end
+      end
+    end
+
+    context 'has permisison' do
+      before do
+        sign_in root_user
+        delete :destroy, code: project.code, name: project_group.name
+      end
+
+      it 'removes the project group' do
+        expect(project.project_groups).not_to include(project_group)
+      end
+
+      it do
+        expect(response).to redirect_to(project_groups_path(code: project.code))
+      end
+    end
+  end
 end
