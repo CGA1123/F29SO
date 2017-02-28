@@ -39,6 +39,14 @@ Rails.application.routes.draw do
   delete 'project_types', to: 'project_types#destroy'
   patch 'project_types', to: 'project_types#update'
   get 'project_types/:id/edit', to: 'project_types#edit', as: :edit_project_type
+
+  # ProjectGroupsController Routes
+  get 'projects/:code/groups', to: 'project_groups#index', as: :project_groups
+  post 'projects/:code/groups', to: 'project_groups#create'
+  get 'projects/:code/groups/new', to: 'project_groups#new', as: :new_project_group
+  get 'projects/:code/groups/:name', to: 'project_groups#show', as: :project_group
+  delete 'projects/:code/groups', to: 'project_groups#destroy'
+
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
   post 'groups', to: 'groups#create'

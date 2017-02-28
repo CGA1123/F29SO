@@ -53,6 +53,8 @@ RSpec.describe ProjectsController, type: :controller do
       before { sign_in root_user }
 
       context 'params valid' do
+        before { post :create, valid_params }
+
         let(:proj_type) { FactoryGirl.create(:project_type) }
         let(:valid_params) do
           { project: { name: 'ProjX',
@@ -61,14 +63,17 @@ RSpec.describe ProjectsController, type: :controller do
         end
 
         it do
-          post :create, valid_params
           expect(response).to \
             redirect_to(project_path(code: valid_params[:project][:code]))
         end
 
         it 'creates a new Project' do
-          expect { post :create, valid_params }
-            .to change(Project, :count).by(1)
+          expect(Project.find_by(code: 'X')).not_to be_nil
+        end
+
+        it 'create the owner group' do
+          proj = Project.find_by(code: 'X')
+          expect(ProjectGroup.where(project: proj).first).to be_persisted
         end
       end
 
