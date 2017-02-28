@@ -10,17 +10,6 @@ RSpec.describe UserSkillsController, type: :controller do
   end
 
   describe 'GET #index' do
-    context 'User does not have permission' do
-      before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :get,
-            action: :index,
-            params: { id: no_permission.id } }
-        end
-      end
-    end
-
     context 'User does have permission' do
       before do
         sign_in root_user
@@ -47,13 +36,17 @@ RSpec.describe UserSkillsController, type: :controller do
 
   describe 'POST #create' do
     context 'User does not have permission' do
-      before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :post,
-            action: :create,
-            params: { id: no_permission.id } }
-        end
+      before do
+        sign_in no_permission
+        post :create, id: no_permission.id
+      end
+
+      it do
+        expect(response).to redirect_to(user_skills_path(id: no_permission.id))
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('No Permission')
       end
     end
 
@@ -62,8 +55,7 @@ RSpec.describe UserSkillsController, type: :controller do
 
       context 'valid params' do
         let(:params) do
-          { user_skill: { skill_id: skill.id,
-                          rating: 1 },
+          { skill_id: skill.id,
             id: root_user.id }
         end
 
@@ -98,13 +90,17 @@ RSpec.describe UserSkillsController, type: :controller do
 
   describe 'GET #edit' do
     context 'User does not have permission' do
-      before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :get,
-            action: :edit,
-            params: { id: no_permission.id } }
-        end
+      before do
+        sign_in no_permission
+        patch :update, id: root_user.id
+      end
+
+      it 'sets @edit' do
+        expect(assigns[:edit]).to be_falsy
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('No Permission')
       end
     end
 
@@ -130,13 +126,17 @@ RSpec.describe UserSkillsController, type: :controller do
 
   describe 'PATCH #update' do
     context 'User does not have permission' do
-      before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :patch,
-            action: :update,
-            params: { id: no_permission.id } }
-        end
+      before do
+        sign_in no_permission
+        patch :update, id: root_user.id
+      end
+
+      it 'sets @edit' do
+        expect(assigns[:edit]).to be_falsy
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('No Permission')
       end
     end
 
@@ -170,13 +170,17 @@ RSpec.describe UserSkillsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'User does not have permission' do
-      before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :delete,
-            action: :destroy,
-            params: { id: no_permission.id } }
-        end
+      before do
+        sign_in no_permission
+        delete :destroy, id: root_user.id
+      end
+
+      it 'sets @edit' do
+        expect(assigns[:edit]).to be_falsy
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('No Permission')
       end
     end
 
@@ -192,15 +196,34 @@ RSpec.describe UserSkillsController, type: :controller do
 
       it { expect(response).to redirect_to(user_skills_path(id: root_user.id)) }
     end
+
+    context 'invalid params' do
+      before do
+        sign_in root_user
+        delete :destroy, id: root_user, user_skill_id: 'lel'
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('Skill not found')
+      end
+
+      it { expect(response).to redirect_to(user_skills_path(id: root_user.id)) }
+    end
   end
 
   describe 'POST #search' do
     context 'User does not have permission' do
-      before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :post, action: :search, params: { id: no_permission.id } }
-        end
+      before do
+        sign_in no_permission
+        xhr :post, :search, id: root_user.id, skill_name: ''
+      end
+
+      it 'sets @edit' do
+        expect(assigns[:edit]).to be_falsy
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('No Permission')
       end
     end
 
@@ -225,10 +248,6 @@ RSpec.describe UserSkillsController, type: :controller do
 
         it 'finds a skill mofos' do
           expect(assigns[:skills]).to include(skill)
-        end
-
-        it 'assigns @type' do
-          expect(assigns[:type]).to eq('0')
         end
       end
     end
