@@ -180,8 +180,29 @@ RSpec.describe ProjectGroupsController, type: :controller do
         expect(project.project_groups).not_to include(project_group)
       end
 
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('Group deleted')
+      end
+
       it do
         expect(response).to redirect_to(project_groups_path(code: project.code))
+      end
+    end
+
+    context 'deleting Owner group' do
+      before do
+        sign_in root_user
+        FactoryGirl.create(:project_group, name: 'Owner', project: project)
+        delete :destroy, code: project.code, name: 'Owner'
+      end
+
+      it 'does not delete group' do
+        expect(ProjectGroup.find_by(project: project, name: 'Owner'))
+          .not_to be_nil
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq("Can't remove Owners")
       end
     end
   end

@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  has_many :project_groups, dependent: :destroy
+  has_many :project_groups, dependent: :delete_all
   has_many :users, through: :project_groups
   belongs_to :project_type
   has_many :project_skills, dependent: :destroy

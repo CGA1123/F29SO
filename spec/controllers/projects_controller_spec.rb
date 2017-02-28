@@ -72,9 +72,8 @@ RSpec.describe ProjectsController, type: :controller do
         end
 
         it 'create the owner group' do
-          project = Project.find_by(code: 'X')
-          expect(ProjectGroup.find_by(name: 'Owner', project: project))
-            .not_to be_nil
+          proj = Project.find_by(code: 'X')
+          expect(ProjectGroup.where(project: proj).first).to be_persisted
         end
       end
 

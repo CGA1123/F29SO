@@ -24,8 +24,9 @@ class ProjectGroupsController < ApplicationController
   def destroy
     @project_group.destroy
 
+    msg = @project_group.destroyed? ? 'Group deleted' : "Can't remove Owners"
     redirect_to project_groups_path(code: @project.code),
-                alert: 'Project group deleted.'
+                alert: msg
   end
 
   private
