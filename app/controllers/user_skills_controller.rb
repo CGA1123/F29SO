@@ -67,7 +67,7 @@ class UserSkillsController < ApplicationController
 
   def can_edit?
     u = current_user
-    perm = 'profile.skills.edit'
+    perm = 'profile.skills.manage'
     @edit = u == @user ? u.permission?(perm) : u.permission?("#{perm}.others")
   end
 

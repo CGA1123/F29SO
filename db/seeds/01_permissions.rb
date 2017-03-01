@@ -14,8 +14,8 @@ Permission.create!(name: 'users.invite.delete', description: 'placeholder...')
 # Profiles
 Permission.create!(name: 'profile.edit', description: 'placeholder...')
 Permission.create!(name: 'profile.edit.others', description: 'placeholder...')
-Permission.create!(name: 'profile.skills.edit', description: 'placeholder...')
-Permission.create!(name: 'profile.skills.edit.others', description: 'placeholder...')
+Permission.create!(name: 'profile.skills.manage', description: 'placeholder...')
+Permission.create!(name: 'profile.skills.manage.others', description: 'placeholder...')
 
 # Projects
 Permission.create!(name: 'projects.view', description: 'placeholder...')
