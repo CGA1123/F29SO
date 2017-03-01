@@ -39,6 +39,7 @@ class ProjectGroupPermissionsController < ApplicationController
       unless @project_group
   end
 
+  # rubocop:disable Style/MultilineIfModifier
   def set_permission
     @permission = Permission.find_by(id: project_group_permissions_params.to_i)
     redirect_to project_group_path(code: @project.code,
@@ -56,6 +57,7 @@ class ProjectGroupPermissionsController < ApplicationController
                                    name: @project_group.name) \
       unless @project_group_permission
   end
+  # rubocop:enable Style/MultilineIfModifier
 
   def project_group_permissions_params
     params.require(:permissions)
