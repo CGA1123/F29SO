@@ -16,6 +16,13 @@ Rails.application.routes.draw do
   patch 'profile/:id', to: 'profiles#update'
   get 'profile/:id/edit', to: 'profiles#edit', as: :edit_profile
 
+  get 'profile/:id/skills', to: 'user_skills#index', as: :user_skills
+  post 'profile/:id/skills', to: 'user_skills#create'
+  patch 'profile/:id/skills', to: 'user_skills#update'
+  delete 'profile/:id/skills', to: 'user_skills#destroy'
+  post 'profile/:id/skills/search', to: 'user_skills#search', as: :user_skills_search
+  get 'profile/:id/skills/:user_skill_id/edit', to: 'user_skills#edit', as: :edit_user_skill
+
   # InvitationsController Routes
   get 'invitations/new', to: 'invitations#new', as: :new_invitation
   get 'invitations', to: 'invitations#index', as: :invitations

@@ -12,6 +12,8 @@ This file contains a record of all permissions registered in the system.
 | `users.invite.delete` | `InvitationsController#destroy` | Allows a user to delete any invitation |
 | `profile.edit` | `ProfilesController#edit` & `ProfilesController#update` | Allows a user to edit his own profile |
 | `profile.edit.others` | `ProfilesController#edit` & `ProfilesController#update` | Allows a user to edit others profile (A user with this permission can **also** edit his own profile) |
+| `profile.skills.manage` | `UserSkill#search`, `#create`, `#edit`, `#update`, & `UserSkill#destroy` | Allows a user to edit their skills set |
+| `profile.skills.manage.others` | `UserSkill#search`, `#create`, `#edit`, `#update`, & `UserSkill#destroy` | Allows a user to edit other users' skills set |
 | `projects.view` | `ProjectsController#show` | Gives **global** permission to view any project |
 | `<project_id>.projects.view` | `ProjectsController#show` | Gives **scoped** permission to view a specific project |
 | `projects.edit` | `ProjectsController#update` & `ProjectsController#edit` | Gives **global** permission to edit any project |

@@ -1,0 +1,4 @@
+$('#user_skill-<%= @user_skill.id %>').remove();
+<% if @user.user_skills.empty? %>
+  $('#skills').html("<p id='no-skills'>User has no Skills.</p>");
+<% end %>
