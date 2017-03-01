@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   belongs_to :location
 
-  has_many :group_users
+  has_many :group_users, dependent: :delete_all
   has_many :groups, through: :group_users
 
   has_many :project_group_users
@@ -13,7 +13,16 @@ class User < ActiveRecord::Base
   has_many :user_skills
   has_many :skills, through: :user_skills
 
+  has_many :notifications, foreign_key: :recipient_id
+
   validates :groups, :first_name, :last_name, :location, presence: true
+
+  def self.search(string)
+    where('lower(first_name) LIKE :string OR ' \
+          'lower(email) LIKE :string OR ' \
+          'lower(last_name) LIKE :string',
+          string: "%#{string.downcase}%")
+  end
 
   def permission?(permission_name)
     return true if groups.map(&:name).include?('root')

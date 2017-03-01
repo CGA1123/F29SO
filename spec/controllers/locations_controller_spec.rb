@@ -7,19 +7,17 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'GET #index' do
     context 'user not signed in' do
-      it_behaves_like 'unauthenticated request',
-                      method: :get,
-                      action: :index,
-                      params: {}
+      it_behaves_like 'unauthenticated request' do
+        let(:req) { { method: :get, action: :index, params: {} } }
+      end
     end
 
     context 'user is signed in' do
       context 'user does not have permission' do
         before { sign_in user }
-        it_behaves_like 'no permission',
-                        method: :get,
-                        action: :index,
-                        params: {}
+        it_behaves_like 'no permission' do
+          let(:req) { { method: :get, action: :index, params: {} } }
+        end
       end
 
       context 'user has permission' do
@@ -41,19 +39,17 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'GET #edit' do
     context 'user not signed in' do
-      it_behaves_like 'unauthenticated request',
-                      method: :get,
-                      action: :edit,
-                      params: { id: 'no_id' }
+      it_behaves_like 'unauthenticated request' do
+        let(:req) { { method: :get, action: :edit, params: { id: 'id' } } }
+      end
     end
 
     context 'user signed in' do
       context 'user does not have permission' do
         before { sign_in user }
-        it_behaves_like 'no permission',
-                        method: :get,
-                        action: :edit,
-                        params: { id: 'no_id' }
+        it_behaves_like 'no permission' do
+          let(:req) { { method: :get, action: :edit, params: { id: 'id' } } }
+        end
       end
 
       context 'user has permission' do
@@ -77,19 +73,19 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'PATCH #update' do
     context 'user not signed in' do
-      it_behaves_like 'unauthenticated request',
-                      method: :patch,
-                      action: :update,
-                      params: { id: 'no_id' }
+      it_behaves_like 'unauthenticated request' do
+        let(:req) do
+          { method: :patch, action: :update, params: { id: 'no_id' } }
+        end
+      end
     end
 
     context 'user is signed in' do
       context 'user does not have permission' do
         before { sign_in user }
-        it_behaves_like 'no permission',
-                        method: :patch,
-                        action: :update,
-                        params: { id: 'no_id' }
+        it_behaves_like 'no permission' do
+          let(:req) { { method: :patch, action: :update, params: { id: 'i' } } }
+        end
       end
 
       context 'user has permission' do
@@ -131,19 +127,17 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'POST #create' do
     context 'user not signed in' do
-      it_behaves_like 'unauthenticated request',
-                      method: :post,
-                      action: :create,
-                      params: { id: 'no_id' }
+      it_behaves_like 'unauthenticated request' do
+        let(:req) { { method: :post, action: :create, params: { id: 'id' } } }
+      end
     end
 
     context 'user is signed in' do
       context 'user does not have permission' do
         before { sign_in user }
-        it_behaves_like 'no permission',
-                        method: :post,
-                        action: :create,
-                        params: { id: 'no_id' }
+        it_behaves_like 'no permission' do
+          let(:req) { { method: :post, action: :create, params: { id: 'i' } } }
+        end
       end
 
       context 'user has permission' do
@@ -187,19 +181,21 @@ RSpec.describe LocationsController, type: :controller do
 
   describe 'DELETE #destroy' do
     context 'user not signed in' do
-      it_behaves_like 'unauthenticated request',
-                      method: :delete,
-                      action: :destroy,
-                      params: { id: 'no_id' }
+      it_behaves_like 'unauthenticated request' do
+        let(:req) do
+          { method: :delete, action: :destroy, params: { id: 'id' } }
+        end
+      end
     end
 
     context 'user is signed in' do
       context 'user does not have permission' do
         before { sign_in user }
-        it_behaves_like 'no permission',
-                        method: :delete,
-                        action: :destroy,
-                        params: { id: 'no_id' }
+        it_behaves_like 'no permission' do
+          let(:req) do
+            { method: :delete, action: :destroy, params: { id: 'id' } }
+          end
+        end
       end
 
       context 'user has permission' do

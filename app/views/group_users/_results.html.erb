@@ -1,0 +1,5 @@
+<% results.each do |user| %>
+  <%= link_to group_users_path(name: group.name, id: user.id), method: :post, remote: true do %>
+    <p><%= user.name %></p>
+  <% end %>
+<% end %>

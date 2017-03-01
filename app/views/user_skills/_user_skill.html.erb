@@ -1,0 +1,7 @@
+<tr class="skill" id="user_skill-<%= user_skill.id %>">
+  <td><%= "#{user_skill.skill.name}" %></td>
+  <td><%= "#{user_skill.skill.description}" %></td>
+  <td class='rating'><%= "#{user_skill.rating}" %></td>
+  <td class='edit_submit'><%= button_to "Edit", edit_user_skill_path(id: user_skill.user_id, user_skill_id: user_skill.id), method: :get, remote: true %></td>
+  <td><%= button_to "Remove", user_skills_path(id: user_skill.user_id, user_skill_id: user_skill.id), method: :delete, remote: true %></td>
+</tr>

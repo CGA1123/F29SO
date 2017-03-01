@@ -8,7 +8,9 @@ RSpec.describe GroupsController, type: :controller do
   describe 'GET #index' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      it_behaves_like 'no permission', method: :get, action: :index, params: {}
+      it_behaves_like 'no permission' do
+        let(:req) { { method: :get, action: :index, params: {} } }
+      end
     end
 
     context 'User does have permission' do
@@ -34,7 +36,9 @@ RSpec.describe GroupsController, type: :controller do
   describe 'GET #show' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      it_behaves_like 'no permission', method: :get, action: :index, params: {}
+      it_behaves_like 'no permission' do
+        let(:req) { { method: :get, action: :index, params: {} } }
+      end
     end
 
     context 'User does have permission' do
@@ -63,8 +67,9 @@ RSpec.describe GroupsController, type: :controller do
   describe 'DELETE #destroy' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      it_behaves_like 'no permission',
-                      method: :delete, action: :destroy, params: {}
+      it_behaves_like 'no permission' do
+        let(:req) { { method: :delete, action: :destroy, params: {} } }
+      end
     end
 
     context 'User does have permission' do
@@ -104,8 +109,9 @@ RSpec.describe GroupsController, type: :controller do
   describe 'POST #create' do
     context 'User does not have permission' do
       before { sign_in no_permission }
-      it_behaves_like 'no permission',
-                      method: :delete, action: :destroy, params: {}
+      it_behaves_like 'no permission' do
+        let(:req) { { method: :post, action: :create, params: {} } }
+      end
     end
 
     context 'User does have permission' do

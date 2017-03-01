@@ -1,5 +1,5 @@
 <h1>Projects#edit</h1>
-<%= form_for @project, url: project_path(@project.code), method: :patch do |f| %>
+<%= form_for @project, url: projects_path(code: @project.code), method: :patch do |f| %>
   <ul>
   <% @project.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>

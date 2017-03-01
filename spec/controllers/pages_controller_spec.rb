@@ -11,10 +11,9 @@ RSpec.describe PagesController, type: :controller do
     end
 
     context 'when not logged in' do
-      it_behaves_like 'unauthenticated request',
-                      method: :get,
-                      action: :user_home,
-                      params: {}
+      it_behaves_like 'unauthenticated request' do
+        let(:req) { { method: :get, action: :user_home, params: {} } }
+      end
     end
   end
 end
