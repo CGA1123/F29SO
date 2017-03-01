@@ -54,7 +54,8 @@ class ProjectGroupPermissionsController < ApplicationController
     )
 
     redirect_to project_group_path(code: @project.code,
-                                   name: @project_group.name) \
+                                   name: @project_group.name),
+                alert: 'Permission not found' \
       unless @project_group_permission
   end
   # rubocop:enable Style/MultilineIfModifier
@@ -81,7 +82,8 @@ class ProjectGroupPermissionsController < ApplicationController
     redirect_to project_groups_path(code: @project.code) unless view_permission
   end
 
+  # This controller should only be accessible through xhr/ajax requests
   def check_format
-    not_found if params[:format] != 'js' && !(request.headers['Accept'] =~ /js/)
+    not_found unless request.xhr?
   end
 end
