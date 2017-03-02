@@ -32,6 +32,9 @@ Permission.create!(name: 'projects.groups.manage.users', description: 'placehold
 # ProjectGroupPermissions
 Permission.create!(name: 'projects.groups.manage.permissions', description: 'placeholder...')
 
+# ProjectLocations
+Permission.create!(name: 'projects.groups.manage.locations', description: 'placeholder...')
+
 # Groups
 Permission.create!(name: 'admin.groups.view', description: 'placeholder...')
 Permission.create!(name: 'admin.groups.manage', description: 'placeholder...')

@@ -1,2 +1,8 @@
 <h1><%= @project.code %> - <%= @project.name %></h1>
+<div id='locations'>
+</div>
 <p>Find me in app/views/projects/show.html.erb</p>
+
+<script>
+  loadProjectLocations('<%= @project.code %>');
+</script>
