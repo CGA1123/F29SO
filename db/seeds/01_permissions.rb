@@ -23,10 +23,13 @@ Permission.create!(name: 'projects.edit', description: 'placeholder...')
 Permission.create!(name: 'projects.create', description: 'placeholder...')
 Permission.create!(name: 'projects.delete', description: 'placeholder...')
 
-# Project Groups
-Permission.create!(name: 'projects.groups.edit', description: 'placeholder...')
+# ProjectGroups
 Permission.create!(name: 'projects.groups.manage', description: 'placeholder...')
+
+# ProjectGroupUsers
 Permission.create!(name: 'projects.groups.manage.users', description: 'placeholder...')
+
+# ProjectGroupPermissions
 Permission.create!(name: 'projects.groups.manage.permissions', description: 'placeholder...')
 
 # Groups

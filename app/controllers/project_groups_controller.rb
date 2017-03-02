@@ -31,18 +31,18 @@ class ProjectGroupsController < ApplicationController
 
   private
 
-  def check_permission(permission)
-    not_found unless \
-    current_user.permission?("projects.groups.#{permission}") ||
-    current_user.permission?("#{@project.id}.projects.groups.#{permission}")
-  end
-
   def check_view_permission
-    check_permission('view')
+    user = current_user
+    not_found unless \
+      user.permission?('projects.view') ||
+      user.permission?("#{@project.id}.projects.view")
   end
 
   def check_manage_permission
-    check_permission('manage')
+    user = current_user
+    not_found unless \
+      user.permission?('projects.groups.manage') ||
+      user.permission?("#{@project.id}.projects.groups.manage")
   end
 
   def project_group_params
