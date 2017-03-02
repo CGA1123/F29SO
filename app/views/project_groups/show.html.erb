@@ -1,1 +1,8 @@
 <h1>Group: <%= @project_group.name %></h1>
+
+<div id='project-group-permissions'>
+</div>
+
+<script>
+  loadProjectGroupPermissions('<%= @project.code %>','<%= @project_group.name %>')
+</script>

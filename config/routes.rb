@@ -54,6 +54,10 @@ Rails.application.routes.draw do
   get 'projects/:code/groups/:name', to: 'project_groups#show', as: :project_group
   delete 'projects/:code/groups', to: 'project_groups#destroy'
 
+  # ProjectGroupPermissionsController Routes
+  get 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#index', as: :project_group_permissions
+  post 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#create'
+  delete 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#destroy'
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
   post 'groups', to: 'groups#create'
