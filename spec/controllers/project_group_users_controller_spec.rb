@@ -53,11 +53,11 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
 
       it { expect(response).to be_redirect }
 
-      it 'sets @group' do
+      it 'sets @project_group' do
         expect(assigns[:project_group]).to eq(project_group)
       end
 
-      it 'adds user to group' do
+      it 'adds user to project group' do
         expect(project_group.users).to include(root_user)
       end
 
@@ -67,7 +67,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         end
 
         it do
-          redirect_to project_group_path(code: project.code, name: group.name)
+          redirect_to project_group_path(code: project.code,
+                                         name: project_group.name)
         end
 
         it 'sets alert' do
@@ -82,8 +83,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
       before { sign_in no_permission }
       it_behaves_like 'no permission' do
         let(:req) do
-          { method: :post,
-            action: :create,
+          { method: :delete,
+            action: :destroy,
             params: { code: project.code,
                       name: project_group.name,
                       id: no_permission.id } }
@@ -97,13 +98,13 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         delete :destroy, code: project.code, name: project_group.name
       end
 
-      it 'sets @group' do
+      it 'sets @project_group' do
         expect(assigns[:project_group]).to eq(project_group)
       end
 
       it { expect(response).to be_redirect }
 
-      context 'removing user w/ multiple groups from a group' do
+      context 'removing user w/ multiple project groups from a project group' do
         let(:project_group_user) do
           ProjectGroupUser.create(user: root_user, project_group: project_group)
         end
@@ -114,12 +115,12 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
                            id: project_group_user.id
         end
 
-        it 'removes user from group' do
+        it 'removes user from project group' do
           expect(root_user.project_groups).not_to include(project_group)
         end
       end
 
-      context 'removing user w/ only 1 group' do
+      context 'removing user w/ only 1 project group' do
         let(:project_group) { root_user.project_groups.first }
         let(:project_group_user) do
           ProjectGroupUser.where(user: root_user,
@@ -129,7 +130,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         before do
           delete :destroy, code: project.code,
                            name: project_group.name,
-                           id: group_user.id
+                           id: project_group_user.id
         end
 
         it 'does not remove group' do

@@ -64,6 +64,11 @@ Rails.application.routes.draw do
   delete 'projects/:code/locations', to: 'project_locations#destroy'
   get 'projects/:code/locations/edit', to: 'project_locations#edit', as: :project_locations_edit
 
+  # ProjectGroupUsersController Routes
+  get 'projects/:code/groups/:name/users', to: 'project_group_users#index', as: :project_group_users
+  post 'projects/:code/groups/:name/users', to: 'project_group_users#create'
+  delete 'projects/:code/groups/:name/users', to: 'project_group_users#destroy'
+  post 'projects/:code/groups/:name/users/search', to: 'project_group_users#search', as: :project_group_users_search
 
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
