@@ -4,10 +4,8 @@ class ProjectsController < PermissionController
 
   def index
     @projects = Project.all
-  end
-
-  def new
     @project = Project.new
+    @can_create = current_user.permission?('projects.create')
   end
 
   def create
@@ -18,7 +16,8 @@ class ProjectsController < PermissionController
                           project: @project)
       redirect_to project_path(code: @project.code)
     else
-      render :new
+      @projects = Project.all
+      render :index
     end
   end
 

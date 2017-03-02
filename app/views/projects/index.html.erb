@@ -1,4 +1,10 @@
 <h1>Projects</h1>
+<% if @can_create %>
+<div id='new-project'>
+  <%= render 'projects/new' %>
+</div>
+<% end %>
+
 <div id='projects'>
   <%= render @projects %>
 </div>
