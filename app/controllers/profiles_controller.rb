@@ -1,4 +1,4 @@
-class ProfilesController < ApplicationController
+class ProfilesController < PermissionController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :check_permission, only: [:edit, :update]
 

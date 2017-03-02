@@ -1,4 +1,4 @@
-class GroupUsersController < ApplicationController
+class GroupUsersController < PermissionController
   before_action :check_view_permission, only: [:index]
   before_action :check_manage_permission, only: [:create, :destroy, :search]
   before_action :set_group

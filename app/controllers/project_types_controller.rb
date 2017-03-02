@@ -1,4 +1,4 @@
-class ProjectTypesController < ApplicationController
+class ProjectTypesController < PermissionController
   before_action :check_permission
   before_action :set_project_type, only: [:destroy, :edit, :update]
 

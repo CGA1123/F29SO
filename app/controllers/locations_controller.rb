@@ -1,4 +1,4 @@
-class LocationsController < ApplicationController
+class LocationsController < PermissionController
   before_action :check_permission
   before_action :set_location, only: [:edit, :update, :destroy]
 

@@ -1,4 +1,4 @@
-class ProjectGroupsController < ApplicationController
+class ProjectGroupsController < PermissionController
   before_action :set_project, only: [:index, :create, :destroy, :show]
   before_action :set_project_group, only: [:destroy, :show]
   before_action :check_manage_permission, only: [:create, :destroy]

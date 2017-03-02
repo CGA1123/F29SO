@@ -1,4 +1,4 @@
-class ProjectsController < ApplicationController
+class ProjectsController < PermissionController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
   before_action :check_create_permission, only: [:new, :create]
   before_action :check_update_permissions, only: [:edit, :update]

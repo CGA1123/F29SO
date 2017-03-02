@@ -1,4 +1,4 @@
-class UserSkillsController < ApplicationController
+class UserSkillsController < PermissionController
   before_action :set_user
   before_action :can_edit?
   before_action :check_permission, except: [:index]

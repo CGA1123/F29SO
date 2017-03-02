@@ -1,4 +1,4 @@
-class ProjectGroupPermissionsController < ApplicationController
+class ProjectGroupPermissionsController < PermissionController
   before_action :check_format
   before_action :set_project
   before_action :set_project_group

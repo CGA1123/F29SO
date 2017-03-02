@@ -1,4 +1,4 @@
-class InvitationsController < ApplicationController
+class InvitationsController < PermissionController
   before_action :authenticate_inviter, only: [:create, :new, :index, :destroy]
   before_action :check_permissions, only: [:create]
 
