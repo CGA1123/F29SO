@@ -1,5 +1,5 @@
 class LocationsController < PermissionController
-  before_action :check_permission
+  before_action :check_permissions
   before_action :set_location, only: [:edit, :update, :destroy]
 
   def index
@@ -60,9 +60,5 @@ class LocationsController < PermissionController
   def set_location
     @location = Location.find_by(id: params[:id])
     redirect_to locations_path, alert: 'Location not found.' unless @location
-  end
-
-  def check_permission
-    not_found unless current_user.permission?('admin.locations')
   end
 end

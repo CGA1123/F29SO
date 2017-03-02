@@ -1,5 +1,5 @@
 class ProjectTypesController < PermissionController
-  before_action :check_permission
+  before_action :check_permissions
   before_action :set_project_type, only: [:destroy, :edit, :update]
 
   def index
@@ -36,10 +36,6 @@ class ProjectTypesController < PermissionController
   end
 
   private
-
-  def check_permission
-    not_found unless current_user.permission?('admin.project_types')
-  end
 
   def project_type_params
     params.require(:project_type).permit(:name, :description)
