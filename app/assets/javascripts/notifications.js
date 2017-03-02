@@ -5,11 +5,13 @@ var toggle_notification = function() {
 }
 
 var getNotifications = function () {
-  $.ajax({
-    url: '/notifications.json',
-    method: 'GET',
-    dataType: 'JSON'
-  }).success( function(data) { showNotifications(data); } );
+  if($('#notifications').length) {
+    $.ajax({
+      url: '/notifications.json',
+      method: 'GET',
+      dataType: 'JSON'
+    }).success( function(data) { showNotifications(data); } );
+  }
 };
 
 var showNotifications = function(data) {
