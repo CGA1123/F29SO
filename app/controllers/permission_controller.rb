@@ -10,7 +10,6 @@ class PermissionController < ApplicationController
   end
 
   def check_projects
-
   end
 
   def check_project_groups
@@ -85,5 +84,11 @@ class PermissionController < ApplicationController
   end
 
   def check_locations
+    case action_name
+    when 'index', 'update', 'create', 'edit', 'destroy'
+      not_found unless current_user.permission?('admin.locations')
+    else
+      not_found
+    end
   end
 end
