@@ -58,6 +58,14 @@ class PermissionController < ApplicationController
   end
 
   def check_profiles
+    case action_name
+    when 'edit', 'update'
+      redirect_to profile_path(@user), alert: 'Nope...' unless edit?(@user)
+    when 'show'
+      return
+    else
+      not_found
+    end
   end
 
   def check_invitations
