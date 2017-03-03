@@ -38,7 +38,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         let(:req) do
           { method: :post,
             action: :create,
-            params: { name: project_group.name, id: no_permission.id } }
+            params: { code: project.code, name: project_group.name } }
         end
       end
     end
@@ -85,9 +85,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         let(:req) do
           { method: :delete,
             action: :destroy,
-            params: { code: project.code,
-                      name: project_group.name,
-                      id: no_permission.id } }
+            params: { code: project_group.project.code,
+                      name: project_group.name } }
         end
       end
     end
@@ -95,7 +94,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        delete :destroy, code: project.code, name: project_group.name
+        delete :destroy, code: project_group.project.code,
+                         name: project_group.name
       end
 
       it 'sets @project_group' do
@@ -110,9 +110,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         end
 
         before do
-          delete :destroy, code: project.code,
-                           name: project_group.name,
-                           id: project_group_user.id
+          delete :destroy, code: project_group.project.code,
+                           name: project_group.name
         end
 
         it 'removes user from project group' do
@@ -128,9 +127,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         end
 
         before do
-          delete :destroy, code: project.code,
-                           name: project_group.name,
-                           id: project_group_user.id
+          delete :destroy, code: project_group.project.code,
+                           name: project_group.name
         end
 
         it 'does not remove group' do
