@@ -1,5 +1,4 @@
 class InvitationsController < PermissionController
-  before_action :authenticate_inviter, only: [:create, :new, :index, :destroy]
   before_action :check_permissions
 
   skip_before_action :authenticate_user!, only: [:accept, :create_user]
@@ -79,14 +78,6 @@ class InvitationsController < PermissionController
                   :first_name,
                   :last_name,
                   :location_id)
-  end
-
-  # If a user is not logged in, or does not have appropriate permission to
-  # invite a user, throw a 404.
-  # This method is called before the actions: new, create
-  # not_found is defined in ApplicationController
-  def authenticate_inviter
-    not_found unless user_signed_in? && current_user.permission?('users.invite')
   end
 
   def verify_token
