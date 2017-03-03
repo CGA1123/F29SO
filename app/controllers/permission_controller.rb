@@ -62,6 +62,23 @@ class PermissionController < ApplicationController
   end
 
   def check_invitations
+    case action_name
+    when 'create'
+      user = current_user
+      not_found unless user.permission?('users.invite')
+      groups = invite_params[:groups]
+      groups.each do |group|
+        message = "You don't have permission to invite #{group.name}"
+        redirect_to new_invitation_path, alert: message \
+          unless user.permission?("users.invite.#{group.id}")
+      end
+    when 'new', 'index', 'destroy'
+      not_found unless current_user.permission?('users.invite')
+    when 'accept', 'create_user'
+      return
+    else
+      not_found
+    end
   end
 
   def check_project_types
