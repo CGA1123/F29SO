@@ -94,4 +94,12 @@ RSpec.describe ProjectLocationsController, type: :controller do
       end
     end
   end
+
+  describe 'GET #edit' do
+    it 'sets @source' do
+      sign_in root_user
+      xhr :get, :edit, code: project.code
+      expect(assigns[:source]).not_to be_nil
+    end
+  end
 end
