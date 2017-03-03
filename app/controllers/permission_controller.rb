@@ -38,8 +38,8 @@ class PermissionController < ApplicationController
     when 'index'
       not_found unless current_user.permission?('admin.groups.view')
     when 'create', 'destroy', 'search'
-      not_found unless current_user.permission?('admin.groups.manage.users') || \
-                       current_user.permission?('admin.groups.manage')
+      not_found unless current_user.permission?('admin.groups.manage.users',
+                                                'admin.groups.manage')
     else
       not_found
     end
@@ -48,10 +48,9 @@ class PermissionController < ApplicationController
   def check_group_permissions
     case action_name
     when 'create', 'destroy'
-      user = current_user
       not_found unless \
-        user.permission?('admin.groups.manage.permission') \
-        || user.permission?('admin.groups.manage')
+        current_user.permission?('admin.groups.manage.permission',
+                                 'admin.groups.manage')
     when 'index'
       not_found unless current_user.permission?('admin.groups.view')
     else

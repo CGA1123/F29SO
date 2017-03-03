@@ -32,7 +32,7 @@ RSpec.describe User, type: :model do
   describe '#permission?' do
     it 'returns true if User has the relevant permission' do
       group.permissions << permission
-      expect(user.permission?(permission.name)).to be_truthy
+      expect(user.permission?(permission.name, permission3.name)).to be_truthy
     end
 
     it 'returns true if User has the relevant project permission' do
@@ -43,7 +43,8 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns false if User does not have the relevant permission' do
-      expect(user.permission?('non.existent.permission')).to be_falsy
+      expect(user.permission?('non.existent.permission', permission.name))
+        .to be_falsy
     end
 
     it 'always returns true if user is in the root group' do
