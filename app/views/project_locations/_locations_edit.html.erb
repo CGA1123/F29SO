@@ -1,6 +1,3 @@
 <% project.locations.each do |location| %>
-  <div id='location-<%= location.id %>'>
-    <%= location.name %>
-    <%= link_to 'x', project_locations_path(code: project.code, location_id: location.id), method: :delete, remote: true %>
-  </div>
+  <%= render 'project_locations/edit_location', location: location, project: project %>
 <% end %>

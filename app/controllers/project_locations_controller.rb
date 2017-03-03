@@ -21,7 +21,9 @@ class ProjectLocationsController < ApplicationController
     @project_location.destroy if @project_location
   end
 
-  def edit; end
+  def edit
+    @source = source
+  end
 
   private
 
@@ -53,5 +55,14 @@ class ProjectLocationsController < ApplicationController
       user.permission?('projects.manage.locations') ||
       user.permission?("#{@project.id}.projects.manage") ||
       user.permission?("#{@project.id}.projects.manage.locations")
+  end
+
+  def source
+    sources = []
+    Location.all.each do |l|
+      sources << { label: l.name, value: { id: l.id, project: @project.code } }
+    end
+
+    sources.to_json
   end
 end
