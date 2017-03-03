@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get 'projects/:code/locations', to: 'project_locations#index', as: :project_locations
   post 'projects/:code/locations', to: 'project_locations#create'
   delete 'projects/:code/locations', to: 'project_locations#destroy'
+  get 'projects/:code/locations/edit', to: 'project_locations#edit', as: :project_locations_edit
 
 
   # GroupsController Routes

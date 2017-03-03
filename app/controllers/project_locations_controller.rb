@@ -2,7 +2,7 @@ class ProjectLocationsController < ApplicationController
   before_action :check_format
   before_action :set_project
   before_action :check_view_permission, only: [:index]
-  before_action :check_manage_permission, only: [:create, :destroy]
+  before_action :check_manage_permission, only: [:create, :destroy, :edit]
   before_action :set_location, only: [:create, :destroy]
 
   def index
@@ -18,8 +18,10 @@ class ProjectLocationsController < ApplicationController
   def destroy
     @project_location = ProjectLocation.find_by(project: @project,
                                                 location: @location)
-    @project_location.destroy
+    @project_location.destroy if @project_location
   end
+
+  def edit; end
 
   private
 

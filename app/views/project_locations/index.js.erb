@@ -1,3 +1,1 @@
-locations = $('#locations');
-locations.empty();
-locations.html("<%= j render 'project_locations/locations', locations: @project_locations %>");
+$('#locations').html("<%= j render 'project_locations/locations', locations: @project_locations %>");
