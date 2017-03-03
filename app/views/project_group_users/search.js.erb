@@ -1,0 +1,5 @@
+<% if @results.blank? %>
+  $('#search_results').html('<p>No results</p>');
+<% else %>
+  $('#search_results').html("<%= j render 'project_group_users/results', results: @results, project_group: @project_group %>");
+<% end %>

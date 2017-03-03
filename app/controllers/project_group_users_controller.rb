@@ -80,12 +80,12 @@ class ProjectGroupUsersController < ApplicationController
   end
 
   def check_view_permission
-    check_permission('admin.projects.groups.view')
+    check_permission('projects.groups.view')
   end
 
   def check_manage_permission
-    check_permission('admin.projects.groups.manage.users') ||
-      check_permission('admin.projects.groups.manage')
+    check_permission('projects.groups.manage.users') ||
+      check_permission('projects.groups.manage')
   end
 
   def check_permission(permission)
