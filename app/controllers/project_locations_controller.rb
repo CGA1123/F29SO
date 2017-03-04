@@ -1,8 +1,7 @@
-class ProjectLocationsController < ApplicationController
+class ProjectLocationsController < PermissionController
   before_action :check_format
   before_action :set_project
-  before_action :check_view_permission, only: [:index]
-  before_action :check_manage_permission, only: [:create, :destroy, :edit]
+  before_action :check_permissions
   before_action :set_location, only: [:create, :destroy]
 
   def index
@@ -39,22 +38,6 @@ class ProjectLocationsController < ApplicationController
 
   def check_format
     not_found unless request.xhr?
-  end
-
-  def check_view_permission
-    user = current_user
-    not_found unless \
-      user.permission?('projects.view') ||
-      user.permission?("#{@project.id}.projects.view")
-  end
-
-  def check_manage_permission
-    user = current_user
-    not_found unless \
-      user.permission?('projects.manage') ||
-      user.permission?('projects.manage.locations') ||
-      user.permission?("#{@project.id}.projects.manage") ||
-      user.permission?("#{@project.id}.projects.manage.locations")
   end
 
   def source
