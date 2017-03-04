@@ -63,6 +63,13 @@ class ProjectGroupPermissionsController < PermissionController
     params.require(:permissions)
   end
 
+  def manage_permission?
+    current_user.permission?('projects.groups.manage',
+                             'projects.groups.manage.permissions',
+                             "#{@project.id}.projects.groups.manage",
+                             "#{@project.id}.project.manage.groups.permissions")
+  end
+
   # This controller should only be accessible through xhr/ajax requests
   def check_format
     not_found unless request.xhr?

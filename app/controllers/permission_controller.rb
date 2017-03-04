@@ -10,15 +10,51 @@ class PermissionController < ApplicationController
   end
 
   def check_projects
+    case action_name
+    when 'new', 'create'
+      redirect_to projects_path, alert: 'You cannot do that.' unless \
+        current_user.permission?('projects.create')
+    when 'edit', 'update'
+      redirect_to projects_path, alert: 'You cannot do that.' unless \
+        current_user.permission?('projects.edit',
+                                 "#{@project.id}.projects.edit")
+    when 'show'
+      redirect_to projects_path, alert: 'You cannot do that.' unless \
+        current_user.permission?('projects.view',
+                                 "#{@project.id}.projects.view")
+    when 'destroy'
+      redirect_to projects_path, alert: 'You cannot do that.' unless \
+        current_user.permission?('projects.delete',
+                                 "#{@project.id}.projects.delete")
+    end
   end
 
   def check_project_groups
+    case action_name
+    when 'create', 'destroy'
+      not_found unless \
+        current_user.permission?('projects.groups.manage',
+                                 "#{@project.id}.projects.groups.manage")
+    when 'index', 'show'
+      not_found unless current_user.permission?('projects.view',
+                                                "#{@project.id}.projects.view")
+    end
   end
 
   def check_project_group_permissions
-  end
-
-  def check_project_locations
+    case action_name
+    when 'index'
+      redirect_to project_groups_path(code: @project.code) unless \
+        current_user.permission?('projects.view',
+                                 "#{@project.id}.projects.view")
+    when 'create', 'destroy'
+      id = @project.id
+      not_found unless \
+        current_user.permission?('projects.groups.manage',
+                                 'projects.group.manage.permissions',
+                                 "#{id}.projects.groups.manage",
+                                 "#{id}.projects.groups.manage.permissions")
+    end
   end
 
   def check_groups
@@ -27,8 +63,6 @@ class PermissionController < ApplicationController
       not_found unless current_user.permission?('admin.groups.view')
     when 'create', 'destroy'
       not_found unless current_user.permission?('admin.groups.manage')
-    else
-      not_found
     end
   end
 
@@ -39,8 +73,6 @@ class PermissionController < ApplicationController
     when 'create', 'destroy', 'search'
       not_found unless current_user.permission?('admin.groups.manage.users',
                                                 'admin.groups.manage')
-    else
-      not_found
     end
   end
 
@@ -52,8 +84,6 @@ class PermissionController < ApplicationController
                                  'admin.groups.manage')
     when 'index'
       not_found unless current_user.permission?('admin.groups.view')
-    else
-      not_found
     end
   end
 
@@ -61,10 +91,6 @@ class PermissionController < ApplicationController
     case action_name
     when 'edit', 'update'
       redirect_to profile_path(@user), alert: 'Nope...' unless edit?(@user)
-    when 'show'
-      return
-    else
-      not_found
     end
   end
 
@@ -81,22 +107,20 @@ class PermissionController < ApplicationController
       end
     when 'new', 'index', 'destroy'
       not_found unless current_user.permission?('users.invite')
-    when 'accept', 'create_user'
-      return
-    else
-      not_found
     end
   end
 
   def check_project_types
+    case action_name
+    when 'index', 'create', 'destroy', 'edit', 'update'
+      not_found unless current_user.permission?('admin.project_types')
+    end
   end
 
   def check_locations
     case action_name
     when 'index', 'update', 'create', 'edit', 'destroy'
       not_found unless current_user.permission?('admin.locations')
-    else
-      not_found
     end
   end
 end
