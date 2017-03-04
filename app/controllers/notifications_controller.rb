@@ -1,4 +1,4 @@
-class NotificationsController < ApplicationController
+class NotificationsController < PermissionController
   before_action :set_notifications
 
   def index; end

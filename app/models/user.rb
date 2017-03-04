@@ -24,9 +24,9 @@ class User < ActiveRecord::Base
           string: "%#{string.downcase}%")
   end
 
-  def permission?(permission_name)
+  def permission?(*permissions)
     return true if groups.map(&:name).include?('root')
-    permission_strings.include?(permission_name)
+    (permission_strings & permissions).present?
   end
 
   def permission_strings

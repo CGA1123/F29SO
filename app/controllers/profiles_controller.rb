@@ -1,6 +1,6 @@
-class ProfilesController < ApplicationController
+class ProfilesController < PermissionController
   before_action :set_user, only: [:show, :edit, :update]
-  before_action :check_permission, only: [:edit, :update]
+  before_action :check_permissions
 
   def show
     @can_edit = edit?(@user)
@@ -40,9 +40,5 @@ class ProfilesController < ApplicationController
   def set_user
     @user = User.find_by(id: params[:id])
     redirect_to authenticated_root_path, alert: 'User not found.' unless @user
-  end
-
-  def check_permission
-    redirect_to profile_path(@user), alert: 'Nope...' unless edit?(@user)
   end
 end

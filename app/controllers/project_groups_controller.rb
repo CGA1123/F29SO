@@ -1,8 +1,7 @@
-class ProjectGroupsController < ApplicationController
+class ProjectGroupsController < PermissionController
   before_action :set_project, only: [:index, :create, :destroy, :show]
   before_action :set_project_group, only: [:destroy, :show]
-  before_action :check_manage_permission, only: [:create, :destroy]
-  before_action :check_view_permission, only: [:index, :show]
+  before_action :check_permissions
 
   def index
     @project_groups = ProjectGroup.where(project: @project)
@@ -30,20 +29,6 @@ class ProjectGroupsController < ApplicationController
   end
 
   private
-
-  def check_view_permission
-    user = current_user
-    not_found unless \
-      user.permission?('projects.view') ||
-      user.permission?("#{@project.id}.projects.view")
-  end
-
-  def check_manage_permission
-    user = current_user
-    not_found unless \
-      user.permission?('projects.groups.manage') ||
-      user.permission?("#{@project.id}.projects.groups.manage")
-  end
 
   def project_group_params
     params.require(:project_group).permit(:name)

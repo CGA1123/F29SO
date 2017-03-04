@@ -1,6 +1,5 @@
-class GroupsController < ApplicationController
-  before_action :check_view_permission, only: [:index, :show]
-  before_action :check_manage_permission, only: [:create, :destroy]
+class GroupsController < PermissionController
+  before_action :check_permissions
   before_action :set_group, only: [:show, :destroy]
 
   def index
@@ -30,18 +29,6 @@ class GroupsController < ApplicationController
   end
 
   private
-
-  def check_permission(permission)
-    not_found unless current_user.permission?(permission)
-  end
-
-  def check_view_permission
-    check_permission('admin.groups.view')
-  end
-
-  def check_manage_permission
-    check_permission('admin.groups.manage')
-  end
 
   def group_params
     params.require(:group).permit(:name, :description)
