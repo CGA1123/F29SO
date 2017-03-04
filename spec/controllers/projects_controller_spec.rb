@@ -18,33 +18,9 @@ RSpec.describe ProjectsController, type: :controller do
     it 'assigns @projects' do
       expect(assigns[:projects]).to eq(Project.all)
     end
-  end
 
-  describe 'GET #new' do
-    context 'user has permission' do
-      before do
-        sign_in root_user
-        get :new
-      end
-
-      it { expect(response).to be_success }
-
-      it 'assigns @project' do
-        expect(assigns[:project]).not_to be_nil
-      end
-    end
-
-    context 'user does not have permission' do
-      before do
-        sign_in user
-        get :new
-      end
-
-      it { expect(response).to redirect_to(projects_path) }
-
-      it 'sets alert' do
-        expect(flash[:alert]).to eq('You cannot do that.')
-      end
+    it 'assigns @project' do
+      expect(assigns[:project]).not_to be_nil
     end
   end
 
@@ -82,9 +58,14 @@ RSpec.describe ProjectsController, type: :controller do
           { project: { name: 'hello' } }
         end
 
+        before { post :create, invalid_params }
+
         it do
-          post :create, invalid_params
-          expect(response).to render_template(:new)
+          expect(response).to render_template(:index)
+        end
+
+        it 'sets @projects' do
+          expect(assigns[:projects]).to eq(Project.all)
         end
 
         it 'does not create a new Project' do

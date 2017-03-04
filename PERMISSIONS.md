@@ -18,9 +18,10 @@ This file contains a record of all permissions registered in the system.
 | `projects.edit` | `ProjectsController#update` & `ProjectsController#edit` | Gives permission to edit a project |
 | `projects.delete` | `ProjectsController#destroy` | Gives permission to delete a project |
 | `projects.create` | `ProjectsController#create` | Gives permission to create a new project |
-| `projects.groups.manage` | `ProjectGroupPermissionsController` | Allows a user to manage a ProjectGroup, its users & permissions |
+| `projects.groups.manage` |  | Allows a user to manage a ProjectGroup, its locations, users, & permissions |
 | `projects.groups.manage.users` | `ProjectGroupUsersController` | Allows a user to manage a ProjectGroups users|
 | `projects.groups.manage.permissions` | `ProjectGroupPermissionsController` | Allows a user to manage a ProjectGroups permissions |
+| `projects.groups.manage.locations` | `ProjectLocationsController` | Allows a user to manage a Projects locations |
 | `admin.groups.view` | `GroupsController#show, #index` & `GroupUsersController#index`  | Allows user to views groups (And group users) |
 | `admin.groups.manage` | `GroupsController#create, #destroy` & `GroupUsersController#create, #search, #destroy` & `GroupPermissionsController#create` & `#destroy` | Allows a user to manage groups (creation/deletion), as well as group users (addition, removal), and group permissions (adding/removing) |
 | `admin.groups.manage.users` | `GroupUsersController#create, #destroy #search` | Allows user to manage users within a group (addition, removal) |

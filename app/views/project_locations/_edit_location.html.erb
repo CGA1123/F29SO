@@ -1,0 +1,5 @@
+<div id='location-<%= location.id %>'>
+  <%= link_to 'x', project_locations_path(code: project.code, location_id: location.id), method: :delete, remote: true %>
+  <%= location.name %>
+</div>
+

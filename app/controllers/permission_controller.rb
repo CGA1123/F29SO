@@ -131,4 +131,18 @@ class PermissionController < ApplicationController
         unless @edit
     end
   end
+
+  def check_project_locations
+    case action_name
+    when 'index'
+      not_found unless current_user.permission?('projects.view',
+                                                "#{@project.id}.projects.view")
+    when 'create', 'destroy', 'edit'
+      not_found unless \
+        current_user.permission?('projects.manage',
+                                 'projects.manage.locations',
+                                 "#{@project.id}.projects.manage",
+                                 "#{@project.id}.projects.manage.locations")
+    end
+  end
 end

@@ -1,15 +1,10 @@
-<h1>Projects#index</h1>
+<h1>Projects</h1>
+<% if @can_create %>
+<div id='new-project'>
+  <%= render 'projects/new' %>
+</div>
+<% end %>
+
 <div id='projects'>
-  <% if @projects.present? %>
-    <% @projects.each do |project| %>
-      <div class="project project-<%= project.id %>">
-        <%= "#{project.code} - #{project.name}" %>
-        <%= link_to projects_path(code: project.code), method: :delete, remote: true do %>
-          <%= octicon 'trashcan' %>
-        <% end %>
-      </div>
-    <% end %>
-  <% else %>
-    <p id='no-records'>No Projects. <%= link_to 'Create one.', new_project_path %></p>
-  <% end %>
+  <%= render @projects %>
 </div>

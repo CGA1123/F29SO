@@ -9,6 +9,11 @@ FactoryGirl.define do
     user
   end
 
+  factory :project_location do
+    project
+    location
+  end
+
   factory :group_permission do
     group
     permission

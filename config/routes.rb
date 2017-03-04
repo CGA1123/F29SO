@@ -36,7 +36,6 @@ Rails.application.routes.draw do
   post 'projects', to: 'projects#create'
   delete 'projects', to: 'projects#destroy'
   patch 'projects', to: 'projects#update'
-  get 'projects/new', to: 'projects#new', as: :new_project
   get 'projects/:code', to: 'projects#show', as: :project
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
 
@@ -58,6 +57,14 @@ Rails.application.routes.draw do
   get 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#index', as: :project_group_permissions
   post 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#create'
   delete 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#destroy'
+
+  # ProjectLocations Routes
+  get 'projects/:code/locations', to: 'project_locations#index', as: :project_locations
+  post 'projects/:code/locations', to: 'project_locations#create'
+  delete 'projects/:code/locations', to: 'project_locations#destroy'
+  get 'projects/:code/locations/edit', to: 'project_locations#edit', as: :project_locations_edit
+
+
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
   post 'groups', to: 'groups#create'

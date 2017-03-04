@@ -1,0 +1,32 @@
+.project {
+  height: 100px;
+  width: 100%;
+
+  &:hover { background: rgba(238, 238, 238, 0.4); }
+
+  .project-contents {
+    padding: 15px;
+    height: 70px;
+    display: flex;
+  }
+
+  .project-code {
+    height: 100%;
+    width: 10%;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    float: left;
+    border-right: 1px solid grey;
+    font-weight: bold;
+    text-align: center;
+    word-wrap: break-word;
+  }
+
+  .project-info {
+    height: 100%;
+    flex-grow: 1;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
