@@ -123,4 +123,12 @@ class PermissionController < ApplicationController
       not_found unless current_user.permission?('admin.locations')
     end
   end
+
+  def check_user_skills
+    case action_name
+    when 'search', 'create', 'edit', 'update', 'destroy'
+      redirect_to user_skills_path(id: @user.id), alert: 'No Permission' \
+        unless @edit
+    end
+  end
 end
