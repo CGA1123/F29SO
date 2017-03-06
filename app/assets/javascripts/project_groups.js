@@ -5,6 +5,13 @@ var loadProjectGroupPermissions = function(project, group) {
   });
 };
 
+var loadProjectGroupUsers = function(project, group) {
+  $.ajax({
+    url: '/projects/' + project + '/groups/' + group + '/users.js',
+    cache: false
+  });
+};
+
 var updateProjectGroupPermission = function(project, group, element) {
   if(element.checked) {
     $.ajax({

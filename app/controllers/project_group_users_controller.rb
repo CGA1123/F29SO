@@ -37,9 +37,10 @@ class ProjectGroupUsersController < ApplicationController
       else
         format.js { render :destroy_fail }
         format.html do
+          flash[:alert] = "Can't remove user from group." \
+                          'A user must belong to at least one group.'
           redirect_to project_group_users_path(code: @project.code,
-                                               name: @project_group.name), alert: "Can't remove user from group." \
-            'A user must belong to at least one group.'
+                                               name: @project_group.name)
         end
       end
     end
@@ -64,19 +65,22 @@ class ProjectGroupUsersController < ApplicationController
     @project_group = ProjectGroup.find_by(project: @project,
                                           name: params[:name])
     return if @project_group
-    redirect_to project_groups_path(code: @project.code), alert: 'Project Group not found.'
+    flash[:alert] = 'ProjectGroup not found'
+    redirect_to project_groups_path(code: @project.code)
   end
 
   def set_project_group_user
     @project_group_user = ProjectGroupUser.find_by(id: params[:id])
     return if @project_group_user
-    redirect_to project_group_users_path(code: @project.code), alert: 'Not found.'
+    flash[:alert] = 'Project group user not found'
+    redirect_to project_group_users_path(code: @project.code)
   end
 
   def set_user
     @user = User.find_by(id: params[:id])
     return if @user
-    redirect_to project_group_path(name: @project_group.name), alert: 'User not found.'
+    flash[:alert] = 'User not found'
+    redirect_to project_group_path(name: @project_group.name)
   end
 
   def check_view_permission

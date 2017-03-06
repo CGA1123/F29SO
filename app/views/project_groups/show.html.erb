@@ -1,8 +1,16 @@
 <h1>Group: <%= @project_group.name %></h1>
+<p><%= @project_group.description %></p>
 
+<h2>Permissions:</h2>
 <div id='project-group-permissions'>
+</div>
+<br>
+<h2>Users:</h2>
+<%= render 'project_group_users/search_form' %>
+<div id='project-group-users'>
 </div>
 
 <script>
+  loadProjectGroupUsers('<%= @project.code %>','<%= @project_group.name %>');
   loadProjectGroupPermissions('<%= @project.code %>','<%= @project_group.name %>')
 </script>

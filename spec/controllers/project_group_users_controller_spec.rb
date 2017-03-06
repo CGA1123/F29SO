@@ -72,7 +72,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         end
 
         it 'sets alert' do
-          expect(flash[:alert]).to eq('User not found.')
+          expect(flash[:alert]).to eq('User not found')
         end
       end
     end
@@ -85,8 +85,9 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         let(:req) do
           { method: :delete,
             action: :destroy,
-            params: { code: project_group.project.code,
-                      name: project_group.name } }
+            params: { code: project.code,
+                      name: project_group.name,
+                      id: no_permission.id } }
         end
       end
     end
@@ -94,8 +95,9 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        delete :destroy, code: project_group.project.code,
-                         name: project_group.name
+        delete :destroy, code: project.code,
+                         name: project_group.name,
+                         id: root_user.id
       end
 
       it 'sets @project_group' do
@@ -110,34 +112,13 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         end
 
         before do
-          delete :destroy, code: project_group.project.code,
-                           name: project_group.name
+          delete :destroy, code: project.code,
+                           name: project_group.name,
+                           id: root_user.id
         end
 
         it 'removes user from project group' do
           expect(root_user.project_groups).not_to include(project_group)
-        end
-      end
-
-      context 'removing user w/ only 1 project group' do
-        let(:project_group) { root_user.project_groups.first }
-        let(:project_group_user) do
-          ProjectGroupUser.where(user: root_user,
-                                 project_group: project_group).first
-        end
-
-        before do
-          delete :destroy, code: project_group.project.code,
-                           name: project_group.name
-        end
-
-        it 'does not remove group' do
-          expect(root_user.project_groups).to include(project_group)
-        end
-
-        it 'sets alert' do
-          expect(flash[:alert]).to eq("Can't remove user from project group." \
-            'A user must belong to at least one project group.')
         end
       end
     end
