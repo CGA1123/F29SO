@@ -11,8 +11,10 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
       before { sign_in no_permission }
       it_behaves_like 'no permission' do
         let(:req) do
-          { method: :get, action: :index, params: { code: project.code,
-                                                    name: project_group.name } }
+          { method: :get,
+            action: :index,
+            params: { code: project.code, name: project_group.name },
+            xhr: true }
         end
       end
     end
@@ -20,7 +22,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        get :index, code: project.code, name: project_group.name
+        xhr :get, :index, code: project.code, name: project_group.name
       end
 
       it { expect(response).to be_success }
@@ -38,7 +40,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         let(:req) do
           { method: :post,
             action: :create,
-            params: { code: project.code, name: project_group.name } }
+            params: { code: project.code, name: project_group.name },
+            xhr: true }
         end
       end
     end
@@ -46,12 +49,13 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        post :create, code: project.code,
-                      name: project_group.name,
-                      id: root_user.id
+        xhr :post,
+            :create, code: project.code,
+                     name: project_group.name,
+                     id: root_user.id
       end
 
-      it { expect(response).to be_redirect }
+      it { expect(response).to be_success }
 
       it 'sets @project_group' do
         expect(assigns[:project_group]).to eq(project_group)
@@ -63,7 +67,10 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
 
       context 'params invalid' do
         before do
-          post :create, code: project.code, name: project_group.name, id: 'id'
+          xhr :post,
+              :create, code: project.code,
+                       name: project_group.name,
+                       id: 'id'
         end
 
         it do
@@ -87,7 +94,8 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
             action: :destroy,
             params: { code: project.code,
                       name: project_group.name,
-                      id: no_permission.id } }
+                      id: no_permission.id },
+            xhr: true }
         end
       end
     end
@@ -95,16 +103,17 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        delete :destroy, code: project.code,
-                         name: project_group.name,
-                         id: root_user.id
+        xhr :delete,
+            :destroy, code: project.code,
+                      name: project_group.name,
+                      id: root_user.id
       end
 
       it 'sets @project_group' do
         expect(assigns[:project_group]).to eq(project_group)
       end
 
-      it { expect(response).to be_redirect }
+      it { expect(response).to be_success }
 
       context 'removing user w/ multiple project groups from a project group' do
         let(:project_group_user) do
@@ -112,9 +121,10 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         end
 
         before do
-          delete :destroy, code: project.code,
-                           name: project_group.name,
-                           id: root_user.id
+          xhr :delete,
+              :destroy, code: project.code,
+                        name: project_group.name,
+                        id: root_user.id
         end
 
         it 'removes user from project group' do

@@ -1,4 +1,5 @@
 class ProjectGroupUsersController < ApplicationController
+  before_action :check_format
   before_action :set_project
   before_action :set_project_group
   before_action :check_view_permission, only: [:index]
@@ -15,37 +16,16 @@ class ProjectGroupUsersController < ApplicationController
       ProjectGroupUser.new(user: @user, project_group: @project_group)
     path = project_group_path(code: @project.code, name: @project_group.name)
 
-    respond_to do |format|
-      if @project_group_user.save
-        format.html { redirect_to path, notice: 'User Added.' }
-      else
-        format.html { redirect_to path, alert: 'User could not be added.' }
-      end
+    if @project_group_user.save
+      redirect_to path, notice: 'User Added.'
+    else
+      redirect_to path, alert: 'User could not be added.'
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def destroy
-    respond_to do |format|
-      if @project_group_user.destroy
-        format.html do
-          redirect_to project_group_users_path(code: @project.code,
-                                               name: @project_group.name)
-        end
-
-        format.js {}
-      else
-        format.js { render :destroy_fail }
-        format.html do
-          flash[:alert] = "Can't remove user from group." \
-                          'A user must belong to at least one group.'
-          redirect_to project_group_users_path(code: @project.code,
-                                               name: @project_group.name)
-        end
-      end
-    end
+    @project_group_user.destroy
   end
-  # rubocop:enable Metrics/MethodLength
 
   def search
     string = params[:user]
@@ -94,5 +74,9 @@ class ProjectGroupUsersController < ApplicationController
 
   def check_permission(permission)
     not_found unless current_user.permission?(permission)
+  end
+
+  def check_format
+    not_found unless request.xhr?
   end
 end
