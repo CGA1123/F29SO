@@ -1,9 +1,8 @@
-class ProjectGroupUsersController < ApplicationController
+class ProjectGroupUsersController < PermissionController
   before_action :check_format
   before_action :set_project
   before_action :set_project_group
-  before_action :check_view_permission, only: [:index]
-  before_action :check_manage_permission, only: [:create, :destroy, :search]
+  before_action :check_permissions
   before_action :set_project_group_user, only: [:destroy]
   before_action :set_user, only: [:create]
 
@@ -61,19 +60,6 @@ class ProjectGroupUsersController < ApplicationController
     return if @user
     flash[:alert] = 'User not found'
     redirect_to project_group_path(name: @project_group.name)
-  end
-
-  def check_view_permission
-    check_permission('projects.groups.view')
-  end
-
-  def check_manage_permission
-    check_permission('projects.groups.manage.users') ||
-      check_permission('projects.groups.manage')
-  end
-
-  def check_permission(permission)
-    not_found unless current_user.permission?(permission)
   end
 
   def check_format
