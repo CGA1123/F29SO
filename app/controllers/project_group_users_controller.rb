@@ -15,11 +15,7 @@ class ProjectGroupUsersController < PermissionController
       ProjectGroupUser.new(user: @user, project_group: @project_group)
     path = project_group_path(code: @project.code, name: @project_group.name)
 
-    if @project_group_user.save
-      redirect_to path, notice: 'User Added.'
-    else
-      redirect_to path, alert: 'User could not be added.'
-    end
+    @project_group_user.save
   end
 
   def destroy
