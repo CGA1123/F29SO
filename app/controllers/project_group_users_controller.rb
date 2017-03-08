@@ -13,8 +13,6 @@ class ProjectGroupUsersController < PermissionController
   def create
     @project_group_user =
       ProjectGroupUser.new(user: @user, project_group: @project_group)
-    path = project_group_path(code: @project.code, name: @project_group.name)
-
     @project_group_user.save
   end
 
