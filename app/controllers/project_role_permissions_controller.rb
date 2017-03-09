@@ -64,9 +64,9 @@ class ProjectRolePermissionsController < PermissionController
   end
 
   def manage_permission?
-    current_user.permission?('projects.groups.manage',
-                             'projects.groups.manage.permissions',
-                             "#{@project.id}.projects.groups.manage",
+    current_user.permission?('projects.roles.manage',
+                             'projects.roles.manage.permissions',
+                             "#{@project.id}.projects.roles.manage",
                              "#{@project.id}.project.manage.groups.permissions")
   end
 

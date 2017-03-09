@@ -33,8 +33,8 @@ class PermissionController < ApplicationController
     case action_name
     when 'create', 'destroy'
       not_found unless \
-        current_user.permission?('projects.groups.manage',
-                                 "#{@project.id}.projects.groups.manage")
+        current_user.permission?('projects.roles.manage',
+                                 "#{@project.id}.projects.roles.manage")
     when 'index', 'show'
       not_found unless current_user.permission?('projects.view',
                                                 "#{@project.id}.projects.view")
@@ -45,8 +45,8 @@ class PermissionController < ApplicationController
     case action_name
     when 'create', 'destroy', 'search'
       not_found unless \
-        current_user.permission?('projects.groups.manage',
-                                 "#{@project.id}.projects.groups.manage")
+        current_user.permission?('projects.roles.manage',
+                                 "#{@project.id}.projects.roles.manage")
 
     when 'index', 'show'
       not_found unless current_user.permission?('projects.view',
@@ -63,10 +63,10 @@ class PermissionController < ApplicationController
     when 'create', 'destroy'
       id = @project.id
       not_found unless \
-        current_user.permission?('projects.groups.manage',
+        current_user.permission?('projects.roles.manage',
                                  'projects.group.manage.permissions',
-                                 "#{id}.projects.groups.manage",
-                                 "#{id}.projects.groups.manage.permissions")
+                                 "#{id}.projects.roles.manage",
+                                 "#{id}.projects.roles.manage.permissions")
     end
   end
 

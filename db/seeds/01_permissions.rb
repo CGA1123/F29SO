@@ -24,16 +24,16 @@ Permission.create!(name: 'projects.create', description: 'placeholder...')
 Permission.create!(name: 'projects.delete', description: 'placeholder...')
 
 # ProjectGroups
-Permission.create!(name: 'projects.groups.manage', description: 'placeholder...')
+Permission.create!(name: 'projects.roles.manage', description: 'placeholder...')
 
 # ProjectGroupUsers
-Permission.create!(name: 'projects.groups.manage.users', description: 'placeholder...')
+Permission.create!(name: 'projects.roles.manage.users', description: 'placeholder...')
 
 # ProjectGroupPermissions
-Permission.create!(name: 'projects.groups.manage.permissions', description: 'placeholder...')
+Permission.create!(name: 'projects.roles.manage.permissions', description: 'placeholder...')
 
 # ProjectLocations
-Permission.create!(name: 'projects.groups.manage.locations', description: 'placeholder...')
+Permission.create!(name: 'projects.roles.manage.locations', description: 'placeholder...')
 
 # Groups
 Permission.create!(name: 'admin.groups.view', description: 'placeholder...')
