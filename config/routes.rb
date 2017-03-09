@@ -47,16 +47,16 @@ Rails.application.routes.draw do
   get 'project_types/:id/edit', to: 'project_types#edit', as: :edit_project_type
 
   # ProjectGroupsController Routes
-  get 'projects/:code/groups', to: 'project_groups#index', as: :project_groups
-  post 'projects/:code/groups', to: 'project_groups#create'
-  get 'projects/:code/groups/new', to: 'project_groups#new', as: :new_project_group
-  get 'projects/:code/groups/:name', to: 'project_groups#show', as: :project_group
-  delete 'projects/:code/groups', to: 'project_groups#destroy'
+  get 'projects/:code/groups', to: 'project_roles#index', as: :project_roles
+  post 'projects/:code/groups', to: 'project_roles#create'
+  get 'projects/:code/groups/new', to: 'project_roles#new', as: :new_project_role
+  get 'projects/:code/groups/:name', to: 'project_roles#show', as: :project_role
+  delete 'projects/:code/groups', to: 'project_roles#destroy'
 
   # ProjectGroupPermissionsController Routes
-  get 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#index', as: :project_group_permissions
-  post 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#create'
-  delete 'projects/:code/groups/:name/permissions', to: 'project_group_permissions#destroy'
+  get 'projects/:code/groups/:name/permissions', to: 'project_role_permissions#index', as: :project_role_permissions
+  post 'projects/:code/groups/:name/permissions', to: 'project_role_permissions#create'
+  delete 'projects/:code/groups/:name/permissions', to: 'project_role_permissions#destroy'
 
   # ProjectLocations Routes
   get 'projects/:code/locations', to: 'project_locations#index', as: :project_locations
@@ -65,10 +65,10 @@ Rails.application.routes.draw do
   get 'projects/:code/locations/edit', to: 'project_locations#edit', as: :project_locations_edit
 
   # ProjectGroupUsersController Routes
-  get 'projects/:code/groups/:name/users', to: 'project_group_users#index', as: :project_group_users
-  post 'projects/:code/groups/:name/users', to: 'project_group_users#create'
-  delete 'projects/:code/groups/:name/users', to: 'project_group_users#destroy'
-  post 'projects/:code/groups/:name/users/search', to: 'project_group_users#search', as: :project_group_users_search
+  get 'projects/:code/groups/:name/users', to: 'project_role_users#index', as: :project_role_users
+  post 'projects/:code/groups/:name/users', to: 'project_role_users#create'
+  delete 'projects/:code/groups/:name/users', to: 'project_role_users#destroy'
+  post 'projects/:code/groups/:name/users/search', to: 'project_role_users#search', as: :project_role_users_search
 
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups

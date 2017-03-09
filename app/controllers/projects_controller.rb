@@ -11,9 +11,9 @@ class ProjectsController < PermissionController
   def create
     @project = Project.new(project_params)
     if @project.save
-      ProjectGroup.create(name: 'Owner',
-                          description: 'The Owner Group',
-                          project: @project)
+      ProjectRole.create(name: 'Owner',
+                         description: 'The Owner Group',
+                         project: @project)
       redirect_to project_path(code: @project.code)
     else
       @projects = Project.all

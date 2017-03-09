@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe ProjectGroupsController, type: :controller do
+RSpec.describe ProjectRolesController, type: :controller do
   let(:user) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
   let(:project) { FactoryGirl.create(:project) }
-  let(:project_group) { FactoryGirl.create(:project_group, project: project) }
+  let(:project_role) { FactoryGirl.create(:project_role, project: project) }
 
   describe 'GET #index' do
     context 'User does not have permission' do
@@ -25,12 +25,12 @@ RSpec.describe ProjectGroupsController, type: :controller do
         before { get :index, code: project.code }
         it { expect(response).to be_success }
 
-        it 'sets @project_groups' do
-          expect(assigns[:project_groups]).to eq(project.project_groups)
+        it 'sets @project_roles' do
+          expect(assigns[:project_roles]).to eq(project.project_roles)
         end
 
         it 'sets @project' do
-          expect(assigns[:project]).to eq(project_group.project)
+          expect(assigns[:project]).to eq(project_role.project)
         end
       end
 
@@ -67,7 +67,7 @@ RSpec.describe ProjectGroupsController, type: :controller do
 
       context 'valid params' do
         before do
-          post :create, code: project.code, project_group: { name: 'test' }
+          post :create, code: project.code, project_role: { name: 'test' }
         end
 
         it do
@@ -79,18 +79,18 @@ RSpec.describe ProjectGroupsController, type: :controller do
         end
 
         it 'creates a new group' do
-          expect(ProjectGroup.find_by(name: 'test', project: project))
+          expect(ProjectRole.find_by(name: 'test', project: project))
             .not_to be_nil
         end
       end
 
       context 'invalid params' do
         let(:params) do
-          { code: project.code, project_group: { name: '' } }
+          { code: project.code, project_role: { name: '' } }
         end
-        it 'does not create a new project_group' do
+        it 'does not create a new project_role' do
           expect { post :create, params }
-            .to change(ProjectGroup, :count).by(0)
+            .to change(ProjectRole, :count).by(0)
         end
       end
     end
@@ -102,7 +102,7 @@ RSpec.describe ProjectGroupsController, type: :controller do
       it_behaves_like 'no permission' do
         let(:req) do
           { method: :get, action: :show, params: { code: project.code,
-                                                   name: project_group.name } }
+                                                   name: project_role.name } }
         end
       end
     end
@@ -126,17 +126,17 @@ RSpec.describe ProjectGroupsController, type: :controller do
 
       context 'valid project' do
         context 'valid group' do
-          before { get :show, code: project.code, name: project_group.name }
+          before { get :show, code: project.code, name: project_role.name }
 
           it 'sets @project' do
             expect(assigns[:project]).to eq(project)
           end
 
-          it 'sets @project_group' do
-            expect(assigns[:project_group]).to eq(project_group)
+          it 'sets @project_role' do
+            expect(assigns[:project_role]).to eq(project_role)
           end
 
-          it { expect(response).to render_template('project_groups/show') }
+          it { expect(response).to render_template('project_roles/show') }
         end
 
         context 'invalid group' do
@@ -148,7 +148,7 @@ RSpec.describe ProjectGroupsController, type: :controller do
 
           it do
             expect(response) \
-              .to redirect_to(project_groups_path(code: project.code))
+              .to redirect_to(project_roles_path(code: project.code))
           end
 
           it 'sets alert' do
@@ -165,7 +165,7 @@ RSpec.describe ProjectGroupsController, type: :controller do
       it_behaves_like 'no permission' do
         let(:req) do
           { method: :get, action: :show, params: { code: project.code,
-                                                   name: project_group.name } }
+                                                   name: project_role.name } }
         end
       end
     end
@@ -173,11 +173,11 @@ RSpec.describe ProjectGroupsController, type: :controller do
     context 'has permisison' do
       before do
         sign_in root_user
-        delete :destroy, code: project.code, name: project_group.name
+        delete :destroy, code: project.code, name: project_role.name
       end
 
       it 'removes the project group' do
-        expect(project.project_groups).not_to include(project_group)
+        expect(project.project_roles).not_to include(project_role)
       end
 
       it 'sets alert' do
@@ -185,19 +185,19 @@ RSpec.describe ProjectGroupsController, type: :controller do
       end
 
       it do
-        expect(response).to redirect_to(project_groups_path(code: project.code))
+        expect(response).to redirect_to(project_roles_path(code: project.code))
       end
     end
 
     context 'deleting Owner group' do
       before do
         sign_in root_user
-        FactoryGirl.create(:project_group, name: 'Owner', project: project)
+        FactoryGirl.create(:project_role, name: 'Owner', project: project)
         delete :destroy, code: project.code, name: 'Owner'
       end
 
       it 'does not delete group' do
-        expect(ProjectGroup.find_by(project: project, name: 'Owner'))
+        expect(ProjectRole.find_by(project: project, name: 'Owner'))
           .not_to be_nil
       end
 

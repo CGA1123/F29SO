@@ -29,7 +29,7 @@ class PermissionController < ApplicationController
     end
   end
 
-  def check_project_groups
+  def check_project_roles
     case action_name
     when 'create', 'destroy'
       not_found unless \
@@ -41,7 +41,7 @@ class PermissionController < ApplicationController
     end
   end
 
-  def check_project_group_users
+  def check_project_role_users
     case action_name
     when 'create', 'destroy', 'search'
       not_found unless \
@@ -54,10 +54,10 @@ class PermissionController < ApplicationController
     end
   end
 
-  def check_project_group_permissions
+  def check_project_role_permissions
     case action_name
     when 'index'
-      redirect_to project_groups_path(code: @project.code) unless \
+      redirect_to project_roles_path(code: @project.code) unless \
         current_user.permission?('projects.view',
                                  "#{@project.id}.projects.view")
     when 'create', 'destroy'

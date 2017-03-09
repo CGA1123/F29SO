@@ -49,7 +49,7 @@ RSpec.describe ProjectsController, type: :controller do
 
         it 'create the owner group' do
           proj = Project.find_by(code: 'X')
-          expect(ProjectGroup.where(project: proj).first).to be_persisted
+          expect(ProjectRole.where(project: proj).first).to be_persisted
         end
       end
 
