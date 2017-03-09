@@ -1,7 +1,0 @@
-<div class='project-group-user' id='project-group-user-<%= project_group_user.id %>'>
-  <%= user_avatar(project_group_user.user) %>
-  <span class='name'><%= project_group_user.user.name %></span>
-  <%= link_to project_group_users_path(code: project_group_user.project_group.project.code, name: project_group_user.project_group.name, id: project_group_user.id), method: :delete, remote: true do %>
-  <%= octicon 'x', class: 'red' %>
-  <% end %>
-</div>
