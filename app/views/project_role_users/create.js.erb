@@ -1,0 +1,7 @@
+<% if @project_role_user.persisted? %>
+  $('#flash').html("<p id='notice'>User added.</p>");
+  $('#project-role-users').prepend("<%= j render 'project_role_users/project_role_user', project_role_user: @project_role_user %>");
+  ready();
+<% else %>
+  $('#flash').html("<p id='alert'>User could not be added.</p>");
+<% end %>

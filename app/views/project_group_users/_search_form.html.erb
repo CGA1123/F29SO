@@ -1,8 +1,0 @@
-<%= form_tag project_group_users_search_path, method: :post, remote: true, authenticity_token: true, id: 'search-form' do %>
-  <%= text_field_tag :user, '', placeholder: 'Search Users', onkeyup: 'search();', autocomplete: :off %>
-<% end %>
-<div id='search_results'>
-  <% if @results.present? %>
-  <%= render 'project_group_users/results', results: @results, project_group: @project_group %>
-  <% end %>
-</div>

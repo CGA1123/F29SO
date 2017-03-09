@@ -1,0 +1,9 @@
+<%= form_for @project_role, url: project_roles_path, method: :post do |f| %>
+  <ul>
+  <% @project_role.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+  <% end %>
+  </ul>
+  <%= f.text_field :name %>
+  <%= f.submit %>
+<% end %>

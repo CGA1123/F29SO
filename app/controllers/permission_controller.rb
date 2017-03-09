@@ -29,24 +29,24 @@ class PermissionController < ApplicationController
     end
   end
 
-  def check_project_groups
+  def check_project_roles
     case action_name
     when 'create', 'destroy'
       not_found unless \
-        current_user.permission?('projects.groups.manage',
-                                 "#{@project.id}.projects.groups.manage")
+        current_user.permission?('projects.roles.manage',
+                                 "#{@project.id}.projects.roles.manage")
     when 'index', 'show'
       not_found unless current_user.permission?('projects.view',
                                                 "#{@project.id}.projects.view")
     end
   end
 
-  def check_project_group_users
+  def check_project_role_users
     case action_name
     when 'create', 'destroy', 'search'
       not_found unless \
-        current_user.permission?('projects.groups.manage',
-                                 "#{@project.id}.projects.groups.manage")
+        current_user.permission?('projects.roles.manage',
+                                 "#{@project.id}.projects.roles.manage")
 
     when 'index', 'show'
       not_found unless current_user.permission?('projects.view',
@@ -54,19 +54,19 @@ class PermissionController < ApplicationController
     end
   end
 
-  def check_project_group_permissions
+  def check_project_role_permissions
     case action_name
     when 'index'
-      redirect_to project_groups_path(code: @project.code) unless \
+      redirect_to project_roles_path(code: @project.code) unless \
         current_user.permission?('projects.view',
                                  "#{@project.id}.projects.view")
     when 'create', 'destroy'
       id = @project.id
       not_found unless \
-        current_user.permission?('projects.groups.manage',
-                                 'projects.group.manage.permissions',
-                                 "#{id}.projects.groups.manage",
-                                 "#{id}.projects.groups.manage.permissions")
+        current_user.permission?('projects.roles.manage',
+                                 'projects.roles.manage.permissions',
+                                 "#{id}.projects.roles.manage",
+                                 "#{id}.projects.roles.manage.permissions")
     end
   end
 

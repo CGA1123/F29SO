@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170302133747) do
+ActiveRecord::Schema.define(version: 20170309182258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,27 +90,34 @@ ActiveRecord::Schema.define(version: 20170302133747) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "project_group_permissions", force: :cascade do |t|
-    t.integer  "project_group_id"
+  create_table "project_locations", force: :cascade do |t|
+    t.integer  "project_id"
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "project_role_permissions", force: :cascade do |t|
+    t.integer  "project_role_id"
     t.integer  "permission_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index "project_group_permissions", ["permission_id"], name: "index_project_group_permissions_on_permission_id", using: :btree
-  add_index "project_group_permissions", ["project_group_id"], name: "index_project_group_permissions_on_project_group_id", using: :btree
+  add_index "project_role_permissions", ["permission_id"], name: "index_project_role_permissions_on_permission_id", using: :btree
+  add_index "project_role_permissions", ["project_role_id"], name: "index_project_role_permissions_on_project_role_id", using: :btree
 
-  create_table "project_group_users", force: :cascade do |t|
+  create_table "project_role_users", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "project_group_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "project_role_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
-  add_index "project_group_users", ["project_group_id"], name: "index_project_group_users_on_project_group_id", using: :btree
-  add_index "project_group_users", ["user_id"], name: "index_project_group_users_on_user_id", using: :btree
+  add_index "project_role_users", ["project_role_id"], name: "index_project_role_users_on_project_role_id", using: :btree
+  add_index "project_role_users", ["user_id"], name: "index_project_role_users_on_user_id", using: :btree
 
-  create_table "project_groups", force: :cascade do |t|
+  create_table "project_roles", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
     t.integer  "project_id"
@@ -118,14 +125,7 @@ ActiveRecord::Schema.define(version: 20170302133747) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "project_groups", ["project_id"], name: "index_project_groups_on_project_id", using: :btree
-
-  create_table "project_locations", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "location_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
+  add_index "project_roles", ["project_id"], name: "index_project_roles_on_project_id", using: :btree
 
   create_table "project_skills", force: :cascade do |t|
     t.integer  "project_id"
@@ -219,13 +219,13 @@ ActiveRecord::Schema.define(version: 20170302133747) do
   add_foreign_key "invitations", "users", column: "inviter_id"
   add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "notifications", "users", column: "recipient_id"
-  add_foreign_key "project_group_permissions", "permissions"
-  add_foreign_key "project_group_permissions", "project_groups"
-  add_foreign_key "project_group_users", "project_groups"
-  add_foreign_key "project_group_users", "users"
-  add_foreign_key "project_groups", "projects"
   add_foreign_key "project_locations", "locations"
   add_foreign_key "project_locations", "projects"
+  add_foreign_key "project_role_permissions", "permissions"
+  add_foreign_key "project_role_permissions", "project_roles"
+  add_foreign_key "project_role_users", "project_roles"
+  add_foreign_key "project_role_users", "users"
+  add_foreign_key "project_roles", "projects"
   add_foreign_key "project_skills", "projects"
   add_foreign_key "project_skills", "skills"
   add_foreign_key "projects", "project_types"

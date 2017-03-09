@@ -1,8 +1,0 @@
-<% Permission.where("name like 'projects.%'").each do |permission| %>
-  <%= check_box_tag 'permission',
-                    permission.id,
-                    @project_group_permissions.include?(permission),
-                    onclick: "updateProjectGroupPermission('#{@project.code}','#{@project_group.name}', this);",
-                    disabled: @disabled %>
-  <%= label_tag permission.name, permission.name %>
-<% end %>

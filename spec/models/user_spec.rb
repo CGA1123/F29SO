@@ -4,8 +4,8 @@ RSpec.describe User, type: :model do
   it { is_expected.to belong_to(:location) }
   it { is_expected.to have_many(:group_users).dependent(:delete_all) }
   it { is_expected.to have_many(:groups).through(:group_users) }
-  it { is_expected.to have_many(:project_group_users) }
-  it { is_expected.to have_many(:project_groups).through(:project_group_users) }
+  it { is_expected.to have_many(:project_role_users) }
+  it { is_expected.to have_many(:project_roles).through(:project_role_users) }
   it { is_expected.to have_many(:user_skills) }
   it { is_expected.to have_many(:skills).through(:user_skills) }
 
@@ -21,9 +21,9 @@ RSpec.describe User, type: :model do
   let(:group) { FactoryGirl.create(:group) }
   let(:user) { FactoryGirl.create(:user, groups: [group]) }
 
-  let(:project_group) { FactoryGirl.create(:project_group) }
-  let(:proj_id) { project_group.project_id }
-  let(:other_project_group) { FactoryGirl.create(:project_group) }
+  let(:project_role) { FactoryGirl.create(:project_role) }
+  let(:proj_id) { project_role.project_id }
+  let(:other_project_role) { FactoryGirl.create(:project_role) }
   let(:other_group) { FactoryGirl.create(:group) }
   let(:permission) { FactoryGirl.create(:permission) }
   let(:permission2) { FactoryGirl.create(:permission) }
@@ -36,9 +36,9 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns true if User has the relevant project permission' do
-      user.project_groups << project_group
-      project_group.permissions << permission
-      expect(user.permission?("#{project_group.project_id}.#{permission.name}"))
+      user.project_roles << project_role
+      project_role.permissions << permission
+      expect(user.permission?("#{project_role.project_id}.#{permission.name}"))
         .to be_truthy
     end
 
@@ -62,9 +62,9 @@ RSpec.describe User, type: :model do
     end
 
     it 'returns names of project permissions held by user' do
-      project_group.permissions << [permission, permission2]
-      other_project_group.permissions << permission3
-      user.project_groups << project_group
+      project_role.permissions << [permission, permission2]
+      other_project_role.permissions << permission3
+      user.project_roles << project_role
       expect(user.permission_strings).to match_array \
         ["#{proj_id}.#{permission.name}", "#{proj_id}.#{permission2.name}"]
     end
