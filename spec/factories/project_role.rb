@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :project_group do
-    sequence(:name) { |n| "Project Group #{n}" }
+  factory :project_role do
+    sequence(:name) { |n| "Project Role #{n}" }
     sequence(:description) { |n| "This is test group number #{n}" }
     project
   end

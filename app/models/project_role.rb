@@ -1,9 +1,9 @@
-class ProjectGroup < ActiveRecord::Base
-  has_many :project_group_permissions
-  has_many :permissions, through: :project_group_permissions
+class ProjectRole < ActiveRecord::Base
+  has_many :project_role_permissions
+  has_many :permissions, through: :project_role_permissions
 
-  has_many :project_group_users
-  has_many :users, through: :project_group_users
+  has_many :project_role_users
+  has_many :users, through: :project_role_users
 
   belongs_to :project
 

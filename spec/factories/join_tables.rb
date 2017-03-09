@@ -1,11 +1,11 @@
 FactoryGirl.define do
-  factory :project_group_permission do
-    project_group
+  factory :project_role_permission do
+    project_role
     permission
   end
 
-  factory :project_group_user do
-    project_group
+  factory :project_role_user do
+    project_role
     user
   end
 

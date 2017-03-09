@@ -1,8 +1,8 @@
 class Project < ActiveRecord::Base
   belongs_to :project_type
 
-  has_many :project_groups, dependent: :delete_all
-  has_many :users, through: :project_groups
+  has_many :project_roles, dependent: :delete_all
+  has_many :users, through: :project_roles
 
   has_many :project_skills, dependent: :destroy
   has_many :skills, through: :project_skills
