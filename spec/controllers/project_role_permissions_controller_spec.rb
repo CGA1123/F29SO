@@ -1,24 +1,24 @@
 require 'rails_helper'
 
-RSpec.describe ProjectGroupPermissionsController, type: :controller do
+RSpec.describe ProjectRolePermissionsController, type: :controller do
   let(:root_user) { FactoryGirl.create(:root_user) }
   let(:no_permission) { FactoryGirl.create(:user) }
   let(:project) { FactoryGirl.create(:project) }
-  let(:project_group) { FactoryGirl.create(:project_group, project: project) }
+  let(:project_role) { FactoryGirl.create(:project_role, project: project) }
   let(:permission) { FactoryGirl.create(:permission) }
 
   describe 'GET #index' do
     context 'has permission' do
       before do
         sign_in root_user
-        xhr :get, :index, code: project.code, name: project_group.name
+        xhr :get, :index, code: project.code, name: project_role.name
       end
 
       it { expect(response).to be_success }
 
-      it 'sets @project_group_permissions' do
-        expect(assigns[:project_group_permissions])
-          .to eq(project_group.permissions)
+      it 'sets @project_role_permissions' do
+        expect(assigns[:project_role_permissions])
+          .to eq(project_role.permissions)
       end
 
       it 'sets @disabled' do
@@ -26,18 +26,18 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
       end
 
       it do
-        expect(response).to render_template('project_group_permissions/index')
+        expect(response).to render_template('project_role_permissions/index')
       end
     end
 
     context 'no permissions' do
       before do
         sign_in no_permission
-        xhr :get, :index, code: project.code, name: project_group.name
+        xhr :get, :index, code: project.code, name: project_role.name
       end
 
       it do
-        expect(response).to redirect_to(project_groups_path(code: project.code))
+        expect(response).to redirect_to(project_roles_path(code: project.code))
       end
     end
   end
@@ -51,13 +51,13 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
           expect(flash[:alert]).to eq('Project not found')
         end
 
-        it 'redirects if project_group not found' do
+        it 'redirects if project_role not found' do
           xhr :post, :create, code: project.code, name: 'lel', permissions: 'le'
           expect(flash[:alert]).to eq('Not Found')
         end
 
         it 'redirects if permission not found' do
-          p = { code: project.code, name: project_group.name, permissions: 0 }
+          p = { code: project.code, name: project_role.name, permissions: 0 }
           xhr :post, :create, p
           expect(assigns[:permission]).to be_nil
         end
@@ -68,7 +68,7 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
           xhr :post,
               :create,
               code: project.code,
-              name: project_group.name,
+              name: project_role.name,
               permissions: permission.id
         end
 
@@ -76,17 +76,17 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
           expect(assigns[:project]).to eq(project)
         end
 
-        it 'sets @project_group' do
-          expect(assigns[:project_group]).to eq(project_group)
+        it 'sets @project_role' do
+          expect(assigns[:project_role]).to eq(project_role)
         end
 
         it 'sets @permission' do
           expect(assigns[:permission]).to eq(permission)
         end
 
-        it 'create a ProjectGroupPermission' do
-          expect(ProjectGroupPermission.find_by(project_group: project_group,
-                                                permission: permission)) \
+        it 'create a ProjectRolePermission' do
+          expect(ProjectRolePermission.find_by(project_role: project_role,
+                                               permission: permission)) \
             .not_to be_nil
         end
       end
@@ -103,7 +103,7 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
             method: :post,
             action: :create,
             params: { code: project.code,
-                      name: project_group.name,
+                      name: project_role.name,
                       permission: permission.id } }
         end
       end
@@ -116,21 +116,21 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
 
       context 'valid params' do
         before do
-          ProjectGroupPermission.create(project_group: project_group,
-                                        permission: permission)
+          ProjectRolePermission.create(project_role: project_role,
+                                       permission: permission)
           xhr :delete,
               :destroy,
               code: project.code,
-              name: project_group.name,
+              name: project_role.name,
               permissions: permission.id
         end
 
-        it 'sets @project_group_permission' do
-          expect(assigns[:project_group_permission]).not_to be_nil
+        it 'sets @project_role_permission' do
+          expect(assigns[:project_role_permission]).not_to be_nil
         end
 
         it 'removes permission' do
-          expect(project_group.permissions).not_to include(permission)
+          expect(project_role.permissions).not_to include(permission)
         end
       end
 
@@ -139,12 +139,12 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
           xhr :delete,
               :destroy,
               code: project.code,
-              name: project_group.name,
+              name: project_role.name,
               permissions: permission.id
         end
 
         it do
-          expect(assigns[:project_group_permission]).to be_nil
+          expect(assigns[:project_role_permission]).to be_nil
         end
 
         it 'sets alert' do
@@ -164,7 +164,7 @@ RSpec.describe ProjectGroupPermissionsController, type: :controller do
             method: :post,
             action: :create,
             params: { code: project.code,
-                      name: project_group.name,
+                      name: project_role.name,
                       permission: permission.id } }
         end
       end
