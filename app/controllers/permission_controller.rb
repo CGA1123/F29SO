@@ -64,7 +64,7 @@ class PermissionController < ApplicationController
       id = @project.id
       not_found unless \
         current_user.permission?('projects.roles.manage',
-                                 'projects.group.manage.permissions',
+                                 'projects.roles.manage.permissions',
                                  "#{id}.projects.roles.manage",
                                  "#{id}.projects.roles.manage.permissions")
     end

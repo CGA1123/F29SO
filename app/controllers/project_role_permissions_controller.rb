@@ -67,7 +67,7 @@ class ProjectRolePermissionsController < PermissionController
     current_user.permission?('projects.roles.manage',
                              'projects.roles.manage.permissions',
                              "#{@project.id}.projects.roles.manage",
-                             "#{@project.id}.project.manage.groups.permissions")
+                             "#{@project.id}.projects.roles.manage.permissions")
   end
 
   # This controller should only be accessible through xhr/ajax requests
