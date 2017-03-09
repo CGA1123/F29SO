@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe ProjectGroupUsersController, type: :controller do
+RSpec.describe ProjectRoleUsersController, type: :controller do
   let(:project) { FactoryGirl.create(:project) }
-  let(:project_group) { FactoryGirl.create(:project_group, project: project) }
+  let(:project_role) { FactoryGirl.create(:project_role, project: project) }
   let(:no_permission) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
 
@@ -13,7 +13,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         let(:req) do
           { method: :get,
             action: :index,
-            params: { code: project.code, name: project_group.name },
+            params: { code: project.code, name: project_role.name },
             xhr: true }
         end
       end
@@ -22,13 +22,13 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        xhr :get, :index, code: project.code, name: project_group.name
+        xhr :get, :index, code: project.code, name: project_role.name
       end
 
       it { expect(response).to be_success }
 
-      it 'sets @project_group' do
-        expect(assigns[:project_group]).to eq(project_group)
+      it 'sets @project_role' do
+        expect(assigns[:project_role]).to eq(project_role)
       end
     end
   end
@@ -40,7 +40,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         let(:req) do
           { method: :post,
             action: :create,
-            params: { code: project.code, name: project_group.name },
+            params: { code: project.code, name: project_role.name },
             xhr: true }
         end
       end
@@ -51,31 +51,31 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         sign_in root_user
         xhr :post,
             :create, code: project.code,
-                     name: project_group.name,
+                     name: project_role.name,
                      id: root_user.id
       end
 
       it { expect(response).to be_success }
 
-      it 'sets @project_group' do
-        expect(assigns[:project_group]).to eq(project_group)
+      it 'sets @project_role' do
+        expect(assigns[:project_role]).to eq(project_role)
       end
 
       it 'adds user to project group' do
-        expect(project_group.users).to include(root_user)
+        expect(project_role.users).to include(root_user)
       end
 
       context 'params invalid' do
         before do
           xhr :post,
               :create, code: project.code,
-                       name: project_group.name,
+                       name: project_role.name,
                        id: 'id'
         end
 
         it do
-          redirect_to project_group_path(code: project.code,
-                                         name: project_group.name)
+          redirect_to project_role_path(code: project.code,
+                                        name: project_role.name)
         end
 
         it 'sets alert' do
@@ -93,7 +93,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
           { method: :delete,
             action: :destroy,
             params: { code: project.code,
-                      name: project_group.name,
+                      name: project_role.name,
                       id: no_permission.id },
             xhr: true }
         end
@@ -105,30 +105,30 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
         sign_in root_user
         xhr :delete,
             :destroy, code: project.code,
-                      name: project_group.name,
+                      name: project_role.name,
                       id: root_user.id
       end
 
-      it 'sets @project_group' do
-        expect(assigns[:project_group]).to eq(project_group)
+      it 'sets @project_role' do
+        expect(assigns[:project_role]).to eq(project_role)
       end
 
       it { expect(response).to be_success }
 
       context 'removing user w/ multiple project groups from a project group' do
-        let(:project_group_user) do
-          ProjectGroupUser.create(user: root_user, project_group: project_group)
+        let(:project_role_user) do
+          ProjectRoleUser.create(user: root_user, project_role: project_role)
         end
 
         before do
           xhr :delete,
               :destroy, code: project.code,
-                        name: project_group.name,
+                        name: project_role.name,
                         id: root_user.id
         end
 
         it 'removes user from project group' do
-          expect(root_user.project_groups).not_to include(project_group)
+          expect(root_user.project_roles).not_to include(project_role)
         end
       end
     end
@@ -142,7 +142,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
           { method: :post,
             action: :search,
             params: { code: project.code,
-                      name: project_group.name,
+                      name: project_role.name,
                       user: no_permission.first_name },
             xhr: true }
         end
@@ -153,7 +153,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
       before do
         sign_in root_user
         xhr :post, :search, code: project.code,
-                            name: project_group.name,
+                            name: project_role.name,
                             user: root_user.first_name
       end
 
@@ -162,7 +162,7 @@ RSpec.describe ProjectGroupUsersController, type: :controller do
       end
 
       it do
-        expect(response).to render_template('project_group_users/search')
+        expect(response).to render_template('project_role_users/search')
       end
     end
   end
