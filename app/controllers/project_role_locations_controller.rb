@@ -52,7 +52,8 @@ class ProjectRoleLocationsController < PermissionController
   def source
     sources = []
     Location.all.each do |l|
-      sources << { label: l.name, value: { id: l.id, project: @project.code } }
+      sources << { label: l.name,
+                   value: { id: l.id, project_role: @project_role.name } }
     end
 
     sources.to_json
