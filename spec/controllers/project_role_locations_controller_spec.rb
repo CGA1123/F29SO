@@ -42,6 +42,15 @@ RSpec.describe ProjectRoleLocationsController, type: :controller do
           expect(response).to render_template('project_role_locations/index')
         end
       end
+
+      context 'invalid params' do
+        before { sign_in root_user }
+
+        it 'redirects if project_role not found' do
+          xhr :post, :create, code: project.code, name: 'lel', permissions: 'le'
+          expect(flash[:alert]).to eq('Not Found')
+        end
+      end
     end
   end
 
