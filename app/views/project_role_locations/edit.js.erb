@@ -7,7 +7,7 @@ $('#location_search').autocomplete({
     event.preventDefault();
     $.ajax({
       type: "POST",
-      url: "/projects/" + value.project_role.project + "/roles/" + value.project_role + "/locations",
+      url: "/projects/" + value.project + "/roles/" + value.role + "/locations",
       data: { location_id: value.id },
       cache: false
     })
