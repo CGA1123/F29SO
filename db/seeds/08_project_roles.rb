@@ -6,4 +6,4 @@ ProjectRole.create!(name: 'Leader', description: 'Directs the operation.', proje
 ProjectRole.create!(name: 'project_leader', description: 'Directs the operation.', project: Project.find_by(name: 'interdimensional_travel'))
 
 #001_users
-ProjectRoleUser.create!(user: User.find_by(email: 'rick@earth-c137.local'), project_group: ProjectRole.find_by(name: 'smuggler', project: Project.find_by(name: 'seed_excursion')))
+ProjectRoleUser.create!(user: User.find_by(email: 'rick@earth-c137.local'), project_role: ProjectRole.find_by(name: 'smuggler', project: Project.find_by(name: 'seed_excursion')))
