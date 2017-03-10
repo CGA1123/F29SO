@@ -5,6 +5,9 @@ class ProjectRole < ActiveRecord::Base
   has_many :project_role_users
   has_many :users, through: :project_role_users
 
+  has_many :project_role_locations, dependent: :destroy
+  has_many :locations, through: :project_role_locations
+
   belongs_to :project
 
   validates :name, uniqueness: { case_sensitive: false }
