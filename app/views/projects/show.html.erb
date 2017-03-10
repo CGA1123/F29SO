@@ -1,11 +1,1 @@
 <h1><%= @project.code %> - <%= @project.name %></h1>
-<div id='locations'>
-</div>
-<div id='locations-edit'>
-  <%= link_to 'Edit Locations...', project_locations_edit_path(code: @project.code), remote: true %>
-</div>
-<p>Find me in app/views/projects/show.html.erb</p>
-
-<script>
-  loadProjectLocations('<%= @project.code %>');
-</script>

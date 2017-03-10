@@ -12,6 +12,13 @@ var loadProjectRoleUsers = function(project, group) {
   });
 };
 
+var loadProjectRoleLocations = function(project, group) {
+  $.ajax({
+    url: '/projects/' + project + '/roles/' + group + '/locations.js',
+    cache: false
+  });
+};
+
 var updateProjectRolePermission = function(project, group, element) {
   if(element.checked) {
     $.ajax({

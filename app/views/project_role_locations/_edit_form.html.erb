@@ -1,0 +1,2 @@
+<%= text_field_tag 'location_search', nil,  placeholder: 'Location...' %>
+<%= link_to 'Cancel', '#', onclick: "Turbolinks.visit('#{project_role_path(code: @project.code, name: @project_role.name)}');" %>
