@@ -1,13 +1,13 @@
 var loadProjectRoles = function(project) {
   $.ajax({
-    url: '/projects/' + project + '/project_roles.js',
+    url: '/projects/' + project + '/roles.js',
     cache: false
   });
 };
 
 var loadProjectLocations = function(project) {
   $.ajax({
-    url: '/projects/' + project + '/project_locations.js',
+    url: '/projects/' + project + '/locations.js',
     cache: false
   });
 }
