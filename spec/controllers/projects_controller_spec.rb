@@ -34,11 +34,6 @@ RSpec.describe ProjectsController, type: :controller do
       expect(response).to be_success
     end
 
-    it 'assigns @project_roles' do
-      expect(assigns[:project_roles])
-        .to eq(ProjectRole.where(project: project))
-    end
-
     it 'assigns @project_locations' do
       expect(assigns[:project_locations])
         .to eq(ProjectRoleLocation

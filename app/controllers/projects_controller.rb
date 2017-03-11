@@ -10,9 +10,8 @@ class ProjectsController < PermissionController
   end
 
   def locations
-    @project_roles = ProjectRole.where(project: @project)
     @project_locations =
-      @project_roles.map(&:locations).flatten.uniq
+      @project.project_roles.map(&:locations).flatten.uniq
   end
 
   def create
