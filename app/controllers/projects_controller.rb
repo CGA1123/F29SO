@@ -1,11 +1,17 @@
 class ProjectsController < PermissionController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, except: [:index, :create]
   before_action :check_permissions
 
   def index
     @projects = Project.all
     @project = Project.new
     @can_create = current_user.permission?('projects.create')
+  end
+
+  def locations
+    @project_roles = ProjectRole.where(project: @project)
+    @project_locations =
+      @project_roles.map(&:locations).flatten.uniq
   end
 
   def create

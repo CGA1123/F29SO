@@ -4,3 +4,10 @@ var loadProjectRoles = function(project) {
     cache: false
   });
 };
+
+var loadProjectLocations = function(project) {
+  $.ajax({
+    url: '/projects/' + project + '/project_roles.js',
+    cache: false
+  });
+}
