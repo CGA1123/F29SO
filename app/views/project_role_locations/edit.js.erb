@@ -1,5 +1,5 @@
-$('#locations').html('<%= j render 'project_locations/locations_edit', project: @project %>');
-$('#locations-edit').html('<%= j render 'project_locations/edit_form' %>');
+$('#locations').html('<%= j render 'project_role_locations/locations_edit', project_role: @project_role %>');
+$('#locations-edit').html('<%= j render 'project_role_locations/edit_form' %>');
 $('#location_search').autocomplete({
   source: <%= @source.html_safe %>,
   select: function(event, ui) {
@@ -7,7 +7,7 @@ $('#location_search').autocomplete({
     event.preventDefault();
     $.ajax({
       type: "POST",
-      url: "/projects/" + value.project + "/locations",
+      url: "/projects/" + value.project + "/roles/" + value.role + "/locations",
       data: { location_id: value.id },
       cache: false
     })

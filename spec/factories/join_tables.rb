@@ -4,6 +4,11 @@ FactoryGirl.define do
     permission
   end
 
+  factory :project_role_location do
+    project_role
+    location
+  end
+
   factory :project_role_user do
     project_role
     user

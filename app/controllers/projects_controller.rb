@@ -1,11 +1,17 @@
 class ProjectsController < PermissionController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, except: [:index, :create]
+  before_action :check_format, only: [:locations]
   before_action :check_permissions
 
   def index
     @projects = Project.all
     @project = Project.new
     @can_create = current_user.permission?('projects.create')
+  end
+
+  def locations
+    @project_locations =
+      @project.project_roles.map(&:locations).flatten.uniq
   end
 
   def create
@@ -48,5 +54,9 @@ class ProjectsController < PermissionController
 
   def project_params
     params.require(:project).permit(:code, :name, :project_type_id)
+  end
+
+  def check_format
+    not_found unless request.xhr?
   end
 end

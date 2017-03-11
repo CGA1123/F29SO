@@ -24,6 +24,23 @@ RSpec.describe ProjectsController, type: :controller do
     end
   end
 
+  describe 'GET #locations' do
+    before do
+      sign_in user
+      xhr :get, :locations, code: project.code
+    end
+
+    it do
+      expect(response).to be_success
+    end
+
+    it 'assigns @project_locations' do
+      expect(assigns[:project_locations])
+        .to eq(ProjectRoleLocation
+          .where(project_role: ProjectRole.where(project: project)))
+    end
+  end
+
   describe 'POST #create' do
     context 'user has permission' do
       before { sign_in root_user }
