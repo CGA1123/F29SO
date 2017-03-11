@@ -1,4 +1,6 @@
 class ProjectRole < ActiveRecord::Base
+  belongs_to :project
+
   has_many :project_role_permissions
   has_many :permissions, through: :project_role_permissions
 
@@ -8,7 +10,8 @@ class ProjectRole < ActiveRecord::Base
   has_many :project_role_locations, dependent: :destroy
   has_many :locations, through: :project_role_locations
 
-  belongs_to :project
+  has_many :project_role_skills
+  has_many :skills, through: :project_role_skills
 
   validates :name, uniqueness: { case_sensitive: false }
   validates :project, :name, presence: true

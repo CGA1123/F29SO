@@ -8,6 +8,4 @@ RSpec.describe Project, type: :model do
   it { is_expected.to have_many(:project_roles) }
   it { is_expected.to have_many(:users).through(:project_roles) }
   it { is_expected.to belong_to(:project_type) }
-  it { is_expected.to have_many(:project_skills) }
-  it { is_expected.to have_many(:skills).through(:project_skills) }
 end

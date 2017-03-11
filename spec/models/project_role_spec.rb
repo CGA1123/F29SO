@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe ProjectRole, type: :model do
-  it { is_expected.to have_many(:project_role_permissions) }
-  it { is_expected.to have_many(:project_role_locations) }
   it { is_expected.to belong_to(:project) }
+  it { is_expected.to have_many(:project_role_locations) }
+  it { is_expected.to have_many(:project_role_permissions) }
+  it { is_expected.to have_many(:project_role_users) }
+  it { is_expected.to have_many(:project_role_skills) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:project) }
   it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
@@ -21,6 +23,11 @@ RSpec.describe ProjectRole, type: :model do
   it do
     is_expected.to have_many(:users)
       .through(:project_role_users)
+  end
+
+  it do
+    is_expected.to have_many(:skills)
+      .through(:project_role_skills)
   end
 
   subject(:project_role) { FactoryGirl.create(:project_role) }
