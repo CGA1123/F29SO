@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170310115206) do
+ActiveRecord::Schema.define(version: 20170311111758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,17 @@ ActiveRecord::Schema.define(version: 20170310115206) do
   add_index "project_role_permissions", ["permission_id"], name: "index_project_role_permissions_on_permission_id", using: :btree
   add_index "project_role_permissions", ["project_role_id"], name: "index_project_role_permissions_on_project_role_id", using: :btree
 
+  create_table "project_role_skills", force: :cascade do |t|
+    t.integer  "project_role_id"
+    t.integer  "skill_id"
+    t.integer  "rating"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "project_role_skills", ["project_role_id"], name: "index_project_role_skills_on_project_role_id", using: :btree
+  add_index "project_role_skills", ["skill_id"], name: "index_project_role_skills_on_skill_id", using: :btree
+
   create_table "project_role_users", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "project_role_id"
@@ -126,17 +137,6 @@ ActiveRecord::Schema.define(version: 20170310115206) do
   end
 
   add_index "project_roles", ["project_id"], name: "index_project_roles_on_project_id", using: :btree
-
-  create_table "project_skills", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "skill_id"
-    t.integer  "qualifier"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "project_skills", ["project_id"], name: "index_project_skills_on_project_id", using: :btree
-  add_index "project_skills", ["skill_id"], name: "index_project_skills_on_skill_id", using: :btree
 
   create_table "project_types", force: :cascade do |t|
     t.string   "name"
@@ -223,11 +223,11 @@ ActiveRecord::Schema.define(version: 20170310115206) do
   add_foreign_key "project_role_locations", "project_roles"
   add_foreign_key "project_role_permissions", "permissions"
   add_foreign_key "project_role_permissions", "project_roles"
+  add_foreign_key "project_role_skills", "project_roles"
+  add_foreign_key "project_role_skills", "skills"
   add_foreign_key "project_role_users", "project_roles"
   add_foreign_key "project_role_users", "users"
   add_foreign_key "project_roles", "projects"
-  add_foreign_key "project_skills", "projects"
-  add_foreign_key "project_skills", "skills"
   add_foreign_key "projects", "project_types"
   add_foreign_key "skills", "skill_types"
   add_foreign_key "user_skills", "skills"
