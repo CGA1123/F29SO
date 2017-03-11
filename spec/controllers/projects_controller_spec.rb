@@ -27,7 +27,7 @@ RSpec.describe ProjectsController, type: :controller do
   describe 'GET #locations' do
     before do
       sign_in user
-      get :locations, code: project.code
+      xhr :get, :locations, code: project.code
     end
 
     it do

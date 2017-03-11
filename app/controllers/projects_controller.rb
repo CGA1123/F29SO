@@ -1,5 +1,6 @@
 class ProjectsController < PermissionController
   before_action :set_project, except: [:index, :create]
+  before_action :check_format, only: [:locations]
   before_action :check_permissions
 
   def index
@@ -54,5 +55,9 @@ class ProjectsController < PermissionController
 
   def project_params
     params.require(:project).permit(:code, :name, :project_type_id)
+  end
+
+  def check_format
+    not_found unless request.xhr?
   end
 end
