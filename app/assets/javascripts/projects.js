@@ -7,7 +7,7 @@ var loadProjectRoles = function(project) {
 
 var loadProjectLocations = function(project) {
   $.ajax({
-    url: '/projects/' + project + '/project_roles.js',
+    url: '/projects/' + project + '/project_locations.js',
     cache: false
   });
 }
