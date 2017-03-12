@@ -75,6 +75,7 @@ Rails.application.routes.draw do
   get 'projects/:code/roles/:name/skills', to: 'project_role_skills#index', as: :project_role_skills
   post 'projects/:code/roles/:name/skills', to: 'project_role_skills#create'
   delete 'projects/:code/roles/:name/skills', to: 'project_role_skills#destroy'
+  patch 'projects/:code/roles/:name/skills', to: 'project_role_skills#update'
   get 'projects/:code/roles/:name/skills/edit', to: 'project_role_skills#edit', as: :project_role_skills_edit
 
   # GroupsController Routes

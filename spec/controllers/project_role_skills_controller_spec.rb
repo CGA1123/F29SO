@@ -200,4 +200,39 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
       end
     end
   end
+
+  describe 'PATCH #update' do
+    context 'no permission' do
+      before { sign_in no_permission }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { xhr: true,
+            method: :patch,
+            action: :update,
+            params: { code: project.code,
+                      name: project_role.name,
+                      skill_id: skill.id,
+                      rating: 'novice' } }
+        end
+      end
+    end
+
+    context 'has permission' do
+      before do
+        sign_in root_user
+        ProjectRoleSkill.create!(project_role: project_role,
+                                 skill: skill,
+                                 rating: :basic)
+        xhr :patch, :update,
+            code: project.code,
+            name: project_role.name,
+            skill_id: skill.id,
+            rating: 'expert'
+      end
+      it 'updates skill rating' do
+        skill = ProjectRoleSkill.find_by(project_role: project_role)
+        expect(skill.rating).to eq('expert')
+      end
+    end
+  end
 end

@@ -4,7 +4,7 @@ class ProjectRoleSkillsController < PermissionController
   before_action :check_permissions
   before_action :set_project_role
   before_action :set_skill, except: [:index, :edit]
-  before_action :set_project_role_skill, only: [:destroy]
+  before_action :set_project_role_skill, only: [:destroy, :update]
 
   def index
     @project_role_skills = @project_role.project_role_skills
@@ -26,7 +26,10 @@ class ProjectRoleSkillsController < PermissionController
     @source = source
   end
 
-  def update; end
+  def update
+    @project_role_skill.rating = params[:rating]
+    @saved = @project_role_skill.save
+  end
 
   private
 
