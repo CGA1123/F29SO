@@ -10,12 +10,8 @@ class GroupUsersController < PermissionController
 
   def create
     @group_user = GroupUser.new(user: @user, group: @group)
-    path = group_path(name: @group.name)
-
-    respond_to do |format|
-      @group_user.save
-      format.html { redirect_to path, notice: 'User Added.' }
-    end
+    @group_user.save
+    redirect_to group_path(name: @group.name), notice: 'User Added.'
   end
 
   # rubocop:disable Metrics/MethodLength
