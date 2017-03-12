@@ -86,6 +86,34 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
         end
       end
     end
+
+    context 'has permission' do
+      before do
+        sign_in root_user
+        xhr :post, :create,
+            code: project.code,
+            name: project_role.name,
+            skill_id: skill.id
+      end
+
+      it 'creates ProjectRoleSkill' do
+        expect(project_role.skills).to include(skill)
+      end
+    end
+
+    context 'skill doesnt exist' do
+      before do
+        sign_in root_user
+        xhr :post, :create,
+            code: project.code,
+            name: project_role.name,
+            skill_id: 'lel'
+      end
+
+      it 'sets alert' do
+        expect(flash[:alert]).to eq('Skill not found!')
+      end
+    end
   end
 
   describe 'DELETE #destroy' do
@@ -165,6 +193,10 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
       it 'sets @project_role_skills' do
         expect(assigns[:project_role_skills])
           .to eq(ProjectRoleSkill.where(project_role: project_role))
+      end
+
+      it 'sets @source' do
+        expect(assigns[:source]).not_to be_nil
       end
     end
   end

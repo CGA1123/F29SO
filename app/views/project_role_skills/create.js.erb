@@ -1,0 +1,6 @@
+<% if @project_role_skill.persisted? %>
+$('#skills').prepend("<%= j render 'project_role_skills/edit_skill', project_role_skill: @project_role_skill %>");
+$('#flash').html("<p id='notice'>Skill added</p>");
+<% else %>
+$('#flash').html("<p id='alert'>Skill could not be added.</p>");
+<% end %>

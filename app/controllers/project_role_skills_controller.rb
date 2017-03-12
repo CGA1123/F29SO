@@ -13,7 +13,7 @@ class ProjectRoleSkillsController < PermissionController
   def create
     @project_role_skill = ProjectRoleSkill.new(project_role: @project_role,
                                                skill: @skill,
-                                               rating: params[:rating])
+                                               rating: :basic)
     @project_role_skill.save
   end
 
@@ -23,6 +23,7 @@ class ProjectRoleSkillsController < PermissionController
 
   def edit
     @project_role_skills = @project_role.project_role_skills
+    @source = source
   end
 
   def update; end
@@ -59,5 +60,17 @@ class ProjectRoleSkillsController < PermissionController
 
   def check_format
     not_found unless request.xhr?
+  end
+
+  def source
+    sources = []
+    Skill.all.each do |skill|
+      sources << { label: skill.name,
+                   value: { skill_id: skill.id,
+                            project: @project.code,
+                            role: @project_role.name } }
+    end
+
+    sources.to_json
   end
 end
