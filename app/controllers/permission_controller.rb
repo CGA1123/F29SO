@@ -84,6 +84,14 @@ class PermissionController < ApplicationController
     end
   end
 
+  def check_project_role_skills
+    case action_name
+    when 'index'
+      not_found unless current_user.permission?('project.view',
+                                                "#{@project.id}.projects.view")
+    end
+  end
+
   def check_groups
     case action_name
     when 'index', 'show'

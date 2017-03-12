@@ -71,6 +71,11 @@ Rails.application.routes.draw do
   delete 'projects/:code/roles/:name/locations', to: 'project_role_locations#destroy'
   get 'projects/:code/roles/:name/locations/edit', to: 'project_role_locations#edit', as: :project_role_locations_edit
 
+  # ProjectRoleSkills Routes
+  get 'projects/:code/roles/:name/skills', to: 'project_role_skills#index', as: :project_role_skills
+  post 'projects/:code/roles/:name/skills', to: 'project_role_skills#create'
+  delete 'projects/:code/roles/:name/skills', to: 'project_role_skills#destroy'
+
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups
   post 'groups', to: 'groups#create'
