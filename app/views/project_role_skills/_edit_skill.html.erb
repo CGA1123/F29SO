@@ -1,0 +1,6 @@
+<div id='project_role_skill-<%= project_role_skill.id %>'>
+  Edit <%=project_role_skill.skill.name %>
+<%= link_to project_role_skills_path(code: project_role_skill.project_role.project.code, name: project_role_skill.project_role.name, skill_id: project_role_skill.skill.id), method: :delete, remote: true  do %>
+  <%= octicon 'x', class: 'red' %>
+<% end %>
+</div>

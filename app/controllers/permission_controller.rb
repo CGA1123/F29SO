@@ -89,7 +89,7 @@ class PermissionController < ApplicationController
     when 'index'
       not_found unless current_user.permission?('projects.view',
                                                 "#{@project.id}.projects.view")
-    when 'create', 'destroy'
+    when 'create', 'destroy', 'edit', 'update'
       not_found unless \
         current_user.permission?('projects.role.manage',
                                  'projects.role.manage.skills',

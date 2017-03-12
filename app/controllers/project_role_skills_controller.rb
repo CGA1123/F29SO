@@ -3,7 +3,8 @@ class ProjectRoleSkillsController < PermissionController
   before_action :set_project
   before_action :check_permissions
   before_action :set_project_role
-  before_action :set_skill, except: [:index]
+  before_action :set_skill, except: [:index, :edit]
+  before_action :set_project_role_skill, only: [:destroy]
 
   def index
     @project_role_skills = @project_role.project_role_skills
@@ -16,9 +17,26 @@ class ProjectRoleSkillsController < PermissionController
     @project_role_skill.save
   end
 
-  def destroy; end
+  def destroy
+    @project_role_skill.destroy
+  end
+
+  def edit
+    @project_role_skills = @project_role.project_role_skills
+  end
+
+  def update; end
 
   private
+
+  def set_project_role_skill
+    @project_role_skill = ProjectRoleSkill.find_by(project_role: @project_role,
+                                                   skill: @skill)
+    return if @project_role_skill
+    redirect_to project_role_path(code: @project.code,
+                                  name: @project_role.name),
+                alert: 'Could not find that skill'
+  end
 
   def set_project
     @project = Project.find_by(code: params[:code])

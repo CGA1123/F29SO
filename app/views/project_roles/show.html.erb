@@ -22,6 +22,11 @@
 </div>
 
 <h2>Skills:</h2>
+<div id='skills-edit'>
+  <%= link_to project_role_skills_edit_path(code: @project.code, name: @project_role.name), remote: true do %>
+    <%= octicon 'pencil' %>
+  <% end %>
+</div>
 <div id='skills'>
 </div>
 

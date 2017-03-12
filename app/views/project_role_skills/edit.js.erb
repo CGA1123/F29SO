@@ -1,0 +1,3 @@
+console.log('edit');
+$('#skills').html("<%= j render 'project_role_skills/edit_skills', project_role_skills: @project_role_skills %>");
+$('#skills-edit').html('<%= link_to 'Done', project_role_path(code: @project.code, name: @project_role.name) %>');
