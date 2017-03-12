@@ -401,7 +401,7 @@ User.create!(
 
   # Brendan Rodgers
   User.create!(
-      email: 'Brendan@earth.local',
+      email: 'brendan@earth.local',
       password: '12345678',
       password_confirmation: '12345678',
       groups: Group.where(name: 'human'),
