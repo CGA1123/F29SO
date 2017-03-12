@@ -401,7 +401,11 @@ User.create!(
 
   # Brendan Rodgers
   User.create!(
+<<<<<<< HEAD
       email: 'brendan@earth.local',
+=======
+      email: 'Brendan@earth.local',
+>>>>>>> fa48663c43e95c621632cd9a2fdebf0cc8f181b2
       password: '12345678',
       password_confirmation: '12345678',
       groups: Group.where(name: 'human'),
