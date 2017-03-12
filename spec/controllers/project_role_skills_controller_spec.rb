@@ -20,6 +20,56 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
         end
       end
     end
+
+    context 'has permission' do
+      before { sign_in root_user }
+      context 'project exists' do
+        context 'role exists' do
+          before do
+            xhr :get, :index, code: project.code, name: project_role.name
+          end
+
+          it 'sets @project' do
+            expect(assigns[:project]).to eq(project)
+          end
+
+          it 'sets @project_role' do
+            expect(assigns[:project_role]).to eq(project_role)
+          end
+
+          it 'sets @project_role_skills' do
+            expect(assigns[:project_role_skills]) \
+              .to eq(ProjectRoleSkill.where(project_role: project_role))
+          end
+        end
+
+        context 'role does not exist' do
+          before { xhr :get, :index, code: project.code, name: 'lel' }
+          it 'sets @project' do
+            expect(assigns[:project]).to eq(project)
+          end
+
+          it 'sets @project_role' do
+            expect(assigns[:project_role]).to be_nil
+          end
+
+          it 'sets alert' do
+            expect(flash[:alert]).to eq('Not Found')
+          end
+        end
+      end
+
+      context 'project does not exist' do
+        before { xhr :get, :index, code: 'lel', name: project_role.name }
+        it '@project is nil' do
+          expect(assigns[:project]).to be_nil
+        end
+
+        it 'sets alert' do
+          expect(flash[:alert]).to eq('Project not found')
+        end
+      end
+    end
   end
 
   describe 'POST #create' do
