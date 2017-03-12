@@ -6,7 +6,10 @@ RSpec.describe ProjectRole, type: :model do
   it { is_expected.to belong_to(:project) }
   it { is_expected.to validate_presence_of(:name) }
   it { is_expected.to validate_presence_of(:project) }
-  it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
+  it do
+    is_expected.to validate_uniqueness_of(:name).scoped_to(:project_id)
+      .case_insensitive
+  end
 
   it do
     is_expected.to have_many(:locations)

@@ -10,7 +10,7 @@ class ProjectRole < ActiveRecord::Base
 
   belongs_to :project
 
-  validates :name, uniqueness: { case_sensitive: false }
+  validates :name, uniqueness: { case_sensitive: false, scope: :project_id }
   validates :project, :name, presence: true
 
   before_destroy :check_if_owner
