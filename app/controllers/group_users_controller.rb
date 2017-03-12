@@ -13,11 +13,8 @@ class GroupUsersController < PermissionController
     path = group_path(name: @group.name)
 
     respond_to do |format|
-      if @group_user.save
-        format.html { redirect_to path, notice: 'User Added.' }
-      else
-        format.html { redirect_to path, alert: 'User could not be added.' }
-      end
+      @group_user.save
+      format.html { redirect_to path, notice: 'User Added.' }
     end
   end
 
