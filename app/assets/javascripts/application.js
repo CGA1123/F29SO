@@ -21,6 +21,7 @@
 var ready;
 ready = function() {
   $('.profile-img').initial();
+  $(".button-collapse").sideNav();
 };
 
 var search = function() {

@@ -5,7 +5,7 @@ var toggle_notification = function() {
 }
 
 var getNotifications = function () {
-  if($('#notifications').length) {
+  if($('#notifications-dropdown').length) {
     $.ajax({
       url: '/notifications.json',
       method: 'GET',
@@ -16,16 +16,20 @@ var getNotifications = function () {
 
 var showNotifications = function(data) {
   l = data.length;
-  $('#notifications-count').html(l);
-  dropdown = $('#notification-dropdown');
-  dropdown.empty();
+  $('.notifications-count').html(l);
+  notification_menu = $('#notifications-dropdown');
+  notification_menu.empty();
   for(var i = 0; i < l; i++) {
     notification = data[i];
     notification_html = '<a href=' + notification['url'] + '>' + notification['message'] + '</a>'
-    dropdown.append(notification_html);
+    notification_menu.append(notification_html);
+  }
+
+  if(l === 0) {
+    notification_html = "<span class='purple-text text-darken-2'>No New Notifications</span>";
+    notification_menu.append(notification_html);
   }
 };
 
 // call getNotifications() on document ready (through turbolinks)
 $(document).on('turbolinks:load', function() { getNotifications(); });
-

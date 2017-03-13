@@ -24,3 +24,15 @@ body,
 .hunned-height {
   height: 100%;
 }
+
+.brand-logo {
+  background: image-url("leidos_logo.png") no-repeat;
+  height: 100%;
+  width: 150px;
+  background-size: contain;
+  background-position: center;
+}
+
+#settings-dropdown {
+  width: 200px;
+}
