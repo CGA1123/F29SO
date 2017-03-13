@@ -15,6 +15,7 @@
 //= require jquery-ui
 //= require initial
 //= require turbolinks
+//= require materialize-sprockets
 //= require_tree
 
 var ready;

@@ -8,6 +8,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
   <% if user_signed_in? %>
     <%= render 'layouts/top_nav' %>
   <% end %>
@@ -20,8 +21,7 @@
     <p id='alert'><%= alert %></p>
   <% end %>
   </div>
-
-  <div class="yielded">
+  <div class="container hunned-height">
     <%= yield %>
   </div>
 </body>
