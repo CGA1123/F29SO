@@ -37,15 +37,17 @@ class ProjectRoleUsersController < PermissionController
     @project_role = ProjectRole.find_by(project: @project,
                                         name: params[:name])
     return if @project_role
-    flash[:alert] = 'ProjectRole not found'
+    flash[:alert] = 'Project role not found'
     redirect_to project_roles_path(code: @project.code)
   end
 
   def set_project_role_user
-    @project_role_user = ProjectRoleUser.find_by(id: params[:id])
+    @project_role_user = ProjectRoleUser.find_by(project_role: @project_role,
+                                                 user_id: params[:id])
     return if @project_role_user
     flash[:alert] = 'Project group user not found'
-    redirect_to project_role_users_path(code: @project.code)
+    redirect_to project_role_users_path(code: @project.code,
+                                        name: @project_role.name)
   end
 
   def set_user
