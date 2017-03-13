@@ -20,10 +20,21 @@
 <div id='locations-edit'>
   <%= link_to 'Edit Locations...', project_role_locations_edit_path(code: @project.code, name: @project_role.name), remote: true %>
 </div>
+
+<h2>Skills:</h2>
+<div id='skills-edit'>
+  <%= link_to project_role_skills_edit_path(code: @project.code, name: @project_role.name), remote: true do %>
+    <%= octicon 'pencil' %>
+  <% end %>
+</div>
+<div id='skills'>
+</div>
+
 <p>Find me in app/views/project_roles/show.html.erb</p>
 
 <script>
   loadProjectRoleLocations('<%= @project.code %>','<%= @project_role.name %>');
   loadProjectRoleUsers('<%= @project.code %>','<%= @project_role.name %>');
   loadProjectRolePermissions('<%= @project.code %>','<%= @project_role.name %>')
+  loadProjectRoleSkills('<%= @project.code %>','<%= @project_role.name %>')
 </script>

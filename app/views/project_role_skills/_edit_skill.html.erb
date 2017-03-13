@@ -1,0 +1,13 @@
+<div id='project_role_skill-<%= project_role_skill.id %>'>
+  <% project_role = project_role_skill.project_role %>
+  <% project = project_role.project %>
+  <% skill = project_role_skill.skill %>
+  <%=project_role_skill.skill.name %>
+  <%= select_tag :rating, options_for_select(ProjectRoleSkill.ratings.keys.map { |a| [a.humanize, a] }, project_role_skill.rating), onchange: "updateProjectRoleSkill('#{project.code}', '#{project_role.name}', #{skill.id}, this.value);" %>
+  <%= link_to project_role_skills_path(code: project.code,
+                                       name: project_role.name,
+                                       skill_id: skill.id),
+      method: :delete, remote: true  do %>
+  <%= octicon 'trashcan', class: 'red' %>
+<% end %>
+</div>

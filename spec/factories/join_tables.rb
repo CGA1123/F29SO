@@ -40,9 +40,9 @@ FactoryGirl.define do
     rating :expert
   end
 
-  factory :project_skill do
-    project
+  factory :project_role_skill do
+    project_role
     skill
-    qualifier :required
+    rating :expert
   end
 end
