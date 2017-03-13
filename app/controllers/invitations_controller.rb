@@ -1,6 +1,5 @@
-class InvitationsController < ApplicationController
-  before_action :authenticate_inviter, only: [:create, :new, :index, :destroy]
-  before_action :check_permissions, only: [:create]
+class InvitationsController < PermissionController
+  before_action :check_permissions
 
   skip_before_action :authenticate_user!, only: [:accept, :create_user]
   before_action :unauthenticated_only, only: [:accept, :create_user]
@@ -79,24 +78,6 @@ class InvitationsController < ApplicationController
                   :first_name,
                   :last_name,
                   :location_id)
-  end
-
-  # Need to ensure that the inviting user has the right permissions
-  def check_permissions
-    groups = invite_params[:groups]
-    groups.each do |group|
-      message = "You don't have permission to invite #{group.name}"
-      redirect_to new_invitation_path, alert: message \
-        unless current_user.permission?("users.invite.#{group.id}")
-    end
-  end
-
-  # If a user is not logged in, or does not have appropriate permission to
-  # invite a user, throw a 404.
-  # This method is called before the actions: new, create
-  # not_found is defined in ApplicationController
-  def authenticate_inviter
-    not_found unless user_signed_in? && current_user.permission?('users.invite')
   end
 
   def verify_token

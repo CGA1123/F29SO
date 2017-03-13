@@ -1,6 +1,5 @@
-class GroupUsersController < ApplicationController
-  before_action :check_view_permission, only: [:index]
-  before_action :check_manage_permission, only: [:create, :destroy, :search]
+class GroupUsersController < PermissionController
+  before_action :check_permissions
   before_action :set_group
   before_action :set_group_user, only: [:destroy]
   before_action :set_user, only: [:create]
@@ -11,15 +10,8 @@ class GroupUsersController < ApplicationController
 
   def create
     @group_user = GroupUser.new(user: @user, group: @group)
-    path = group_path(name: @group.name)
-
-    respond_to do |format|
-      if @group_user.save
-        format.html { redirect_to path, notice: 'User Added.' }
-      else
-        format.html { redirect_to path, alert: 'User could not be added.' }
-      end
-    end
+    @group_user.save
+    redirect_to group_path(name: @group.name), notice: 'User Added.'
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -61,18 +53,5 @@ class GroupUsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     redirect_to group_path(name: @group.name), alert: 'User not found.' \
       unless @user
-  end
-
-  def check_view_permission
-    check_permission('admin.groups.view')
-  end
-
-  def check_manage_permission
-    check_permission('admin.groups.manage.users') ||
-      check_permission('admin.groups.manage')
-  end
-
-  def check_permission(permission)
-    not_found unless current_user.permission?(permission)
   end
 end

@@ -18,33 +18,26 @@ RSpec.describe ProjectsController, type: :controller do
     it 'assigns @projects' do
       expect(assigns[:projects]).to eq(Project.all)
     end
+
+    it 'assigns @project' do
+      expect(assigns[:project]).not_to be_nil
+    end
   end
 
-  describe 'GET #new' do
-    context 'user has permission' do
-      before do
-        sign_in root_user
-        get :new
-      end
-
-      it { expect(response).to be_success }
-
-      it 'assigns @project' do
-        expect(assigns[:project]).not_to be_nil
-      end
+  describe 'GET #locations' do
+    before do
+      sign_in user
+      xhr :get, :locations, code: project.code
     end
 
-    context 'user does not have permission' do
-      before do
-        sign_in user
-        get :new
-      end
+    it do
+      expect(response).to be_success
+    end
 
-      it { expect(response).to redirect_to(projects_path) }
-
-      it 'sets alert' do
-        expect(flash[:alert]).to eq('You cannot do that.')
-      end
+    it 'assigns @project_locations' do
+      expect(assigns[:project_locations])
+        .to eq(ProjectRoleLocation
+          .where(project_role: ProjectRole.where(project: project)))
     end
   end
 
@@ -73,7 +66,7 @@ RSpec.describe ProjectsController, type: :controller do
 
         it 'create the owner group' do
           proj = Project.find_by(code: 'X')
-          expect(ProjectGroup.where(project: proj).first).to be_persisted
+          expect(ProjectRole.where(project: proj).first).to be_persisted
         end
       end
 
@@ -82,9 +75,14 @@ RSpec.describe ProjectsController, type: :controller do
           { project: { name: 'hello' } }
         end
 
+        before { post :create, invalid_params }
+
         it do
-          post :create, invalid_params
-          expect(response).to render_template(:new)
+          expect(response).to render_template(:index)
+        end
+
+        it 'sets @projects' do
+          expect(assigns[:projects]).to eq(Project.all)
         end
 
         it 'does not create a new Project' do

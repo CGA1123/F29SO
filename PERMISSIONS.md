@@ -14,19 +14,21 @@ This file contains a record of all permissions registered in the system.
 | `profile.edit.others` | `ProfilesController#edit` & `ProfilesController#update` | Allows a user to edit others profile (A user with this permission can **also** edit his own profile) |
 | `profile.skills.manage` | `UserSkill#search`, `#create`, `#edit`, `#update`, & `UserSkill#destroy` | Allows a user to edit their skills set |
 | `profile.skills.manage.others` | `UserSkill#search`, `#create`, `#edit`, `#update`, & `UserSkill#destroy` | Allows a user to edit other users' skills set |
-| `projects.view` | `ProjectsController#show` | Gives **global** permission to view any project |
-| `<project_id>.projects.view` | `ProjectsController#show` | Gives **scoped** permission to view a specific project |
-| `projects.edit` | `ProjectsController#update` & `ProjectsController#edit` | Gives **global** permission to edit any project |
-| `<project_id>.projects.edit` | `ProjectsController#update` & `ProjectsController#edit` | Gives **scoped** permission to edit a specific project |
-| `projects.delete` | `ProjectsController#destroy` | Gives **global** permission to delete any project |
-| `<project_id>.projects.delete` | `ProjectsController#destroy` | Gives **scoped** permission to delete a specific project |
-| `project.create` | `ProjectsController#create` | Gives permission to create a new project |
+| `projects.view` | `ProjectsController#show` & `ProjectRolePermissionsController#index` | Gives permission to view a project |
+| `projects.edit` | `ProjectsController#update` & `ProjectsController#edit` | Gives permission to edit a project |
+| `projects.delete` | `ProjectsController#destroy` | Gives permission to delete a project |
+| `projects.create` | `ProjectsController#create` | Gives permission to create a new project |
+| `projects.roles.manage` |  | Allows a user to manage a ProjectRole, its locations, users, & permissions |
+| `projects.roles.manage.users` | `ProjectRoleUsersController` | Allows a user to manage a ProjectRoles users|
+| `projects.roles.manage.permissions` | `ProjectRolePermissionsController` | Allows a user to manage a ProjectRoles permissions |
+| `projects.roles.manage.locations` | `ProjectLocationsController` | Allows a user to manage a Projects locations |
 | `admin.groups.view` | `GroupsController#show, #index` & `GroupUsersController#index`  | Allows user to views groups (And group users) |
 | `admin.groups.manage` | `GroupsController#create, #destroy` & `GroupUsersController#create, #search, #destroy` & `GroupPermissionsController#create` & `#destroy` | Allows a user to manage groups (creation/deletion), as well as group users (addition, removal), and group permissions (adding/removing) |
 | `admin.groups.manage.users` | `GroupUsersController#create, #destroy #search` | Allows user to manage users within a group (addition, removal) |
 | `admin.groups.manage.permissions` | `GroupPermissionsController#create` & `#destroy` | Allows user to manage permissions that a group has |
 | `admin.project_types` | `ProjectTypesController` (all actions) | Allows user to manage `ProjectType` (creation/deletion/updating) |
 
+**All `projects.*` permissions (except `projects.create`) can be scoped to only a certain project through `ProjectRolePermissions`. If a system `Group` is given these permissions, users within that group have permission to perform associated actions on ANY project.**
 ### Actions requiring only a user account
 
 WIP

@@ -1,0 +1,8 @@
+<div class='role', id='project_role-<%= project_role.id %>'>
+  <%= link_to project_role.name, project_role_path(code: project_role.project.code, name: project_role.name) %>
+  <%= octicon 'organization' %> Members: <%= project_role.users.count %>
+  <%= link_to project_roles_path(code: project_role.project.code, name: project_role.name), method: :delete do %>
+    <%= octicon 'trashcan' %>
+    Delete
+  <% end %>
+</div>

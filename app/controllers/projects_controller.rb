@@ -1,27 +1,29 @@
-class ProjectsController < ApplicationController
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_action :check_create_permission, only: [:new, :create]
-  before_action :check_update_permissions, only: [:edit, :update]
-  before_action :check_destroy_permission, only: [:destroy]
-  before_action :check_view_permission, only: [:show]
+class ProjectsController < PermissionController
+  before_action :set_project, except: [:index, :create]
+  before_action :check_format, only: [:locations]
+  before_action :check_permissions
 
   def index
     @projects = Project.all
+    @project = Project.new
+    @can_create = current_user.permission?('projects.create')
   end
 
-  def new
-    @project = Project.new
+  def locations
+    @project_locations =
+      @project.project_roles.map(&:locations).flatten.uniq
   end
 
   def create
     @project = Project.new(project_params)
     if @project.save
-      ProjectGroup.create(name: 'Owner',
-                          description: 'The Owner Group',
-                          project: @project)
+      ProjectRole.create(name: 'Owner',
+                         description: 'The Owner Group',
+                         project: @project)
       redirect_to project_path(code: @project.code)
     else
-      render :new
+      @projects = Project.all
+      render :index
     end
   end
 
@@ -54,28 +56,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:code, :name, :project_type_id)
   end
 
-  def check_create_permission
-    user = current_user
-    redirect_to projects_path, alert: 'You cannot do that.' unless \
-      user.permission?('projects.create')
-  end
-
-  def check_update_permissions
-    check_permission('edit')
-  end
-
-  def check_destroy_permission
-    check_permission('delete')
-  end
-
-  def check_view_permission
-    check_permission('view')
-  end
-
-  def check_permission(permission)
-    user = current_user
-    redirect_to projects_path, alert: 'You cannot do that.' unless \
-      user.permission?("projects.#{permission}") ||
-      user.permission?("#{@project.id}.projects.#{permission}")
+  def check_format
+    not_found unless request.xhr?
   end
 end

@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   has_many :group_users, dependent: :delete_all
   has_many :groups, through: :group_users
 
-  has_many :project_group_users
-  has_many :project_groups, through: :project_group_users
+  has_many :project_role_users
+  has_many :project_roles, through: :project_role_users
 
   has_many :user_skills
   has_many :skills, through: :user_skills
@@ -24,14 +24,14 @@ class User < ActiveRecord::Base
           string: "%#{string.downcase}%")
   end
 
-  def permission?(permission_name)
+  def permission?(*permissions)
     return true if groups.map(&:name).include?('root')
-    permission_strings.include?(permission_name)
+    (permission_strings & permissions).present?
   end
 
   def permission_strings
     groups.map(&:permission_strings).flatten.uniq +
-      project_groups.map(&:permission_strings).flatten.uniq
+      project_roles.map(&:permission_strings).flatten.uniq
   end
 
   def name

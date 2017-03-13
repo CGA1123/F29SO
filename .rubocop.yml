@@ -8,6 +8,7 @@ AllCops:
     - 'spec/*_helper.rb'
     - 'Rakefile'
     - 'vendor/**/*'
+    - 'app/controllers/permission_controller.rb'
 Rails:
   Enabled: true
 

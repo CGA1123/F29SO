@@ -1,12 +1,22 @@
 FactoryGirl.define do
-  factory :project_group_permission do
-    project_group
+  factory :project_role_permission do
+    project_role
     permission
   end
 
-  factory :project_group_user do
-    project_group
+  factory :project_role_location do
+    project_role
+    location
+  end
+
+  factory :project_role_user do
+    project_role
     user
+  end
+
+  factory :project_location do
+    project
+    location
   end
 
   factory :group_permission do
@@ -30,9 +40,9 @@ FactoryGirl.define do
     rating :expert
   end
 
-  factory :project_skill do
-    project
+  factory :project_role_skill do
+    project_role
     skill
-    qualifier :required
+    rating :expert
   end
 end

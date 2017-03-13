@@ -36,8 +36,8 @@ Rails.application.routes.draw do
   post 'projects', to: 'projects#create'
   delete 'projects', to: 'projects#destroy'
   patch 'projects', to: 'projects#update'
-  get 'projects/new', to: 'projects#new', as: :new_project
   get 'projects/:code', to: 'projects#show', as: :project
+  get 'projects/:code/locations', to: 'projects#locations', as: :project_locations
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
 
   # ProjectTypesController
@@ -47,12 +47,36 @@ Rails.application.routes.draw do
   patch 'project_types', to: 'project_types#update'
   get 'project_types/:id/edit', to: 'project_types#edit', as: :edit_project_type
 
-  # ProjectGroupsController Routes
-  get 'projects/:code/groups', to: 'project_groups#index', as: :project_groups
-  post 'projects/:code/groups', to: 'project_groups#create'
-  get 'projects/:code/groups/new', to: 'project_groups#new', as: :new_project_group
-  get 'projects/:code/groups/:name', to: 'project_groups#show', as: :project_group
-  delete 'projects/:code/groups', to: 'project_groups#destroy'
+  # ProjectRolesController Routes
+  get 'projects/:code/roles', to: 'project_roles#index', as: :project_roles
+  post 'projects/:code/roles', to: 'project_roles#create'
+  get 'projects/:code/roles/new', to: 'project_roles#new', as: :new_project_role
+  get 'projects/:code/roles/:name', to: 'project_roles#show', as: :project_role
+  delete 'projects/:code/roles', to: 'project_roles#destroy'
+
+  # ProjectRolePermissionsController Routes
+  get 'projects/:code/roles/:name/permissions', to: 'project_role_permissions#index', as: :project_role_permissions
+  post 'projects/:code/roles/:name/permissions', to: 'project_role_permissions#create'
+  delete 'projects/:code/roles/:name/permissions', to: 'project_role_permissions#destroy'
+
+  # ProjectRoleUsersController Routes
+  get 'projects/:code/roles/:name/users', to: 'project_role_users#index', as: :project_role_users
+  post 'projects/:code/roles/:name/users', to: 'project_role_users#create'
+  delete 'projects/:code/roles/:name/users', to: 'project_role_users#destroy'
+  post 'projects/:code/roles/:name/users/search', to: 'project_role_users#search', as: :project_role_users_search
+
+  # ProjectRoleLocations Routes
+  get 'projects/:code/roles/:name/locations', to: 'project_role_locations#index', as: :project_role_locations
+  post 'projects/:code/roles/:name/locations', to: 'project_role_locations#create'
+  delete 'projects/:code/roles/:name/locations', to: 'project_role_locations#destroy'
+  get 'projects/:code/roles/:name/locations/edit', to: 'project_role_locations#edit', as: :project_role_locations_edit
+
+  # ProjectRoleSkills Routes
+  get 'projects/:code/roles/:name/skills', to: 'project_role_skills#index', as: :project_role_skills
+  post 'projects/:code/roles/:name/skills', to: 'project_role_skills#create'
+  delete 'projects/:code/roles/:name/skills', to: 'project_role_skills#destroy'
+  patch 'projects/:code/roles/:name/skills', to: 'project_role_skills#update'
+  get 'projects/:code/roles/:name/skills/edit', to: 'project_role_skills#edit', as: :project_role_skills_edit
 
   # GroupsController Routes
   get 'groups', to: 'groups#index', as: :groups

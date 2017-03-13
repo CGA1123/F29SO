@@ -1,7 +1,7 @@
-class UserSkillsController < ApplicationController
+class UserSkillsController < PermissionController
   before_action :set_user
   before_action :can_edit?
-  before_action :check_permission, except: [:index]
+  before_action :check_permissions
   before_action :set_user_skill, only: [:destroy, :edit, :update]
 
   def index
@@ -69,10 +69,5 @@ class UserSkillsController < ApplicationController
     u = current_user
     perm = 'profile.skills.manage'
     @edit = u == @user ? u.permission?(perm) : u.permission?("#{perm}.others")
-  end
-
-  def check_permission
-    redirect_to user_skills_path(id: @user.id), alert: 'No Permission' \
-      unless @edit
   end
 end
