@@ -1,9 +1,6 @@
-<div class='project' id='project-<%= project.code %>' onclick="Turbolinks.visit('<%= project_path(code: project.code) %>');" style="cursor: pointer;">
-  <div class='project-contents'>
-    <div class='project-code'><%= project.code %></div>
-    <div class='project-info'>
-      <%= project.name %>
-      <%= project.project_type.name %>
-    </div>
+<div class='project col s12 card' id='project-<%= project.code %>' onclick="Turbolinks.visit('<%= project_path(code: project.code) %>');" style="cursor: pointer;">
+  <div class="card-content">
+    <span class="card-title purple-text"><%= project.name %><span class="badge right"><%= project.project_type.name.humanize %></span></span>
+    <span class="grey-text"></span>
   </div>
 </div>

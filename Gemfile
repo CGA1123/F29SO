@@ -11,11 +11,10 @@ gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+gem 'material_icons'
 gem 'materialize-sass'
 
 gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'respond-js-rails'
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

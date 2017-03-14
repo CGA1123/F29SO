@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require initial
 //= require turbolinks
 //= require materialize-sprockets
@@ -21,7 +20,8 @@
 var ready;
 ready = function() {
   $('.profile-img').initial();
-  $(".button-collapse").sideNav();
+  $('.button-collapse').sideNav();
+  $('.modal').modal();
 };
 
 var search = function() {

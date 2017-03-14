@@ -1,11 +1,18 @@
+<div class="navbar-fixed">
+
 <nav class="white">
   <div class="nav-wrapper container">
     <a href="/" class="brand-logo"></a>
     <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons purple-text text-darken-2">menu</i></a>
     <ul class="right hide-on-med-and-down">
       <li>
+        <%= link_to projects_path, class: 'purple-text text-darken-2' do %>
+          <i class="material-icons left purple-text text-darken-2">assignment</i>Projects
+        <% end %>
+      </li>
+      <li>
         <a class= "purple-text text-darken-2 dropdown-button" data-activates='notifications-dropdown' data-beloworigin="true" data-constrainwidth="false" onclick="javascript:void();">
-          <span class="badge new notifications-count"></span>
+          <span class="badge new notifications-count" data-badge-caption="Notifications"></span>
         </a>
       </li>
       <li>
@@ -27,22 +34,23 @@
       <% end %>
     </li>
   </ul>
-
-    <ul class="side-nav left-align" id="mobile-nav">
-      <li>
-        <%= link_to projects_path, class: 'purple-text text-darken-2' do %>
-          <i class="material-icons left purple-text text-darken-2">assignment</i>Projects
-        <% end %>
-      </li>
-      <li>
-        <%= link_to '#', class: 'purple-text text-darken-2' do %>
-          <i class="material-icons left purple-text text-darken-2">announcement</i><span class="badge right notifications-count">5</span>Notifications
-        <% end %>
-      </li>
-      <li class="divider"></li>
-      <li>
-        <%= link_to 'Log Out', '#', class: 'purple-text text-darken-4 center-align' %>
-      </li>
-    </ul>
 </div>
 </nav>
+</div>
+
+<ul class="side-nav left-align" id="mobile-nav">
+  <li>
+    <%= link_to projects_path, class: 'purple-text text-darken-2' do %>
+      <i class="material-icons left purple-text text-darken-2">assignment</i>Projects
+    <% end %>
+  </li>
+  <li>
+    <%= link_to '#', class: 'purple-text text-darken-2' do %>
+      <i class="material-icons left purple-text text-darken-2">announcement</i><span class="badge right notifications-count">5</span>Notifications
+    <% end %>
+  </li>
+  <li class="divider"></li>
+  <li>
+    <%= link_to 'Log Out', destroy_user_session_path, class: 'purple-text text-darken-4 center-align', method: :delete %>
+  </li>
+</ul>
