@@ -1,11 +1,23 @@
-<%= form_for @project, url: projects_path do |f| %>
-  <ul>
-  <% @project.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+<div class="modal-content">
+  <%= form_for @project, url: projects_path, remote: true do |f| %>
+    <h4 class='purple-text'>New Project<a href="#!" class="right modal-action modal-close waves-effect waves-grey btn-flat">x</a></h4>
+
+    <ul>
+    <% @project.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+    <div class='input-field'>
+      <%= f.text_field :code, placeholder: 'Project Code' %>
+    </div>
+
+    <div class='input-field'>
+      <%= f.text_field :name, placeholder: 'Project Name' %>
+    </div>
+
+    <div class='input-field'>
+      <%= f.collection_select(:project_type_id, ProjectType.all, :id, :name) %>
+    </div>
+    <%= f.submit 'Create Project', class: "btn waves-effect waves-light" %>
   <% end %>
-  </ul>
-  <%= f.text_field :code, placeholder: 'Project Code' %>
-  <%= f.text_field :name, placeholder: 'Project Name' %>
-  <%= f.collection_select(:project_type_id, ProjectType.all, :id, :name) %>
-  <%= f.submit 'Create Project' %>
-<% end %>
+</div>

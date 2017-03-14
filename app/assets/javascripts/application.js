@@ -22,6 +22,7 @@ ready = function() {
   $('.profile-img').initial();
   $('.button-collapse').sideNav();
   $('.modal').modal();
+  $('select').material_select();
 };
 
 var search = function() {

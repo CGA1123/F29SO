@@ -23,7 +23,6 @@ class ProjectsController < PermissionController
       redirect_to project_path(code: @project.code)
     else
       @projects = Project.all
-      render :index
     end
   end
 

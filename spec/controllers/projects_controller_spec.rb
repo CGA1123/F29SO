@@ -75,10 +75,10 @@ RSpec.describe ProjectsController, type: :controller do
           { project: { name: 'hello' } }
         end
 
-        before { post :create, invalid_params }
+        before { xhr :post, :create, invalid_params }
 
         it do
-          expect(response).to render_template(:index)
+          expect(response).to render_template('projects/create')
         end
 
         it 'sets @projects' do
@@ -86,7 +86,7 @@ RSpec.describe ProjectsController, type: :controller do
         end
 
         it 'does not create a new Project' do
-          expect { post :create, invalid_params }
+          expect { xhr :post, :create, invalid_params }
             .not_to change(Project, :count)
         end
       end
