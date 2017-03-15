@@ -24,10 +24,9 @@ Rails.application.routes.draw do
   get 'profile/:id/skills/:user_skill_id/edit', to: 'user_skills#edit', as: :edit_user_skill
 
   # InvitationsController Routes
-  get 'invitations/new', to: 'invitations#new', as: :new_invitation
-  get 'invitations', to: 'invitations#index', as: :invitations
-  post 'invitations', to: 'invitations#create'
-  delete 'invitations/:id', to: 'invitations#destroy', as: :invitation
+  get 'admin/invitations', to: 'invitations#index', as: :invitations
+  post 'admin/invitations', to: 'invitations#create'
+  delete 'admin/invitations', to: 'invitations#destroy'
   get 'invitations/accept', to: 'invitations#accept', as: :accept_invitation
   post 'invitations/accept', to: 'invitations#create_user'
 

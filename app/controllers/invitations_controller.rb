@@ -9,19 +9,11 @@ class InvitationsController < PermissionController
     @invitations = Invitation.all
   end
 
-  def new
-    @invitation = Invitation.new
-  end
-
   def create
     @invitation = Invitation.new(invite_params)
     @invitation.inviter = current_user
 
-    if @invitation.invite
-      redirect_to invitations_path
-    else
-      render :new
-    end
+    redirect_to invitations_path if @invitation.invite
   end
 
   def accept
@@ -44,16 +36,8 @@ class InvitationsController < PermissionController
 
   def destroy
     @invitation = Invitation.find_by(id: params[:id])
-    params = {}
 
-    if @invitation.present? && can_delete?(@invitation)
-      @invitation.destroy
-      params[:notice] = 'Invitation deleted.'
-    else
-      params[:alert] = 'Could not delete invitation.'
-    end
-
-    redirect_to invitations_path, params
+    @invitation.destroy if @invitation.present? && can_delete?(@invitation)
   end
 
   private

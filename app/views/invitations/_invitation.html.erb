@@ -1,0 +1,27 @@
+<div class="row" id='invitation-<%= invitation.id %>'>
+  <div class="card col s12">
+    <div class="card-content">
+      <div class="row">
+        <div class="col s8">
+          <span class="card-title purple-text"><%= invitation.email %></span>
+        </div>
+        <div class="col s4 right-align grey-text">
+          <%= time_ago_in_words invitation.created_at %> ago
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s11">
+          Invited by <%= link_to invitation.inviter.name, profile_path(id: invitation.inviter.id) %>
+        </div>
+        <div class="col s1 right-align">
+          <%= link_to invitations_path(id: invitation.id), method: :delete, remote: true do %>
+            <i class="material-icons grey-text tooltipped" data-position="bottom"data-delay="50" data-tooltip="Delete Invitation">delete</i>
+          <% end %>
+        </div>
+        <div class="col s12">
+          Groups: <%= invitation.groups.map { |g| link_to g.name.humanize, group_path(g.name) }.join(", ").html_safe %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

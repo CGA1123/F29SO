@@ -1,0 +1,2 @@
+<% errors = @invitation.errors.full_messages.map { |m| "<li>#{m}</li>" } %>
+$('#invitation-errors').html("<%= errors.join.html_safe %>");
