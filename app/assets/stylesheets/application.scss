@@ -15,7 +15,7 @@
  *= require material_icons
  */
  @import "materialize/components/color";
- $primary-color: color("indigo", "darken-4") !default;
+ $primary-color: color("purple", "darken-2") !default;
  $secondary-color: color("purple", "darken-2") !default;
 @import 'materialize';
 
@@ -46,3 +46,8 @@ main {
 #settings-dropdown {
   width: 200px;
 }
+
+#project-location {
+  font-size: 18px;
+}
+
