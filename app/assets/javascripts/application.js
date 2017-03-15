@@ -23,6 +23,10 @@ ready = function() {
   $('.button-collapse').sideNav();
   $('.modal').modal();
   $('select').material_select();
+  $('.datepicker').pickadate({
+    selectMonths: true,
+    selectYears: 15
+  });
 };
 
 var search = function() {

@@ -1,8 +1,4 @@
-<h1><%= @project.code %> - <%= @project.name %></h1>
-
-<h2>Locations</h2>
-<div id='locations'>
-</div>
+<%= render 'projects/project_detailed', project: @project %>
 
 <script>
   loadProjectLocations('<%= @project.code %>');
