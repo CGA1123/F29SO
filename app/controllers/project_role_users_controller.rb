@@ -110,6 +110,8 @@ class ProjectRoleUsersController < PermissionController
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
+  def match; end
+
   private
 
   def set_project
