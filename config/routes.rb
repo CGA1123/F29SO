@@ -68,7 +68,6 @@ Rails.application.routes.draw do
   get 'projects/:code/roles/:name/locations', to: 'project_role_locations#index', as: :project_role_locations
   post 'projects/:code/roles/:name/locations', to: 'project_role_locations#create'
   delete 'projects/:code/roles/:name/locations', to: 'project_role_locations#destroy'
-  get 'projects/:code/roles/:name/locations/edit', to: 'project_role_locations#edit', as: :project_role_locations_edit
 
   # ProjectRoleSkills Routes
   get 'projects/:code/roles/:name/skills', to: 'project_role_skills#index', as: :project_role_skills

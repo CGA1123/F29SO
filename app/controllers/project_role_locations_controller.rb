@@ -22,10 +22,6 @@ class ProjectRoleLocationsController < PermissionController
     @project_role_location.destroy if @project_role_location
   end
 
-  def edit
-    @source = source
-  end
-
   private
 
   def set_project
@@ -41,23 +37,11 @@ class ProjectRoleLocationsController < PermissionController
   end
 
   def set_location
-    @location = Location.find_by(id: params[:location_id])
+    @location = Location.find_by(name: params[:location_name])
     not_found unless @location
   end
 
   def check_format
     not_found unless request.xhr?
-  end
-
-  def source
-    sources = []
-    Location.all.each do |l|
-      sources << { label: l.name,
-                   value: { id: l.id,
-                            project: @project.code,
-                            role: @project_role.name } }
-    end
-
-    sources.to_json
   end
 end

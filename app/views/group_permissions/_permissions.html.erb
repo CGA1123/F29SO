@@ -1,8 +1,8 @@
 <% Permission.all.each do |permission| %>
-  <%= check_box_tag 'permission',
+  <%= check_box_tag "permission-#{permission.id}",
                     permission.id,
                     @group_permissions.include?(permission),
                     onclick: "updatePermission('#{@group.name}', this);",
                     disabled: @disabled %>
-  <%= label_tag permission.name, permission.name %>
+  <%= label_tag "permission-#{permission.id}", permission.name %>
 <% end %>
