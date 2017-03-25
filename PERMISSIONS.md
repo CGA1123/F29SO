@@ -27,6 +27,7 @@ This file contains a record of all permissions registered in the system.
 | `admin.groups.manage.users` | `GroupUsersController#create, #destroy #search` | Allows user to manage users within a group (addition, removal) |
 | `admin.groups.manage.permissions` | `GroupPermissionsController#create` & `#destroy` | Allows user to manage permissions that a group has |
 | `admin.project_types` | `ProjectTypesController` (all actions) | Allows user to manage `ProjectType` (creation/deletion/updating) |
+| `announcements.manage` | `AnnouncementController#create, #destroy` | Allows user to manage `Announcement` (creation/deletion/updating) |
 
 **All `projects.*` permissions (except `projects.create`) can be scoped to only a certain project through `ProjectRolePermissions`. If a system `Group` is given these permissions, users within that group have permission to perform associated actions on ANY project.**
 ### Actions requiring only a user account
