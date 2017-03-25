@@ -94,6 +94,11 @@ Rails.application.routes.draw do
   delete 'locations', to: 'locations#destroy'
   get 'locations/:id/edit', to: 'locations#edit', as: :location
 
+  # AnnouncementController Routes
+  get 'announcements', to: 'announcements#index', as: :announcements
+  post 'announcements', to: 'announcements#create'
+  delete 'announcements', to: 'announcements#destroy'
+
   # AdminPanelController Routes
   get 'admin', to: 'admin_panel#home', as: :admin_home
 
