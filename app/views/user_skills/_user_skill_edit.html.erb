@@ -1,0 +1,17 @@
+<div class="row" id="user_skill_edit-<%= user_skill.id %>">
+  <%= form_for user_skill, url: user_skills_path(id: user.id, user_skill_id: user_skill.id), method: :patch, remote: true do |f|%>
+    <div class="input-field col s4 skill">
+      <%= link_to user_skills_path(id: user.id, user_skill_id: user_skill.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
+        <i class="material-icons left purple-text">close</i>
+      <% end %>
+      <%= user_skill.skill.name %>
+    </div>
+    <div class="input-field col s4 skill">
+      <%= f.select :rating, UserSkill.ratings.keys.map { |r| [r.humanize, r] }, {}, class: 'browser-default' %>
+    </div>
+    <div class="input-field col s4 skill">
+      <%= f.submit 'Update', class: 'btn-flat white-text grey' %>
+    </div>
+  <% end %>
+</div>
+

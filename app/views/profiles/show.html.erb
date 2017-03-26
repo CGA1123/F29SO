@@ -44,22 +44,53 @@
         </ul>
       </div>
     </div>
-    <div class="card small">
+    <div class="card max-small">
       <div class="card-content">
-        <span class="card-title purple-text">Skills</span>
+        <span class="card-title purple-text">Skills<a href="#skills-edit-modal"><i class="material-icons right purple-text">mode_edit</i></a></span>
+        <ul class="collection user_skills card-small-collection" id="user_skills">
         <% if @user.user_skills.present? %>
-        <ul class="collection user_skills card-small-collection">
           <% @user.user_skills.each do |user_skill| %>
-          <li class="user_skill collection-item" id="user_skill-<%= user_skill.id %>">
-            <span class="skill-name"><%= user_skill.skill.name %></span>
-            <span class="badge"><%= user_skill.rating.humanize %></span>
-          </li>
+          <%= render 'user_skills/user_skill', user_skill: user_skill %>
           <% end %>
         <% else %>
+          <li class="collection-item" id="no_skills">This user has not yet added any skills to their profile.</li>
         <% end %>
-        </div>
+        </ul>
       </div>
     </div>
-
   </div>
 </div>
+
+<div id="skills-edit-modal" class="modal">
+  <div class="modal-content">
+    <h4 class="purple-text">Manage Skills<a href="#!" class="right modal-action modal-close grey-text"><i class="material-icons">close</i></a></h4>
+    <div class="new_skill row">
+      <%= form_for UserSkill.new, url: user_skills_path(id: @user.id), remote: true, method: :post do |f|  %>
+        <div class="input-field col s4">
+          <%= f.label :skill_id, 'Skill' %>
+          <%= f.text_field :skill_id %>
+        </div>
+        <div class="input-field col s4 skill">
+          <%= f.select :rating, UserSkill.ratings.keys.map { |r| [r.humanize, r] }, {}, class: 'browser-default' %>
+        </div>
+        <div class="input-field col s4 skill">
+          <%= f.submit 'Add Skill', class: 'btn-flat white-text grey' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="divider"></div>
+    <div class="skills" id="user_skills_edit">
+      <% @user.user_skills.each do |user_skill| %>
+        <%= render 'user_skills/user_skill_edit', user: @user, user_skill: user_skill %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on('turbolinks:load', function() {
+    $('#user_skill_skill_id').autocomplete({
+      data: <%= @search_data.html_safe %>
+    });
+  });
+</script>

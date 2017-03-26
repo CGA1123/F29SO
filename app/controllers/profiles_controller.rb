@@ -6,6 +6,7 @@ class ProfilesController < PermissionController
     @can_edit = edit?(@user)
     @groups = @user.groups
     @roles = @user.project_roles
+    @search_data = search_data
   end
 
   def edit; end
@@ -40,5 +41,11 @@ class ProfilesController < PermissionController
   def set_user
     @user = User.find_by(id: params[:id])
     redirect_to authenticated_root_path, alert: 'User not found.' unless @user
+  end
+
+  def search_data
+    data = {}
+    (Skill.all - @user.skills).each { |s| data[s.name] = nil }
+    data.to_json
   end
 end

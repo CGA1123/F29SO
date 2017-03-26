@@ -28,7 +28,17 @@
   font-weight: bold;
 }
 
-
+.skill {
+  line-height: 45px;
+  .btn-flat {
+    height: 45px;
+    width: 130px;
+  }
+  .material-icons {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}
 
 .max-small {
   max-height: 300px;

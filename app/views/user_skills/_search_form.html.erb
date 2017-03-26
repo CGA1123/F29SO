@@ -1,4 +1,0 @@
-<%= form_tag user_skills_search_path(id: @user.id), method: :post, remote: true, id: 'skill-search-form' do %>
-  <%= select_tag :skill_type_id, options_from_collection_for_select(@skill_types, :id, :name) %>
-  <%= text_field_tag :skill_name, "", placeholder: 'Search For A Skill', autocomplete: :off, onkeyup: "search_skill()" %>
-<% end %>
