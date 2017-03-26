@@ -62,7 +62,7 @@ RSpec.describe ProjectRoleLocationsController, type: :controller do
         before do
           xhr :post, :create, code: project.code,
                               name: project_role.name,
-                              location_id: location.id
+                              location_name: location.name
         end
 
         it 'adds location to project_role' do
@@ -80,7 +80,7 @@ RSpec.describe ProjectRoleLocationsController, type: :controller do
             action: :create,
             params: { code: project.code,
                       name: project_role.name,
-                      location: location.id } }
+                      location_name: location.name } }
         end
       end
     end
@@ -95,7 +95,7 @@ RSpec.describe ProjectRoleLocationsController, type: :controller do
           ProjectRoleLocation.create(location: location,
                                      project_role: project_role)
           xhr :delete, :destroy, code: project.code, name: project_role.name,
-                                 location_id: location.id
+                                 location_name: location.name
           expect(project_role.locations).not_to include(location)
         end
       end
@@ -110,17 +110,9 @@ RSpec.describe ProjectRoleLocationsController, type: :controller do
             action: :destroy,
             params: { code: project.code,
                       name: project_role.name,
-                      location: location.id } }
+                      location_name: location.name } }
         end
       end
-    end
-  end
-
-  describe 'GET #edit' do
-    it 'sets @source' do
-      sign_in root_user
-      xhr :get, :edit, code: project.code, name: project_role.name
-      expect(assigns[:source]).not_to be_nil
     end
   end
 end

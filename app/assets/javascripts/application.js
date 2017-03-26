@@ -12,14 +12,21 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui
 //= require initial
 //= require turbolinks
+//= require materialize-sprockets
 //= require_tree
 
 var ready;
 ready = function() {
   $('.profile-img').initial();
+  $('.button-collapse').sideNav();
+  $('.modal').modal();
+  $('select').material_select();
+  $('.datepicker').pickadate({
+    selectMonths: true,
+    selectYears: 15
+  });
 };
 
 var search = function() {

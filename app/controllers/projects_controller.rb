@@ -19,11 +19,11 @@ class ProjectsController < PermissionController
     if @project.save
       ProjectRole.create(name: 'Owner',
                          description: 'The Owner Group',
-                         project: @project)
+                         project: @project,
+                         locations: [current_user.location])
       redirect_to project_path(code: @project.code)
     else
       @projects = Project.all
-      render :index
     end
   end
 

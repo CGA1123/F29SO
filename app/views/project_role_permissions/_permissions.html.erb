@@ -1,8 +1,12 @@
+<div class="row">
 <% Permission.where("name like 'projects.%'").each do |permission| %>
-  <%= check_box_tag 'permission',
+  <div class="col s4">
+    <%= check_box_tag "permission-#{permission.id}",
                     permission.id,
                     @project_role_permissions.include?(permission),
                     onclick: "updateProjectRolePermission('#{@project.code}','#{@project_role.name}', this);",
                     disabled: @disabled %>
-  <%= label_tag permission.name, permission.name %>
+    <%= label_tag "permission-#{permission.id}", permission.name %>
+  </div>
 <% end %>
+</div>

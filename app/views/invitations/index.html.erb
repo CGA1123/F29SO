@@ -1,6 +1,18 @@
-<h3>Invitation Index:</h3>
-<ul>
-  <% @invitations.each do |invite| %>
-  <li>Invite For: <%= invite.email %> <%= link_to 'Delete', invitation_path(invite.id), method: :delete %></li>
-  <% end %>
-</ul>
+<div class="row">
+  <h3 class="purple-text">Invitations</h3>
+</div>
+<%= render @invitations%>
+
+<div class="fixed-action-btn">
+  <button data-target="create-invitation-modal" data-toggle='modal' class="btn-floating btn-large purple tooltipped" data-position="left" data-delay="50" data-tooltip="Invite Someone New">
+    <i class="large material-icons">email</i>
+  </button>
+</div>
+
+<div id="create-invitation-modal" class="modal">
+  <div class="container">
+    <div class="row">
+      <%= render 'invitations/new' %>
+    </div>
+  </div>
+</div>

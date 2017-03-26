@@ -18,7 +18,9 @@ class ProjectRolesController < PermissionController
     render :index
   end
 
-  def show; end
+  def show
+    @source = source
+  end
 
   def destroy
     @project_role.destroy
@@ -45,5 +47,11 @@ class ProjectRolesController < PermissionController
                                         name: params[:name])
     redirect_to project_roles_path(code: @project.code), alert: 'Not found' \
       unless @project_role
+  end
+
+  def source
+    s = {}
+    Location.all.each { |l| s[l.name] = nil }
+    s.to_json
   end
 end

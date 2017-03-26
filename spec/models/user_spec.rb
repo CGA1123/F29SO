@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:group_users).dependent(:delete_all) }
   it { is_expected.to have_many(:groups).through(:group_users) }
   it { is_expected.to have_many(:project_role_users) }
+  it { is_expected.to have_many(:projects).through(:project_roles) }
   it { is_expected.to have_many(:project_roles).through(:project_role_users) }
   it { is_expected.to have_many(:user_skills) }
   it { is_expected.to have_many(:skills).through(:user_skills) }

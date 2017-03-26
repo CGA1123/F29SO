@@ -1,34 +1,70 @@
-<div class="topnav">
-    <ul id="topnav">
-      <li class='logo'><%=link_to '/' do %><%= image_tag 'leidos_logo.jpg' %><% end %></li>
-      <li><a href="#"><%= octicon 'search' %></a></li>
-      <li><%= link_to 'Projects', projects_path %></li>
-      <div class='right'>
-        <li id='notifications'>
-          <%= link_to 'javascript:toggle_notification();' do %>
-	    <%= octicon 'bell' %> <span id='notifications-count'>0</span>
-          <% end %>
-	  <div class='dropdown-content' id='notification-dropdown'></div>
-        </li>
+<div class="navbar-fixed">
 
-        <li id='settings'>
-          <%= link_to '#', method: :delete do %>
-            <%= octicon 'gear' %>
-            <span class='text'>Settings</span>
-          <% end %>
-        </li>
-
-        <li id='log-out'>
-          <%= link_to destroy_user_session_path, method: :delete do %>
-            <%= octicon 'sign-out' %>
-            <span class='text'>Sign Out</span>
-          <% end %>
-        </li>
-        <li class="icon">
-          <a href="javascript:void(0);" onclick="toggle_nav();">&#9776;</a>
-        </li>
-
-      </div>
+<nav class="white">
+  <div class="nav-wrapper container">
+    <a href="/" class="brand-logo"></a>
+    <a href="#" data-activates="mobile-nav" class="button-collapse"><i class="material-icons purple-text text-darken-2">menu</i></a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <%= link_to projects_path, class: 'purple-text text-darken-2' do %>
+          <i class="material-icons left purple-text text-darken-2">assignment</i>Projects
+        <% end %>
+      </li>
+      <li>
+        <a class= "purple-text text-darken-2 dropdown-button" data-activates='notifications-dropdown' data-beloworigin="true" data-constrainwidth="false" onclick="javascript:void();">
+          <span class="badge new notifications-count" data-badge-caption="Notifications"></span>
+        </a>
+      </li>
+      <li>
+        <a class= 'purple-text text-darken-2 dropdown-button' data-activates='settings-dropdown' data-beloworigin="true" data-constrainwidth="false" onclick="return false;">
+          <i class="material-icons">account_circle</i>
+        </a>
+      </li>
     </ul>
-  </div>
 
+  <ul id='notifications-dropdown' class='dropdown-content'></ul>
+
+  <ul id='settings-dropdown' class='dropdown-content'>
+    <li><a href='#'>Settings..</a></li>
+    <li><a href='#'>More Profile Settings...</a></li>
+    <% if current_user.permission?('admin.panel') %>
+    <li>
+      <%= link_to admin_home_path, class: 'purple-text darken-2' do %>
+        Admin Panel
+      <% end %>
+    </li>
+    <% end %>
+    <li class="divider"></li>
+    <li>
+      <%= link_to destroy_user_session_path, method: :delete do %>
+        <i class="material-icons left">power_settings_new</i>Log Out
+      <% end %>
+    </li>
+  </ul>
+</div>
+</nav>
+</div>
+
+<ul class="side-nav left-align" id="mobile-nav">
+  <li>
+    <%= link_to projects_path, class: 'purple-text text-darken-2' do %>
+      <i class="material-icons left purple-text text-darken-2">assignment</i>Projects
+    <% end %>
+  </li>
+  <li>
+    <%= link_to '#', class: 'purple-text text-darken-2' do %>
+      <i class="material-icons left purple-text text-darken-2">announcement</i><span class="badge right notifications-count">5</span>Notifications
+    <% end %>
+  </li>
+  <% if current_user.permission?('admin.panel') %>
+  <li>
+    <%= link_to admin_home_path, class: 'purple-text darken-2' do %>
+      Admin Panel
+    <% end %>
+  </li>
+  <% end %>
+  <li class="divider"></li>
+  <li>
+    <%= link_to 'Log Out', destroy_user_session_path, class: 'purple-text text-darken-4 center-align', method: :delete %>
+  </li>
+</ul>

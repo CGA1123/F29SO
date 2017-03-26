@@ -1,9 +1,14 @@
-<h1><%= @project.code %> - <%= @project.name %></h1>
-
-<h2>Locations</h2>
-<div id='locations'>
+<div class="row">
+  <h3 class="purple-text"><%= @project.name %><span class="badge right"><%= @project.project_type.name.humanize %></span></h3>
+  <i class="material-icons left">place</i> <div id="locations" class="black-text">No Locations!</div>
 </div>
-
+<p>
+  <%= @project.description %>
+</p>
+<div class="divider"></div>
+<h4 class="purple-text">Roles</h4>
+<div id="roles">
+</div>
 <script>
   loadProjectLocations('<%= @project.code %>');
 </script>

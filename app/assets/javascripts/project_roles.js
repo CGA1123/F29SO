@@ -42,4 +42,4 @@ var loadProjectRoleSkills = function(project, role) {
     url: '/projects/' + project + '/roles/' + role + '/skills.js',
     cache: false
   });
-}
+};

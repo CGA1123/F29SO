@@ -12,5 +12,42 @@
  *
  *= require_tree .
  *= require_self
- *= require jquery-ui
+ *= require material_icons
  */
+ @import "materialize/components/color";
+ $primary-color: color("purple", "darken-2") !default;
+ $secondary-color: color("purple", "darken-2") !default;
+@import 'materialize';
+
+.hunned-height {
+  min-height: 100vh;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  min-height: 100vh;
+}
+
+.brand-logo {
+  background: image-url("leidos_logo.png") no-repeat;
+  height: 100%;
+  width: 150px;
+  background-size: contain;
+  background-position: center;
+}
+
+
+#settings-dropdown {
+  width: 200px;
+}
+
+#project-location {
+  font-size: 18px;
+}
+

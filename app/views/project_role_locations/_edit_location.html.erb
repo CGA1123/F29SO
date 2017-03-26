@@ -1,4 +1,4 @@
 <div id='location-<%= location.id %>'>
-  <%= link_to 'x', project_role_locations_path(code: project_role.project.code, name: project_role.name, location_id: location.id), method: :delete, remote: true %>
+  <%= link_to 'x', project_role_locations_path(code: project_role.project.code, name: project_role.name, location_name: location.name), method: :delete, remote: true %>
   <%= location.name %>
 </div>

@@ -1,5 +1,13 @@
-<%= render 'groups/create' %>
-
-<div class="groups">
+<div class="groups row">
   <%= render @groups %>
+</div>
+
+<div class="fixed-action-btn">
+  <button data-target="create-group-modal" data-toggle='modal' class="btn-floating btn-large purple tooltipped" data-position="left" data-delay="50" data-tooltip="Create A New Group">
+    <i class="large material-icons">add</i>
+  </button>
+</div>
+
+<div id="create-group-modal" class="modal">
+  NYI
 </div>
