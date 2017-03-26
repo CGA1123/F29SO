@@ -1,14 +1,39 @@
 <div class="row">
-  <h3 class="purple-text"><%= @project.name %><span class="badge right"><%= @project.project_type.name.humanize %></span></h3>
-  <i class="material-icons left">place</i> <div id="locations" class="black-text">No Locations!</div>
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+        <span class="purple-text card-title"><%= @project.name %><span class="badge right"><%= @project.code %></span></span>
+        <p><%= @project.description %></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s4">
+    <div class="card">
+      <div class="card-content">
+        <span class="purple-text card-title">Project Details</span>
+      </div>
+    </div>
+  </div>
+  <div class="col s8">
+    <div class="card">
+      <div class="card-content">
+        <span class="purple-text card-title">Latest Announcements</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title purple-text">Roles</span>
+      </div>
+    </div>
+  </div>
 </div>
-<p>
-  <%= @project.description %>
-</p>
-<div class="divider"></div>
-<h4 class="purple-text">Roles</h4>
-<div id="roles">
-</div>
+
+
+
 <script>
   loadProjectLocations('<%= @project.code %>');
 </script>
