@@ -20,12 +20,12 @@
 @import 'materialize';
 
 .hunned-height {
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
 }
 
 body {
   display: flex;
-  min-height: 100vh;
+  min-height: calc(100vh - 64px);
   flex-direction: column;
 }
 
@@ -42,7 +42,6 @@ main {
   background-position: center;
 }
 
-
 #settings-dropdown {
   width: 200px;
 }
@@ -50,4 +49,3 @@ main {
 #project-location {
   font-size: 18px;
 }
-

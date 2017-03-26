@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col s3">
+    <div class="card">
+      <div class="card-image">
+        <%= user_avatar(@user) %>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">
+          <span class="purple-text"><%= @user.name %></span>
+        </div>
+        <div class="center-align">
+          <i class="material-icons tooltipped" data-position="bottom" data-delay="0" data-tooltip="<%= @user.email %>">email</i>
+          <i class="material-icons tooltipped" data-position="bottom" data-delay="0" data-tooltip="<%= @user.location.name %>">place</i>
+        </div>
+        <div class="profile-groups">
+          <% @user.groups.each do |group| %>
+            <div class="chip"><%= group.name %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s9">
+    <div class="card max-small">
+      <div class="card-content">
+        <span class="card-title purple-text">Projects</span>
+        <ul class="projects collection card-small-collection">
+          <% if @user.projects.present? %>
+            <% @user.projects.each do |project| %>
+              <li class="collection-item project" id="project-<%= project.id %>">
+                <span class="project-name"><%= project.name %></span>
+                <span class="secondary-content badge"><%= project.project_type.name %></span>
+                <p>
+                <% @roles.where(project: project).each do |project_role| %>
+                  <%= project_role.name %><%= ", " unless @roles.last == project_role %>
+                <% end %>
+                </p>
+              </li>
+            <% end %>
+          <% else %>
+            <li class="collection-item" id="no_projects">This user is not currently assigned to any project.</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="card small">
+      <div class="card-content">
+        <span class="card-title purple-text">Skills</span>
+        <% if @user.user_skills.present? %>
+        <ul class="collection user_skills card-small-collection">
+          <% @user.user_skills.each do |user_skill| %>
+          <li class="user_skill collection-item" id="user_skill-<%= user_skill.id %>">
+            <span class="skill-name"><%= user_skill.skill.name %></span>
+            <span class="badge"><%= user_skill.rating.humanize %></span>
+          </li>
+          <% end %>
+        <% else %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

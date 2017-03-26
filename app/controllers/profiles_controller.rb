@@ -5,7 +5,7 @@ class ProfilesController < PermissionController
   def show
     @can_edit = edit?(@user)
     @groups = @user.groups
-    render '_show.html.erb'
+    @roles = @user.project_roles
   end
 
   def edit; end

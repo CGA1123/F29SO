@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   has_many :project_role_users
   has_many :project_roles, through: :project_role_users
 
-  has_many :projects, through: :project_roles
+  has_many :projects, -> { distinct }, through: :project_roles
 
   has_many :user_skills
   has_many :skills, through: :user_skills
