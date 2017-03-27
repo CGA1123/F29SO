@@ -28,7 +28,6 @@ ProjectRoleLocation.create!(location: Location.find_by(name: 'Seattle'), project
 ProjectRole.create!(name: 'Project_Manager', description: 'Manager', project: Project.find_by(name: 'Drone_Protection'))
 ProjectRole.create!(name: 'Software_Engineer', description: 'Coder', project: Project.find_by(name: 'Drone_Protection'))
 ProjectRole.create!(name: 'Data_Analyst', description: 'An analyser of data', project: Project.find_by(name: 'Drone_Protection'))
-ProjectRoleUser.create!(user: User.find_by(email: 'principal@earth-c137.local'), project_role: ProjectRole.find_by(name: 'Project_Manager', project: Project.find_by(name: 'Drone_Protection')))
 ProjectRoleUser.create!(user: User.find_by(email: 'scary@earth-c137.local'), project_role: ProjectRole.find_by(name: 'Software_Engineer', project: Project.find_by(name: 'Drone_Protection')))
 ProjectRoleUser.create!(user: User.find_by(email: 'douglas@earth-c137.local'), project_role: ProjectRole.find_by(name: 'Software_Engineer', project: Project.find_by(name: 'Drone_Protection')))
 ProjectRoleUser.create!(user: User.find_by(email: 'vin@earth.local'), project_role: ProjectRole.find_by(name: 'Software_Engineer', project: Project.find_by(name: 'Drone_Protection')))
