@@ -47,5 +47,5 @@ Permission.create!(name: 'admin.groups.manage.permissions', description: 'placeh
 # AdminPanel
 Permission.create!(name: 'admin.panel', description: 'placeholder...')
 
-# Announcement
+# Announcements
 Permission.create!(name: 'announcements.manage', description: 'placeholder...')

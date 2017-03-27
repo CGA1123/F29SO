@@ -2,8 +2,6 @@ class Project < ActiveRecord::Base
   belongs_to :project_type
 
   has_many :project_announcements
-  has_many :announcements, through: :project_announcements
-
   has_many :project_roles, dependent: :delete_all
   has_many :users, -> { distinct }, through: :project_roles
 

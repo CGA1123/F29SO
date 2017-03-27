@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe ProjectAnnouncement, type: :model do
-  it_behaves_like 'join table', :projects, :announcements
+  it { is_expected.to validate_presence_of(:title) }
+  it { is_expected.to validate_presence_of(:content) }
+  it { is_expected.to belong_to(:project) }
 end

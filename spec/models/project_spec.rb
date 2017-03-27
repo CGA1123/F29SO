@@ -11,7 +11,4 @@ RSpec.describe Project, type: :model do
   it { is_expected.to have_many(:locations).through(:project_roles) }
   it { is_expected.to belong_to(:project_type) }
   it { is_expected.to have_many(:project_announcements) }
-  it do
-    is_expected.to have_many(:announcements).through(:project_announcements)
-  end
 end
