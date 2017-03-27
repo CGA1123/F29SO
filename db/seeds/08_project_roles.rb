@@ -1,15 +1,15 @@
 #project_001_groups
-ProjectRole.create!(name: 'smuggler', description: 'You have to get through customs somehow.', project: Project.find_by(name: 'seed_excursion'))
-ProjectRole.create!(name: 'Leader', description: 'Directs the operation.', project: Project.find_by(name: 'seed_excursion'))
+ProjectRole.create!(name: 'smuggler', description: 'You have to get through customs somehow.', project: Project.find_by(name: 'Seed_Excursion'))
+ProjectRole.create!(name: 'Leader', description: 'Directs the operation.', project: Project.find_by(name: 'Seed_Excursion'))
 
 #project_002_groups
-ProjectRole.create!(name: 'project_leader', description: 'Directs the operation.', project: Project.find_by(name: 'interdimensional_travel'))
+ProjectRole.create!(name: 'project_leader', description: 'Directs the operation.', project: Project.find_by(name: 'Interdimensional_Travel'))
 
 #001_users
-ProjectRoleUser.create!(user: User.find_by(email: 'rick@earth-c137.local'), project_role: ProjectRole.find_by(name: 'smuggler', project: Project.find_by(name: 'seed_excursion')))
+ProjectRoleUser.create!(user: User.find_by(email: 'rick@earth-c137.local'), project_role: ProjectRole.find_by(name: 'smuggler', project: Project.find_by(name: 'Seed_Excursion')))
 
 #001_locations
-ProjectRoleLocation.create!(location: Location.find_by(name: 'Earth'), project_role: ProjectRole.find_by(name: 'smuggler', project: Project.find_by(name: 'seed_excursion')))
+ProjectRoleLocation.create!(location: Location.find_by(name: 'Earth'), project_role: ProjectRole.find_by(name: 'smuggler', project: Project.find_by(name: 'Seed_Excursion')))
 
 
 
