@@ -10,8 +10,8 @@ RSpec.describe AnnouncementsController, type: :controller do
   let(:system_params) { { system_announcement: { title: 'Yes', content: 'Oh yes' } } }
 
   describe 'POST #create_project_announcement' do
-    context 'user with project.announcement.manage permission' do
-      before { sign_in root_user check_pro_announce }
+    context 'user with project.announcements.manage permission' do
+      before { sign_in root_user }
 
       context 'parameters invalid' do
         it 'does not post announcement' do
@@ -25,7 +25,7 @@ RSpec.describe AnnouncementsController, type: :controller do
               .to change { ProjectAnnouncement.count }.by(1)
           end
 
-          context 'user without project.announcement.manage permission' do
+          context 'user without project.announcements.manage permission' do
             it 'throws 404' do
               sign_in no_permissions
               expect { post :create_project_announcement }
@@ -38,7 +38,7 @@ RSpec.describe AnnouncementsController, type: :controller do
   end
 
   describe 'POST #create_system_announcement' do
-    context 'user with announcement.manage permission' do
+    context 'user with announcements.manage permission' do
       before { sign_in root_user }
 
       context 'parameters invalid' do
@@ -53,7 +53,7 @@ RSpec.describe AnnouncementsController, type: :controller do
               .to change { SystemAnnouncement.count }.by(1)
           end
 
-          context 'user without announcement.manage permission' do
+          context 'user without announcements.manage permission' do
             it 'throws 404' do
               sign_in no_permissions
               expect { post :create_system_announcement }
@@ -66,7 +66,7 @@ RSpec.describe AnnouncementsController, type: :controller do
   end
 
   describe 'DELETE #destroy_project_annoucement' do
-    context 'user without project.announcement.manage permission' do
+    context 'user without project.announcements.manage permission' do
       it do
         sign_in no_permissions
         expect { xhr :delete, :destroy_project_annoucement, id: 'nah' }
@@ -74,17 +74,17 @@ RSpec.describe AnnouncementsController, type: :controller do
       end
     end
 
-    context 'user with project.announcement.manage permission' do
+    context 'user with project.announcements.manage permission' do
       it do
         sign_in root_user
-        expect { xhr :delete, :destroy, id: announcement.id }
+        expect { xhr :delete, :destroy_project_annoucement, id: project_announcement.id }
           .to change { ProjectAnnouncement.count }.by(-1)
       end
     end
   end
 
   describe 'DELETE #destroy_system_announcement' do
-    context 'user without announcement.manage permission' do
+    context 'user without announcements.manage permission' do
       it do
         sign_in no_permissions
         expect { xhr :delete, :destroy_system_announcement, id: 'nah' }
@@ -92,10 +92,10 @@ RSpec.describe AnnouncementsController, type: :controller do
       end
     end
 
-    context 'user with announcement.manage permission' do
+    context 'user with announcements.manage permission' do
       it do
         sign_in root_user
-        expect { xhr :delete, :destroy_system_announcement, id: announcement.id }
+        expect { xhr :delete, :destroy_system_announcement, id: system_announcement.id }
           .to change { SystemAnnouncement.count }.by(-1)
       end
     end
@@ -112,7 +112,7 @@ RSpec.describe AnnouncementsController, type: :controller do
     end
 
     it 'assigns @project_announcements' do
-      expect(assigned[:project_announcements]).to eq(ProjectAnnouncement.last(5))
+      expect(assigned[:project_announcements]).to eq(ProjectAnnouncement.where(projects: Projects.where(user: root_user)).last(5))
     end
 
     it 'checks @project_announcements assigning' do

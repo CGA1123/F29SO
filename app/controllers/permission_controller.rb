@@ -159,7 +159,7 @@ class PermissionController < ApplicationController
     end
   end
 
-  def check_announcement
+  def check_announcements
     case action_name
     when 'create_project_announcement', 'destroy_project_announcement'
       not_found unless \

@@ -1,5 +1,5 @@
 class ProjectAnnouncement < ActiveRecord::Base
-  belongs_to :projects
+  belongs_to :project
 
-  validates :title, :content, :projects, presence: true
+  validates :title, :content, :project, presence: true
 end
