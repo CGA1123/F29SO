@@ -1,0 +1,8 @@
+SkillType.create!(name: 'Programming Language' , description: 'Coding Languages')
+SkillType.create!(name: 'Spoken Language' , description: 'Languages Spoken')
+SkillType.create!(name: 'Managerial Skills' , description: 'Leadership Abilites')
+SkillType.create!(name: 'Hardware Skills' , description: 'Hardware repair and creation')
+SkillType.create!(name: 'Networking Skills' , description: 'Network Engineering')
+SkillType.create!(name: 'IT Skills' , description: 'IT support')
+SkillType.create!(name: 'Adminstration Skills' , description: 'Clerical and Database work')
+SkillType.create!(name: 'Marketing Skills' , description: 'Advanced Marketing strategies')

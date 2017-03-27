@@ -1,1 +1,54 @@
-# Skills
+# Skill
+programming_languages = SkillType.find_by!(name: 'Programming Language')
+spoken_languages = SkillType.find_by!(name: 'Spoken Language')
+managerial_skill = SkillType.find_by!(name: 'Managerial Skills')
+hardware_skill = SkillType.find_by!(name: 'Hardware Skills')
+network_skill = SkillType.find_by!(name: 'Networking Skills')
+it_skill = SkillType.find_by!(name: 'IT Skills')
+adminstration_skill = SkillType.find_by(name: 'Adminstration Skills')
+marketing_skill = SkillType.find_by(name: 'Marketing Skills')
+
+Skill.create!(name: 'Java' , description: 'Java Programming', skill_type: programming_languages)
+Skill.create!(name: 'SML' , description: 'SML Programming', skill_type: programming_languages)
+Skill.create!(name: 'Ruby' , description: 'Ruby Programming', skill_type: programming_languages)
+Skill.create!(name: 'HTML' , description: 'HTML Programming', skill_type: programming_languages)
+Skill.create!(name: 'Scala' , description: 'Scala Programming', skill_type: programming_languages)
+Skill.create!(name: 'Python' , description: 'Python Programming', skill_type: programming_languages)
+Skill.create!(name: 'C++' , description: 'C++/C programming', skill_type: programming_languages)
+Skill.create!(name: 'Erlang' , description: 'Erlang programming', skill_type: programming_languages)
+
+Skill.create!(name: 'English' , description: 'English language', skill_type: spoken_languages)
+Skill.create!(name: 'French' , description: 'French language', skill_type: spoken_languages)
+Skill.create!(name: 'Italian' , description: 'Italian language', skill_type: spoken_languages)
+Skill.create!(name: 'Spanish' , description: 'Spanish Language', skill_type: spoken_languages)
+Skill.create!(name: 'German' , description: 'German Lanaguage', skill_type: spoken_languages)
+Skill.create!(name: 'Cantonese' , description: 'Cantonese Lanaguage', skill_type: spoken_languages)
+Skill.create!(name: 'Japanese' , description: 'Japanes Language', skill_type: spoken_languages)
+
+Skill.create!(name: 'Delegate' , description: 'Tell bitches what to do' , skill_type: managerial_skill)
+Skill.create!(name: 'Listen' , description: 'Listen to bitches', skill_type: managerial_skill)
+Skill.create!(name: 'Communication' , description: 'Explain problems', skill_type: managerial_skill)
+Skill.create!(name: 'Implement Strategies' , description: 'Make a plan', skill_type: managerial_skill)
+
+Skill.create!(name: 'Soldering' , description: 'Soldering motherboard elements', skill_type: hardware_skill)
+Skill.create!(name: 'Disaster Recovery' , description: 'Repairing things beyond repair' , skill_type: hardware_skill)
+Skill.create!(name: 'Installs', description: 'Installing Hardware' , skill_type: hardware_skill)
+Skill.create!(name: 'Backup Management' , description: 'Backing up date' , skill_type: hardware_skill)
+
+Skill.create!(name: 'Server Repair' , description: 'Repairing Servers' , skill_type: network_skill)
+Skill.create!(name: 'Server Maintaince' , description: 'Maintaining Servers' , skill_type: network_skill)
+Skill.create!(name: 'Server Replacement' , description: 'Replacing Servers' , skill_type: network_skill)
+Skill.create!(name: 'DHCP Client/Server' , description: 'Configuration of DHCP' , skill_type: network_skill)
+Skill.create!(name: 'Network Processing' , description: 'Network processinng' , skill_type: network_skill)
+
+Skill.create!(name: 'Technical Support' , description: 'Technical support' , skill_type: it_skill )
+Skill.create!(name: 'Security' , description: 'Installing firewalls' , skill_type: it_skill)
+Skill.create!(name: 'Business Analytics' , description: 'Analysing Business' , skill_type: it_skill)
+Skill.create!(name: 'Software Installation' , description: 'Installing Software' , skill_type: it_skill)
+
+Skill.create!(name: 'Clerical Work' , description: 'Keeping employee data' , skill_type: adminstration_skill)
+Skill.create!(name: 'Data Entry' , description: 'Entering Data' , skill_type: adminstration_skill)
+Skill.create!(name: 'Monitoring Efficiency' , description: 'Improving Efficiency' , skill_type: adminstration_skill)
+
+Skill.create!(name: 'Commercial nous' , description: 'Business acumen' , skill_type: marketing_skill)
+Skill.create!(name: 'Negotiation skills' , description: 'Business acumen' , skill_type: marketing_skill)
