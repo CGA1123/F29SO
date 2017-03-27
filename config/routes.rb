@@ -34,8 +34,8 @@ Rails.application.routes.draw do
   post 'projects', to: 'projects#create'
   delete 'projects', to: 'projects#destroy'
   patch 'projects', to: 'projects#update'
+  post 'projects/search', to: 'projects#search', as: :project_search
   get 'projects/:code', to: 'projects#show', as: :project
-  get 'projects/:code/locations', to: 'projects#locations', as: :project_locations
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
 
   # ProjectTypesController

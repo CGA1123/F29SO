@@ -5,7 +5,8 @@
                     permission.id,
                     @project_role_permissions.include?(permission),
                     onclick: "updateProjectRolePermission('#{@project.code}','#{@project_role.name}', this);",
-                    disabled: @disabled %>
+                    disabled: @disabled,
+                    class: 'filled-in' %>
     <%= label_tag "permission-#{permission.id}", permission.name %>
   </div>
 <% end %>

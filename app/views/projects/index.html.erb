@@ -1,5 +1,29 @@
-<div id='projects'>
-  <%= render @projects %>
+<div class="row">
+  <div class="col s4">
+    <div class="card">
+      <div class="card-content">
+      <%= form_tag project_search_path, method: :post, remote: true, id: 'project_search_form', onchange: 'submitSearch();' do %>
+        <div class="input-field">
+          <%= text_field_tag :search_bar, "", onkeyup: 'submitSearch();' %>
+          <%= label_tag :search_bar, 'Search Projects' %>
+        </div>
+        <div class="input-field">
+          <%= select_tag :type, options_for_select(ProjectType.all.collect { |p| [p.name.humanize, p.id] }), class: 'browser-default', include_blank: 'All Project Types' %>
+        </div>
+        <div class="input-field">
+          <%= check_box_tag :own, "1", false, class: 'filled-in' %>
+          <%= label_tag :own, 'Only projects I am part of' %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s8">
+    <div id='projects'>
+      <%= render @projects %>
+    </div>
+  </div>
 </div>
 
 <% if @can_create %>

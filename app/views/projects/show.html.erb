@@ -2,7 +2,7 @@
   <div class="col s12">
     <div class="card">
       <div class="card-content">
-        <span class="purple-text card-title"><%= @project.name %><span class="badge right"><%= @project.code %></span></span>
+        <span class="purple-text card-title" id="project-title"><%= @project.name %><span class="badge right"><%= @project.code %></span></span>
         <p><%= @project.description %></p>
       </div>
     </div>
@@ -12,6 +12,8 @@
     <div class="card">
       <div class="card-content">
         <span class="purple-text card-title">Project Details</span>
+        <p class="tooltipped details" data-position="bottom" data-delay="25" data-tooltip="Project Type"><i class="material-icons">info</i><%= @project.project_type.name %></p>
+        <p><%= @project.locations.map(&:name).join(",") %></p>
       </div>
     </div>
   </div>
@@ -31,9 +33,3 @@
     </div>
   </div>
 </div>
-
-
-
-<script>
-  loadProjectLocations('<%= @project.code %>');
-</script>
