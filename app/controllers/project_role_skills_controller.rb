@@ -6,10 +6,6 @@ class ProjectRoleSkillsController < PermissionController
   before_action :set_skill, except: [:index, :edit]
   before_action :set_project_role_skill, only: [:destroy, :update]
 
-  def index
-    @project_role_skills = @project_role.project_role_skills
-  end
-
   def create
     @project_role_skill = ProjectRoleSkill.new(project_role: @project_role,
                                                skill: @skill,
@@ -36,29 +32,22 @@ class ProjectRoleSkillsController < PermissionController
   def set_project_role_skill
     @project_role_skill = ProjectRoleSkill.find_by(project_role: @project_role,
                                                    skill: @skill)
-    return if @project_role_skill
-    redirect_to project_role_path(code: @project.code,
-                                  name: @project_role.name),
-                alert: 'Could not find that skill'
+    head(404) unless @project_role_skill
   end
 
   def set_project
     @project = Project.find_by(code: params[:code])
-    redirect_to projects_path, alert: 'Project not found' unless @project
+    head(404) unless @project
   end
 
   def set_project_role
     @project_role = ProjectRole.find_by(project: @project, name: params[:name])
-    redirect_to project_roles_path(code: @project.code), alert: 'Not Found' \
-      unless @project_role
+    head(404) unless @project_role
   end
 
   def set_skill
     @skill = Skill.find_by(id: params[:skill_id])
-    return if @skill
-    redirect_to project_role_path(code: @project.code,
-                                  name: @project_role.name),
-                alert: 'Skill not found!'
+    head(404) unless @skill
   end
 
   def check_format

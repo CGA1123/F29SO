@@ -55,7 +55,6 @@ Rails.application.routes.draw do
   delete 'projects/:code/roles/:name/permissions', to: 'project_role_permissions#destroy'
 
   # ProjectRoleUsersController Routes
-  get 'projects/:code/roles/:name/users', to: 'project_role_users#index', as: :project_role_users
   post 'projects/:code/roles/:name/users', to: 'project_role_users#create'
   delete 'projects/:code/roles/:name/users', to: 'project_role_users#destroy'
   post 'projects/:code/roles/:name/users/search', to: 'project_role_users#search', as: :project_role_users_search
@@ -66,8 +65,7 @@ Rails.application.routes.draw do
   delete 'projects/:code/roles/:name/locations', to: 'project_role_locations#destroy'
 
   # ProjectRoleSkills Routes
-  get 'projects/:code/roles/:name/skills', to: 'project_role_skills#index', as: :project_role_skills
-  post 'projects/:code/roles/:name/skills', to: 'project_role_skills#create'
+  post 'projects/:code/roles/:name/skills', to: 'project_role_skills#create', as: :project_role_skills
   delete 'projects/:code/roles/:name/skills', to: 'project_role_skills#destroy'
   patch 'projects/:code/roles/:name/skills', to: 'project_role_skills#update'
   get 'projects/:code/roles/:name/skills/edit', to: 'project_role_skills#edit', as: :project_role_skills_edit

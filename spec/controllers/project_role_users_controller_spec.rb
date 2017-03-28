@@ -6,33 +6,6 @@ RSpec.describe ProjectRoleUsersController, type: :controller do
   let(:no_permission) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
 
-  describe 'GET #index' do
-    context 'no permission' do
-      before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :get,
-            action: :index,
-            params: { code: project.code, name: project_role.name },
-            xhr: true }
-        end
-      end
-    end
-
-    context 'has permission' do
-      before do
-        sign_in root_user
-        xhr :get, :index, code: project.code, name: project_role.name
-      end
-
-      it { expect(response).to be_success }
-
-      it 'sets @project_role' do
-        expect(assigns[:project_role]).to eq(project_role)
-      end
-    end
-  end
-
   describe 'POST #create' do
     context 'no permission' do
       before { sign_in no_permission }
@@ -73,14 +46,14 @@ RSpec.describe ProjectRoleUsersController, type: :controller do
 
         it 'redirects if project_role not found' do
           xhr :post, :create, code: project.code, name: 'lel', permissions: 'id'
-          expect(flash[:alert]).to eq('Project role not found')
+          expect(response.status).to be(404)
         end
 
         it 'redirects if id not found' do
           xhr :post, :create, code: project.code,
                               name: project_role.name,
                               id: 'id'
-          expect(flash[:alert]).to eq('User not found')
+          expect(response.status).to be(404)
         end
       end
     end
@@ -137,8 +110,8 @@ RSpec.describe ProjectRoleUsersController, type: :controller do
           expect(assigns[:user]).to be_nil
         end
 
-        it 'sets alert' do
-          expect(flash[:alert]).to eq('Project group user not found')
+        it '404' do
+          expect(response.status).to be(404)
         end
       end
     end

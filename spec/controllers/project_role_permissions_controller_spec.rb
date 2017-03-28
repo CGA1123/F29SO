@@ -13,18 +13,18 @@ RSpec.describe ProjectRolePermissionsController, type: :controller do
       context 'invalid params' do
         it 'redirect if project not found' do
           xhr :post, :create, code: 'lel', name: 'lel', permissions: 'lel'
-          expect(flash[:alert]).to eq('Project not found')
+          expect(response.status).to be(404)
         end
 
         it 'redirects if project_role not found' do
           xhr :post, :create, code: project.code, name: 'lel', permissions: 'le'
-          expect(flash[:alert]).to eq('Not Found')
+          expect(response.status).to be(404)
         end
 
         it 'redirects if permission not found' do
           p = { code: project.code, name: project_role.name, permissions: 0 }
           xhr :post, :create, p
-          expect(assigns[:permission]).to be_nil
+          expect(response.status).to be(404)
         end
       end
 
@@ -112,8 +112,8 @@ RSpec.describe ProjectRolePermissionsController, type: :controller do
           expect(assigns[:project_role_permission]).to be_nil
         end
 
-        it 'sets alert' do
-          expect(flash[:alert]).to eq('Permission not found')
+        it '404' do
+          expect(response.status).to eq(404)
         end
       end
     end

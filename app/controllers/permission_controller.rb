@@ -35,9 +35,6 @@ class PermissionController < ApplicationController
       not_found unless \
         current_user.permission?('projects.roles.manage',
                                  "#{@project.id}.projects.roles.manage")
-    when 'index', 'show'
-      not_found unless current_user.permission?('projects.view',
-                                                "#{@project.id}.projects.view")
     end
   end
 
@@ -47,10 +44,6 @@ class PermissionController < ApplicationController
       not_found unless \
         current_user.permission?('projects.roles.manage',
                                  "#{@project.id}.projects.roles.manage")
-
-    when 'index', 'show'
-      not_found unless current_user.permission?('projects.view',
-                                                "#{@project.id}.projects.view")
     end
   end
 
@@ -70,10 +63,6 @@ class PermissionController < ApplicationController
 
   def check_project_role_permissions
     case action_name
-    when 'index'
-      redirect_to project_roles_path(code: @project.code) unless \
-        current_user.permission?('projects.view',
-                                 "#{@project.id}.projects.view")
     when 'create', 'destroy'
       id = @project.id
       not_found unless \
@@ -86,9 +75,6 @@ class PermissionController < ApplicationController
 
   def check_project_role_skills
     case action_name
-    when 'index'
-      not_found unless current_user.permission?('projects.view',
-                                                "#{@project.id}.projects.view")
     when 'create', 'destroy', 'edit', 'update'
       not_found unless \
         current_user.permission?('projects.role.manage',
