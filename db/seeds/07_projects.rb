@@ -1,5 +1,6 @@
 #seeds
 
+
 Project.create!(name: 'Seed Excursion', description: 'Project', code: '001', project type: ProjectType.find by(name: 'scientific'))
 Project.create!(name: 'Interdimensional Travel', description: 'Project', code: '002', project type: ProjectType.find by(name: 'scientific'))
 Project.create!(name: 'Air Traffic Automation', description: 'Project', code: '003', project type: ProjectType.find by(name: 'Civil'))

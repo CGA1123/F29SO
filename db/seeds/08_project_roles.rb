@@ -1,3 +1,4 @@
+
 #project 001 groups
 ProjectRole.create!(name: 'Smuggler', description: 'You have to get through customs somehow.', project: Project. find_by(name: 'Seed Excursion'))
 ProjectRole.create!(name: 'Leader', description: 'Directs the operation.', project: Project. find_by(name: 'Seed Excursion'))
