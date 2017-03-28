@@ -1,3 +1,5 @@
-<% project_role_users.each do |project_role_user| %>
-  <%= render 'project_role_user', project_role_user: project_role_user %>
+<div class="row">
+<% project_role.project_role_users.each do |project_role_user| %>
+  <%= render 'project_role_users/project_role_user', project_role_user: project_role_user %>
 <% end %>
+</div>

@@ -4,17 +4,28 @@
   <ul class="collapsible z-depth-0" data-collapsible="accordion">
     <li>
       <div class="collapsible-header">
-        <i class="material-icons purple-text">lock_outline</i>Permissions
+        <i class="material-icons purple-text">lock</i>Permissions
       </div>
       <div class="collapsible-body">
         <%= render 'project_role_permissions/permissions', project_role: project_role %>
       </div>
     </li>
+
     <li>
       <div class="collapsible-header">
-        <i class="material-icons purple-text">perm_identity</i>Users
+        <i class="material-icons purple-text">build</i>Skills
       </div>
       <div class="collapsible-body">
+        <%= render 'project_role_skills/skills', project_role: project_role %>
+      </div>
+    </li>
+
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons purple-text">supervisor_account</i>Users
+      </div>
+      <div class="collapsible-body">
+        <%= render 'project_role_users/users', project_role: project_role %>
       </div>
     </li>
   </ul>
