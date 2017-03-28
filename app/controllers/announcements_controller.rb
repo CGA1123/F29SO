@@ -4,7 +4,8 @@ class AnnouncementsController < PermissionController
   before_action :check_permissions, except: [:index]
 
   def index
-    @project_announcements = ProjectAnnouncement.where(project: current_user.projects).last(5)
+    @project_announcements = ProjectAnnouncement
+                             .where(project: current_user.projects).last(5)
     @system_announcements = SystemAnnouncement
                             .where('created_at > ?', 30.days.ago).last(5)
   end

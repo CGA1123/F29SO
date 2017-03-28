@@ -21,8 +21,12 @@ RSpec.describe AnnouncementsController, type: :controller do
       before { sign_in root_user }
 
       context 'parameters invalid' do
+        let(:params) do
+          { project_announcement: { title: 'No', project_id: 0 } }
+        end
+
         it 'does not post announcement' do
-          expect { xhr :post, :create_project_announcement, project_announcement: { title: 'No' }, project_id: 0 }
+          expect { xhr :post, :create_project_announcement, params }
             .to change { ProjectAnnouncement.count }.by(0)
         end
       end
@@ -86,7 +90,8 @@ RSpec.describe AnnouncementsController, type: :controller do
       it do
         sign_in root_user
         xhr :delete, :destroy_project_annoucement, id: project_announcement.id
-        expect(ProjectAnnouncement.find_by(id: project_announcement.id)).to be_nil
+        expect(ProjectAnnouncement.find_by(id: project_announcement.id))
+          .to be_nil
       end
     end
   end
@@ -120,7 +125,8 @@ RSpec.describe AnnouncementsController, type: :controller do
     end
 
     it 'assigns @project_announcements' do
-      expect(assigns[:project_announcements]).to eq(ProjectAnnouncement.where(project: root_user.projects).last(5))
+      expect(assigns[:project_announcements])
+        .to eq(ProjectAnnouncement.where(project: root_user.projects).last(5))
     end
 
     it 'checks @project_announcements assigning' do
