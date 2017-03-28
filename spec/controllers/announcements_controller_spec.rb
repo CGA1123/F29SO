@@ -49,7 +49,7 @@ RSpec.describe AnnouncementsController, type: :controller do
         context 'parameters valid' do
           it 'posts new announcement' do
             xhr :post, :create_system_announcement, system_params
-            expect(SystemAnnouncement.find_by(id: system_params.id)).not_be be_nil
+            expect(SystemAnnouncement.find_by(id: system_announcement.id)).not_to be_nil
           end
 
           context 'user without announcements.manage permission' do
@@ -111,11 +111,11 @@ RSpec.describe AnnouncementsController, type: :controller do
     end
 
     it 'assigns @project_announcements' do
-      expect(assigns[:project_announcements]).to eq(ProjectAnnouncement.where(projects: root_user.projects).last(5))
+      expect(assigns[:project_announcements]).to eq(ProjectAnnouncement.where(project: root_user.projects).last(5))
     end
 
     it 'checks @project_announcements assigning' do
-      expect(assign[:project_announcements]).not_be be_nil
+      expect(assigns[:project_announcements]).not_to be_nil
     end
 
     it 'assigns @system_announcements' do
@@ -123,7 +123,7 @@ RSpec.describe AnnouncementsController, type: :controller do
     end
 
     it 'checks @system_announcements assigning' do
-      expect(assign[:system_announcements]).not_be be_nil
+      expect(assigns[:system_announcements]).not_to be_nil
     end
   end
 end
