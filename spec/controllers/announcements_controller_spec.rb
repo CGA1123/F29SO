@@ -6,8 +6,15 @@ RSpec.describe AnnouncementsController, type: :controller do
   let(:project) { FactoryGirl.create(:project) }
   let(:project_announcement) { FactoryGirl.create(:project_announcement) }
   let(:system_announcement) { FactoryGirl.create(:system_announcement) }
-  let(:project_params) { { project_announcement: { title: 'Yes', content: 'Oh yes' }, project_id: project.id } }
-  let(:system_params) { { system_announcement: { title: 'Yes', content: 'Oh yes' } } }
+  let(:project_params) do
+    { project_announcement: {
+      title: 'Yes', content: 'Oh yes', project_id: project.id
+    } }
+  end
+
+  let(:system_params) do
+    { system_announcement: { title: 'Yes', content: 'Oh yes' } }
+  end
 
   describe 'POST #create_project_announcement' do
     context 'user with project.announcements.manage permission' do
@@ -30,7 +37,7 @@ RSpec.describe AnnouncementsController, type: :controller do
       context 'user without project.announcements.manage permission' do
         it 'throws 404' do
           sign_in no_permissions
-          expect { post :create_project_announcement }
+          expect { post :create_project_announcement, project_params }
             .to raise_error(ActionController::RoutingError)
         end
       end

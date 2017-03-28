@@ -11,6 +11,7 @@ class AnnouncementsController < PermissionController
 
   def create_project_announcement
     @announcement = ProjectAnnouncement.new(project_announcement_params)
+    @announcement.save
     redirect_to announcements_path
   end
 
@@ -20,9 +21,7 @@ class AnnouncementsController < PermissionController
   end
 
   def destroy_project_annoucement
-    @announcement = ProjectAnnouncement.find_by(id: params[:id])
-
-    @announcement.destroy if @announcement.present?
+    @announcement.destroy
     redirect_to announcements_path, alert: 'Announcement Deleted.'
   end
 
@@ -36,12 +35,12 @@ class AnnouncementsController < PermissionController
   private
 
   def set_project
-    @project = Project.find_by(id: params[:project_id])
-    not_found unless @project
+    @project = Project.find_by(id: project_announcement_params[:project_id])
+    head 404 unless @project
   end
 
   def project_announcement_params
-    params.require(:project_announcement).permit(:title, :content, :project)
+    params.require(:project_announcement).permit(:title, :content, :project_id)
   end
 
   def system_announcement_params
@@ -49,8 +48,8 @@ class AnnouncementsController < PermissionController
   end
 
   def set_project_announcement
-    @project_announcement = ProjectAnnouncement.find_by(id: params[:id])
-    not_found unless @project_announcement
-    @project = @project_announcement.project
+    @announcement = ProjectAnnouncement.find_by(id: params[:id])
+    not_found unless @announcement
+    @project = @announcement.project
   end
 end
