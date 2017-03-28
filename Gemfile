@@ -30,7 +30,7 @@ gem 'octicons_helper'
 
 gem 'faker'
 
-gem 'namey'
+
 
 group :development, :test, :macs_development, :macs_test do
   gem 'byebug'

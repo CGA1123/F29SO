@@ -109,9 +109,6 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.1)
     multi_json (1.12.1)
-    namey (0.0.10)
-      sequel
-      sqlite3
     nokogiri (1.7.0.1)
       mini_portile2 (~> 2.1.0)
     octicons (3.0.1)
@@ -218,7 +215,6 @@ GEM
     sdoc (0.4.2)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
-    sequel (4.44.0)
     shoulda-matchers (3.1.1)
       activesupport (>= 4.0.0)
     sidekiq (4.2.9)
@@ -279,7 +275,6 @@ DEPENDENCIES
   jquery-rails
   material_icons
   materialize-sass
-  namey
   octicons_helper
   pg (~> 0.15)
   premailer-rails
