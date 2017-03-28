@@ -99,7 +99,7 @@ Rails.application.routes.draw do
   post 'announcements', to: 'announcements#create_project_announcement'
   post 'announcements', to: 'announcements#create_system_announcement'
   delete 'announcements', to: 'announcements#destroy_project_annoucement'
-  delete 'announcements', to: 'announcements#destroy_system_announcement_annoucement'
+  delete 'announcements', to: 'announcements#destroy_system_announcement'
 
   # AdminPanelController Routes
   get 'admin', to: 'admin_panel#home', as: :admin_home

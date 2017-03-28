@@ -3,10 +3,9 @@ require 'rails_helper'
 RSpec.describe AnnouncementsController, type: :controller do
   let(:no_permissions) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
-  let(:project) { FactoryGirl.create(:project) }
   let(:project_announcement) { FactoryGirl.create(:project_announcement) }
   let(:system_announcement) { FactoryGirl.create(:system_announcement) }
-  let(:project_params) { { project_announcement: { title: 'Yes', content: 'Oh yes', project: :project } } }
+  let(:project_params) { { project_announcement: { title: 'Yes', content: 'Oh yes' }, project_id: project.id } }
   let(:system_params) { { system_announcement: { title: 'Yes', content: 'Oh yes' } } }
 
   describe 'POST #create_project_announcement' do
@@ -15,7 +14,7 @@ RSpec.describe AnnouncementsController, type: :controller do
 
       context 'parameters invalid' do
         it 'does not post announcement' do
-          expect { xhr :post, :create_project_announcement, project_announcement: { title: 'No' } }
+          expect { xhr :post, :create_project_announcement, project_announcement: { title: 'No' }, project_id: 0 }
             .to change { ProjectAnnouncement.count }.by(0)
         end
 
@@ -43,14 +42,14 @@ RSpec.describe AnnouncementsController, type: :controller do
 
       context 'parameters invalid' do
         it 'does not post announcement' do
-          expect { xhr :post, :create_system_announcement, system_announcement: { title: 'No' } }
-            .to change { SystemAnnouncement.count }.by(0)
+          xhr :post, :create_system_announcement, system_announcement: { id: 0 }
+          expect(SystemAnnouncement.find_by(id: 0)).to be_nil
         end
 
         context 'parameters valid' do
           it 'posts new announcement' do
-            expect { xhr :post, :create_system_announcement, system_params }
-              .to change { SystemAnnouncement.count }.by(1)
+            xhr :post, :create_system_announcement, system_params
+            expect(SystemAnnouncement.find_by(id: system_params.id)).not_be be_nil
           end
 
           context 'user without announcements.manage permission' do
@@ -77,8 +76,8 @@ RSpec.describe AnnouncementsController, type: :controller do
     context 'user with project.announcements.manage permission' do
       it do
         sign_in root_user
-        expect { xhr :delete, :destroy_project_annoucement, id: project_announcement.id }
-          .to change { ProjectAnnouncement.count }.by(-1)
+        xhr :delete, :destroy_project_annoucement, id: project_announcement.id
+        expect(ProjectAnnouncement.find_by(id: project_announcement.id)).to be_nil
       end
     end
   end
@@ -112,7 +111,7 @@ RSpec.describe AnnouncementsController, type: :controller do
     end
 
     it 'assigns @project_announcements' do
-      expect(assigned[:project_announcements]).to eq(ProjectAnnouncement.where(projects: Projects.where(user: root_user)).last(5))
+      expect(assigns[:project_announcements]).to eq(ProjectAnnouncement.where(projects: root_user.projects).last(5))
     end
 
     it 'checks @project_announcements assigning' do
@@ -120,7 +119,7 @@ RSpec.describe AnnouncementsController, type: :controller do
     end
 
     it 'assigns @system_announcements' do
-      expect(assigned[:system_announcements]).to eq(SystemAnnouncement.last(5))
+      expect(assigns[:system_announcements]).to eq(SystemAnnouncement.last(5))
     end
 
     it 'checks @system_announcements assigning' do

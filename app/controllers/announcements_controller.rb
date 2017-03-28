@@ -1,11 +1,10 @@
 class AnnouncementsController < PermissionController
-  before_action :check_permissions, only: [:create_project_announcement,
-                                           :create_system_announcement,
-                                           :destroy_project_annoucement,
-                                           :destroy_system_announcement]
+  before_action :set_project, only: [:create_project_announcement]
+  before_action :set_project_announcement, only: [:destroy_project_annoucement]
+  before_action :check_permissions, except: [:index]
 
   def index
-    @project_announcements = ProjectAnnouncement.where(project: Projects.where(user: current_user)).last(5)
+    @project_announcements = ProjectAnnouncement.where(project: current_user.projects).last(5)
     @system_announcements = SystemAnnouncement
                             .where('created_at > ?', 30.days.ago).last(5)
   end
@@ -36,11 +35,22 @@ class AnnouncementsController < PermissionController
 
   private
 
+  def set_project
+    @project = Project.find_by(params[:project_id])
+    not_found unless @project
+  end
+
   def project_announcement_params
     params.require(:project_announcement).permit(:title, :content, :project)
   end
 
   def system_announcement_params
     params.require(:system_announcement).permit(:title, :content)
+  end
+
+  def set_project_announcement
+    @project_announcement = ProjectAnnouncement.find_by(id: params[:id])
+    not_found unless @project_announcement
+    @project = @project_announcement.project
   end
 end

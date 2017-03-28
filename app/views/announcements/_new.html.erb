@@ -1,4 +1,4 @@
-<%= form_for Announcement.new, url: announcements_path, method: :post, remote: true do |f| %>
+<%= form_for Announcements.new, url: announcements_path, method: :post, remote: true do |f| %>
 <ul id="announcement-errors"></ul>
 <div class="input-fields">
   <%= f.text_field :title, placeholder: 'title' %>
