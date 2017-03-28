@@ -6,7 +6,6 @@ var loadProjectRoles = function(project) {
 };
 
 var submitSearch = function() {
-  console.log('change');
   $.ajax({
     type: 'POST',
     url: 'projects/search.js',

@@ -24,12 +24,28 @@
       </div>
     </div>
   </div>
-
-  <div class="col s12">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title purple-text">Roles</span>
+</div>
+<div class="row z-depth-2" id="project_roles_row">
+  <span class="center-align purple-text role-title">Roles</span>
+  <div class="divider"></div>
+  <div class="tabs-vertical">
+    <div class="col s3">
+      <ul class="tabs" id="role-tabs">
+        <li class="tab"><a href="#new-project-role"><i class="material-icons purple-text right">add</i>Add New Role</a></li>
+        <% @project.project_roles.each do |project_role| %>
+        <li class="tab">
+          <a href="#project-role-<%= project_role.id %>"><%= project_role.name.humanize %></a>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col s9" id="roles-content">
+      <div id="new-project-role" class="tab-content">
+        <%= render 'project_roles/new_project_role', project: @project %>
       </div>
+      <% @project.project_roles.each do |project_role| %>
+      <%= render 'project_roles/project_role', project_role: project_role %>
+      <% end %>
     </div>
   </div>
 </div>

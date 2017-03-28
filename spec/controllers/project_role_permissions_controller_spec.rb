@@ -7,41 +7,6 @@ RSpec.describe ProjectRolePermissionsController, type: :controller do
   let(:project_role) { FactoryGirl.create(:project_role, project: project) }
   let(:permission) { FactoryGirl.create(:permission) }
 
-  describe 'GET #index' do
-    context 'has permission' do
-      before do
-        sign_in root_user
-        xhr :get, :index, code: project.code, name: project_role.name
-      end
-
-      it { expect(response).to be_success }
-
-      it 'sets @project_role_permissions' do
-        expect(assigns[:project_role_permissions])
-          .to eq(project_role.permissions)
-      end
-
-      it 'sets @disabled' do
-        expect(assigns[:disabled]).to be_falsy
-      end
-
-      it do
-        expect(response).to render_template('project_role_permissions/index')
-      end
-    end
-
-    context 'no permissions' do
-      before do
-        sign_in no_permission
-        xhr :get, :index, code: project.code, name: project_role.name
-      end
-
-      it do
-        expect(response).to redirect_to(project_roles_path(code: project.code))
-      end
-    end
-  end
-
   describe 'POST #create' do
     context 'has permission' do
       before { sign_in root_user }

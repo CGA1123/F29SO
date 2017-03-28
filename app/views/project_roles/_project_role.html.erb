@@ -1,8 +1,21 @@
-<div class='role', id='project_role-<%= project_role.id %>'>
-  <%= link_to project_role.name, project_role_path(code: project_role.project.code, name: project_role.name) %>
-  <%= octicon 'organization' %> Members: <%= project_role.users.count %>
-  <%= link_to project_roles_path(code: project_role.project.code, name: project_role.name), method: :delete do %>
-    <%= octicon 'trashcan' %>
-    Delete
-  <% end %>
+<div id="project-role-<%= project_role.id %>" class="tab-content">
+  <h5 class="purple-text"><%= project_role.name %></h5>
+  <p class="grey-text"><%= project_role.description %></p>
+  <ul class="collapsible z-depth-0" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons purple-text">lock_outline</i>Permissions
+      </div>
+      <div class="collapsible-body">
+        <%= render 'project_role_permissions/permissions', project_role: project_role %>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header">
+        <i class="material-icons purple-text">perm_identity</i>Users
+      </div>
+      <div class="collapsible-body">
+      </div>
+    </li>
+  </ul>
 </div>

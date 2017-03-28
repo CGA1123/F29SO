@@ -46,10 +46,7 @@ Rails.application.routes.draw do
   get 'project_types/:id/edit', to: 'project_types#edit', as: :edit_project_type
 
   # ProjectRolesController Routes
-  get 'projects/:code/roles', to: 'project_roles#index', as: :project_roles
-  post 'projects/:code/roles', to: 'project_roles#create'
-  get 'projects/:code/roles/new', to: 'project_roles#new', as: :new_project_role
-  get 'projects/:code/roles/:name', to: 'project_roles#show', as: :project_role
+  post 'projects/:code/roles', to: 'project_roles#create', as: :project_roles
   delete 'projects/:code/roles', to: 'project_roles#destroy'
 
   # ProjectRolePermissionsController Routes

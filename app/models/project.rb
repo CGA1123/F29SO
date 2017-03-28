@@ -11,7 +11,7 @@ class Project < ActiveRecord::Base
 
   def self.search(string)
     where('lower(projects.name) LIKE :string OR ' \
-          'lower(projects.code) LIKE :string',
-          string: "%#{string.downcase}%") \
+          'lower(projects.code) LIKE :string ',
+          string: "%#{string.downcase}%")
   end
 end

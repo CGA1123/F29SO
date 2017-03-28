@@ -6,11 +6,6 @@ class ProjectRolePermissionsController < PermissionController
   before_action :set_permission, only: [:create, :destroy]
   before_action :set_project_role_permission, only: [:destroy]
 
-  def index
-    @project_role_permissions = @project_role.permissions
-    @disabled = !manage_permission?
-  end
-
   def create
     @project_role_permission = ProjectRolePermission.new(
       project_role: @project_role,

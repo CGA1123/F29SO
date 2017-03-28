@@ -6,50 +6,6 @@ RSpec.describe ProjectRolesController, type: :controller do
   let(:project) { FactoryGirl.create(:project) }
   let(:project_role) { FactoryGirl.create(:project_role, project: project) }
 
-  describe 'GET #index' do
-    context 'User does not have permission' do
-      before { sign_in user }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :get, action: :index, params: { code: project.code } }
-        end
-      end
-    end
-
-    context 'has permission' do
-      before do
-        sign_in root_user
-      end
-
-      context 'project exists' do
-        before { get :index, code: project.code }
-        it { expect(response).to be_success }
-
-        it 'sets @project_roles' do
-          expect(assigns[:project_roles]).to eq(project.project_roles)
-        end
-
-        it 'sets @project' do
-          expect(assigns[:project]).to eq(project_role.project)
-        end
-      end
-
-      context 'project does not exist' do
-        before { get :index, code: 'lel_no_project_to_see_here' }
-
-        it 'sets @project to nil' do
-          expect(assigns[:project]).to be_nil
-        end
-
-        it { expect(response).to redirect_to(projects_path) }
-
-        it 'sets alert' do
-          expect(flash[:alert]).to eq('Project not found')
-        end
-      end
-    end
-  end
-
   describe 'POST #create' do
     context 'no permission' do
       before { sign_in user }
@@ -91,69 +47,6 @@ RSpec.describe ProjectRolesController, type: :controller do
         it 'does not create a new project_role' do
           expect { post :create, params }
             .to change(ProjectRole, :count).by(0)
-        end
-      end
-    end
-  end
-
-  describe 'GET #show' do
-    context 'no permission' do
-      before { sign_in user }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :get, action: :show, params: { code: project.code,
-                                                   name: project_role.name } }
-        end
-      end
-    end
-
-    context 'has permission' do
-      before { sign_in root_user }
-
-      context 'invalid project' do
-        before { get :show, code: 'lel_no_project_to_see_here', name: 'lol' }
-
-        it 'sets @project to nil' do
-          expect(assigns[:project]).to be_nil
-        end
-
-        it { expect(response).to redirect_to(projects_path) }
-
-        it 'sets alert' do
-          expect(flash[:alert]).to eq('Project not found')
-        end
-      end
-
-      context 'valid project' do
-        context 'valid group' do
-          before { get :show, code: project.code, name: project_role.name }
-
-          it 'sets @project' do
-            expect(assigns[:project]).to eq(project)
-          end
-
-          it 'sets @project_role' do
-            expect(assigns[:project_role]).to eq(project_role)
-          end
-
-          it { expect(response).to render_template('project_roles/show') }
-        end
-
-        context 'invalid group' do
-          before { get :show, code: project.code, name: 'lol' }
-
-          it 'sets @project' do
-            expect(assigns[:project]).to eq(project)
-          end
-
-          it do
-            expect(response) \
-              .to redirect_to(project_roles_path(code: project.code))
-          end
-
-          it 'sets alert' do
-            expect(flash[:alert]).to eq('Not found')
-          end
         end
       end
     end

@@ -44,10 +44,10 @@ class ProjectsController < PermissionController
   def search
     type = params[:type]
     string = params[:search_bar]
-    @projects = params[:own].present? ? current_user.projects : Project.all
-    @projects = @projects.where(project_type_id: type.to_i) if type.present?
-    @projects = @projects.search(string) unless string.empty?
-    @projects.order('name ASC')
+    projects = params[:own].present? ? current_user.projects : Project.all
+    projects = projects.where(project_type_id: type.to_i) if type.present?
+    projects = projects.search(string) if string.present?
+    @projects = projects.order(:name)
   end
   # rubocop:enable Metrics/AbcSize
 
