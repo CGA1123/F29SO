@@ -8,6 +8,7 @@ class AnnouncementsController < PermissionController
                              .where(project: current_user.projects).last(5)
     @system_announcements = SystemAnnouncement
                             .where('created_at > ?', 30.days.ago).last(5)
+    @can_create = current_user.permission?('announcements.manage')
   end
 
   def create_project_announcement

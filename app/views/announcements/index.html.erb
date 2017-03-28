@@ -1,23 +1,21 @@
 <div class="row">
   <h3 class="purple-text">System Announcements</h3>
+  <%= render @system_announcements %>
 </div>
-<%= render @system_announcements %>
 
 <div class="row">
   <h3 class="purple-text">Project Announcements</h3>
-</div>
-<%= render @project_announcements %>
-
-<div class="fixed-action-btn">
-  <button data-target="create-announcement-modal" data-toggle='modal' class="btn-floating btn-large purple tooltipped" data-position="left" data-delay="50" data-tooltip="Create A New Announcement">
-    <i class="large material-icons">post</i>
-  </button>
+  <%= render @project_announcements %>
 </div>
 
-<div id="create-group-modal" class="modal">
-  <div class="container">
-    <div class="row">
-      <%= render 'announcements/new' %>
-    </div>
+<% if @can_create %>
+  <div class="fixed-action-btn">
+    <button data-target="create-announcements-modal" data-toggle='modal' class="btn-floating btn-large purple tooltipped" data-position="left" data-delay="50" data-tooltip="Create A New Announcement">
+      <i class="large material-icons">add</i>
+    </button>
   </div>
-</div>
+
+  <div id="create-announcements-modal" class="modal">
+    <%= render 'announcements/new' %>
+  </div>
+<% end %>

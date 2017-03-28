@@ -1,12 +1,23 @@
-<%= form_for Announcements.new, url: announcements_path, method: :post, remote: true do |f| %>
-<ul id="announcement-errors"></ul>
-<div class="input-fields">
-  <%= f.text_field :title, placeholder: 'title' %>
+<div class="modal-content">
+  <%= form_for @announcement, url: announcements_path, remote: true do |f| %>
+    <h4 class='purple-text'>New Announcement<a href="#!" class="right modal-action modal-close waves-effect waves-grey btn-flat"><i class="material-icons">close</i></a></h4>
+
+    <ul>
+    <% @announcement.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+
+    <div class='input-field'>
+      <%= f.text_field :title %>
+      <%= f.label :title %>
+    </div>
+
+    <div class='input-field'>
+      <%= f.text_field :content %>
+      <%= f.label :content %>
+    </div>
+
+    <%= f.submit 'Post Announcement', class: "btn waves-effect waves-light" %>
+  <% end %>
 </div>
-<div class="input-field">
-  <%= f.text_field :content, placeholder: 'Write your announcement' %>
-</div>
-<button class="btn waves-effect waves-light" type="submit" name="action">
-  <i class="material-icons left">cool</i> Post Announcement
-</button>
-<% end %>
