@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe AnnouncementsController, type: :controller do
   let(:no_permissions) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
+  let(:project) { FactoryGirl.create(:project) }
   let(:project_announcement) { FactoryGirl.create(:project_announcement) }
   let(:system_announcement) { FactoryGirl.create(:system_announcement) }
   let(:project_params) { { project_announcement: { title: 'Yes', content: 'Oh yes' }, project_id: project.id } }
@@ -17,20 +18,20 @@ RSpec.describe AnnouncementsController, type: :controller do
           expect { xhr :post, :create_project_announcement, project_announcement: { title: 'No' }, project_id: 0 }
             .to change { ProjectAnnouncement.count }.by(0)
         end
+      end
 
-        context 'parameters valid' do
-          it 'posts new announcement' do
-            expect { xhr :post, :create_project_announcement, project_params }
-              .to change { ProjectAnnouncement.count }.by(1)
-          end
+      context 'parameters valid' do
+        it 'posts new announcement' do
+          expect { xhr :post, :create_project_announcement, project_params }
+            .to change { ProjectAnnouncement.count }.by(1)
+        end
+      end
 
-          context 'user without project.announcements.manage permission' do
-            it 'throws 404' do
-              sign_in no_permissions
-              expect { post :create_project_announcement }
-                .to raise_error(ActionController::RoutingError)
-            end
-          end
+      context 'user without project.announcements.manage permission' do
+        it 'throws 404' do
+          sign_in no_permissions
+          expect { post :create_project_announcement }
+            .to raise_error(ActionController::RoutingError)
         end
       end
     end
@@ -45,21 +46,22 @@ RSpec.describe AnnouncementsController, type: :controller do
           xhr :post, :create_system_announcement, system_announcement: { id: 0 }
           expect(SystemAnnouncement.find_by(id: 0)).to be_nil
         end
+      end
 
-        context 'parameters valid' do
-          it 'posts new announcement' do
-            xhr :post, :create_system_announcement, system_params
-            expect(SystemAnnouncement.find_by(id: system_announcement.id)).not_to be_nil
-          end
-
-          context 'user without announcements.manage permission' do
-            it 'throws 404' do
-              sign_in no_permissions
-              expect { post :create_system_announcement }
-                .to raise_error(ActionController::RoutingError)
-            end
-          end
+      context 'parameters valid' do
+        it 'posts new announcement' do
+          xhr :post, :create_system_announcement, system_params
+          expect(SystemAnnouncement.find_by(id: system_announcement.id))
+            .not_to be_nil
         end
+      end
+    end
+
+    context 'user without announcements.manage permission' do
+      it 'throws 404' do
+        sign_in no_permissions
+        expect { post :create_system_announcement }
+          .to raise_error(ActionController::RoutingError)
       end
     end
   end
@@ -94,8 +96,8 @@ RSpec.describe AnnouncementsController, type: :controller do
     context 'user with announcements.manage permission' do
       it do
         sign_in root_user
-        expect { xhr :delete, :destroy_system_announcement, id: system_announcement.id }
-          .to change { SystemAnnouncement.count }.by(-1)
+        xhr :delete, :destroy_system_announcement, id: system_announcement.id
+        expect(SystemAnnouncement.find_by(id: system_announcement.id)).to be_nil
       end
     end
   end

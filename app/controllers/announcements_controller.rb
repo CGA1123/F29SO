@@ -36,7 +36,7 @@ class AnnouncementsController < PermissionController
   private
 
   def set_project
-    @project = Project.find_by(params[:project_id])
+    @project = Project.find_by(id: params[:project_id])
     not_found unless @project
   end
 
