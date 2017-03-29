@@ -40,13 +40,13 @@ RSpec.describe AnnouncementsController, type: :controller do
             .to change { ProjectAnnouncement.count }.by(1)
         end
       end
+    end
 
-      context 'user without project.announcements.manage permission' do
-        it 'throws 404' do
-          sign_in no_permissions
-          expect { post :create_project_announcement, project_params }
-            .to raise_error(ActionController::RoutingError)
-        end
+    context 'user without project.announcements.manage permission' do
+      it 'throws 404' do
+        sign_in no_permissions
+        expect { post :create_project_announcement, project_params }
+          .to raise_error(ActionController::RoutingError)
       end
     end
   end

@@ -1,11 +1,13 @@
 class AnnouncementsController < PermissionController
   before_action :set_project, only: [:create_project_announcement,
-                                     :destroy_project_announcement]
+                                     :destroy_project_announcement,
+                                     :show_project]
+  before_action :check_permissions, except: [:index]
   before_action :set_project_announcement, only: [:destroy_project_announcement,
                                                   :show_project]
   before_action :set_system_announcement, only: [:destroy_system_announcement]
   before_action :set_can_manage, only: [:index, :show_project, :show_system]
-  before_action :check_permissions, except: [:index]
+
 
   def index
     @projects = current_user.projects
@@ -17,7 +19,8 @@ class AnnouncementsController < PermissionController
   end
 
   def show_project
-    @announcements = @project.project_announcements
+    @announcements = @project.project_announcements.reverse
+    @announcement = ProjectAnnouncement.new
     @selected_id = params[:id]
   end
 
@@ -27,8 +30,9 @@ class AnnouncementsController < PermissionController
 
   def create_project_announcement
     @announcement = ProjectAnnouncement.new(project_announcement_params)
+    @announcement.project = @project
     @announcement.save
-    redirect_to announcements_path
+    redirect_to project_announcements_path(id: @announcement.id)
   end
 
   def create_system_announcement
@@ -39,7 +43,7 @@ class AnnouncementsController < PermissionController
 
   def destroy_project_announcement
     @announcement.destroy
-    redirect_to announcements_path, alert: 'Announcement Deleted.'
+    redirect_to project_announcements_path, alert: 'Announcement Deleted.'
   end
 
   def destroy_system_announcement
@@ -55,7 +59,7 @@ class AnnouncementsController < PermissionController
   end
 
   def project_announcement_params
-    params.require(:project_announcement).permit(:title, :content, :project_id)
+    params.require(:project_announcement).permit(:title, :content)
   end
 
   def system_announcement_params
@@ -63,9 +67,8 @@ class AnnouncementsController < PermissionController
   end
 
   def set_project_announcement
-    @announcement = ProjectAnnouncement.find_by(id: params[:id])
-    not_found unless @announcement
-    @project = @announcement.project
+    @announcement = ProjectAnnouncement.find_by(id: params[:id],
+                                                project: @project)
   end
 
   def set_system_announcement
@@ -74,6 +77,13 @@ class AnnouncementsController < PermissionController
   end
 
   def set_can_manage
-    @can_manage = current_user.permission?('announcements.manage')
+    if @project
+      @can_manage = current_user.permission?(
+        'announcements.manage',
+        "#{@project.id}.announcements.manage"
+      )
+    else
+      @can_manage = current_user.permission?('announcements.manage')
+    end
   end
 end

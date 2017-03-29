@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   post 'projects/search', to: 'projects#search', as: :project_search
   get 'projects/:code', to: 'projects#show', as: :project
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
-  get 'projects/:code/announcements/:id', to: 'announcements#show_project', as: :project_announcements
+  get 'projects/:code/announcements', to: 'announcements#show_project', as: :project_announcements
   delete 'projects/:code/announcements', to: 'announcements#destroy_project_announcement'
   post 'projects/:code/announcements', to: 'announcements#create_project_announcement'
 
