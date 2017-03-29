@@ -12,24 +12,29 @@
 <div class="modal" id="manage-users-<%= project_role.id %>">
   <div class="modal-content">
     <h4 class="purple-text">User Management: <%= project_role.name.humanize %></h4>
-      <%= form_tag do %>
-        <%= text_field_tag :search %>
-      <% end %>
-    <div class="divider" id="manage-divider"></div>
-    <div class="row">
-      <div id="project-role-users-manage">
-        <% project_role.users.each do |user| %>
-          <div class="project-role-user col s4" id="<%= project_role.id%>-manage-project-role-user-<%= user.id %>">
-          <div class="avatar left">
-            <%= user_avatar(user) %>
-          </div>
-          <div class"user-info">
-            <div class="name left-align"><%= user.name %></div>
-            <%= link_to 'Remove', project_role_users_path(name: project_role.name, code: project_role.project.code, id: user.id ), method: :delete, remote: true, data: { confirm: 'Are you sure?' } %>
-          </div>
-        </div>
-        <% end %>
-      </div>
+    <div id="user-management-table row">
+      <table class="striped highlight">
+        <thead>
+          <th>Select All</th>
+          <th>Name</th>
+          <th>Location</th>
+        </thead>
+        <tbody>
+          <% if project_role.users.present? %>
+            <% project_role.users.each do |user| %>
+              <tr>
+                <td>
+                  <%= check_box_tag :add, "1", true, class: 'filled-in' %>
+                  <%= label_tag :add, '', style: 'display: hidden;' %>
+                </td>
+                <td><%= user.name %></td>
+                <td><%= user.location.name %></td>
+              </tr>
+            <% end %>
+          <% else %>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
