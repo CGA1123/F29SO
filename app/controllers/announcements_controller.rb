@@ -4,11 +4,13 @@ class AnnouncementsController < PermissionController
   before_action :check_permissions, except: [:index]
 
   def index
+    @projects = current_user.projects
     @project_announcements = ProjectAnnouncement
                              .where(project: current_user.projects).last(5)
     @system_announcements = SystemAnnouncement
                             .where('created_at > ?', 30.days.ago).last(5)
     @can_create = current_user.permission?('announcements.manage')
+    @announcement = SystemAnnouncement.new
   end
 
   def create_project_announcement
