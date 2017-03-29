@@ -4,10 +4,12 @@ RSpec.describe AnnouncementsController, type: :controller do
   let(:no_permissions) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
   let(:project) { FactoryGirl.create(:project) }
-  let(:project_announcement) { FactoryGirl.create(:project_announcement) }
+  let(:project_announcement) do
+    FactoryGirl.create(:project_announcement, project: project)
+  end
   let(:system_announcement) { FactoryGirl.create(:system_announcement) }
   let(:project_params) do
-    { project_announcement: {
+    { code: project.code, project_announcement: {
       title: 'Yes', content: 'Oh yes', project_id: project.id
     } }
   end
@@ -22,7 +24,8 @@ RSpec.describe AnnouncementsController, type: :controller do
 
       context 'parameters invalid' do
         let(:params) do
-          { project_announcement: { title: 'No', project_id: 0 } }
+          { project_announcement: { title: 'No', project_id: 0 },
+            code: project.code }
         end
 
         it 'does not post announcement' do
@@ -79,9 +82,10 @@ RSpec.describe AnnouncementsController, type: :controller do
 
   describe 'DELETE #destroy_project_annoucement' do
     context 'user without project.announcements.manage permission' do
+      let(:params) { { code: project.code, id: 'nah' } }
       it do
         sign_in no_permissions
-        expect { xhr :delete, :destroy_project_annoucement, id: 'nah' }
+        expect { xhr :delete, :destroy_project_announcement, params }
           .to raise_error(ActionController::RoutingError)
       end
     end
@@ -89,7 +93,8 @@ RSpec.describe AnnouncementsController, type: :controller do
     context 'user with project.announcements.manage permission' do
       it do
         sign_in root_user
-        xhr :delete, :destroy_project_annoucement, id: project_announcement.id
+        xhr :delete, :destroy_project_announcement, code: project.code,
+                                                    id: project_announcement.id
         expect(ProjectAnnouncement.find_by(id: project_announcement.id))
           .to be_nil
       end
