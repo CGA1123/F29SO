@@ -5,9 +5,10 @@ var loadProjectRoles = function(project) {
   });
 };
 
-var loadProjectLocations = function(project) {
+var submitSearch = function() {
   $.ajax({
-    url: '/projects/' + project + '/locations',
-    cache: false
+    type: 'POST',
+    url: 'projects/search.js',
+    data: $('#project_search_form').serialize()
   });
-}
+};

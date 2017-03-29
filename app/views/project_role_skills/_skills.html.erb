@@ -1,0 +1,7 @@
+<div class="row">
+  <% project_role.project_role_skills.each do |project_role_skill| %>
+  <div class="col s4" id='project_role_skill-<%= project_role_skill.id %>'>
+    <%= project_role_skill.skill.name %> - <%= project_role_skill.rating %>
+  </div>
+<% end %>
+</div>

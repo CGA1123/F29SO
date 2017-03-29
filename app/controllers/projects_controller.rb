@@ -1,17 +1,12 @@
 class ProjectsController < PermissionController
-  before_action :set_project, except: [:index, :create]
-  before_action :check_format, only: [:locations]
+  before_action :set_project, except: [:index, :create, :search]
+  before_action :check_format, only: [:search]
   before_action :check_permissions
 
   def index
-    @projects = Project.all
+    @projects = Project.order('name ASC')
     @project = Project.new
     @can_create = current_user.permission?('projects.create')
-  end
-
-  def locations
-    @project_locations =
-      @project.project_roles.map(&:locations).flatten.uniq
   end
 
   def create
@@ -44,6 +39,17 @@ class ProjectsController < PermissionController
     @project.destroy
     redirect_to projects_path, alert: 'Project Deleted.'
   end
+
+  # rubocop:disable Metrics/AbcSize
+  def search
+    type = params[:type]
+    string = params[:search_bar]
+    projects = params[:own].present? ? current_user.projects : Project.all
+    projects = projects.where(project_type_id: type.to_i) if type.present?
+    projects = projects.search(string) if string.present?
+    @projects = projects.order(:name)
+  end
+  # rubocop:enable Metrics/AbcSize
 
   private
 

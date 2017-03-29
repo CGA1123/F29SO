@@ -1,0 +1,12 @@
+$('#role-tabs').append(`
+<li class="tab">
+  <a href="#project-role-<%= @project_role.id %>"><%= @project_role.name.humanize %></a>
+</li>
+`);
+
+$('#roles-content').append("<%= j render 'project_roles/project_role', project_role: @project_role %>")
+
+ $('#role-tabs').tabs();
+
+// Select the new tab
+$('#role-tabs').tabs('select_tab', 'project-role-<%= @project_role.id %>');

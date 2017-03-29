@@ -3,6 +3,7 @@
                     permission.id,
                     @group_permissions.include?(permission),
                     onclick: "updatePermission('#{@group.name}', this);",
-                    disabled: @disabled %>
+                    disabled: @disabled,
+                    class: 'filled-in' %>
   <%= label_tag "permission-#{permission.id}", permission.name %>
 <% end %>

@@ -1,7 +1,4 @@
-<tr class="skill" id="user_skill-<%= user_skill.id %>">
-  <td><%= "#{user_skill.skill.name}" %></td>
-  <td><%= "#{user_skill.skill.description}" %></td>
-  <td class='rating'><%= "#{user_skill.rating}" %></td>
-  <td class='edit_submit'><%= button_to "Edit", edit_user_skill_path(id: user_skill.user_id, user_skill_id: user_skill.id), method: :get, remote: true %></td>
-  <td><%= button_to "Remove", user_skills_path(id: user_skill.user_id, user_skill_id: user_skill.id), method: :delete, remote: true %></td>
-</tr>
+<li class="user_skill collection-item" id="user_skill-<%= user_skill.id %>">
+  <span class="skill-name"><%= user_skill.skill.name %></span>
+  <span class="badge" id="rating-<%= user_skill.id %>"><%= user_skill.rating.humanize %></span>
+</li>

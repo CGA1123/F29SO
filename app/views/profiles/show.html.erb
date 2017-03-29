@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col s3">
+    <div class="card">
+      <div class="card-image">
+        <%= user_avatar(@user) %>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">
+          <span class="purple-text"><%= @user.name %></span>
+        </div>
+        <div class="center-align">
+          <i class="material-icons tooltipped" data-position="bottom" data-delay="0" data-tooltip="<%= @user.email %>">email</i>
+          <i class="material-icons tooltipped" data-position="bottom" data-delay="0" data-tooltip="<%= @user.location.name %>">place</i>
+        </div>
+        <div class="profile-groups">
+          <% @user.groups.each do |group| %>
+            <div class="chip"><%= group.name %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s9">
+    <div class="card max-small">
+      <div class="card-content">
+        <span class="card-title purple-text">Projects</span>
+        <ul class="projects collection card-small-collection">
+          <% if @user.projects.present? %>
+            <% @user.projects.each do |project| %>
+              <li class="collection-item project" id="project-<%= project.id %>">
+                <span class="project-name"><%= project.name %></span>
+                <span class="secondary-content badge"><%= project.project_type.name %></span>
+                <p>
+                <% @roles.where(project: project).each do |project_role| %>
+                  <%= project_role.name %><%= ", " unless @roles.last == project_role %>
+                <% end %>
+                </p>
+              </li>
+            <% end %>
+          <% else %>
+            <li class="collection-item" id="no_projects">This user is not currently assigned to any project.</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="card max-small">
+      <div class="card-content">
+        <span class="card-title purple-text">Skills<a href="#skills-edit-modal"><i class="material-icons right purple-text">mode_edit</i></a></span>
+        <ul class="collection user_skills card-small-collection" id="user_skills">
+        <% if @user.user_skills.present? %>
+          <% @user.user_skills.each do |user_skill| %>
+          <%= render 'user_skills/user_skill', user_skill: user_skill %>
+          <% end %>
+        <% else %>
+          <li class="collection-item" id="no_skills">This user has not yet added any skills to their profile.</li>
+        <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="skills-edit-modal" class="modal">
+  <div class="modal-content">
+    <h4 class="purple-text">Manage Skills<a href="#!" class="right modal-action modal-close grey-text"><i class="material-icons">close</i></a></h4>
+    <div class="new_skill row">
+      <%= form_for UserSkill.new, url: user_skills_path(id: @user.id), remote: true, method: :post do |f|  %>
+        <div class="input-field col s4">
+          <%= f.label :skill_id, 'Skill' %>
+          <%= f.text_field :skill_id %>
+        </div>
+        <div class="input-field col s4 skill">
+          <%= f.select :rating, UserSkill.ratings.keys.map { |r| [r.humanize, r] }, {}, class: 'browser-default' %>
+        </div>
+        <div class="input-field col s4 skill">
+          <%= f.submit 'Add Skill', class: 'btn-flat white-text grey' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="divider"></div>
+    <div class="skills" id="user_skills_edit">
+      <% @user.user_skills.each do |user_skill| %>
+        <%= render 'user_skills/user_skill_edit', user: @user, user_skill: user_skill %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on('turbolinks:load', function() {
+    $('#user_skill_skill_id').autocomplete({
+      data: <%= @search_data.html_safe %>
+    });
+  });
+</script>

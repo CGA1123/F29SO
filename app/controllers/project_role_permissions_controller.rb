@@ -6,11 +6,6 @@ class ProjectRolePermissionsController < PermissionController
   before_action :set_permission, only: [:create, :destroy]
   before_action :set_project_role_permission, only: [:destroy]
 
-  def index
-    @project_role_permissions = @project_role.permissions
-    @disabled = !manage_permission?
-  end
-
   def create
     @project_role_permission = ProjectRolePermission.new(
       project_role: @project_role,
@@ -28,22 +23,18 @@ class ProjectRolePermissionsController < PermissionController
 
   def set_project
     @project = Project.find_by(code: params[:code])
-    redirect_to projects_path, alert: 'Project not found' unless @project
+    head(404) unless @project
   end
 
   def set_project_role
     @project_role = ProjectRole.find_by(project: @project,
                                         name: params[:name])
-    redirect_to project_roles_path(code: @project.code), alert: 'Not Found' \
-      unless @project_role
+    head(404) unless @project_role
   end
 
-  # rubocop:disable Style/MultilineIfModifier
   def set_permission
     @permission = Permission.find_by(id: project_role_permissions_params.to_i)
-    redirect_to project_role_path(code: @project.code,
-                                  name: @project_role.name) \
-      unless @permission
+    head(404) unless @permission
   end
 
   def set_project_role_permission
@@ -52,12 +43,8 @@ class ProjectRolePermissionsController < PermissionController
       permission: @permission
     )
 
-    redirect_to project_role_path(code: @project.code,
-                                  name: @project_role.name),
-                alert: 'Permission not found' \
-      unless @project_role_permission
+    head(404) unless @project_role_permission
   end
-  # rubocop:enable Style/MultilineIfModifier
 
   def project_role_permissions_params
     params.require(:permissions)
