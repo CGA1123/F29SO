@@ -7,6 +7,7 @@ $('#role-tabs').append(`
 $('#roles-content').append("<%= j render 'project_roles/project_role', project_role: @project_role %>")
 
  $('#role-tabs').tabs();
+ $('.collapsible').collapsible();
 
 // Select the new tab
 $('#role-tabs').tabs('select_tab', 'project-role-<%= @project_role.id %>');
