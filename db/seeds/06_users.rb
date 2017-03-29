@@ -1061,7 +1061,7 @@ group_count = groups.count
 loc_count = Location.count
 locations = Location.all
 time = Time.now
-2000.times do
+500.times do
   User.create!(
     email: Faker::Internet.unique.email,
     password: '12345678',
