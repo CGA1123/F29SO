@@ -38,7 +38,8 @@ Rails.application.routes.draw do
   get 'projects/:code', to: 'projects#show', as: :project
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
   get 'projects/:code/announcements/:id', to: 'announcements#show_project', as: :project_announcements
-  delete 'projects/:code/announcements/:id', to: 'announcements#destroy_project_annoucement'
+  delete 'projects/:code/announcements', to: 'announcements#destroy_project_announcement'
+  post 'projects/:code/announcements', to: 'announcements#create_project_announcement'
 
   # ProjectTypesController
   get 'project_types', to: 'project_types#index', as: :project_types

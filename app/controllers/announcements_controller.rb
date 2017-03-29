@@ -1,6 +1,7 @@
 class AnnouncementsController < PermissionController
-  before_action :set_project, only: [:create_project_announcement]
-  before_action :set_project_announcement, only: [:destroy_project_annoucement]
+  before_action :set_project, only: [:create_project_announcement,
+                                     :destroy_project_announcement]
+  before_action :set_project_announcement, only: [:destroy_project_announcement]
   before_action :set_system_announcement, only: [:destroy_system_announcement]
   before_action :check_permissions, except: [:index]
 
@@ -8,8 +9,8 @@ class AnnouncementsController < PermissionController
     @projects = current_user.projects
     @project_announcements = ProjectAnnouncement
                              .where(project: @projects).last(10).reverse
-    @system_announcements = SystemAnnouncement
-                            .where('created_at > ?', 30.days.ago).last(3).reverse
+    @system_announcements =
+      SystemAnnouncement.where('created_at > ?', 30.days.ago).last(3).reverse
     @can_create = current_user.permission?('announcements.manage')
     @announcement = SystemAnnouncement.new
   end
@@ -34,7 +35,7 @@ class AnnouncementsController < PermissionController
     redirect_to announcements_path
   end
 
-  def destroy_project_annoucement
+  def destroy_project_announcement
     @announcement.destroy
     redirect_to announcements_path, alert: 'Announcement Deleted.'
   end
@@ -47,7 +48,7 @@ class AnnouncementsController < PermissionController
   private
 
   def set_project
-    @project = Project.find_by(id: project_announcement_params[:project_id])
+    @project = Project.find_by(code: params[:code])
     head 404 unless @project
   end
 
