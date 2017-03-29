@@ -1,11 +1,20 @@
+<div class="row"></div>
+
+<div class="row z-depth-2">
+  <span class="center-align purple-text tab-title">System Announcements</span>
+  <div class="divider"></div>
+  <div class="card">
+    <%= render @system_announcements %>
+  </div>
+</div>
+
 <div class="row z-depth-2" id="announcements_row">
-  <span class="center-align purple-text announcement-title">Announcements</span>
+  <span class="center-align purple-text tab-title">Project Announcements</span>
   <div class="divider"></div>
   <div class="tabs-vertical">
     <div class="col s3">
       <ul class="tabs" id="announcement-tabs">
         <li class="tab"><a href="#overview">Overview</a></li>
-        <li class="tab"><a href="#system-announcements">System Announcements</a></li>
         <% @projects.each do |project| %>
         <li class="tab">
           <a href="#project-<%= project.code %>"><%= project.name %></a>
@@ -15,9 +24,13 @@
     </div>
     <div class="col s9" id="announcement-content">
       <div id="overview" class="tab-content">
-        <%= render @system_announcements %>
-        <%= render @project_announcements %>
+      <%= render @project_announcements %>
       </div>
+      <% @projects.each do |project| %>
+      <div id="project-<%= project.code %>">
+        <%= render project.project_announcements.reverse %>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

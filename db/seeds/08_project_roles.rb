@@ -103,3 +103,6 @@ ProjectRoleUser.create!(user: User. find_by(email: 'murphy@earth.local'), projec
 ProjectRoleLocation.create!(location: Location. find_by(name: 'Istanbul'), project_role: ProjectRole. find_by(name: 'Project Manager', project: Project. find_by(name: 'Agile Software Development')))
 ProjectRoleLocation.create!(location: Location. find_by(name: 'Istanbul'), project_role: ProjectRole. find_by(name: 'Data Analyst', project: Project. find_by(name: 'Agile Software Development')))
 ProjectRoleLocation.create!(location: Location. find_by(name: 'Istanbul'), project_role: ProjectRole. find_by(name: 'Software Engineer', project: Project. find_by(name: 'Agile Software Development')))
+
+ProjectRoleUser.create!(user: User.first, project_role: Project.first.project_roles.first)
+ProjectRoleUser.create!(user: User.first, project_role: Project.second.project_roles.first)

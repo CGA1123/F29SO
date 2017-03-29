@@ -1,6 +1,7 @@
-<div class='announcement' id='system_announcement-<%= system_announcement.id %>'>
+<div class='announcement col s4' id='system_announcement-<%= system_announcement.id %>'>
   <div class="card-content">
-    <span class="card-title purple-text"><%= system_announcement.title %></span>
+    <span class="card-title purple-text" onclick="Turbolinks.visit('<%= announcement_path(id: system_announcement.id) %>');" style="cursor: pointer;"><%= system_announcement.title %></span>
+    <span class="grey-text"><p><%= time_ago_in_words(system_announcement.created_at) + ' ago' %></p></span>
     <span><%= system_announcement.content %></span>
   </div>
 </div>

@@ -37,6 +37,8 @@ Rails.application.routes.draw do
   post 'projects/search', to: 'projects#search', as: :project_search
   get 'projects/:code', to: 'projects#show', as: :project
   get 'projects/:code/edit', to: 'projects#edit', as: :edit_project
+  get 'projects/:code/announcements/:id', to: 'announcements#show_project', as: :project_announcements
+  delete 'projects/:code/announcements/:id', to: 'announcements#destroy_project_annoucement'
 
   # ProjectTypesController
   get 'project_types', to: 'project_types#index', as: :project_types
@@ -96,10 +98,9 @@ Rails.application.routes.draw do
 
   # AnnouncementController Routes
   get 'announcements', to: 'announcements#index', as: :announcements
-  post 'announcements', to: 'announcements#create_project_announcement'
   post 'announcements', to: 'announcements#create_system_announcement'
-  delete 'announcements', to: 'announcements#destroy_project_annoucement'
-  delete 'announcements', to: 'announcements#destroy_system_announcement'
+  get 'announcements/:id', to: 'announcements#show_system', as: :announcement
+  delete 'announcements/:id', to: 'announcements#destroy_system_announcement'
 
   # AdminPanelController Routes
   get 'admin', to: 'admin_panel#home', as: :admin_home
