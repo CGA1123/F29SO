@@ -158,4 +158,14 @@ class PermissionController < ApplicationController
         unless @edit
     end
   end
+
+  def check_announcements
+    case action_name
+    when 'create_project_announcement', 'destroy_project_announcement'
+      not_found unless \
+        current_user.permission?("#{@project.id}.announcements.manage")
+    when 'create_system_announcement', 'destroy_system_announcement'
+      not_found unless current_user.permission?('announcements.manage')
+    end
+  end
 end

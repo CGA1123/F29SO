@@ -35,7 +35,7 @@ RSpec.describe ProjectsController, type: :controller do
         let(:valid_params) do
           { project: { name: 'ProjX',
                        code: 'X',
-                       description: 'T',
+                       description: 'Best Project',
                        project_type_id: proj_type.id } }
         end
 

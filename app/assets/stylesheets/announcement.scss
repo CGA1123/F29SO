@@ -1,0 +1,19 @@
+#announcements_row {
+  height: 550px;
+
+  .tab {
+    .material-icons {
+      line-height: 48px;
+    }
+  }
+
+  #announcement-tabs {
+    overflow-y: auto;
+    border-right: 1px solid #7b1fa2;
+  }
+
+  #announcement-content {
+    height: 460px;
+    overflow-y: auto;
+  }
+}

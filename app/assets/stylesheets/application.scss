@@ -17,6 +17,7 @@
  @import "materialize/components/color";
  $primary-color: color("purple", "darken-2") !default;
  $secondary-color: color("purple", "darken-2") !default;
+ $light-text-color: color("grey", "base") !default;
 @import 'materialize';
 
 .hunned-height {
@@ -41,6 +42,16 @@ main {
   background-size: contain;
   background-position: center;
 }
+
+.purple-hover {
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+a.purple-hover {
+    color: $light-text-color;
+  }
 
 #settings-dropdown {
   width: 200px;
@@ -103,4 +114,10 @@ main {
     .indicator {
         display: none;
     }
+}
+
+.row {
+  .no-margin {
+    margin: 0;
+  }
 }
