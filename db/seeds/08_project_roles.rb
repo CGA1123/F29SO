@@ -1,3 +1,4 @@
+
 #project 001 groups
 ProjectRole.create!(name: 'Smuggler', description: 'You have to get through customs somehow.', project: Project. find_by(name: 'Seed Excursion'))
 ProjectRole.create!(name: 'Leader', description: 'Directs the operation.', project: Project. find_by(name: 'Seed Excursion'))
@@ -24,18 +25,19 @@ ProjectRoleLocation.create!(location: Location. find_by(name: 'Seattle'), projec
 ProjectRoleLocation.create!(location: Location. find_by(name: 'Seattle'), project_role: ProjectRole. find_by(name: 'Data Analyst', project: Project. find_by(name: 'Air Traffic Automation')))
 ProjectRoleLocation.create!(location: Location. find_by(name: 'Seattle'), project_role: ProjectRole. find_by(name: 'Software Engineer', project: Project. find_by(name: 'Air Traffic Automation')))
 
+
 # Project: Drone Protection
-ProjectRole.create!(name: 'Project Manager', description: 'Manager', project: Project. find_by(name: 'Drone Protection'))
-ProjectRole.create!(name: 'Software Engineer', description: 'Coder', project: Project. find_by(name: 'Drone Protection'))
-ProjectRole.create!(name: 'Data Analyst', description: 'An analyser of data', project: Project. find_by(name: 'Drone Protection'))
-ProjectRoleUser.create!(user: User. find_by(email: 'principal@earth-c137.local'), project_role: ProjectRole. find_by(name: 'Project Manager', project: Project. find_by(name: 'Drone Protection')))
-ProjectRoleUser.create!(user: User. find_by(email: 'scary@earth-c137.local'), project_role: ProjectRole. find_by(name: 'Software Engineer', project: Project. find_by(name: 'Drone Protection')))
-ProjectRoleUser.create!(user: User. find_by(email: 'douglas@earth-c137.local'), project_role: ProjectRole. find_by(name: 'Software Engineer', project: Project. find_by(name: 'Drone Protection')))
-ProjectRoleUser.create!(user: User. find_by(email: 'vin@earth.local'), project_role: ProjectRole. find_by(name: 'Software Engineer', project: Project. find_by(name: 'Drone Protection')))
-ProjectRoleUser.create!(user: User. find_by(email: 'tom@pluto.local'), project_role: ProjectRole. find_by(name: 'Software Engineer', project: Project. find_by(name: 'Drone Protection')))
-ProjectRoleLocation.create!(location: Location. find_by(name: 'Dallas'), project_role: ProjectRole. find_by(name: 'Project Manager', project: Project. find_by(name: 'Drone Protection')))
-ProjectRoleLocation.create!(location: Location. find_by(name: 'Dallas'), project_role: ProjectRole. find_by(name: 'Data Analyst', project: Project. find_by(name: 'Drone Protection')))
-ProjectRoleLocation.create!(location: Location. find_by(name: 'Dallas'), project_role: ProjectRole. find_by(name: 'Software Engineer', project: Project. find_by(name: 'Drone Protection')))
+ProjectRole.create!(name: 'Project Manager', description: 'Manager', project: Project.find_by(name: 'Drone Protection'))
+ProjectRole.create!(name: 'Software Engineer', description: 'Coder', project: Project.find_by(name: 'Drone Protection'))
+ProjectRole.create!(name: 'Data Analyst', description: 'An analyser of data', project: Project.find_by(name: 'Drone Protection'))
+ProjectRoleUser.create!(user: User.find_by(email: 'scary@earth-c137.local'), project_role: ProjectRole.find_by(name: 'Software Engineer', project: Project.find_by(name: 'Drone Protection')))
+ProjectRoleUser.create!(user: User.find_by(email: 'douglas@earth-c137.local'), project_role: ProjectRole.find_by(name: 'Software Engineer', project: Project.find_by(name: 'Drone Protection')))
+ProjectRoleUser.create!(user: User.find_by(email: 'vin@earth.local'), project_role: ProjectRole.find_by(name: 'Software Engineer', project: Project.find_by(name: 'Drone Protection')))
+ProjectRoleUser.create!(user: User.find_by(email: 'tom@pluto.local'), project_role: ProjectRole.find_by(name: 'Software Engineer', project: Project.find_by(name: 'Drone Protection')))
+ProjectRoleLocation.create!(location: Location.find_by(name: 'Dallas'), project_role: ProjectRole.find_by(name: 'Project Manager', project: Project.find_by(name: 'Drone Protection')))
+ProjectRoleLocation.create!(location: Location.find_by(name: 'Dallas'), project_role: ProjectRole.find_by(name: 'Data Analyst', project: Project.find_by(name: 'Drone Protection')))
+ProjectRoleLocation.create!(location: Location.find_by(name: 'Dallas'), project_role: ProjectRole.find_by(name: 'Software Engineer', project: Project.find_by(name: 'Drone Protection')))
+
 
 # Project: Fuels Management
 ProjectRole.create!(name: 'Project Manager', description: 'Manager', project: Project. find_by(name: 'Fuels Management'))

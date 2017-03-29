@@ -59,7 +59,10 @@ class ProjectsController < PermissionController
   end
 
   def project_params
-    params.require(:project).permit(:code, :name, :project_type_id)
+    params.require(:project).permit(:code,
+                                    :name,
+                                    :description,
+                                    :project_type_id)
   end
 
   def check_format
