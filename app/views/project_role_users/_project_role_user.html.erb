@@ -1,7 +1,8 @@
-<div class='project-role-user col s6' id='project-role-user-<%= project_role_user.id %>'>
-  <%= user_avatar(project_role_user.user) %>
-  <span class='name'><%= project_role_user.user.name %></span>
-  <%= link_to project_role_users_path(code: project_role_user.project_role.project.code, name: project_role_user.project_role.name, id: project_role_user.id), method: :delete, remote: true do %>
-  <%= octicon 'x', class: 'red' %>
-  <% end %>
+<div class='project-role-user col s4' id='<%= project_role_user.project_role.id %>-project-role-user-<%= project_role_user.id %>'>
+  <div class="avatar left">
+    <%= user_avatar(project_role_user.user) %>
+  </div>
+  <div class="user-info">
+    <span class='name left-align'><%= project_role_user.user.name %><br/><span class="grey-text"><%= project_role_user.user.email %></span></span>
+  </div>
 </div>

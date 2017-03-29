@@ -18,7 +18,7 @@
 }
 
 #project_roles_row {
-  height: 550px;
+  min-height: 550px;
 
   .tab {
     .material-icons {
@@ -26,16 +26,45 @@
     }
   }
 
+  .project-role-content {
+    margin-top: 30px;
+  }
+
   #role-tabs {
-    height: 460px;
     overflow-y: auto;
     border-right: 1px solid #7b1fa2;
   }
 
+  .collapsible-body .row {
+    margin-bottom: 0;
+  }
+
   #roles-content {
-    height: 460px;
+    min-height: 460px;
     overflow-y: auto;
+  }
+
+  span.badge { margin-top: 0; }
+
+  .project-role-skill {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .manage-button {
+    width: 100%;
+  }
+
+  .avatar {
+    margin-right: 8px;
+  }
+
+  .name {
+    width: 100%;
   }
 }
 
-
+#manage-divider {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

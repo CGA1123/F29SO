@@ -13,10 +13,12 @@ class ProjectRolePermissionsController < PermissionController
     )
 
     @project_role_permission.save
+    head(201)
   end
 
   def destroy
     @project_role_permission.destroy
+    head(200)
   end
 
   private
