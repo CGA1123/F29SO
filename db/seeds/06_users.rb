@@ -1056,15 +1056,23 @@ User.create!(
     last_name: 'Bronson',
     location: Location.find_by(name: 'New York') )
 
-
-200.times do
+groups = Group.all - [Group.first]
+group_count = groups.count
+loc_count = Location.count
+locations = Location.all
+time = Time.now
+2000.times do
   User.create!(
-      email: Faker::Internet.unique.email,
-      password: '12345678',
-      password_confirmation: '12345678',
-      groups: Group.all.sample(rand(1..(Group.count))),
-      confirmed_at: Time.now,
-      first_name: Faker::Name.unique.first_name ,
-      last_name: Faker::Name.unique.last_name ,
-      location: Location.find(rand(1..(Location.count))) )
+    email: Faker::Internet.unique.email,
+    password: '12345678',
+    password_confirmation: '12345678',
+    groups: groups.sample(rand(1..(group_count))),
+    confirmed_at: time,
+    first_name: Faker::Name.first_name ,
+    last_name: Faker::Name.last_name ,
+    location: locations.sample
+  )
 end
+
+#Group.all.sample(rand(1..(Group.count)))
+#(Group.all-Group.first).sample(rand(1..(Group.count - 1)))
