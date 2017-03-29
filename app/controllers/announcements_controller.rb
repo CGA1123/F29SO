@@ -1,8 +1,10 @@
 class AnnouncementsController < PermissionController
   before_action :set_project, only: [:create_project_announcement,
                                      :destroy_project_announcement]
-  before_action :set_project_announcement, only: [:destroy_project_announcement]
+  before_action :set_project_announcement, only: [:destroy_project_announcement,
+                                                  :show_project]
   before_action :set_system_announcement, only: [:destroy_system_announcement]
+  before_action :set_can_manage, only: [:index, :show_project, :show_system]
   before_action :check_permissions, except: [:index]
 
   def index
@@ -11,12 +13,12 @@ class AnnouncementsController < PermissionController
                              .where(project: @projects).last(10).reverse
     @system_announcements =
       SystemAnnouncement.where('created_at > ?', 30.days.ago).last(3).reverse
-    @can_create = current_user.permission?('announcements.manage')
     @announcement = SystemAnnouncement.new
   end
 
   def show_project
-    @announcement = ProjectAnnouncement.find_by(id: params[:id])
+    @announcements = @project.project_announcements
+    @selected_id = params[:id]
   end
 
   def show_system
@@ -69,5 +71,9 @@ class AnnouncementsController < PermissionController
   def set_system_announcement
     @announcement = SystemAnnouncement.find_by(id: params[:id])
     not_found unless @announcement
+  end
+
+  def set_can_manage
+    @can_manage = current_user.permission?('announcements.manage')
   end
 end

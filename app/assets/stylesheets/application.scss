@@ -14,10 +14,10 @@
  *= require_self
  *= require material_icons
  */
- @import "materialize/components/color";
- $primary-color: color("purple", "darken-2") !default;
- $secondary-color: color("purple", "darken-2") !default;
- $light-text-color: color("grey", "base") !default;
+@import "materialize/components/color";
+$primary-color: color("purple", "darken-2") !default;
+$secondary-color: color("purple", "darken-2") !default;
+$light-text-color: color("grey", "base") !default;
 @import 'materialize';
 
 .hunned-height {
