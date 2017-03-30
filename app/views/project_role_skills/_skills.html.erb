@@ -1,5 +1,7 @@
 <div class="row no-margin">
+  <% if @can_manage_skills %>
   <a href="#manage-skills-<%= project_role.id %>" class='btn-flat center-align manage-button'>Manage Skills</a>
+  <% end %>
   <div id="project-role-skills">
     <% if project_role.project_role_skills.present? %>
     <% project_role.project_role_skills.each do |project_role_skill| %>
@@ -11,8 +13,9 @@
   <% end %>
   </div>
 </div>
-
+<% if @can_manage_skills %>
 <div class="modal" id="manage-skills-<%= project_role.id %>">
   <div class="modal-content">
   </div>
 </div>
+<% end %>
