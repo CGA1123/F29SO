@@ -19,9 +19,7 @@ class PermissionController < ApplicationController
         current_user.permission?('projects.edit',
                                  "#{@project.id}.projects.edit")
     when 'show'
-      redirect_to projects_path, alert: 'You cannot do that.' unless \
-        current_user.permission?('projects.view',
-                                 "#{@project.id}.projects.view")
+      redirect_to projects_path, alert: 'You cannot do that.' unless @project.users.include?(current_user) || current_user.permission?('projects.view', "#{@project.id}.projects.view")
     when 'destroy'
       redirect_to projects_path, alert: 'You cannot do that.' unless \
         current_user.permission?('projects.delete',

@@ -10,11 +10,14 @@ RSpec.describe AnnouncementsController, type: :controller do
   let(:system_announcement) { FactoryGirl.create(:system_announcement) }
   let(:project_params) do
     { code: project.code, project_announcement: {
-      title: 'Yes', content: 'Oh yes', project_id: project.id
+      title: 'Yes', content: 'Oh yes',
+      project_id: project.id, user_id: root_user.id
     } }
   end
   let(:system_params) do
-    { system_announcement: { title: 'Yes', content: 'Oh yes' } }
+    { system_announcement: {
+      title: 'Yes', content: 'Oh yes', user_id: root_user.id
+    } }
   end
 
   describe 'GET #index' do

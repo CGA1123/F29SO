@@ -31,12 +31,14 @@ class AnnouncementsController < PermissionController
   def create_project_announcement
     @announcement = ProjectAnnouncement.new(project_announcement_params)
     @announcement.project = @project
+    @announcement.user = current_user
     @announcement.save
     redirect_to project_announcements_path(id: @announcement.id)
   end
 
   def create_system_announcement
     @announcement = SystemAnnouncement.new(system_announcement_params)
+    @announcement.user = current_user
     @announcement.save
     redirect_to announcements_path
   end
