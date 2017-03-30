@@ -7,7 +7,8 @@ class Project < ActiveRecord::Base
 
   has_many :locations, -> { distinct }, through: :project_roles
 
-  validates :name, :code, :description, :project_type, presence: true
+  validates :name, :code, :description, :project_type,
+            :start_date, :end_date, presence: true
   validates :code, uniqueness: { case_sensitive: false }
 
   def self.search(string)

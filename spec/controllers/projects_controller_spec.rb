@@ -36,7 +36,9 @@ RSpec.describe ProjectsController, type: :controller do
           { project: { name: 'ProjX',
                        code: 'X',
                        description: 'Best Project',
-                       project_type_id: proj_type.id } }
+                       project_type_id: proj_type.id,
+                       start_date: '20/12/18',
+                       end_date: '20/12/19' } }
         end
 
         it do

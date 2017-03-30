@@ -9,18 +9,22 @@ class ProjectsController < PermissionController
     @can_create = current_user.permission?('projects.create')
   end
 
+  # rubocop:disable Metrics/MethodLength
   def create
     @project = Project.new(project_params)
     if @project.save
       ProjectRole.create(name: 'Owner',
                          description: 'The Owner Group',
                          project: @project,
-                         locations: [current_user.location])
+                         locations: [current_user.location],
+                         start_date: @project.start_date,
+                         end_date: @project.end_date)
       redirect_to project_path(code: @project.code)
     else
       @projects = Project.all
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def show
     @announcements = ProjectAnnouncement
@@ -71,7 +75,9 @@ class ProjectsController < PermissionController
     params.require(:project).permit(:code,
                                     :name,
                                     :description,
-                                    :project_type_id)
+                                    :project_type_id,
+                                    :start_date,
+                                    :end_date)
   end
 
   def check_format
