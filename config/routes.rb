@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   delete 'announcements/:id', to: 'announcements#destroy_system_announcement'
 
   # AdminPanelController Routes
-  get 'admin', to: 'admin_panel#home', as: :admin_home
+  get 'admin', to: 'admin_panel#index', as: :admin
 
   # NotificationsController Routes
   get 'notifications', to: 'notifications#index', as: :notifications

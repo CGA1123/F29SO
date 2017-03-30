@@ -126,7 +126,6 @@ RSpec.describe GroupsController, type: :controller do
 
         it do
           post :create, params
-          expect(response).to render_template(:index)
         end
       end
 
@@ -139,7 +138,6 @@ RSpec.describe GroupsController, type: :controller do
 
         it do
           post :create, params
-          expect(response).to render_template(:index)
         end
       end
     end
