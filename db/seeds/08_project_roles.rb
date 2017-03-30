@@ -113,3 +113,6 @@ projects = Project.all
 users = User.all
 project_roles = ProjectRole.all
 300.times { ProjectRoleUser.create(user: users.sample, project_role: project_roles.sample) }
+
+locations = Location.all
+200.times { ProjectRoleLocation.create(location: locations.sample, project_role: project_roles.sample) }

@@ -1,10 +1,3 @@
-var loadProjectRoles = function(project) {
-  $.ajax({
-    url: '/projects/' + project + '/roles.js',
-    cache: false
-  });
-};
-
 var submitSearch = function() {
   $.ajax({
     type: 'POST',

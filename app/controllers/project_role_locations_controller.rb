@@ -5,10 +5,6 @@ class ProjectRoleLocationsController < PermissionController
   before_action :check_permissions
   before_action :set_location, only: [:create, :destroy]
 
-  def index
-    @project_role_locations = @project_role.locations
-  end
-
   def create
     @project_role_location =
       ProjectRoleLocation.new(project_role: @project_role, location: @location)
