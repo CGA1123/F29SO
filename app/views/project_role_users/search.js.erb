@@ -1,5 +1,8 @@
-<% if @results.blank? %>
-  $('#search_results').html('<p>No results</p>');
+<% if @users.blank? %>
+  $('#user-management-table-<%= @project_role.id %> tbody').html("Not Found");
 <% else %>
-  $('#search_results').html("<%= j render 'project_role_users/results', results: @results, project_role: @project_role %>");
+  $('tbody#user-management-table-<%= @project_role.id %>').empty();
+  <% @users.each do |user| %>
+  $('tbody#user-management-table-<%= @project_role.id %>').append("<%= j render 'project_role_users/user_row', user: user, project_role: @project_role %>");
+  <% end %>
 <% end %>

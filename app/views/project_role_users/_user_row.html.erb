@@ -1,0 +1,12 @@
+<tr>
+  <td>
+    <%= check_box_tag "add-#{user.id}",
+                      user.id,
+                      project_role.users.include?(user),
+                      class: 'filled-in',
+                      onchange: "updateProjectRoleUser('#{project_role.project.code}', '#{project_role.name}', this);"%>
+    <%= label_tag "add-#{user.id}", '', class: 'table' %>
+  </td>
+  <td><%= user.name %></td>
+  <td><%= user.location.name %></td>
+</tr>

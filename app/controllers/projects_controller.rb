@@ -25,6 +25,10 @@ class ProjectsController < PermissionController
   def show
     @announcements = ProjectAnnouncement
                      .where(project: @project).order('created_at DESC').first(3)
+    @can_manage_permissions = check_manage('permissions')
+    @can_manage_users = check_manage('users')
+    @can_manage_skills = check_manage('skills')
+    @can_manage_locations = check_manage('locations')
   end
 
   def edit; end
@@ -70,5 +74,12 @@ class ProjectsController < PermissionController
 
   def check_format
     not_found unless request.xhr?
+  end
+
+  def check_manage(string)
+    current_user.permission?('project.roles.manage',
+                             "projects.roles.manage.#{string}",
+                             "#{@project.id}.projects.roles.manage.#{string}",
+                             "#{@project.id}.projects.roles.manage")
   end
 end
