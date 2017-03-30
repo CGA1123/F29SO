@@ -22,7 +22,10 @@ class ProjectsController < PermissionController
     end
   end
 
-  def show; end
+  def show
+    @announcements = ProjectAnnouncement
+                     .where(project: @project).order('created_at DESC').first(3)
+  end
 
   def edit; end
 

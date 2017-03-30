@@ -12,6 +12,9 @@ class User < ActiveRecord::Base
 
   has_many :projects, -> { distinct }, through: :project_roles
 
+  has_many :project_announcements
+  has_many :system_announcements
+
   has_many :user_skills
   has_many :skills, through: :user_skills
 

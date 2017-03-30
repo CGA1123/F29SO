@@ -1,14 +1,43 @@
-<div class="card">
-  <div class='announcement col s4' id='project_announcement-<%= @announcement.id %>'>
+<div class="tab-content row">
+  <div class="card">
     <div class="card-content">
-      <span class="card-title purple-text"><%= @announcement.title %>
-        <%= link_to announcement_path, :method => :delete, class: 'right waves-effect waves-light purple-text' do %>
-          <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Announcement">delete</i>
-        <% end %>
-    </span>
-      <span class="grey-text"><p><%= time_ago_in_words(@announcement.created_at) + ' ago' %></p></span>
-      <span><%= @announcement.content %></span>
-      <div class="row"></div>
+      <span class="purple-text card-title" id="project-title">
+        <%= link_to @project.name, project_path(code: @project.code), :method => :get, class: "purple-text" %>
+        <span class="badge right"><%= @project.code %></span>
+      </span>
+      <p><%= @project.description %></p>
     </div>
   </div>
+  <div>
+    <ul class="collapsible z-depth-0" data-collapsible="accordion">
+      <% @announcements.each do |announcement| %>
+      <li>
+        <div class="collapsible-header purple-text<%= "#{announcement.id}" == @selected_id ? ' active' : '' %>" style="display: flex;" id="announcement-<%= announcement.id %>">
+          <span class="left col s9"><%= announcement.title %></span>
+          <span class="badge right col s3"><%= time_ago_in_words(announcement.created_at) + ' ago' %></span>
+          <% if @can_manage %>
+            <%= link_to project_announcements_path(id: announcement.id), :method => :delete, class: 'right waves-effect waves-light purple-text' do %>
+            <i class="material-icons tooltipped right" data-delay="50" data-tooltip="Delete Announcement">delete</i>
+            <% end %>
+            <% end %>
+          </div>
+          <div class="collapsible-body">
+            <%= announcement.content %>
+          </div>
+        </li>
+        <% end %>
+      </ul>
+  </div>
 </div>
+
+<% if @can_manage %>
+  <div class="fixed-action-btn">
+    <button data-target="create-announcements-modal" data-toggle='modal' class="btn-floating btn-large purple tooltipped" data-position="left" data-delay="50" data-tooltip="Create A New Announcement">
+      <i class="large material-icons">add</i>
+    </button>
+  </div>
+
+  <div id="create-announcements-modal" class="modal">
+    <%= render 'announcements/new_project' %>
+  </div>
+<% end %>

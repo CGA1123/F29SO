@@ -1,5 +1,5 @@
 <div class="row">
-<% Permission.where("name like 'projects.%'").each do |permission| %>
+<% (Permission.where("name like 'projects.%'") << Permission.find_by(name: 'announcements.manage')).each do |permission| %>
   <div class="col s6">
     <%= check_box_tag "role-#{project_role.id}-permission-#{permission.id}",
                     permission.id,

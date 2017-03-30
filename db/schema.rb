@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327123632) do
+ActiveRecord::Schema.define(version: 20170330135211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,9 +96,11 @@ ActiveRecord::Schema.define(version: 20170327123632) do
     t.integer  "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   add_index "project_announcements", ["project_id"], name: "index_project_announcements_on_project_id", using: :btree
+  add_index "project_announcements", ["user_id"], name: "index_project_announcements_on_user_id", using: :btree
 
   create_table "project_role_locations", force: :cascade do |t|
     t.integer  "project_role_id"
@@ -188,7 +190,10 @@ ActiveRecord::Schema.define(version: 20170327123632) do
     t.string   "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
+
+  add_index "system_announcements", ["user_id"], name: "index_system_announcements_on_user_id", using: :btree
 
   create_table "user_skills", force: :cascade do |t|
     t.integer  "user_id"
@@ -238,6 +243,7 @@ ActiveRecord::Schema.define(version: 20170327123632) do
   add_foreign_key "notifications", "users", column: "actor_id"
   add_foreign_key "notifications", "users", column: "recipient_id"
   add_foreign_key "project_announcements", "projects"
+  add_foreign_key "project_announcements", "users"
   add_foreign_key "project_role_locations", "locations"
   add_foreign_key "project_role_locations", "project_roles"
   add_foreign_key "project_role_permissions", "permissions"
@@ -249,6 +255,7 @@ ActiveRecord::Schema.define(version: 20170327123632) do
   add_foreign_key "project_roles", "projects"
   add_foreign_key "projects", "project_types"
   add_foreign_key "skills", "skill_types"
+  add_foreign_key "system_announcements", "users"
   add_foreign_key "user_skills", "skills"
   add_foreign_key "user_skills", "users"
   add_foreign_key "users", "locations"

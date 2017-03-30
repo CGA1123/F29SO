@@ -1,5 +1,6 @@
 class ProjectAnnouncement < ActiveRecord::Base
   belongs_to :project
+  belongs_to :user
 
-  validates :title, :content, :project, presence: true
+  validates :user, :title, :content, :project, presence: true
 end
