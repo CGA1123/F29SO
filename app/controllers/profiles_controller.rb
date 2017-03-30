@@ -2,6 +2,17 @@ class ProfilesController < PermissionController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :check_permissions
 
+  def index
+    @profiles = User.all
+  end
+
+  def search
+    string = params[:search_bar]
+    profiles = Profile.all
+    profiles = profiles.search(string) if string.present?
+    @profiles = profiles
+  end
+
   def show
     @can_edit = edit?(@user)
     @groups = @user.groups
@@ -15,7 +26,7 @@ class ProfilesController < PermissionController
   def update
     respond_to do |format|
       if @user.update(profile_params)
-        format.html { redirect_to profile_path(@user) }
+        format.html { redirect_to profiles_path(@user) }
       else
         format.html { render :edit }
         format.js { render :edit }
