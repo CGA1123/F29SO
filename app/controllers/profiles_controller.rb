@@ -8,8 +8,7 @@ class ProfilesController < PermissionController
 
   def search
     string = params[:search_bar]
-    profiles = User.all
-    profiles = profiles.search(string) if string.present?
+    profiles = User.search(string) if string.present?
     @profiles = profiles
   end
 
