@@ -21,7 +21,7 @@ var showNotifications = function(data) {
   notification_menu.empty();
   for(var i = 0; i < l; i++) {
     notification = data[i];
-    notification_html = '<a href=' + notification['url'] + '>' + notification['message'] + '</a>'
+    notification_html = '<a href=' + notification['url'].toString() + '>' + notification['notifiable']['type'] + '</a>'
     notification_menu.append(notification_html);
   }
 
