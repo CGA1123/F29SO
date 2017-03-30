@@ -53,10 +53,6 @@ RSpec.describe ProjectTypesController, type: :controller do
         it 'creates a project type' do
           expect(ProjectType.find_by(name: 'test')).to be_present
         end
-
-        it do
-          expect(response).to render_template('project_types/create')
-        end
       end
 
       context 'invalid params' do
@@ -66,10 +62,6 @@ RSpec.describe ProjectTypesController, type: :controller do
 
         it 'does not creates a project type' do
           expect(ProjectType.find_by(name: 'test')).to be_nil
-        end
-
-        it do
-          expect(response).to render_template('project_types/create')
         end
       end
     end
@@ -141,14 +133,6 @@ RSpec.describe ProjectTypesController, type: :controller do
 
     context 'has permission' do
       before { sign_in root_user }
-
-      context 'valid params' do
-        before { xhr :get, :edit, id: project_type.id }
-
-        it { expect(response).to be_success }
-
-        it { expect(response).to render_template('project_types/edit') }
-      end
 
       context 'invalid params' do
         before { xhr :get, :edit, id: 'id' }
