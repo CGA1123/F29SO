@@ -13,13 +13,67 @@ RSpec.describe AnnouncementsController, type: :controller do
       title: 'Yes', content: 'Oh yes', project_id: project.id
     } }
   end
-
   let(:system_params) do
     { system_announcement: { title: 'Yes', content: 'Oh yes' } }
   end
 
+  describe 'GET #index' do
+    before do
+      sign_in root_user
+      get :index
+    end
+
+    it do
+      expect(response).to be_success
+    end
+
+    it 'assigns @projects' do
+      expect(assigns[:projects])
+        .to eq(root_user.projects)
+    end
+
+    it 'assigns @project_announcements' do
+      expect(assigns[:project_announcements])
+        .to eq(ProjectAnnouncement.where(project: root_user.projects)
+        .last(5).reverse)
+    end
+
+    it 'assigns @system_announcements' do
+      expect(assigns[:system_announcements])
+        .to eq(SystemAnnouncement.last(5).reverse)
+    end
+  end
+
+  describe 'GET #show_project' do
+    before { sign_in root_user }
+
+    it 'assigns @announcements' do
+      expect(assigns[:announcements])
+        .to eq(project.project_announcements.reverse)
+    end
+
+    it 'assigns @announcement' do
+      expect(assigns[:announcement])
+        .to eq(ProjectAnnouncement.new)
+    end
+
+    it 'assigns @selected_id' do
+      expect(assigns[:selected_id])
+        .to eq(:announcements.sample.id)
+    end
+  end
+
+  describe 'GET #show_system' do
+    before { sign_in root_user }
+
+    it 'assigns @selected_id' do
+      expect(assigns[:selected_id])
+        .to eq(system_announcement.id)
+    end
+  end
+
   describe 'POST #create_project_announcement' do
-    context 'user with project.announcements.manage permission' do
+    context 'user with project_id.announcements.manage permission' do
       before { sign_in root_user }
 
       context 'parameters invalid' do
@@ -42,7 +96,7 @@ RSpec.describe AnnouncementsController, type: :controller do
       end
     end
 
-    context 'user without project.announcements.manage permission' do
+    context 'user without project_id.announcements.manage permission' do
       it 'throws 404' do
         sign_in no_permissions
         expect { post :create_project_announcement, project_params }
@@ -81,7 +135,7 @@ RSpec.describe AnnouncementsController, type: :controller do
   end
 
   describe 'DELETE #destroy_project_annoucement' do
-    context 'user without project.announcements.manage permission' do
+    context 'user without project_id.announcements.manage permission' do
       let(:params) { { code: project.code, id: 'nah' } }
       it do
         sign_in no_permissions
@@ -90,7 +144,7 @@ RSpec.describe AnnouncementsController, type: :controller do
       end
     end
 
-    context 'user with project.announcements.manage permission' do
+    context 'user with project_id.announcements.manage permission' do
       it do
         sign_in root_user
         xhr :delete, :destroy_project_announcement, code: project.code,
@@ -116,34 +170,6 @@ RSpec.describe AnnouncementsController, type: :controller do
         xhr :delete, :destroy_system_announcement, id: system_announcement.id
         expect(SystemAnnouncement.find_by(id: system_announcement.id)).to be_nil
       end
-    end
-  end
-
-  describe 'GET #index' do
-    before do
-      sign_in root_user
-      get :index
-    end
-
-    it do
-      expect(response).to be_success
-    end
-
-    it 'assigns @project_announcements' do
-      expect(assigns[:project_announcements])
-        .to eq(ProjectAnnouncement.where(project: root_user.projects).last(5))
-    end
-
-    it 'checks @project_announcements assigning' do
-      expect(assigns[:project_announcements]).not_to be_nil
-    end
-
-    it 'assigns @system_announcements' do
-      expect(assigns[:system_announcements]).to eq(SystemAnnouncement.last(5))
-    end
-
-    it 'checks @system_announcements assigning' do
-      expect(assigns[:system_announcements]).not_to be_nil
     end
   end
 end

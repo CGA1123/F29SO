@@ -8,7 +8,6 @@ class AnnouncementsController < PermissionController
   before_action :set_system_announcement, only: [:destroy_system_announcement]
   before_action :set_can_manage, only: [:index, :show_project, :show_system]
 
-
   def index
     @projects = current_user.projects
     @project_announcements = ProjectAnnouncement

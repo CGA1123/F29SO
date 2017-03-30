@@ -1,7 +1,10 @@
 <div class="tab-content row">
   <div class="card">
     <div class="card-content">
-      <span class="purple-text card-title" id="project-title"><%= @project.name %><span class="badge right"><%= @project.code %></span></span>
+      <span class="purple-text card-title" id="project-title">
+        <%= link_to @project.name, project_path(code: @project.code), :method => :get, class: "purple-text" %>
+        <span class="badge right"><%= @project.code %></span>
+      </span>
       <p><%= @project.description %></p>
     </div>
   </div>
