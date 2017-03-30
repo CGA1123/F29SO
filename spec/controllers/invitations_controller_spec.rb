@@ -38,6 +38,7 @@ RSpec.describe InvitationsController, type: :controller do
         end
       end
 
+# rubocop:disable Style/BlockComments, Style/InlineComment
 =begin
       context 'parameters valid' do
         it 'invites new user' do
@@ -81,6 +82,7 @@ RSpec.describe InvitationsController, type: :controller do
 =end
     end
   end
+  # rubocop:enable Style/BlockComments, Style/InlineComment
 
   describe 'GET #accept' do
     context 'user is logged in' do
@@ -190,12 +192,12 @@ RSpec.describe InvitationsController, type: :controller do
       let(:in_group) { FactoryGirl.create(:group, permissions: [users_invite]) }
       let(:user) { FactoryGirl.create(:user, groups: [in_group]) }
 
-      context 'w/ only users.invite permission' do
-        before do
-          sign_in user
-          xhr :delete, :destroy, id: invitation.id
-        end
-      end
+      #      context 'w/ only users.invite permission' do
+      #        before do
+      #          sign_in user
+      #          xhr :delete, :destroy, id: invitation.id
+      #        end
+      #      end
 
       context 'w/ users.invite.delete' do
         let(:invite_delete) do
