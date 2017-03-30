@@ -1,0 +1,6 @@
+<div class="col s4" id="<%= project_role.id %>-project_role_location_manage-<%= project_role_location.id %>">
+  <%= link_to project_role_locations_path(code: project_role.project.code, name: project_role.name, location_name: project_role_location.location.name), remote: true, method: :delete do %>
+    <i class="material-icons left purple-text">delete</i>
+  <% end %>
+  <span><%= project_role_location.location.name %></span>
+</div>
