@@ -1,0 +1,10 @@
+<div class='profile card' id='profile-<%= profile.id %>' onclick="Turbolinks.visit('<%= profile_path(id: profile.id) %>');" style="cursor: pointer;">
+  <div class="card-content">
+    <div class="info grey-text">
+      <p class="left">id:<%= profile.id %></p>
+      <p class="right">Groups:<%= profile.groups.count %></p>
+    </div>
+    <span class="card-title purple-text"><%= profile.name %></span>
+    <p><%= profile.email %></p>
+  </div>
+</div>

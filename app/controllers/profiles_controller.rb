@@ -2,6 +2,15 @@ class ProfilesController < PermissionController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :check_permissions
 
+  def index
+    @profiles = User.all
+  end
+
+  def search
+    string = params[:search_bar]
+    @profiles = User.search(string) if string.present?
+  end
+
   def show
     @can_edit = edit?(@user)
     @groups = @user.groups

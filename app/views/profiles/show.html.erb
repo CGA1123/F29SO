@@ -19,6 +19,7 @@
         </div>
       </div>
     </div>
+    <span class="card-title purple-text"><a href="#profile-edit-modal"><i class="material-icons right purple-text">mode_edit</i></a></span>
   </div>
 
   <div class="col s9">
@@ -82,6 +83,33 @@
     <div class="skills" id="user_skills_edit">
       <% @user.user_skills.each do |user_skill| %>
         <%= render 'user_skills/user_skill_edit', user: @user, user_skill: user_skill %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div id="profile-edit-modal" class="modal">
+  <div class="modal-content">
+    <h4 class="purple-text">Edit Profile<a href="#!" class="right modal-action modal-close grey-text"><i class="material-icons">close</i></a></h4>
+    <div class="edit_profile row">
+      <%= form_for @user, url: profile_path(id: @user.id), method: :patch do |f| %>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+        <div class="input-field col s4 profile">
+          <%= f.text_field :first_name, placeholder: 'first name' %>
+        </div>
+        <div class="input-field col s4 profile">
+          <%= f.text_field :last_name, placeholder: 'last name' %>
+        </div>
+        <div class="input-field col s4 profile">
+          <%= f.collection_select(:location_id, Location.all, :id, :name) %>
+        </div>
+        <div class="input-field col s4 profile">
+          <%= f.submit 'Update Profile', class: "btn" %>
+        </div>
       <% end %>
     </div>
   </div>
