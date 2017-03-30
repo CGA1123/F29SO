@@ -1,0 +1,5 @@
+<%= form_for @skill_type, url: skill_type_path(id: @skill_type.id), remote: true do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :description %>
+  <%= f.button 'Submit' %>
+<% end %>

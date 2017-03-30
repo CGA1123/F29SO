@@ -135,6 +135,13 @@ class PermissionController < ApplicationController
     end
   end
 
+  def check_skill_types
+    case action_name
+    when 'index', 'create', 'destroy', 'edit', 'update'
+      not_found unless current_user.permission?('admin.skill_types')
+    end
+  end
+
   def check_project_types
     case action_name
     when 'index', 'create', 'destroy', 'edit', 'update'

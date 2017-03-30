@@ -1,0 +1,9 @@
+<h1>Skill Types</h1>
+<%= render 'skill_types/form' %>
+<div id='skill_types'>
+  <% if @skill_types.present? %>
+    <%= render @skill_types %>
+  <% else %>
+    <p id='empty'>No Skill Types.</p>
+  <% end %>
+</div>
