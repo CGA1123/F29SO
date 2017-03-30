@@ -2,7 +2,7 @@ class AnnouncementsController < PermissionController
   before_action :set_project, only: [:create_project_announcement,
                                      :destroy_project_announcement,
                                      :show_project]
-  before_action :check_permissions, except: [:index]
+  before_action :check_permissions, except: [:index, :show_system]
   before_action :set_project_announcement, only: [:destroy_project_announcement,
                                                   :show_project]
   before_action :set_system_announcement, only: [:destroy_system_announcement]
