@@ -6,6 +6,11 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
   let(:skill) { FactoryGirl.create(:skill) }
   let(:no_permission) { FactoryGirl.create(:user) }
   let(:root_user) { FactoryGirl.create(:root_user) }
+  let(:project_role_skill) do
+    ProjectRoleSkill.create!(rating: :expert,
+                             skill: skill,
+                             project_role: project_role)
+  end
 
   describe 'POST #create' do
     context 'no permission' do
@@ -17,7 +22,7 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
             action: :create,
             params: { code: project.code,
                       name: project_role.name,
-                      skill_id: skill.id } }
+                      skill: skill.name } }
         end
       end
     end
@@ -28,7 +33,8 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
         xhr :post, :create,
             code: project.code,
             name: project_role.name,
-            skill_id: skill.id
+            skill: skill.name,
+            rating: 'basic'
       end
 
       it 'creates ProjectRoleSkill' do
@@ -42,7 +48,7 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
         xhr :post, :create,
             code: project.code,
             name: project_role.name,
-            skill_id: 'lel'
+            skill: 'lel'
       end
 
       it do
@@ -61,7 +67,7 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
             action: :destroy,
             params: { code: project.code,
                       name: project_role.name,
-                      skill_id: skill.id } }
+                      id: project_role_skill.id } }
         end
       end
     end
@@ -70,12 +76,10 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
       context 'skill exists' do
         before do
           sign_in root_user
-          ProjectRoleSkill.create!(rating: :expert, skill: skill,
-                                   project_role: project_role)
           xhr :delete, :destroy,
               code: project.code,
               name: project_role.name,
-              skill_id: skill.id
+              id: project_role_skill.id
         end
 
         it 'removes skill from project_role' do
@@ -89,7 +93,7 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
           xhr :delete, :destroy,
               code: project.code,
               name: project_role.name,
-              skill_id: skill.id
+              id: 0
         end
 
         it 'sets @project_role_skill to nil' do
@@ -109,8 +113,8 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
             action: :update,
             params: { code: project.code,
                       name: project_role.name,
-                      skill_id: skill.id,
-                      rating: 'novice' } }
+                      id: project_role_skill.id,
+                      project_role_skill: { rating: 'novice' } } }
         end
       end
     end
@@ -118,14 +122,11 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
     context 'has permission' do
       before do
         sign_in root_user
-        ProjectRoleSkill.create!(project_role: project_role,
-                                 skill: skill,
-                                 rating: :basic)
         xhr :patch, :update,
             code: project.code,
             name: project_role.name,
-            skill_id: skill.id,
-            rating: 'expert'
+            id: project_role_skill.id,
+            project_role_skill: { rating: 'expert' }
       end
       it 'updates skill rating' do
         skill = ProjectRoleSkill.find_by(project_role: project_role)

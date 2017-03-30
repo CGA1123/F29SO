@@ -24,12 +24,6 @@ class ProjectRoleSkillsController < PermissionController
 
   private
 
-  def set_project_role_skill
-    @project_role_skill = ProjectRoleSkill.find_by(project_role: @project_role,
-                                                   skill: @skill)
-    head(404) unless @project_role_skill
-  end
-
   def set_project
     @project = Project.find_by(code: params[:code])
     head(404) unless @project
