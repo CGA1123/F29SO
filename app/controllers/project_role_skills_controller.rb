@@ -3,13 +3,13 @@ class ProjectRoleSkillsController < PermissionController
   before_action :set_project
   before_action :check_permissions
   before_action :set_project_role
-  before_action :set_skill, except: [:index, :edit]
-  before_action :set_project_role_skill, only: [:destroy, :update]
+  before_action :set_skill, except: [:index, :update, :destroy]
+  before_action :set_project_role_skill, only: [:update, :destroy]
 
   def create
     @project_role_skill = ProjectRoleSkill.new(project_role: @project_role,
                                                skill: @skill,
-                                               rating: :basic)
+                                               rating: params[:rating])
     @project_role_skill.save
   end
 
@@ -17,13 +17,8 @@ class ProjectRoleSkillsController < PermissionController
     @project_role_skill.destroy
   end
 
-  def edit
-    @project_role_skills = @project_role.project_role_skills
-    @source = source
-  end
-
   def update
-    @project_role_skill.rating = params[:rating]
+    @project_role_skill.rating = params[:project_role_skill][:rating]
     @saved = @project_role_skill.save
   end
 
@@ -46,7 +41,7 @@ class ProjectRoleSkillsController < PermissionController
   end
 
   def set_skill
-    @skill = Skill.find_by(id: params[:skill_id])
+    @skill = Skill.find_by(name: params[:skill])
     head(404) unless @skill
   end
 
@@ -54,15 +49,8 @@ class ProjectRoleSkillsController < PermissionController
     not_found unless request.xhr?
   end
 
-  def source
-    sources = []
-    Skill.all.each do |skill|
-      sources << { label: skill.name,
-                   value: { skill_id: skill.id,
-                            project: @project.code,
-                            role: @project_role.name } }
-    end
-
-    sources.to_json
+  def set_project_role_skill
+    @project_role_skill = ProjectRoleSkill.find_by(id: params[:id])
+    head(404) unless @project_role_skill
   end
 end

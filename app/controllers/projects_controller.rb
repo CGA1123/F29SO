@@ -29,6 +29,7 @@ class ProjectsController < PermissionController
     @can_manage_users = check_manage('users')
     @can_manage_skills = check_manage('skills')
     @can_manage_locations = check_manage('locations')
+    @skills_data = skills_data
   end
 
   def edit; end
@@ -81,5 +82,11 @@ class ProjectsController < PermissionController
                              "projects.roles.manage.#{string}",
                              "#{@project.id}.projects.roles.manage.#{string}",
                              "#{@project.id}.projects.roles.manage")
+  end
+
+  def skills_data
+    data = {}
+    Skill.all.each { |s| data[s.name] = nil }
+    data.to_json
   end
 end

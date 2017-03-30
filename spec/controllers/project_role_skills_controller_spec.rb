@@ -99,39 +99,6 @@ RSpec.describe ProjectRoleSkillsController, type: :controller do
     end
   end
 
-  describe 'GET #edit' do
-    context 'no permission' do
-      before { sign_in no_permission }
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { xhr: true,
-            method: :get,
-            action: :edit,
-            params: { code: project.code,
-                      name: project_role.name } }
-        end
-      end
-    end
-
-    context 'has permission' do
-      before do
-        sign_in root_user
-        xhr :get, :edit, code: project.code, name: project_role.name
-      end
-
-      it { expect(response).to render_template('project_role_skills/edit') }
-
-      it 'sets @project_role_skills' do
-        expect(assigns[:project_role_skills])
-          .to eq(ProjectRoleSkill.where(project_role: project_role))
-      end
-
-      it 'sets @source' do
-        expect(assigns[:source]).not_to be_nil
-      end
-    end
-  end
-
   describe 'PATCH #update' do
     context 'no permission' do
       before { sign_in no_permission }
