@@ -106,3 +106,10 @@ ProjectRoleLocation.create!(location: Location. find_by(name: 'Istanbul'), proje
 
 ProjectRoleUser.create!(user: User.first, project_role: Project.first.project_roles.first)
 ProjectRoleUser.create!(user: User.first, project_role: Project.second.project_roles.first)
+
+projects = Project.all
+100.times { ProjectRole.create(project: projects.sample, name: Faker::Name.title) }
+
+users = User.all
+project_roles = ProjectRole.all
+300.times { ProjectRoleUser.create(user: users.sample, project_role: project_roles.sample) }

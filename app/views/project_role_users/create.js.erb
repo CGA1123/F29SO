@@ -1,4 +1,4 @@
 <% if @project_role_user.persisted? %>
-  $('#project-role-users').prepend("<%= j render 'project_role_users/project_role_user', project_role_user: @project_role_user %>");
+  $('#project-role-users-<%= @project_role.id %>').prepend("<%= j render 'project_role_users/project_role_user', project_role_user: @project_role_user %>");
   ready();
 <% end %>

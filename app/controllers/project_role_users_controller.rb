@@ -16,10 +16,33 @@ class ProjectRoleUsersController < PermissionController
     @project_role_user.destroy
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def search
-    string = params[:user]
-    @results = User.search(string) unless string.blank?
+    name = params[:user]
+    if !params[:location].present? || params[:location].include?('')
+      locations = Location.all
+    elsif params[:location].include?('role')
+      locations = @project_role.locations
+    else
+      ids = params[:location].map(&:to_i)
+      locations = @project_role.locations & Location.where(id: ids)
+    end
+
+    users = User.where(location: locations)
+    users &= @project.users if params[:project].present?
+    users &= @project_role.users if params[:role].present?
+    users = users.search(name) unless name.blank?
+
+    if params[:skills].present?
+      skills = @project_role.skills
+      users = UserSkill.where(user: users, skill: skills).map(&:user)
+    end
+
+    @users = users
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
