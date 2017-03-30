@@ -1,12 +1,23 @@
-<%= form_for Invitation.new, url: invitations_path, method: :post, remote: true do |f| %>
-<ul id="invitation-errors"></ul>
-<div class="input-field">
-  <%= f.text_field :email, placeholder: 'Email' %>
+<div class="modal-content">
+  <%= form_for Invitation.new, url: invitations_path, remote: true do |f| %>
+    <h4 class='purple-text'>New Invitation<a href="#!" class="right modal-action modal-close waves-effect waves-grey btn-flat"><i class="material-icons">close</i></a></h4>
+
+    <ul>
+    <% @invitation.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+
+    <div class='input-field'>
+      <%= f.text_field :email %>
+      <%= f.label :email %>
+    </div>
+
+    <div class='input-field'>
+      <%= f.collection_select :groups, Group.all, :id, :name, { prompt: 'Select Groups' }, { multiple: true } %>
+      <%= f.label :groups %>
+    </div>
+
+    <%= f.submit 'Send Invitation', class: "btn waves-effect waves-light" %>
+  <% end %>
 </div>
-  <div class="input-field">
-  <%= f.collection_select :groups, Group.all, :id, :name, { prompt: 'Select Groups' }, { multiple: true } %>
-</div>
-<button class="btn waves-effect waves-light" type="submit" name="action">
-  <i class="material-icons left">email</i> Send Invitation
-  </button>
-<% end %>

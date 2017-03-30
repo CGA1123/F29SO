@@ -29,7 +29,7 @@
     <li><a href='#'>More Profile Settings...</a></li>
     <% if current_user.permission?('admin.panel') %>
     <li>
-      <%= link_to admin_home_path, class: 'purple-text darken-2' do %>
+      <%= link_to admin_path, class: 'purple-text darken-2' do %>
         Admin Panel
       <% end %>
     </li>
@@ -58,7 +58,7 @@
   </li>
   <% if current_user.permission?('admin.panel') %>
   <li>
-    <%= link_to admin_home_path, class: 'purple-text darken-2' do %>
+    <%= link_to admin_path, class: 'purple-text darken-2' do %>
       Admin Panel
     <% end %>
   </li>

@@ -4,7 +4,7 @@
       <span class="card-title purple-text"><%= @announcement.title %>
         <% if @can_manage %>
           <%= link_to announcement_path, :method => :delete, class: 'right waves-effect waves-light purple-text' do %>
-          <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Announcement">delete</i>
+          <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Announcement">delete_forever</i>
           <% end %>
         <% end %>
     </span>

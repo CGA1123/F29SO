@@ -17,7 +17,7 @@
           <span class="badge right col s3"><%= time_ago_in_words(announcement.created_at) + ' ago' %></span>
           <% if @can_manage %>
             <%= link_to project_announcements_path(id: announcement.id), :method => :delete, class: 'right waves-effect waves-light purple-text' do %>
-            <i class="material-icons tooltipped right" data-delay="50" data-tooltip="Delete Announcement">delete</i>
+            <i class="material-icons tooltipped right" data-delay="50" data-tooltip="Delete Announcement">delete_forever</i>
             <% end %>
             <% end %>
           </div>

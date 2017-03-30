@@ -1,0 +1,62 @@
+<div class="row">
+  <h4 class="purple-text">Admin Panel</h3>
+</div>
+
+<div class="tab-content row z-depth-2">
+  <ul class="collapsible z-depth-0 no-margin" data-collapsible="accordion">
+  <li>
+    <div class="collapsible-header purple-text" style="display: flex; font-size: 18px;" id="groups">User Groups</div>
+    <div class="collapsible-body" style="display: flex;">
+      <div class="col s3">
+        <%= link_to "Manage Groups", groups_path %>
+        <p class="grey-text text-darken-1">Groups (<%= @groups_count %>)</p>
+      </div>
+      <div class="col s9">
+        <%= render 'groups/new_admin_panel' %>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="collapsible-header purple-text" style="display: flex; font-size: 18px;" id="project_types">Project Types</div>
+    <div class="collapsible-body" style="display: flex;">
+      <div class="col s3">
+        <%= link_to "Manage Project Types", project_types_path %>
+        <p class="grey-text text-darken-1">Project Types (<%= @project_types_count %>)</p>
+      </div>
+      <div class="col s9">
+        <%= render 'project_types/new_admin_panel' %>
+      </div>
+    </div>
+  </li>
+    <li>
+      <div class="collapsible-header purple-text" style="display: flex; font-size: 18px;" id="invitations">Invitations</div>
+      <div class="collapsible-body" style="display: flex;">
+        <div class="col s3">
+          <p><%= link_to "Manage Invitations", invitations_path %></p>
+          <p class="grey-text text-darken-1">Pending Invites (<%= @invitations_count %>)</p>
+        </div>
+        <div class="col s9">
+          <%= render 'invitations/new_admin_panel' %>
+        </div>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header purple-text" style="display: flex; font-size: 18px;" id="skill_types">Skill Types</div>
+      <div class="collapsible-body" style="display: flex;">
+        <%= render 'invitations/new_admin_panel' %>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header purple-text" style="display: flex; font-size: 18px;" id="skills">Skills</div>
+      <div class="collapsible-body" style="display: flex;">
+        <%= render 'invitations/new_admin_panel' %>
+      </div>
+    </li>
+    <li>
+      <div class="collapsible-header purple-text" style="display: flex; font-size: 18px;" id="user_manage">User Disable</div>
+      <div class="collapsible-body" style="display: flex;">
+        <%= render 'invitations/new_admin_panel' %>
+      </div>
+    </li>
+  </ul>
+</div>

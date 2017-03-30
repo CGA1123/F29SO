@@ -1,7 +1,0 @@
-<% if @project_type.persisted? %>
-  $("#flash").empty();
-  $("#empty").remove();
-  $("#project_types").prepend("<%= j render 'project_types/project_type', project_type: @project_type %>")
-<% else %>
-  $("#flash").html("<p id='alert'>Could not create project type.</p>");
-<% end %>

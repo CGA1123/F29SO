@@ -127,7 +127,7 @@ class PermissionController < ApplicationController
       groups = invite_params[:groups]
       groups.each do |group|
         message = "You don't have permission to invite #{group.name}"
-        redirect_to admin_home_path, alert: message \
+        redirect_to admin_path, alert: message \
           unless user.permission?("users.invite.#{group.id}")
       end
     when 'new', 'index', 'destroy'
