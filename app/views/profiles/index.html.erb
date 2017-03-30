@@ -2,9 +2,9 @@
   <div class="col s4">
     <div class="card">
       <div class="card-content">
-      <%= form_tag profile_search_path, method: :post, remote: true, id: 'profile_search_form', onchange: 'Search();' do %>
+      <%= form_tag profile_search_path, method: :post, remote: true, id: 'profile_search_form', onchange: 'profileSearch();' do %>
         <div class="input-field">
-          <%= text_field_tag :search_bar, "", onkeyup: 'Search();' %>
+          <%= text_field_tag :search_bar, "", onkeyup: 'profileSearch();' %>
           <%= label_tag :search_bar, 'Search Profiles' %>
         </div>
       <% end %>

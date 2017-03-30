@@ -1,1 +1,5 @@
-$('#profiles').html('<%= j render @profiles %>');
+console.log('profiles: <%= @profiles.map(&:name).join(', ') %>');
+$('#profiles').empty();
+<% @profiles.each do |profile| %>
+  $('#profiles').append('<%= j render 'profiles/profile', profile: profile %>');
+<% end %>

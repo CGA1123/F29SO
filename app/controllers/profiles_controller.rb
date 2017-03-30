@@ -8,7 +8,7 @@ class ProfilesController < PermissionController
 
   def search
     string = params[:search_bar]
-    profiles = Profile.all
+    profiles = User.all
     profiles = profiles.search(string) if string.present?
     @profiles = profiles
   end
@@ -26,7 +26,7 @@ class ProfilesController < PermissionController
   def update
     respond_to do |format|
       if @user.update(profile_params)
-        format.html { redirect_to profiles_path(@user) }
+        format.html { redirect_to profile_path(@user) }
       else
         format.html { render :edit }
         format.js { render :edit }
