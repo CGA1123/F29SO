@@ -1,0 +1,8 @@
+<div id='<%= project_role.id %>-project_role_skill_manage-<%= project_role_skill.id %>' style="display: flex;" class="project-role-skill-manage" >
+  <div class="col s9 project-role-skill-manage">
+    <span class="skill-name"><%= project_role_skill.skill.name %></span>
+  </div>
+  <div class="col s3">
+    <%= select_tag :rating, options_for_select(ProjectRoleSkill.ratings.keys.map { |r| [r.humanize, r] }) %>
+  </div>
+</div>

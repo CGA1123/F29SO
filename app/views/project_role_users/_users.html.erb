@@ -2,8 +2,8 @@
   <% if @can_manage_users %>
   <a href="#manage-users-<%= project_role.id %>" class='btn-flat center-align manage-button'>Manage Users</a>
   <% end %>
-  <% if project_role.project_role_users.present? %>
   <div id="project-role-users-<%= project_role.id %>" class="project-role-content">
+  <% if project_role.project_role_users.present? %>
   <% project_role.project_role_users.each do |project_role_user| %>
     <%= render 'project_role_users/project_role_user', project_role_user: project_role_user %>
   <% end %>

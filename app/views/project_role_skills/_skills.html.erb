@@ -5,17 +5,37 @@
   <div id="project-role-skills">
     <% if project_role.project_role_skills.present? %>
     <% project_role.project_role_skills.each do |project_role_skill| %>
-    <div class="col s6 project-role-skill project-role-content" id='project_role_skill-<%= project_role_skill.id %>'>
-      <span class="skill-name"><%= project_role_skill.skill.name %></span>
-      <span class="new badge" data-badge-caption="<%= project_role_skill.rating.humanize %>"></span>
-    </div>
-  <% end %>
+      <%= render 'project_role_skills/project_role_skill', project_role: project_role, project_role_skill: project_role_skill %>
+    <% end %>
   <% end %>
   </div>
 </div>
 <% if @can_manage_skills %>
 <div class="modal" id="manage-skills-<%= project_role.id %>">
   <div class="modal-content">
+    <h4 class="purple-text">Skills: <%= project_role.name.humanize %></h4>
+    <div class="skill-management-search row">
+      <%= form_tag '', remote: true, method: :post do %>
+        <div class="input-field col s5">
+          <%= label_tag :skill, 'Search Skills', id: "skill-search-#{project_role.id}" %>
+          <%= text_field_tag "skill-search-#{project_role.id}" %>
+        </div>
+        <div class="input-field col s4 skill">
+          <%= select_tag :rating, options_for_select(UserSkill.ratings.keys.map { |r| [r.humanize, r] }) %>
+        </div>
+        <div class="input-field col s3 skill">
+          <%= submit_tag 'Add Skill', class: 'btn-flat white-text grey' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="skills-management-table-<%= project_role.id %>">
+      <div class="row">
+        <% project_role.project_role_skills.each do |project_role_skill| %>
+        <%= render 'project_role_skills/project_role_skill_edit', project_role_skill: project_role_skill, project_role: project_role %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 <% end %>
