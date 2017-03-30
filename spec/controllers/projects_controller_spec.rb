@@ -99,6 +99,13 @@ RSpec.describe ProjectsController, type: :controller do
           get :show, code: project.code
           expect(response).to be_success
         end
+
+        it 'assigns @announcements' do
+          get :show, code: project.code
+          expect(assigns[:announcements])
+            .to eq(project.project_announcements
+            .order('created_at DESC').first(3))
+        end
       end
 
       context 'project does not exist' do

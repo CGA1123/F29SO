@@ -35,7 +35,7 @@ RSpec.describe AnnouncementsController, type: :controller do
     it 'assigns @project_announcements' do
       expect(assigns[:project_announcements])
         .to eq(ProjectAnnouncement.where(project: root_user.projects)
-        .last(5).reverse)
+        .order('created_at DESC').first(5))
     end
 
     it 'assigns @system_announcements' do
@@ -45,7 +45,12 @@ RSpec.describe AnnouncementsController, type: :controller do
   end
 
   describe 'GET #show_project' do
-    before { sign_in root_user }
+    before do
+      sign_in root_user
+      get :show_project, code: project.code
+    end
+
+    it { expect(response).to be_success }
 
     it 'assigns @announcements' do
       expect(assigns[:announcements])
@@ -53,22 +58,27 @@ RSpec.describe AnnouncementsController, type: :controller do
     end
 
     it 'assigns @announcement' do
-      expect(assigns[:announcement])
-        .to eq(ProjectAnnouncement.new)
+      expect(assigns[:announcement]).not_to be_nil
     end
 
     it 'assigns @selected_id' do
+      get :show_project, code: project.code, id: project_announcement.id
       expect(assigns[:selected_id])
-        .to eq(:announcements.sample.id)
+        .to eq(project_announcement.id.to_s)
     end
   end
 
   describe 'GET #show_system' do
-    before { sign_in root_user }
+    before do
+      sign_in root_user
+      get :show_system, id: system_announcement.id
+    end
 
-    it 'assigns @selected_id' do
-      expect(assigns[:selected_id])
-        .to eq(system_announcement.id)
+    it { expect(response).to be_success }
+
+    it 'assigns @announcement' do
+      expect(assigns[:announcement])
+        .to eq(system_announcement)
     end
   end
 

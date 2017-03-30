@@ -1,30 +1,33 @@
 <div class="row">
-  <div class="col s12">
-    <div class="card">
-      <div class="card-content">
-        <span class="purple-text card-title" id="project-title"><%= @project.name %><span class="badge right"><%= @project.code %></span></span>
-        <p><%= @project.description %></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col s4">
-    <div class="card">
-      <div class="card-content">
-        <span class="purple-text card-title">Project Details</span>
-        <p class="tooltipped details" data-position="bottom" data-delay="25" data-tooltip="Project Type"><i class="material-icons">info</i><%= @project.project_type.name %></p>
-        <p><%= @project.locations.map(&:name).join(",") %></p>
-      </div>
-    </div>
-  </div>
-  <div class="col s8">
-    <div class="card">
-      <div class="card-content">
-        <span class="purple-text card-title">Latest Announcements</span>
-      </div>
+  <div class="card">
+    <div class="card-content">
+      <span class="purple-text card-title" id="project-title"><%= @project.name %><span class="badge right"><%= @project.code %></span></span>
+      <p><%= @project.description %></p>
     </div>
   </div>
 </div>
+
+  <div class="tab-content row z-depth-2">
+  <div class="row col s12">
+    <span class="center-align purple-text tab-title" onclick="Turbolinks.visit('<%= project_announcements_path(code: @project.code) %>');" style="cursor: pointer; margin-top: 10px;">Recent Announcements</span>
+    <div style="margin: 10px 40px 20px;">
+      <ul class="collapsible z-depth-0 no-margin" data-collapsible="accordion">
+        <% @announcements.each do |announcement| %>
+        <li>
+          <div class="collapsible-header purple-text" style="display: flex;" id="announcement-<%= announcement.id %>">
+            <span class="left col s9"><%= announcement.title %></span>
+            <span class="badge right col s3"><%= time_ago_in_words(announcement.created_at) + ' ago' %></span>
+          </div>
+          <div class="collapsible-body">
+            <%= announcement.content %>
+          </div>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
 <div class="row z-depth-2" id="project_roles_row">
   <span class="center-align purple-text tab-title">Roles</span>
   <div class="divider"></div>

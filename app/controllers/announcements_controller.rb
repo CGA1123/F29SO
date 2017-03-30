@@ -18,9 +18,10 @@ class AnnouncementsController < PermissionController
   end
 
   def show_project
-    @announcements = @project.project_announcements.reverse
+    @announcements = @project.project_announcements.order 'created_at DESC'
     @announcement = ProjectAnnouncement.new
-    @selected_id = params[:id]
+    @selected_id = params[:id] ? params[:id] : @announcements.first.id.to_s \
+      unless @announcements.empty?
   end
 
   def show_system
