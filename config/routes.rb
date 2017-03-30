@@ -24,6 +24,13 @@ Rails.application.routes.draw do
   patch 'profile/:id/skills', to: 'user_skills#update'
   delete 'profile/:id/skills', to: 'user_skills#destroy'
 
+  # SkillTypesController
+  get 'skill_types', to: 'skill_types#index', as: :skill_types
+  post 'skill_types', to: 'skill_types#create', as: :skill_type
+  delete 'skill_types', to: 'skill_types#destroy'
+  patch 'skill_types', to: 'skill_types#update'
+  get 'skill_types/:id/edit', to: 'skill_types#edit', as: :edit_skill_type
+
   # InvitationsController Routes
   get 'admin/invitations', to: 'invitations#index', as: :invitations
   post 'admin/invitations', to: 'invitations#create'

@@ -1,0 +1,7 @@
+<% if @skill_type.persisted? %>
+  $("#flash").empty();
+  $("#empty").remove();
+  $("#skill_types").prepend("<%= j render 'skill_types/skill_type', skill_type: @skill_type %>")
+<% else %>
+  $("#flash").html("<p id='alert'>Could not create skill type.</p>");
+<% end %>
