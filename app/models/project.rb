@@ -7,7 +7,9 @@ class Project < ActiveRecord::Base
 
   has_many :locations, -> { distinct }, through: :project_roles
 
-  validates :name, :code, :description, :project_type, presence: true
+  validates :name, :code, :description, :project_type, :start_date,
+            :end_date, presence: true
+
   validates :code, uniqueness: { case_sensitive: false }
   validate :end_date_after_start_date?
 
@@ -20,8 +22,7 @@ class Project < ActiveRecord::Base
   private
 
   def end_date_after_start_date?
-    if end_date < start_date
-      errors.add :end_date, "must be after start date"
-    end
+    return false if end_date.nil? || start_date.nil?
+    errors.add :end_date, 'must be after start date' if end_date < start_date
   end
 end
