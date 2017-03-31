@@ -14,7 +14,7 @@ class ProjectRole < ActiveRecord::Base
   has_many :skills, through: :project_role_skills
 
   validates :name, uniqueness: { case_sensitive: false, scope: :project_id }
-  validates :project, :name, :start_date, :end_date, presence: true
+  validates :project, :name, presence: true
 
   before_destroy :check_if_owner
 

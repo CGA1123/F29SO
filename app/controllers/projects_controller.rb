@@ -3,6 +3,7 @@ class ProjectsController < PermissionController
   before_action :check_format, only: [:search]
   before_action :check_permissions
   before_action :set_can_edit, only: [:show]
+  before_action :set_can_delete, only: [:show]
 
   def index
     @projects = Project.order('name ASC')
@@ -41,15 +42,21 @@ class ProjectsController < PermissionController
   def edit; end
 
   def update
-    if @project.update(project_params)
-      redirect_to project_path(@project.reload.code)
-    else
-      @project.reload
-      render :edit
-    end
+    @project.update(project_params)
+    redirect_to project_path(@project.reload.code)
   end
 
   def destroy
+    roles = @project.project_roles
+    roles.each do |role|
+      role.project_role_users.destroy_all
+      role.project_role_locations.destroy_all
+      role.project_role_skills.destroy_all
+      role.project_role_permissions.destroy_all
+    end
+
+    roles.destroy_all
+    
     @project.destroy
     redirect_to projects_path, alert: 'Project Deleted.'
   end
@@ -112,6 +119,28 @@ class ProjectsController < PermissionController
       )
     else
       @can_edit = current_user.permission?('project.edit')
+    end
+  end
+
+  def set_can_edit
+    if @project
+      @can_edit = current_user.permission?(
+        'project.edit',
+        "#{@project.id}.project.edit"
+      )
+    else
+      @can_edit = current_user.permission?('project.edit')
+    end
+  end
+
+  def set_can_delete
+    if @project
+      @can_delete = current_user.permission?(
+        'project.delete',
+        "#{@project.id}.project.delete"
+      )
+    else
+      @can_delete = current_user.permission?('project.delete')
     end
   end
 end
