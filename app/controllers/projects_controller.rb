@@ -2,6 +2,7 @@ class ProjectsController < PermissionController
   before_action :set_project, except: [:index, :create, :search]
   before_action :check_format, only: [:search]
   before_action :check_permissions
+  before_action :set_can_edit, only: [:show]
 
   def index
     @projects = Project.order('name ASC')
@@ -101,5 +102,16 @@ class ProjectsController < PermissionController
     data = {}
     Location.all.each { |s| data[s.name] = nil }
     data.to_json
+  end
+
+  def set_can_edit
+    if @project
+      @can_edit = current_user.permission?(
+        'project.edit',
+        "#{@project.id}.project.edit"
+      )
+    else
+      @can_edit = current_user.permission?('project.edit')
+    end
   end
 end

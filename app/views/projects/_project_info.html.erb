@@ -3,7 +3,12 @@
     <span class="purple-text card-title" id="project-title"><%= project.name %></span>
   </div>
   <div class="col s3">
-    <div class="right-align"><i class="material-icons">mode_edit</i></div>
+    <% if @can_edit %>
+    <div class="right-align">
+      <i class="material-icons">mode_edit</i>
+      <i class="material-icons">delete_forever</i>
+    </div>
+    <% end %>
     <div class="grey-text text-lighten-1 right-align"><%= project.code %></div>
     <div style="padding-bottom: 10px;" class="grey-text right-align text-lighten-1"><%= project.project_type.name %></div>
   </div>
@@ -19,4 +24,3 @@
     </div>
   </div>
 </div>
-
