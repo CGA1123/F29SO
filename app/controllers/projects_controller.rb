@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class ProjectsController < PermissionController
   before_action :set_project, except: [:index, :create, :search]
   before_action :check_format, only: [:search]
