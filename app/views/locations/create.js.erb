@@ -1,0 +1,4 @@
+<% if @location.persisted? %>
+    $('#le-locations').prepend('<%= j render 'locations/location', location: @location %>')
+    $('select').materialize_select();
+<% end %>
