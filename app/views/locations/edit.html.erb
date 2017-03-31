@@ -1,7 +1,0 @@
-<h1>Edit</h1>
-<%= form_for @location, url: locations_path(id: @location.id), method: :patch do |f| %>
-  <%= f.text_field :name, placeholder: 'Update Location', autofocus: 'autofocus', onfocus: "this.value = this.value;" %>
-  <%= f.button do %>
-    <%= octicon 'check', class: 'white' %>
-  <% end %>
-<% end %>

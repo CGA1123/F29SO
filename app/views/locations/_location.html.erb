@@ -1,12 +1,18 @@
 <div class="location" id="location-<%= location.id %>">
-  <p>
-  <%= link_to location_path(location.id), remote: true do %>
-    <%= octicon 'pencil' %>
+  <%= form_for location, url: locations_path(id: location.id), method: :patch, remote: true, html: { class: 'row no-margin' } do |f| %>
+    <div class="input-field col s4">
+      <%= f.text_field :name %>
+    </div>
+    <div class="input-field col s4">
+      <%= f.text_field :description %>
+    </div>
+    <div class="input-field col s2">
+      <%= f.submit 'Update', class: 'btn-flat', style: 'height: 45px;' %>
+    </div>
+    <div class="input-field col s2" style="height: 45px;">
+      <%= link_to locations_path(id: location.id), method: :delete, remote: true do %>
+        <i class="material-icons purple-text">delete</i>
+      <% end %>
+    </div>
   <% end %>
-  <%= location.name %>
-
-  <%= link_to locations_path(id: location.id), remote: true, method: :delete do %>
-    <%= octicon 'trashcan' %>
-  <% end %>
-  </p>
 </div>
