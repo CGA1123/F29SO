@@ -75,7 +75,11 @@ Rails.application.routes.draw do
   post 'projects/:code/roles/:name/users', to: 'project_role_users#create', as: :project_role_users
   delete 'projects/:code/roles/:name/users', to: 'project_role_users#destroy'
   post 'projects/:code/roles/:name/users/search', to: 'project_role_users#search', as: :project_role_users_search
+<<<<<<< HEAD
   post 'projects/:code/roles/:name/users/match', to: 'projects_role_users#match', as: :project_role_users_match
+=======
+  post 'projects/:code/roles/:name/users/match', to: 'project_role_users#match', as: :project_role_users_match
+>>>>>>> 7f233fce50f8caccb01c013cf8b684f13af4c505
 
   # ProjectRoleLocations Routes
   get 'projects/:code/roles/:name/locations', to: 'project_role_locations#index', as: :project_role_locations

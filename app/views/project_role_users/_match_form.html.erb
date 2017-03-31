@@ -1,15 +1,5 @@
-<%= form_tag project_role_users_match_path, method: :post, remote: true, authenticity_token: true, id: 'match-form' do %>
-  <% skills.each do |skill| %>
-    <%= check_box_tag :skill %>
-    <%= label_tag (:skill, skill.name) %>
-  <% end %>
-  <% locations.each do |location| %>
-    <%= check_box_tag :locaation %>
-    <%= label_tag (:location, location.name) %>
-  <% end %>
+<%= form_tag project_role_users_match_path(name: project_role.name), method: :post, remote: true, authenticity_token: true, id: 'match-form' do %>
+  <%= submit_tag 'Match Users to Project Role'%>
 <% end %>
-<div id='search_results'>
-  <% if @results.present? %>
-  <%= render 'project_role_users/results', results: @results, project_role: @project_role %>
-  <% end %>
+<div id='match_results'>
 </div>
