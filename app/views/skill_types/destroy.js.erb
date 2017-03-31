@@ -1,6 +1,3 @@
 <% if @skill_type.destroyed? %>
-  $('#flash').empty();
   $('#skill-type-<%= @skill_type.id %>').remove();
-<% else %>
-  $('#flash').html("<p id='alert'>Could not delete skill type.</p>");
 <% end %>

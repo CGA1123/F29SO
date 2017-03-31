@@ -5,29 +5,6 @@ RSpec.describe SkillTypesController, type: :controller do
   let(:root_user) { FactoryGirl.create(:root_user) }
   let(:skill_type) { FactoryGirl.create(:skill_type) }
 
-  describe 'GET #index' do
-    context 'no permission' do
-      before { sign_in no_permission }
-
-      it_behaves_like 'no permission' do
-        let(:req) { { method: :get, action: :index, params: {} } }
-      end
-    end
-
-    context 'has permission' do
-      before do
-        sign_in root_user
-        get :index
-      end
-
-      it { expect(response).to be_success }
-
-      it 'assigns @skill_types' do
-        expect(assigns[:skill_types]).to eq(SkillType.all)
-      end
-    end
-  end
-
   describe 'POST #create' do
     context 'no permission' do
       before { sign_in no_permission }
@@ -107,53 +84,6 @@ RSpec.describe SkillTypesController, type: :controller do
         it 'does not delete skill type' do
           expect(SkillType.find_by(id: skill_type.id)).to be_present
         end
-
-        it { expect(response.location).to eq(skill_types_url) }
-      end
-
-      context 'skill type has skills' do
-        before do
-          FactoryGirl.create(:skill, skill_type: skill_type)
-          xhr :delete, :destroy, id: skill_type.id
-        end
-
-        it { expect(response).to be_success }
-
-        it 'does not delete skill type' do
-          expect(SkillType.find_by(id: skill_type.id)).to be_present
-        end
-
-        it { expect(response).to render_template('skill_types/destroy') }
-      end
-    end
-  end
-
-  describe 'GET #edit' do
-    context 'no permission' do
-      before { sign_in no_permission }
-
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :get, action: :edit, params: { id: 'id' }, xhr: true }
-        end
-      end
-    end
-
-    context 'has permission' do
-      before { sign_in root_user }
-
-      context 'valid params' do
-        before { xhr :get, :edit, id: skill_type.id }
-
-        it { expect(response).to be_success }
-
-        it { expect(response).to render_template('skill_types/edit') }
-      end
-
-      context 'invalid params' do
-        before { xhr :get, :edit, id: 'id' }
-
-        it { expect(response).to be_redirect }
 
         it { expect(response.location).to eq(skill_types_url) }
       end
