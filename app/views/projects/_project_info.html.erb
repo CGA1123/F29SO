@@ -1,0 +1,22 @@
+<div class="row no-margin">
+  <div class="col s9">
+    <span class="purple-text card-title" id="project-title"><%= project.name %></span>
+  </div>
+  <div class="col s3">
+    <div class="right-align"><i class="material-icons">mode_edit</i></div>
+    <div class="grey-text text-lighten-1 right-align"><%= project.code %></div>
+    <div style="padding-bottom: 10px;" class="grey-text right-align text-lighten-1"><%= project.project_type.name %></div>
+  </div>
+
+  <div class="col s9">
+    <p><%= project.description %></p>
+  </div>
+
+  <div class="col s3">
+    <div class="right">
+      <div class="grey-text text-lighten-1"><p><span class='left-align' style="padding-right:7px;">Start:</span> <%= time_tag project.start_date, class: 'right' %></p></div>
+      <div class="grey-text text-lighten-1"><p><span class="left-align" style="padding-right:7px;">End:</span> <%= time_tag project.end_date, class: 'right' %></p></div>
+    </div>
+  </div>
+</div>
+
