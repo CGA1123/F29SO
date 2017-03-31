@@ -1,5 +1,5 @@
 <% if @users.blank? %>
-  $('#user-management-table-<%= @project_role.id %> tbody').html("Not Found");
+  $('tbody#user-management-table-<%= @project_role.id %>').html("Not Found");
 <% else %>
   $('tbody#user-management-table-<%= @project_role.id %>').empty();
   <% @users.each do |user| %>

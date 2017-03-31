@@ -5,7 +5,7 @@ SystemAnnouncement.create!(user: User.first, title: Faker::Company.buzzword, con
 
 # project announcements
 Project.all.each do |project|
-  users = project.users
+  users = User.all
   rand(1..10).times do
     ProjectAnnouncement.create!(title: Faker::Company.buzzword, content: Faker::Company.catch_phrase, project: project, user: users.sample)
   end
