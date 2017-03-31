@@ -1,7 +1,1 @@
-<% if @update_success %>
-  $('#flash').empty();
-<% else %>
-  $('#flash').html("<p id='alert'>Could not update skill type.</p>");
-<% end %>
-
 $('#skill-type-<%= @skill_type.id %>').html("<%= j render 'skill_types/skill_type', skill_type: @skill_type %>");

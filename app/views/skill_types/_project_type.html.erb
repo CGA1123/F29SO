@@ -1,9 +1,0 @@
-<div class='skill_type' id='skill-type-<%= skill_type.id %>'>
-  <%= skill_type.name %> - <%= skill_type.description %>
-  <%= link_to edit_skill_type_path(id: skill_type.id), remote: true do %>
-    <%= octicon 'pencil' %>
-  <% end %>
-  <%= link_to skill_type_path(id: skill_type.id), method: :delete, remote: true do %>
-    <%= octicon 'trashcan' %>
-  <% end %>
-</div>
