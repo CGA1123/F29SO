@@ -1,0 +1,4 @@
+<% if @skill.persisted? %>
+  $('#le-skills').prepend('<%= j render 'skills/skill', skill: @skill %>');
+  $('select').material_select();
+<% end %>
