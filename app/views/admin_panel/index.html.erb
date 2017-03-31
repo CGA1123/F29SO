@@ -53,9 +53,16 @@
       </div>
     </li>
     <li>
-      <div class="collapsible-header purple-text" style="display: flex; font-size: 18px;" id="user_manage">User Disable</div>
+      <div class="collapsible-header purple-text active" style="display: flex; font-size: 18px;" id="user_manage">User Disable</div>
       <div class="collapsible-body" style="display: flex;">
-        <%= render 'invitations/new_admin_panel' %>
+        <div class="col s3">
+          <%= link_to "Manage Users", profiles_path %>
+          <p class="grey-text text-darken-1">Active Users (<%= @user_active_count %>)</p>
+          <p class="grey-text text-darken-1">Disabled Users (<%= @user_diabled_count %>)</p>
+        </div>
+        <div class="col s9">
+          <%= render 'users/disable_admin_panel' %>
+        </div>
       </div>
     </li>
   </ul>

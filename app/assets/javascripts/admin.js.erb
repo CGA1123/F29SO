@@ -1,0 +1,7 @@
+var updateDisableStatus = function(id) {
+  $.ajax({
+    type: 'POST',
+    url: 'admin/users/disable.js',
+    data: { id: id }
+  });
+};
