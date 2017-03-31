@@ -13,8 +13,9 @@ Rails.application.routes.draw do
 
   # ProfilesController Routes
   get 'profiles', to: 'profiles#index', as: :profiles
-  get 'profile/:id', to: 'profiles#show', as: :profile
+  patch 'profiles', to: 'profiles#update'
   post 'profiles/search', to: 'profiles#search', as: :profile_search
+  get 'profile/:id', to: 'profiles#show', as: :profile
   patch 'profile/:id', to: 'profiles#update'
   get 'profile/:id/edit', to: 'profiles#edit', as: :edit_profile
 
