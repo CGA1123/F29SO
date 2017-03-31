@@ -1,42 +1,39 @@
 class SkillsController < PermissionController
+  before_action :check_format
   before_action :set_skill, except: [:index, :create]
   before_action :check_permissions
 
-  def index
-    @skills = Skill.all
-    @skill = Skill.new
-  end
-
   def create
-    @skill = Skill.new(params)
-    if @skill.save
-      redirect_to skill_path(id: @skill.id)
-    else
-      @skills = Skill.all
-    end
+    @skill = Skill.new(skill_params)
+    @skill.description = '' if @skill.description.nil?
+    @skill.save
   end
 
   def update
-    if @skill.update(params)
-      redirect_to skill_path(id: @skill.reload.id)
+    if @skill.update(skill_params)
     else
       @skill.reload
     end
   end
 
   def destroy
+    @skill.user_skills.delete_all
+    @skill.project_role_skills.delete_all
     @skill.destroy
-    redirect_to skills_path
   end
 
   private
 
   def set_skill
     @skill = Skill.find_by(id: params[:id])
-    redirect_to skills_path, alert: 'Skill not found.' unless @skill
+    head(404) unless @skill
   end
 
   def skill_params
     params.require(:skill).permit(:name, :description, :skill_type_id)
+  end
+
+  def check_format
+    not_found unless request.xhr?
   end
 end
