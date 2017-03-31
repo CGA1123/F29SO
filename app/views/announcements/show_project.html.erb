@@ -1,8 +1,17 @@
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/projects/<%= @project.code %>"><%= @project.name %></a></li>
+    <li><a href="/projects/<%= @project.code %>/announcements">Announcements</a></li>
+  </ul>
+</div>
+
 <div class="tab-content row">
   <div class="card">
     <div class="card-content">
       <span class="purple-text card-title" id="project-title">
-        <%= link_to @project.name, project_path(code: @project.code), :method => :get, class: "purple-text" %>
+        <%= link_to (@project.name + ' Announcements'), project_path(code: @project.code), :method => :get, class: "purple-text" %>
         <span class="badge right"><%= @project.code %></span>
       </span>
       <p><%= @project.description %></p>
@@ -17,7 +26,7 @@
           <span class="badge right col s3"><%= time_ago_in_words(announcement.created_at) + ' ago' %></span>
           <% if @can_manage %>
             <%= link_to project_announcements_path(id: announcement.id), :method => :delete, class: 'right waves-effect waves-light purple-text' do %>
-            <i class="material-icons tooltipped right" data-delay="50" data-tooltip="Delete Announcement">delete</i>
+            <i class="material-icons tooltipped right" data-delay="50" data-tooltip="Delete Announcement">delete_forever</i>
             <% end %>
             <% end %>
           </div>

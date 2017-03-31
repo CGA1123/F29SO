@@ -1,0 +1,3 @@
+<% if @skill_type.destroyed? %>
+  $('#skill-type-<%= @skill_type.id %>').remove();
+<% end %>

@@ -1,10 +1,18 @@
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/announcements">Announcements</a></li>
+    <li><a href=""><%= @announcement.title %></a></li>
+  </ul>
+</div>
+
 <div class="card">
   <div class='announcement col s4' id='system_announcement-<%= @announcement.id %>'>
     <div class="card-content">
       <span class="card-title purple-text"><%= @announcement.title %>
         <% if @can_manage %>
           <%= link_to announcement_path, :method => :delete, class: 'right waves-effect waves-light purple-text' do %>
-          <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Announcement">delete</i>
+          <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Announcement">delete_forever</i>
           <% end %>
         <% end %>
     </span>

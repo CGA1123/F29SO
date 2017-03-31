@@ -1,0 +1,23 @@
+<div class="modal-content">
+  <%= form_for Group.new, url: groups_path, remote: true do |f| %>
+    <h4 class='purple-text'>New Group<a href="#!" class="right modal-action modal-close waves-effect waves-grey btn-flat"><i class="material-icons">close</i></a></h4>
+
+    <ul>
+    <% @group.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+
+    <div class='input-field'>
+      <%= f.text_field :name %>
+      <%= f.label :name %>
+    </div>
+
+    <div class='input-field'>
+      <%= f.text_area :description, class: 'materialize-textarea' %>
+      <%= f.label :description %>
+    </div>
+
+    <%= f.submit 'Create Group', class: "btn waves-effect waves-light" %>
+  <% end %>
+</div>

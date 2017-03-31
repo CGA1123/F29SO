@@ -1,0 +1,21 @@
+<div id='<%= project_role.id %>-project_role_skill_manage-<%= project_role_skill.id %>' style="display: flex;" class="project-role-skill-manage" >
+  <%= form_for project_role_skill, url: project_role_skills_path(code: project_role.project.code, name: project_role.name, id: project_role_skill.id), method: :patch, remote: true, html: { class: 'row max-width' } do |f|%>
+    <div class="col s1 input-field">
+      <%= link_to project_role_skills_path(code: project_role.project.code, name: project_role.name, id: project_role_skill.id), method: :delete, remote: true, data: { confirm: 'Are you sure?' } do %>
+        <i class="material-icons purple-text">delete</i>
+      <% end %>
+    </div>
+
+    <div class="col s6 input-field">
+      <span class="skill-name"><%= project_role_skill.skill.name %></span>
+    </div>
+
+    <div class="col s3 input-field">
+      <%= f.select :rating, options_for_select(ProjectRoleSkill.ratings.keys.map { |r| [r.humanize, r] }, project_role_skill.rating), {} %>
+    </div>
+
+    <div class="col s2 input-field">
+      <%= f.submit 'Update', class: 'btn-flat' %>
+    </div>
+  <% end %>
+</div>

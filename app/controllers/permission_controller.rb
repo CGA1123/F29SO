@@ -116,6 +116,8 @@ class PermissionController < ApplicationController
     case action_name
     when 'edit', 'update'
       redirect_to profile_path(@user), alert: 'Nope...' unless edit?(@user)
+    when 'disable'
+      head(404) unless current_user.permission?('admin.users.disable')
     end
   end
 
@@ -127,11 +129,25 @@ class PermissionController < ApplicationController
       groups = invite_params[:groups]
       groups.each do |group|
         message = "You don't have permission to invite #{group.name}"
-        redirect_to admin_home_path, alert: message \
+        redirect_to admin_path, alert: message \
           unless user.permission?("users.invite.#{group.id}")
       end
     when 'new', 'index', 'destroy'
       not_found unless current_user.permission?('users.invite')
+    end
+  end
+
+  def check_skills
+    case action_name
+    when 'create' 'index' 'update' 'destroy'
+      not_found unless current_user.permission?('skills.manage')
+    end
+  end
+
+  def check_skill_types
+    case action_name
+    when 'index', 'create', 'destroy', 'edit', 'update'
+      not_found unless current_user.permission?('admin.skill_types')
     end
   end
 

@@ -7,7 +7,7 @@
     <ul class="right hide-on-med-and-down">
       <li>
         <%= link_to projects_path, class: 'purple-text text-darken-2' do %>
-          <i class="material-icons left purple-text text-darken-2">assignment</i>Projects
+          <i class="material-icons left purple-text text-darken-2">assignment</i>My Projects
         <% end %>
       </li>
       <li>
@@ -16,8 +16,13 @@
         </a>
       </li>
       <li>
-        <a class= 'purple-text text-darken-2 dropdown-button' data-activates='settings-dropdown' data-beloworigin="true" data-constrainwidth="false" onclick="return false;">
+        <%= link_to profile_path(id: current_user.id), class: 'purple-text text-darken-2' do %>
           <i class="material-icons">account_circle</i>
+        <% end %>
+      </li>
+      <li>
+        <a class= 'purple-text text-darken-2 dropdown-button' data-activates='settings-dropdown' data-beloworigin="true" data-constrainwidth="false" onclick="return false;">
+          <i class="material-icons">expand_more</i>
         </a>
       </li>
     </ul>
@@ -25,12 +30,10 @@
   <ul id='notifications-dropdown' class='dropdown-content'></ul>
 
   <ul id='settings-dropdown' class='dropdown-content'>
-    <li><a href='#'>Settings..</a></li>
-    <li><a href='#'>More Profile Settings...</a></li>
     <% if current_user.permission?('admin.panel') %>
     <li>
-      <%= link_to admin_home_path, class: 'purple-text darken-2' do %>
-        Admin Panel
+      <%= link_to admin_path, class: 'purple-text darken-2' do %>
+        <i class="material-icons left purple-text text-darken-2">developer_board</i>Admin Panel
       <% end %>
     </li>
     <% end %>
@@ -48,7 +51,7 @@
 <ul class="side-nav left-align" id="mobile-nav">
   <li>
     <%= link_to projects_path, class: 'purple-text text-darken-2' do %>
-      <i class="material-icons left purple-text text-darken-2">assignment</i>Projects
+      <i class="material-icons left purple-text text-darken-2">assignment</i>My Projects
     <% end %>
   </li>
   <li>
@@ -56,10 +59,15 @@
       <i class="material-icons left purple-text text-darken-2">announcement</i><span class="badge right notifications-count">5</span>Notifications
     <% end %>
   </li>
+  <li>
+    <%= link_to profile_path(id: current_user.id), class: 'purple-text text-darken-2' do %>
+      <i class="material-icons left purple-text text-darken-2">account_circle</i>My Account
+    <% end %>
+  </li>
   <% if current_user.permission?('admin.panel') %>
   <li>
-    <%= link_to admin_home_path, class: 'purple-text darken-2' do %>
-      Admin Panel
+    <%= link_to admin_path, class: 'purple-text darken-2' do %>
+      <i class="material-icons left purple-text text-darken-2">developer_board</i>Admin Panel
     <% end %>
   </li>
   <% end %>

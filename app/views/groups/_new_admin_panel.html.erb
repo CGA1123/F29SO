@@ -1,0 +1,16 @@
+<%= form_for Group.new, url: groups_path, method: :post, remote: true do |f| %>
+<ul id="group-errors"></ul>
+<div class="input-field">
+  <%= f.text_field :name %>
+  <%= f.label :name %>
+</div>
+<div class="row" style="display: flex;">
+  <div class="input-field col s9">
+    <%= f.text_field :description %>
+    <%= f.label :description %>
+  </div>
+  <div class="col s3" style="display: flex; justify-content: center; align-items: center;">
+    <button class="btn waves-effect waves-light" style="width: 100%" type="submit" name="action">Create</button>
+  </div>
+</div>
+<% end %>

@@ -1,0 +1,29 @@
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/profiles">Profiles</a></li>
+  </ul>
+</div>
+
+<div class="row">
+  <div class="col s4">
+    <div class="card">
+      <div class="card-content">
+      <%= form_tag profile_search_path, method: :post, remote: true, id: 'profile_search_form', onchange: 'profileSearch();' do %>
+        <div class="input-field">
+          <%= text_field_tag :search_bar, "", onkeyup: 'profileSearch();' %>
+          <%= label_tag :search_bar, 'Search Profiles' %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s8">
+    <div id='profiles'>
+      <% @profiles.each do |profile| %>
+        <%= render 'profiles/profile', profile: profile %>
+      <% end %>
+    </div>
+  </div>
+</div>

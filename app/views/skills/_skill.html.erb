@@ -1,0 +1,19 @@
+<div class="skill" id="skill-<%= skill.id %>">
+  <%= form_for skill, url: skills_path(id: skill.id), method: :patch, remote: true, html: { class: 'row no-margin' } do |f| %>
+    <div class="input-field col s4">
+      <%= f.text_field :name %>
+    </div>
+    <div class="input-field col s4">
+      <%= f.select :skill_type_id, options_for_select(SkillType.all.collect { |s| [s.name, s.id]}, skill.skill_type.id),{}, id: "skill_skill_type_id_#{skill.id}" %>
+      <label for="skill_skill_type_id_<%= skill.id %>"></label>
+    </div>
+    <div class="input-field col s2">
+      <%= f.submit 'Update', class: 'btn-flat', style: 'height: 45px;' %>
+    </div>
+    <div class="input-field col s2">
+      <%= link_to skills_path(id: skill.id), method: :delete, remote: true do %>
+        <i class="material-icons purple-text">delete</i>
+      <% end %>
+    </div>
+  <% end %>
+</div>

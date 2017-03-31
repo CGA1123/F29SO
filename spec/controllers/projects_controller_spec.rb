@@ -36,7 +36,9 @@ RSpec.describe ProjectsController, type: :controller do
           { project: { name: 'ProjX',
                        code: 'X',
                        description: 'Best Project',
-                       project_type_id: proj_type.id } }
+                       project_type_id: proj_type.id,
+                       start_date: '20/12/18',
+                       end_date: '20/12/19' } }
         end
 
         it do
@@ -201,11 +203,6 @@ RSpec.describe ProjectsController, type: :controller do
           it 'updates the Project' do
             expect { patch :update, invalid_params }
               .not_to change { project.reload.code }
-          end
-
-          it do
-            patch :update, invalid_params
-            expect(response).to render_template(:edit)
           end
         end
       end

@@ -1,13 +1,20 @@
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/projects/<%= @project.code %>"><%= @project.name %></a></li>
+  </ul>
+</div>
+
 <div class="row">
   <div class="card">
     <div class="card-content">
-      <span class="purple-text card-title" id="project-title"><%= @project.name %><span class="badge right"><%= @project.code %></span></span>
-      <p><%= @project.description %></p>
+      <%= render 'projects/project_info', project: @project %>
     </div>
   </div>
 </div>
 
-  <div class="tab-content row z-depth-2">
+<div class="tab-content row z-depth-2">
   <div class="row col s12">
     <span class="center-align purple-text tab-title" onclick="Turbolinks.visit('<%= project_announcements_path(code: @project.code) %>');" style="cursor: pointer; margin-top: 10px;">Recent Announcements</span>
     <div style="margin: 10px 40px 20px;">

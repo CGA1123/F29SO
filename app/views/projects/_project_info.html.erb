@@ -1,0 +1,34 @@
+<div class="row no-margin">
+  <div class="col s9">
+    <span class="purple-text card-title" id="project-title"><%= project.name %></span>
+    <span class="card-content"><%= project.description %></span>
+  </div>
+
+  <div class="col s3">
+    <div class="right">
+      <% if (@can_edit || @can_delete) %>
+      <div class="row">
+        <% if @can_delete %>
+          <%= link_to projects_path(code: project.code), :method => :delete, remote: true, class: 'right waves-effect waves-light purple-text', data: { confirm: 'Are you REALLY sure?' } do %>
+            <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Type">delete_forever</i>
+          <% end %>
+        <% end %>
+
+        <% if @can_edit %>
+          <%= link_to "#edit-project-modal-#{project.id}", class: 'right waves-effect waves-light purple-text' do %>
+            <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Project">edit</i>
+          <% end %>
+
+          <div id="edit-project-modal-<%= project.id %>" class="modal">
+            <%= render 'projects/edit', project: project %>
+          </div>
+        <% end %>
+      </div>
+      <% end %>
+      <div class="grey-text text-lighten-1 right-align"><%= project.code %></div>
+      <div style="padding-bottom: 10px;" class="grey-text right-align text-lighten-1"><%= project.project_type.name %></div>
+      <div class="grey-text text-lighten-1"><p><span class='left-align' style="padding-right:7px;">Start:</span> <%= time_tag project.start_date, class: 'right' %></p></div>
+      <div class="grey-text text-lighten-1"><p><span class="left-align" style="padding-right:7px;">End:</span> <%= time_tag project.end_date, class: 'right' %></p></div>
+    </div>
+  </div>
+</div>

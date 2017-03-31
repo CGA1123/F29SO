@@ -25,7 +25,9 @@ RSpec.describe ProjectRolesController, type: :controller do
 
       context 'valid params' do
         before do
-          xhr :post, :create, code: project.code, project_role: { name: 'test' }
+          xhr :post, :create, code: project.code, project_role: {
+            name: 'test', start_date: '05/04/1997', end_date: '12/09/2085'
+          }
         end
 
         it do
@@ -36,7 +38,7 @@ RSpec.describe ProjectRolesController, type: :controller do
           expect(response).to render_template('project_roles/create')
         end
 
-        it 'creates a new group' do
+        it 'creates a new project_role' do
           expect(ProjectRole.find_by(name: 'test', project: project))
             .not_to be_nil
         end

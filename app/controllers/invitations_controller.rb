@@ -4,16 +4,18 @@ class InvitationsController < PermissionController
   skip_before_action :authenticate_user!, only: [:accept, :create_user]
   before_action :unauthenticated_only, only: [:accept, :create_user]
   before_action :verify_token, only: [:accept, :create_user]
+  before_action :set_can_manage, only: [:index]
 
   def index
     @invitations = Invitation.all
+    @invitation = Invitation.new
   end
 
   def create
     @invitation = Invitation.new(invite_params)
     @invitation.inviter = current_user
 
-    redirect_to invitations_path if @invitation.invite
+    redirect_to invitations_path
   end
 
   def accept
@@ -38,6 +40,8 @@ class InvitationsController < PermissionController
     @invitation = Invitation.find_by(id: params[:id])
 
     @invitation.destroy if @invitation.present? && can_delete?(@invitation)
+
+    redirect_to invitations_path
   end
 
   private
@@ -76,5 +80,9 @@ class InvitationsController < PermissionController
   def can_delete?(invitation)
     user = current_user
     user == invitation.inviter || user.permission?('users.invite.delete')
+  end
+
+  def set_can_manage
+    @can_manage = current_user.permission?('users.invite')
   end
 end

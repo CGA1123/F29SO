@@ -1,3 +1,48 @@
-<% locations.each do |location| %>
-  <div id='location-<%= location.id %>'><%= location.name %></div>
+<div class="row no-margin">
+  <% if @can_manage_locations %>
+  <a href="#manage-locations-<%= project_role.id %>" class='btn-flat center-align manage-button'>Manage Locations</a>
+  <% end %>
+  <div id="project-role-locations-<%= project_role.id %>" class="project-role-content">
+  <% if project_role.project_role_locations.present? %>
+    <% project_role.project_role_locations.each do |project_role_location| %>
+      <%= render 'project_role_locations/project_role_location', project_role: project_role, project_role_location: project_role_location %>
+    <% end %>
+  <% end %>
+  </div>
+</div>
+<% if @can_manage_locations %>
+<div class="modal" id="manage-locations-<%= project_role.id %>">
+  <div class="modal-content">
+    <h4 class="purple-text">Locations: <%= project_role.name.humanize %></h4>
+    <div class="location-management-search row">
+      <%= form_tag project_role_locations_path(code: project_role.project.code, name: project_role.name), remote: true, method: :post do %>
+        <div class="input-field col s9">
+          <%= label_tag "location-search-#{project_role.id}", 'Search Locations' %>
+          <%= text_field_tag :location_name, "", class: 'locations_search', id: "location-search-#{project_role.id}" %>
+        </div>
+        <div class="input-field col s3 location">
+          <%= submit_tag 'Add Location', class: 'btn-flat white-text grey', id: "location-add-btn-#{project_role.id}", style: 'height: 45px;' %>
+        </div>
+      <% end %>
+    </div>
+
+    <div id="locations-management-table-<%= project_role.id %>" class="row">
+      <% project_role.project_role_locations.each do |project_role_location| %>
+      <%= render 'project_role_locations/project_role_location_edit', project_role_location: project_role_location, project_role: project_role %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).on('turbolinks:load', function() {
+    $('.locations_search').autocomplete({
+      data: <%= @locations_data.html_safe %>,
+      onAutocomplete: function(val) {
+        $('#location-add-btn-<%= project_role.id %>').addClass('purple');
+        $('#location-add-btn-<%= project_role.id %>').removeClass('grey');
+      }
+    });
+  });
+</script>
 <% end %>

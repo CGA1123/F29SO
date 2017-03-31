@@ -121,3 +121,34 @@ a.purple-hover {
     margin: 0;
   }
 }
+
+.max-width {
+  width: 100%;
+}
+
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: white;
+    font-size: 17px;
+}
+
+ul.breadcrumb li {
+    display: inline;
+}
+
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: grey;
+    content: ">";
+}
+
+ul.breadcrumb li a {
+    color: grey;
+    text-decoration: none;
+}
+
+ul.breadcrumb li a:hover {
+    color: purple;
+    text-decoration: none;
+}
