@@ -18,7 +18,8 @@ class ProjectRolesController < PermissionController
   private
 
   def project_role_params
-    params.require(:project_role).permit(:name, :description)
+    params.require(:project_role)
+          .permit(:name, :description, :start_date, :end_date)
   end
 
   def set_project
