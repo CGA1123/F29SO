@@ -204,11 +204,6 @@ RSpec.describe ProjectsController, type: :controller do
             expect { patch :update, invalid_params }
               .not_to change { project.reload.code }
           end
-
-          it do
-            patch :update, invalid_params
-            expect(response).to render_template(:edit)
-          end
         end
       end
 

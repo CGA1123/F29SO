@@ -56,7 +56,6 @@ class ProjectsController < PermissionController
     end
 
     roles.destroy_all
-    
     @project.destroy
     redirect_to projects_path, alert: 'Project Deleted.'
   end
@@ -109,17 +108,6 @@ class ProjectsController < PermissionController
     data = {}
     Location.all.each { |s| data[s.name] = nil }
     data.to_json
-  end
-
-  def set_can_edit
-    if @project
-      @can_edit = current_user.permission?(
-        'project.edit',
-        "#{@project.id}.project.edit"
-      )
-    else
-      @can_edit = current_user.permission?('project.edit')
-    end
   end
 
   def set_can_edit
