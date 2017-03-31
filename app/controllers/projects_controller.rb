@@ -7,7 +7,7 @@ class ProjectsController < PermissionController
   before_action :set_can_delete, only: [:show]
 
   def index
-    @projects = Project.order('name ASC')
+    @projects = current_user.projects
     @project = Project.new
     @can_create = current_user.permission?('projects.create')
   end

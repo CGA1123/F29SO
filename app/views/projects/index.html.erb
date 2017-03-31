@@ -18,7 +18,7 @@
           <%= select_tag :type, options_for_select(ProjectType.all.collect { |p| [p.name.humanize, p.id] }), class: 'browser-default', include_blank: 'All Project Types' %>
         </div>
         <div class="input-field">
-          <%= check_box_tag :own, "1", false, class: 'filled-in' %>
+          <%= check_box_tag :own, "1", true, class: 'filled-in' %>
           <%= label_tag :own, 'Only projects I am part of' %>
         </div>
       <% end %>
