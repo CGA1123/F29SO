@@ -116,6 +116,8 @@ class PermissionController < ApplicationController
     case action_name
     when 'edit', 'update'
       redirect_to profile_path(@user), alert: 'Nope...' unless edit?(@user)
+    when 'disable'
+      head(404) unless current_user.permission?('admin.users.disable')
     end
   end
 

@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   has_many :notifications, foreign_key: :recipient_id
 
-  validates :groups, :first_name, :last_name, :location, :active, presence: true
+  validates :groups, :first_name, :last_name, :location, presence: true
 
   def self.search(string)
     where("lower(concat(first_name || ' ' || last_name)) LIKE :string OR " \

@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(version: 20170330232030) do
     t.integer  "project_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   add_index "project_roles", ["project_id"], name: "index_project_roles_on_project_id", using: :btree
@@ -164,6 +166,8 @@ ActiveRecord::Schema.define(version: 20170330232030) do
     t.datetime "updated_at",      null: false
     t.integer  "project_type_id"
     t.string   "description"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree

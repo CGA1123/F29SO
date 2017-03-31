@@ -115,6 +115,7 @@ Rails.application.routes.draw do
 
   # AdminPanelController Routes
   get 'admin', to: 'admin_panel#index', as: :admin
+  post 'admin/users/disable', to: 'profiles#disable'
 
   # NotificationsController Routes
   get 'notifications', to: 'notifications#index', as: :notifications
