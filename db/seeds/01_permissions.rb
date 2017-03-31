@@ -50,4 +50,4 @@ Permission.create!(name: 'admin.panel', description: 'placeholder...')
 # Announcements
 Permission.create!(name: 'announcements.manage', description: 'placeholder...')
 
-Permission.create!(name: 'admin.users.disable'), description: 'Allows ability to disable users')
+Permission.create!(name: 'admin.users.disable', description: 'Allows ability to disable users')
