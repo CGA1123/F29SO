@@ -1,3 +1,11 @@
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/announcements">Announcements</a></li>
+    <li><a href=""><%= @announcement.title %></a></li>
+  </ul>
+</div>
+
 <div class="card">
   <div class='announcement col s4' id='system_announcement-<%= @announcement.id %>'>
     <div class="card-content">

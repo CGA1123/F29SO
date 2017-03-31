@@ -32,9 +32,9 @@ Rails.application.routes.draw do
   patch 'admin/skills', to: 'skills#update'
 
   # SkillTypesController
-  post 'skill_types', to: 'skill_types#create', as: :skill_types
-  delete 'skill_types', to: 'skill_types#destroy'
-  patch 'skill_types', to: 'skill_types#update'
+  post 'admin/skill_types', to: 'skill_types#create', as: :skill_types
+  delete 'admin/skill_types', to: 'skill_types#destroy'
+  patch 'admin/skill_types', to: 'skill_types#update'
 
   # InvitationsController Routes
   get 'admin/invitations', to: 'invitations#index', as: :invitations
@@ -56,11 +56,11 @@ Rails.application.routes.draw do
   post 'projects/:code/announcements', to: 'announcements#create_project_announcement'
 
   # ProjectTypesController
-  get 'project_types', to: 'project_types#index', as: :project_types
-  post 'project_types', to: 'project_types#create', as: :project_type
-  delete 'project_types', to: 'project_types#destroy'
-  patch 'project_types', to: 'project_types#update'
-  get 'project_types/:id/edit', to: 'project_types#edit', as: :edit_project_type
+  get 'admin/project_types', to: 'project_types#index', as: :project_types
+  post 'admin/project_types', to: 'project_types#create', as: :project_type
+  delete 'admin/project_types', to: 'project_types#destroy'
+  patch 'admin/project_types', to: 'project_types#update'
+  get 'admin/project_types/:id/edit', to: 'project_types#edit', as: :edit_project_type
 
   # ProjectRolesController Routes
   post 'projects/:code/roles', to: 'project_roles#create', as: :project_roles
@@ -88,10 +88,10 @@ Rails.application.routes.draw do
   get 'projects/:code/roles/:name/skills/edit', to: 'project_role_skills#edit', as: :project_role_skills_edit
 
   # GroupsController Routes
-  get 'groups', to: 'groups#index', as: :groups
-  post 'groups', to: 'groups#create'
-  delete 'groups', to: 'groups#destroy'
-  get 'groups/:name', to: 'groups#show', as: :group
+  get 'admin/groups', to: 'groups#index', as: :groups
+  post 'admin/groups', to: 'groups#create'
+  delete 'admin/groups', to: 'groups#destroy'
+  get 'admin/groups/:name', to: 'groups#show', as: :group
 
   # GroupUsersController
   get 'groups/:name/users', to: 'group_users#index', as: :group_users
@@ -105,11 +105,11 @@ Rails.application.routes.draw do
   delete 'groups/:name/permissions', to: 'group_permissions#destroy'
 
   # LocationsController Routes
-  get 'locations', to: 'locations#index', as: :locations
-  patch 'locations', to: 'locations#update'
-  post 'locations', to: 'locations#create'
-  delete 'locations', to: 'locations#destroy'
-  get 'locations/:id/edit', to: 'locations#edit', as: :location
+  get 'admin/locations', to: 'locations#index', as: :locations
+  patch 'admin/locations', to: 'locations#update'
+  post 'admin/locations', to: 'locations#create'
+  delete 'admin/locations', to: 'locations#destroy'
+  get 'admin/locations/:id/edit', to: 'locations#edit', as: :location
 
   # AnnouncementController Routes
   get 'announcements', to: 'announcements#index', as: :announcements
