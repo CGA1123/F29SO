@@ -1,18 +1,43 @@
+<div class="row">
+  <h3 class="purple-text">Accept Invitation</h3>
+</div>
 <%= form_for @user, url: accept_invitation_path(token: @token), method: :post do |f| %>
   <ul>
   <% @user.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
   <% end %>
   </ul>
+  <div class="row">
+    <div class="input-field col s6">
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+    </div>
 
-  <%= f.text_field :first_name, placeholder: 'Joe' %>
+    <div class="input-field col s6">
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
+  </div>
+  <div class="row">
+  <div class="input-field col s12">
+    <%= f.select :location_id, options_for_select(Location.all.collect { |l| [l.name, l.id]}) %>
+  </div>
+</div>
 
-  <%= f.text_field :last_name, placeholder: 'Bloggs' %>
+  <div class="row">
+    <div class="input-field col s6">
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: 'off' %>
+    </div>
 
-  <%= f.text_field :location, placeholder: 'Edinburgh' %>
+    <div class="input-field col s6">
+      <%= f.label :password_confirmation, 'Confirm Password' %>
+      <%= f.password_field :password_confirmation, autocomplete: 'off' %>
+    </div>
+  </div>
 
-  <%= f.password_field :password, autocomplete: 'off', placeholder: '*******' %>
-  <%= f.password_field :password_confirmation, autocomplete: 'off', placeholder: '*******' %>
+  <div class="input-field">
+  <%= f.submit 'Accept Invitation', class: 'btn purple' %>
+  </div>
 
-  <%= f.submit %>
 <% end %>
