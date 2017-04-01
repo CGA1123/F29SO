@@ -1,4 +1,4 @@
-<div class='project-role-user col s6' id='<%= project_role_user.project_role.id %>-project-role-user-<%= project_role_user.id %>'>
+<div class='project-role-user col s6' id='<%= project_role_user.project_role.id %>-project-role-user-<%= project_role_user.id %>' onclick="Turbolinks.visit('<%= profile_path(id: project_role_user.user.id) %>')" style="cursor: pointer;">
   <div class="avatar left">
     <%= user_avatar(project_role_user.user) %>
   </div>
