@@ -1,34 +1,22 @@
-<div class="row" id='project-type-<%= project_type.id %>'>
-  <div class="card col s12">
-    <div class="card-content">
-      <div class="row">
-        <div class="col s10">
-          <span class="card-title purple-text"><%= project_type.name %></span>
-        </div>
-        <div class="col s1">
-          <% if @can_manage %>
-            <%= link_to "#edit-project-type-modal-#{project_type.id}", class: 'right waves-effect waves-light purple-text' do %>
-            <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Edit Type">edit</i>
-            <% end %>
+<div class="row no-margin" id="project-type-<%= project_type.id %>">
+  <%= form_for project_type, url: project_types_path(id: project_type.id), method: :patch, remote: true do |f| %>
+  <div class="row no-margin" style="display: flex;">
+    <div class="input-field col s3">
+      <%= f.text_field :name %>
+      <%= f.label :name, class: 'active' %>
+    </div>
 
-            <div id="edit-project-type-modal-<%= project_type.id %>" class="modal">
-              <%= render 'project_types/edit', project_type: project_type %>
-            </div>
-          <% end %>
-        </div>
-        <div class="col s1">
-          <% if @can_manage %>
-            <%= link_to project_type_path(id: project_type.id), :method => :delete, remote: true , class: 'right waves-effect waves-light purple-text' do %>
-            <i class="material-icons tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Type">delete_forever</i>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col s11">
-          <%= project_type.description %>
-        </div>
-      </div>
+    <div class="input-field col s7">
+      <%= f.text_field :description %>
+      <%= f.label :description, class: 'active' %>
+    </div>
+
+    <div class="col s3" style="display: flex; justify-content: center; align-items: center;">
+      <button class="btn waves-effect waves-light" style="width: 100%" type="submit" name="action">Update</button>
+      <%= link_to project_types_path(id: project_type.id), method: :delete, remote: true, style: 'margin-left: 30px;' do %>
+        <i class="material-icons <%= project_type.projects.any? ? 'grey-text' : 'purple-text' %>">delete</i>
+      <% end %>
     </div>
   </div>
+  <% end %>
 </div>

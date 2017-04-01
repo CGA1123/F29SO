@@ -1,0 +1,4 @@
+<% if @project_type.persisted? %>
+    $('#db-project-types').prepend('<%= j render 'project_types/project_type', project_type: @project_type %>')
+    $('#project-types-counter').html('Project Types (<%= ProjectType.count %>)')
+<% end %>

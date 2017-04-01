@@ -1,10 +1,14 @@
-<div class="group card small col s3", id="group-<%= group.id %>">
-  <div class="card-content">
-    <span class="card-title purple-text"><%= group.name %></span>
+<div class="card small col s4" style="height: 200px;" id="group-<%= group.id %>">
+  <div class="card-content" style="overflow-y: hidden">
+    <p class="card-title purple-text" onclick="Turbolinks.visit('<%= group_path(name: group.name) %>')" style="cursor: pointer;"><%= group.name %> (<%= group.users.count %>)</p>
     <p><%= group.description %><p>
-    <%= octicon 'organization' %> Members: <%= group.users.count %>
-    <div class="card-action purple-text" onclick="Turbolinks.visit('<%= group_path(name: group.name) %>')" style="cursor: pointer;">
-      Edit
-    </div>
+  </div>
+  <div class="card-action right-align">
+    <%= link_to groups_path(id: group.id), method: :get, remote: true do %>
+      <i class="material-icons purple-text" data-position="bottom" data-delay="50">edit</i>
+    <% end %>
+    <%= link_to groups_path(id: group.id), method: :delete, remote: true, style: 'margin: 0px;' do %>
+      <i class="material-icons purple-text" data-position="bottom" data-delay="50">delete_forever</i>
+    <% end %>
   </div>
 </div>

@@ -1,0 +1,21 @@
+<%= form_for Invitation.new, url: invitations_path, method: :post, remote: true do |f| %>
+<div class="row" style="display: flex;">
+  <div class="input-field col s6">
+    <%= f.text_field :email %>
+    <%= f.label :email %>
+  </div>
+
+  <div class="input-field col s4">
+    <%= f.collection_select :groups, Group.all, :id, :name, { prompt: false }, { multiple: true } %>
+    <%= f.label :groups %>
+  </div>
+
+  <div class="col s2" style="display: flex; justify-content: center; align-items: center;">
+    <button class="btn waves-effect waves-light" style="width: 100%" type="submit" name="action">Send</button>
+  </div>
+</div>
+<% end %>
+
+<div class="row" style="max-height: 500px; overflow-y: scroll;" id="db-invitations">
+  <%= render Invitation.all.sort_by(&:email) %>
+</div>

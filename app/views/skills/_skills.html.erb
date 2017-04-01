@@ -1,18 +1,19 @@
-<div>
-  <%= form_for Skill.new, url: skills_path, method: :post, remote: true, html: { class: 'row no-margin' } do |f| %>
-    <div class="input-field col s4">
+<div class="tab-content" id="skill-type-<%= skill_type.id %>">
+  <%= form_for Skill.new, url: skills_path, method: :post, remote: true do |f| %>
+  <div class="row" style="display: flex;">
+    <div class="input-field col s9">
       <%= f.text_field :name %>
+      <%= f.label :name %>
+      <%= f.hidden_field :skill_type_id, skill_type_id: skill_type.id %>
     </div>
-    <div class="input-field col s4">
-      <%= f.select :skill_type_id, options_for_select(SkillType.all.collect { |s| [s.name, s.id]}) %>
-      <label for="skill_skill_type_id"></label>
+
+    <div class="col s3" style="display: flex; justify-content: center; align-items: center;">
+      <button class="btn waves-effect waves-light" style="width: 100%" type="submit" name="action">Create</button>
     </div>
-    <div class="input-field col s2">
-      <%= f.submit 'Create', class: 'btn-flat', style: 'height: 45px;' %>
-    </div>
+  </div>
   <% end %>
 
-</div>
-<div id="le-skills" class="row no-margin">
-  <%= render Skill.all %>
+  <div style="max-height: 500px; overflow-y: auto;" id="db-skills-<%= skill_type.id %>">
+    <%= render Skill.where(skill_type: skill_type).sort_by(&:name) %>
+  </div>
 </div>
