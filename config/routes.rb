@@ -32,7 +32,8 @@ Rails.application.routes.draw do
 
   # SkillTypesController
   post 'admin/skill_types', to: 'skill_types#create', as: :skill_types
-
+  delete 'admin/skill_types', to: 'skill_types#destroy'
+  patch 'admin/skill_types', to: 'skill_types#update'
   # InvitationsController Routes
   get 'admin/invitations', to: 'invitations#index', as: :invitations
   post 'admin/invitations', to: 'invitations#create'

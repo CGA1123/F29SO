@@ -1,5 +1,5 @@
 class GroupsController < PermissionController
-  before_action :check_format
+  before_action :check_format, except: [:show]
   before_action :check_permissions
   before_action :set_group, only: [:show, :destroy]
 
