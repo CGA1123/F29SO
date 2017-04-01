@@ -48,7 +48,7 @@ class ProjectRoleUsersController < PermissionController
         # rank users based on all the skills they have, else rank them on
         # the relevant skills
         if skills.present?
-          intersection = UserSkill.where(user: user, skill: user.skills & skills)
+          intersection = UserSkill.where(user: user, skill: skills)
         else
           intersection = UserSkill.where(user: user, skill: user.skills)
         end
@@ -66,36 +66,6 @@ class ProjectRoleUsersController < PermissionController
     end
 
     @users = users
-  end
-
-  def match
-    # get list of users that are at at least one of the locations
-    skills = @project_role.skills
-
-    users_with_locations = User.where(location: @project_role.locations)
-
-    # get list of users that possess each skill
-    user_ranking = {}
-    users_with_locations.each do |user|
-      # if no skills have been specified in the project role,
-      # rank users based on all the skills they have, else rank them on
-      # the relevant skills
-      if skills.present?
-        intersection = UserSkill.where(user: user, skill: user.skills & skills)
-      else
-        intersection = UserSkill.where(user: user, skill: user.skills)
-      end
-
-      # magically rank them
-      user_ranking[user.id] = rank(intersection) unless intersection.empty?
-    end
-
-    # sort by rank (magic also)
-    ranks = user_ranking.keys.sort_by { |id| -user_ranking[id] }
-    @ranks = []
-    ranks.each do |id|
-      @ranks << User.find(id)
-    end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
