@@ -1,8 +1,10 @@
-<div class='group', id='group-<%= group.id %>'>
-  <%= link_to group.name, group_path(name: group.name) %>
-  <%= octicon 'organization' %> Members: <%= group.users.count %>
-  <%= link_to groups_path(name: group.name), method: :delete do %>
-    <%= octicon 'trashcan' %>
-    Delete
-  <% end %>
+<div class="group card small col s3", id="group-<%= group.id %>">
+  <div class="card-content">
+    <span class="card-title purple-text"><%= group.name %></span>
+    <p><%= group.description %><p>
+    <%= octicon 'organization' %> Members: <%= group.users.count %>
+    <div class="card-action purple-text" onclick="Turbolinks.visit('<%= group_path(name: group.name) %>')" style="cursor: pointer;">
+      Edit
+    </div>
+  </div>
 </div>

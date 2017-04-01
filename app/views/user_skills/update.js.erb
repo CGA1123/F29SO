@@ -1,1 +1,1 @@
-$('#user_skill-<%= @user_skill.id %>').replaceWith("<%= j render 'user_skills/user_skill', user_skill: @user_skill %>");
+$('#rating-<%= @user_skill.id %>').html("<%= @user_skill.rating.humanize %>");

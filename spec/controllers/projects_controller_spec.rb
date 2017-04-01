@@ -16,28 +16,11 @@ RSpec.describe ProjectsController, type: :controller do
     end
 
     it 'assigns @projects' do
-      expect(assigns[:projects]).to eq(Project.all)
+      expect(assigns[:projects]).to eq(Project.order('name ASC'))
     end
 
     it 'assigns @project' do
       expect(assigns[:project]).not_to be_nil
-    end
-  end
-
-  describe 'GET #locations' do
-    before do
-      sign_in user
-      xhr :get, :locations, code: project.code
-    end
-
-    it do
-      expect(response).to be_success
-    end
-
-    it 'assigns @project_locations' do
-      expect(assigns[:project_locations])
-        .to eq(ProjectRoleLocation
-          .where(project_role: ProjectRole.where(project: project)))
     end
   end
 
@@ -52,7 +35,10 @@ RSpec.describe ProjectsController, type: :controller do
         let(:valid_params) do
           { project: { name: 'ProjX',
                        code: 'X',
-                       project_type_id: proj_type.id } }
+                       description: 'Best Project',
+                       project_type_id: proj_type.id,
+                       start_date: '20/12/18',
+                       end_date: '20/12/19' } }
         end
 
         it do
@@ -75,10 +61,10 @@ RSpec.describe ProjectsController, type: :controller do
           { project: { name: 'hello' } }
         end
 
-        before { post :create, invalid_params }
+        before { xhr :post, :create, invalid_params }
 
         it do
-          expect(response).to render_template(:index)
+          expect(response).to render_template('projects/create')
         end
 
         it 'sets @projects' do
@@ -86,7 +72,7 @@ RSpec.describe ProjectsController, type: :controller do
         end
 
         it 'does not create a new Project' do
-          expect { post :create, invalid_params }
+          expect { xhr :post, :create, invalid_params }
             .not_to change(Project, :count)
         end
       end
@@ -114,6 +100,13 @@ RSpec.describe ProjectsController, type: :controller do
         it do
           get :show, code: project.code
           expect(response).to be_success
+        end
+
+        it 'assigns @announcements' do
+          get :show, code: project.code
+          expect(assigns[:announcements])
+            .to eq(project.project_announcements
+            .order('created_at DESC').first(3))
         end
       end
 
@@ -210,11 +203,6 @@ RSpec.describe ProjectsController, type: :controller do
           it 'updates the Project' do
             expect { patch :update, invalid_params }
               .not_to change { project.reload.code }
-          end
-
-          it do
-            patch :update, invalid_params
-            expect(response).to render_template(:edit)
           end
         end
       end

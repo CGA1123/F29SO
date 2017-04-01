@@ -1,28 +1,34 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title><%= yield(:page_title) %></title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'respond' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title><%= yield(:page_title) %></title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+    <% if user_signed_in? %>
+      <%= render 'layouts/top_nav' %>
+    <% end %>
+    </header>
+
+    <main>
+      <div id='flash' class="center-align">
+      <% if notice %>
+        <p id='notice'><%= notice %></p>
+      <% end %>
+      <% if alert %>
+        <p id='alert'><%= alert %></p>
+      <% end %>
+      </div>
+      <div class="container">
+        <%= yield %>
+      </div>
+    </main>
+
   <% if user_signed_in? %>
-    <%= render 'layouts/top_nav' %>
+    <%= render 'layouts/footer' %>
   <% end %>
-
-  <div id='flash'>
-  <% if notice %>
-    <p id='notice'><%= notice %></p>
-  <% end %>
-  <% if alert %>
-    <p id='alert'><%= alert %></p>
-  <% end %>
-  </div>
-
-  <div class="yielded">
-    <%= yield %>
-  </div>
-</body>
+  </body>
 </html>

@@ -1,0 +1,14 @@
+<footer class="page-footer purple">
+  <div class="container">
+    <div class="row">
+      <div class="col s8">
+        <%= image_tag "reaf_logo.png", style: 'height: 45px;' %>
+      </div>
+      <div class="col s4 right-align">
+        <% if Rails.env.development? %>
+        <p style="line-height=100%;" class="white-text">Version: <%= COMMIT %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</footer>

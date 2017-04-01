@@ -1,0 +1,15 @@
+<div class="project-role">
+  <%= form_for ProjectRole.new, url: project_roles_path(code: project.code), method: :post, remote: true do |f| %>
+    <div class="input-field">
+      <%= f.text_field :name %>
+      <%= f.label :name, 'Role Name' %>
+    </div>
+    <div class="input-field">
+      <%= f.text_area :description, class: 'materialize-textarea'%>
+      <%= f.label :description %>
+    </div>
+    <div class="input-field right">
+      <%= f.submit 'Create New Role', class: 'btn-flat purple-text-hover' %>
+    </div>
+  <% end %>
+</div>

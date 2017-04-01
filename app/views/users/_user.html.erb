@@ -1,0 +1,14 @@
+<div class="row no-margin left" style="display: flex; width: 100%;" id="<%= user.id %>">
+  <% avatar ||= true %>
+  <div class="left" style="display: flex; justify-content: center; align-items: center; margin: 10px">
+  <% if avatar == true %>
+    <%= user_avatar(user) %>
+  <% end %>
+  </div>
+  <div class="right" style="display: flex; justify-content: center; align-items: center;">
+    <div>
+      <p class='name left-align'><%= user.name %><br/>
+      <span class="grey-text"><%= user.email %></span></p>
+    </div>
+  </div>
+</div>

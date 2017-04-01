@@ -1,1 +1,4 @@
-$('#locations').append("<%= j render 'project_role_locations/edit_location', project_role: @project_role, location: @location %>");
+<% if @project_role_location.persisted? %>
+$('#locations-management-table-<%= @project_role.id %>').append("<%= j render 'project_role_locations/project_role_location_edit', project_role: @project_role, project_role_location: @project_role_location %>");
+$('#project-role-locations-<%= @project_role.id %>').append("<%= j render 'project_role_locations/project_role_location', project_role: @project_role, project_role_location: @project_role_location %>");
+<% end %>

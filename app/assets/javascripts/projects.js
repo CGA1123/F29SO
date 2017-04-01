@@ -1,13 +1,7 @@
-var loadProjectRoles = function(project) {
+var submitSearch = function() {
   $.ajax({
-    url: '/projects/' + project + '/roles.js',
-    cache: false
+    type: 'POST',
+    url: 'projects/search.js',
+    data: $('#project_search_form').serialize()
   });
 };
-
-var loadProjectLocations = function(project) {
-  $.ajax({
-    url: '/projects/' + project + '/locations',
-    cache: false
-  });
-}

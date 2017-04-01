@@ -5,10 +5,6 @@ class ProjectRoleLocationsController < PermissionController
   before_action :check_permissions
   before_action :set_location, only: [:create, :destroy]
 
-  def index
-    @project_role_locations = @project_role.locations
-  end
-
   def create
     @project_role_location =
       ProjectRoleLocation.new(project_role: @project_role, location: @location)
@@ -20,10 +16,6 @@ class ProjectRoleLocationsController < PermissionController
       ProjectRoleLocation.find_by(project_role: @project_role,
                                   location: @location)
     @project_role_location.destroy if @project_role_location
-  end
-
-  def edit
-    @source = source
   end
 
   private
@@ -41,23 +33,11 @@ class ProjectRoleLocationsController < PermissionController
   end
 
   def set_location
-    @location = Location.find_by(id: params[:location_id])
+    @location = Location.find_by(name: params[:location_name])
     not_found unless @location
   end
 
   def check_format
     not_found unless request.xhr?
-  end
-
-  def source
-    sources = []
-    Location.all.each do |l|
-      sources << { label: l.name,
-                   value: { id: l.id,
-                            project: @project.code,
-                            role: @project_role.name } }
-    end
-
-    sources.to_json
   end
 end

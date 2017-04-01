@@ -1,0 +1,2 @@
+<% errors = @announcemet.errors.full_messages.map { |m| "<li>#{m}</li>" } %>
+$('#announcemet-errors').html("<%=errors.join.html_safe %>");

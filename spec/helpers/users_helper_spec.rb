@@ -7,7 +7,7 @@ RSpec.describe UsersHelper, type: :helper do
       expect(helper.user_avatar(user)).to \
         match(%r{<img\sdata-name="\w\w"\sdata-height="60"\sdata-width="60"\s
         data-seed="\d\d?"\sdata-char-count="2"\sdata-font-size="30"\sclass="
-        profile-img\simg-circle"\ssrc=""\s/>}x)
+        profile-img"\ssrc=""\s/>}x)
     end
   end
 end

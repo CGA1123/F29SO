@@ -1,6 +1,8 @@
 <% if @project_role_skill.persisted? %>
-$('#skills').prepend("<%= j render 'project_role_skills/edit_skill', project_role_skill: @project_role_skill %>");
-$('#flash').html("<p id='notice'>Skill added</p>");
+  $('#skills-management-table-<%= @project_role.id %>').prepend("<%= j render 'project_role_skills/project_role_skill_edit', project_role_skill: @project_role_skill, project_role: @project_role %>");
+  $('select').material_select();
+  $('#skill-add-btn-<%= @project_role.id %>').removeClass('purple');
+  $('#skill-add-btn-<%= @project_role.id %>').addClass('grey');
+  $('#project-role-skills-<%= @project_role.id %>').append("<%= j render 'project_role_skills/project_role_skill', project_role_skill: @project_role_skill, project_role: @project_role %>");
 <% else %>
-$('#flash').html("<p id='alert'>Skill could not be added.</p>");
 <% end %>

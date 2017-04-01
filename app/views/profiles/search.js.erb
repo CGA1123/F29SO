@@ -1,0 +1,4 @@
+$('#profiles').empty();
+<% @profiles.each do |profile| %>
+  $('#profiles').append('<%= j render 'profiles/profile', profile: profile, avatar: false %>');
+<% end %>

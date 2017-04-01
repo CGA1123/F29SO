@@ -1,0 +1,3 @@
+<% if @skill.destroyed? %>
+  $('#skill-<%= @skill.id %>').remove();
+<% end %>

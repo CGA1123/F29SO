@@ -1,6 +1,26 @@
-<h3>Invitation Index:</h3>
-<ul>
-  <% @invitations.each do |invite| %>
-  <li>Invite For: <%= invite.email %> <%= link_to 'Delete', invitation_path(invite.id), method: :delete %></li>
-  <% end %>
-</ul>
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/admin">Admin Panel</a></li>
+    <li><a href="/admin/invitations">Invitations</a></li>
+  </ul>
+</div>
+
+<div class="row">
+  <h3 class="purple-text">Invitations</h3>
+</div>
+<div class="groups row">
+  <%= render @invitations %>
+</div>
+
+<% if @can_manage %>
+  <div class="fixed-action-btn">
+    <button data-target="create-invitation-modal" data-toggle='modal' class="btn-floating btn-large purple tooltipped" data-position="left" data-delay="50" data-tooltip="Invite Someone New">
+      <i class="large material-icons">add</i>
+    </button>
+  </div>
+
+  <div id="create-invitation-modal" class="modal">
+    <%= render 'invitations/new' %>
+  </div>
+<% end %>

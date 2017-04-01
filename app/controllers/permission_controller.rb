@@ -19,9 +19,7 @@ class PermissionController < ApplicationController
         current_user.permission?('projects.edit',
                                  "#{@project.id}.projects.edit")
     when 'show'
-      redirect_to projects_path, alert: 'You cannot do that.' unless \
-        current_user.permission?('projects.view',
-                                 "#{@project.id}.projects.view")
+      redirect_to projects_path, alert: 'You cannot do that.' unless @project.users.include?(current_user) || current_user.permission?('projects.view', "#{@project.id}.projects.view")
     when 'destroy'
       redirect_to projects_path, alert: 'You cannot do that.' unless \
         current_user.permission?('projects.delete',
@@ -35,9 +33,6 @@ class PermissionController < ApplicationController
       not_found unless \
         current_user.permission?('projects.roles.manage',
                                  "#{@project.id}.projects.roles.manage")
-    when 'index', 'show'
-      not_found unless current_user.permission?('projects.view',
-                                                "#{@project.id}.projects.view")
     end
   end
 
@@ -47,10 +42,6 @@ class PermissionController < ApplicationController
       not_found unless \
         current_user.permission?('projects.roles.manage',
                                  "#{@project.id}.projects.roles.manage")
-
-    when 'index', 'show'
-      not_found unless current_user.permission?('projects.view',
-                                                "#{@project.id}.projects.view")
     end
   end
 
@@ -70,10 +61,6 @@ class PermissionController < ApplicationController
 
   def check_project_role_permissions
     case action_name
-    when 'index'
-      redirect_to project_roles_path(code: @project.code) unless \
-        current_user.permission?('projects.view',
-                                 "#{@project.id}.projects.view")
     when 'create', 'destroy'
       id = @project.id
       not_found unless \
@@ -86,9 +73,6 @@ class PermissionController < ApplicationController
 
   def check_project_role_skills
     case action_name
-    when 'index'
-      not_found unless current_user.permission?('projects.view',
-                                                "#{@project.id}.projects.view")
     when 'create', 'destroy', 'edit', 'update'
       not_found unless \
         current_user.permission?('projects.role.manage',
@@ -132,6 +116,8 @@ class PermissionController < ApplicationController
     case action_name
     when 'edit', 'update'
       redirect_to profile_path(@user), alert: 'Nope...' unless edit?(@user)
+    when 'disable'
+      head(404) unless current_user.permission?('admin.users.disable')
     end
   end
 
@@ -143,11 +129,25 @@ class PermissionController < ApplicationController
       groups = invite_params[:groups]
       groups.each do |group|
         message = "You don't have permission to invite #{group.name}"
-        redirect_to new_invitation_path, alert: message \
+        redirect_to admin_path, alert: message \
           unless user.permission?("users.invite.#{group.id}")
       end
     when 'new', 'index', 'destroy'
       not_found unless current_user.permission?('users.invite')
+    end
+  end
+
+  def check_skills
+    case action_name
+    when 'create' 'index' 'update' 'destroy'
+      not_found unless current_user.permission?('skills.manage')
+    end
+  end
+
+  def check_skill_types
+    case action_name
+    when 'index', 'create', 'destroy', 'edit', 'update'
+      not_found unless current_user.permission?('admin.skill_types')
     end
   end
 
@@ -170,6 +170,16 @@ class PermissionController < ApplicationController
     when 'search', 'create', 'edit', 'update', 'destroy'
       redirect_to user_skills_path(id: @user.id), alert: 'No Permission' \
         unless @edit
+    end
+  end
+
+  def check_announcements
+    case action_name
+    when 'create_project_announcement', 'destroy_project_announcement'
+      not_found unless \
+        current_user.permission?("#{@project.id}.announcements.manage")
+    when 'create_system_announcement', 'destroy_system_announcement'
+      not_found unless current_user.permission?('announcements.manage')
     end
   end
 end

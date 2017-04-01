@@ -1,6 +1,7 @@
 class GroupsController < PermissionController
   before_action :check_permissions
   before_action :set_group, only: [:show, :destroy]
+  before_action :set_can_manage, only: [:index]
 
   def index
     @groups = Group.all
@@ -9,11 +10,9 @@ class GroupsController < PermissionController
 
   def create
     @group = Group.new(group_params)
-    @groups = Group.all
-
     @group.save
 
-    render :index
+    redirect_to groups_path
   end
 
   def show; end
@@ -37,5 +36,9 @@ class GroupsController < PermissionController
   def set_group
     @group = Group.find_by(name: params[:name])
     redirect_to groups_path, alert: 'Group not found' unless @group
+  end
+
+  def set_can_manage
+    @can_manage = current_user.permission?('admin.groups.manage')
   end
 end

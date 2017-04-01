@@ -43,3 +43,11 @@ Permission.create!(name: 'admin.groups.view', description: 'placeholder...')
 Permission.create!(name: 'admin.groups.manage', description: 'placeholder...')
 Permission.create!(name: 'admin.groups.manage.users', description: 'placeholder...')
 Permission.create!(name: 'admin.groups.manage.permissions', description: 'placeholder...')
+
+# AdminPanel
+Permission.create!(name: 'admin.panel', description: 'placeholder...')
+
+# Announcements
+Permission.create!(name: 'announcements.manage', description: 'placeholder...')
+
+Permission.create!(name: 'admin.users.disable', description: 'Allows ability to disable users')

@@ -10,6 +10,11 @@ class User < ActiveRecord::Base
   has_many :project_role_users
   has_many :project_roles, through: :project_role_users
 
+  has_many :projects, -> { distinct }, through: :project_roles
+
+  has_many :project_announcements
+  has_many :system_announcements
+
   has_many :user_skills
   has_many :skills, through: :user_skills
 
@@ -18,9 +23,8 @@ class User < ActiveRecord::Base
   validates :groups, :first_name, :last_name, :location, presence: true
 
   def self.search(string)
-    where('lower(first_name) LIKE :string OR ' \
-          'lower(email) LIKE :string OR ' \
-          'lower(last_name) LIKE :string',
+    where("lower(concat(first_name || ' ' || last_name)) LIKE :string OR " \
+          'lower(email) LIKE :string',
           string: "%#{string.downcase}%")
   end
 
@@ -40,6 +44,16 @@ class User < ActiveRecord::Base
 
   def initials
     "#{first_name[0]}#{last_name[0]}"
+  end
+
+  # check if user is active or not
+  def active_for_authentication?
+    super && active?
+  end
+
+  # message to the user that is not allowed to login
+  def inactive_message
+    'You are not allowed to log in!'
   end
 
   # Override the default `send_devise_notification` to use

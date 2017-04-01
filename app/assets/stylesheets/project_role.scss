@@ -1,0 +1,84 @@
+.purple-text-hover {
+  height: 66px !important;
+  font-weight: 400;
+  &:hover {
+    color: #7b1fa2;
+  }
+}
+
+#project-role-users {
+  max-height: 270px;
+  overflow-y: auto;
+}
+
+.project-role {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+}
+
+#project_roles_row {
+  min-height: 550px;
+
+  .tab {
+    .material-icons {
+      line-height: 48px;
+    }
+  }
+
+  .project-role-content {
+    margin-top: 30px;
+  }
+
+  #role-tabs {
+    overflow-y: auto;
+    border-right: 1px solid #7b1fa2;
+  }
+
+  #roles-content {
+    min-height: 460px;
+    overflow-y: auto;
+  }
+
+  span.badge { margin-top: 0; }
+
+  .project-role-skill {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  .manage-button {
+    width: 100%;
+  }
+
+  .avatar {
+    margin-right: 8px;
+  }
+
+  .name {
+    width: 100%;
+  }
+}
+
+#manage-divider {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+label.table {
+  margin-left: 25px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 0;
+  height: 35px;
+}
+
+#user-management-table {
+  overflow-y: auto;
+}
+
+.project-role-skill-manage {
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+}
+

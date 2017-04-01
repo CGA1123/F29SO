@@ -1,0 +1,3 @@
+<% if @location.destroyed? %>
+  $('#location-<%= @location.id %>').remove();
+<% end %>

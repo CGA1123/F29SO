@@ -1,1 +1,4 @@
-$('#location-<%= @location.id %>').remove();
+<% if @project_role_location.destroyed? %>
+$('#<%= @project_role.id %>-project_role_location-<%= @project_role_location.id %>').remove();
+$('#<%= @project_role.id %>-project_role_location_manage-<%= @project_role_location.id %>').remove();
+<% end %>

@@ -1,10 +1,46 @@
-<h1>Projects</h1>
-<% if @can_create %>
-<div id='new-project'>
-  <%= render 'projects/new' %>
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/projects">Projects</a></li>
+  </ul>
 </div>
-<% end %>
 
-<div id='projects'>
-  <%= render @projects %>
+<div class="row">
+  <div class="col s4">
+    <div class="card">
+      <div class="card-content">
+      <%= form_tag project_search_path, method: :post, remote: true, id: 'project_search_form', onchange: 'submitSearch();' do %>
+        <div class="input-field">
+          <%= text_field_tag :search_bar, "", onkeyup: 'submitSearch();' %>
+          <%= label_tag :search_bar, 'Search Projects' %>
+        </div>
+        <div class="input-field">
+          <%= select_tag :type, options_for_select(ProjectType.all.collect { |p| [p.name.humanize, p.id] }), class: 'browser-default', include_blank: 'All Project Types' %>
+        </div>
+        <div class="input-field">
+          <%= check_box_tag :own, "1", true, class: 'filled-in' %>
+          <%= label_tag :own, 'Only projects I am part of' %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col s8">
+    <div id='projects'>
+      <%= render @projects %>
+    </div>
+  </div>
 </div>
+
+<% if @can_create %>
+  <div class="fixed-action-btn">
+    <button data-target="create-project-modal" data-toggle='modal' class="btn-floating btn-large purple tooltipped" data-position="left" data-delay="50" data-tooltip="Create A New Project">
+      <i class="large material-icons">add</i>
+    </button>
+  </div>
+
+  <div id="create-project-modal" class="modal">
+    <%= render 'projects/new' %>
+  </div>
+<% end %>

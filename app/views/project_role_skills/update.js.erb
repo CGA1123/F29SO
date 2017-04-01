@@ -1,5 +1,3 @@
 <% if @saved %>
-  $('#flash').html("<p id='notice'>Skill Updated!</p>");
-<% else %>
-  $('#flash').html("<p id='alert'>Skill Update Failed!</p>");
+    $('#<%= @project_role.id %>-project_role_skill-<%= @project_role_skill.id %>').replaceWith('<%= j render 'project_role_skills/project_role_skill', project_role_skill: @project_role_skill, project_role: @project_role %>');
 <% end %>

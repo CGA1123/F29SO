@@ -1,9 +1,61 @@
-<h1><%= @project.code %> - <%= @project.name %></h1>
-
-<h2>Locations</h2>
-<div id='locations'>
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/projects">Projects</a></li>
+    <li><a href="/projects/<%= @project.code %>"><%= @project.name %></a></li>
+  </ul>
 </div>
 
-<script>
-  loadProjectLocations('<%= @project.code %>');
-</script>
+<div class="row">
+  <div class="card">
+    <div class="card-content">
+      <%= render 'projects/project_info', project: @project %>
+    </div>
+  </div>
+</div>
+
+<div class="tab-content row z-depth-2">
+  <div class="row col s12">
+    <span class="center-align purple-text tab-title" onclick="Turbolinks.visit('<%= project_announcements_path(code: @project.code) %>');" style="cursor: pointer; margin-top: 10px;">Recent Announcements</span>
+    <div style="margin: 10px 40px 20px;">
+      <ul class="collapsible z-depth-0 no-margin" data-collapsible="accordion">
+        <% @announcements.each do |announcement| %>
+        <li>
+          <div class="collapsible-header purple-text" style="display: flex;" id="announcement-<%= announcement.id %>">
+            <span class="left col s9"><%= announcement.title %></span>
+            <span class="badge right col s3"><%= time_ago_in_words(announcement.created_at) + ' ago' %></span>
+          </div>
+          <div class="collapsible-body">
+            <%= announcement.content %>
+          </div>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row z-depth-2" id="project_roles_row">
+  <span class="center-align purple-text tab-title">Roles</span>
+  <div class="divider"></div>
+  <div class="tabs-vertical">
+    <div class="col s3">
+      <ul class="tabs" id="role-tabs">
+        <li class="tab"><a href="#new-project-role"><i class="material-icons purple-text right">add</i>Add New Role</a></li>
+        <% @project.project_roles.each do |project_role| %>
+        <li class="tab">
+          <a href="#project-role-<%= project_role.id %>"><%= project_role.name.humanize %></a>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col s9" id="roles-content">
+      <div id="new-project-role" class="tab-content">
+        <%= render 'project_roles/new_project_role', project: @project %>
+      </div>
+      <% @project.project_roles.each do |project_role| %>
+      <%= render 'project_roles/project_role', project_role: project_role %>
+      <% end %>
+    </div>
+  </div>
+</div>

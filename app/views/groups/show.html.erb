@@ -1,13 +1,46 @@
-<h1>Group: <%= @group.name %></h1>
-<p><%= @group.description %></p>
-
-<h2>Permissions:</h2>
-<div id='group-permissions'>
+<div class="row" style="display: table-cell;">
+  <ul class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li><a href="/admin">Admin Panel</a></li>
+    <li><a href="/admin/groups">Groups</a></li>
+    <li><a href="/admin/groups/<%= @group.name %>"><%= @group.name %></a></li>
+  </ul>
 </div>
 
-<%= render 'group_users/search_form' %>
-<h2>Users:</h2>
-<div id='group-users'>
+<div class='card'>
+  <div class="card-content">
+    <span class="card-title purple-text"><%= @group.name %></span>
+    <span><%= @group.description %></span>
+  </div>
+</div>
+
+<div class='card'>
+  <div class="card-content">
+    <span class="card-title purple-text">Permissions</span>
+    <div class="row no-margin" id='group-permissions'></div>
+  </div>
+</div>
+
+<div class='card'>
+  <div class="card-content">
+    <span class="card-title purple-text">Add Users</span>
+    <%= form_tag group_users_search_path, method: :post, remote: true, authenticity_token: true, id: 'search-form' do %>
+      <%= text_field_tag :user, '', placeholder: 'Search Users', onkeyup: 'search();', autocomplete: :off %>
+    <% end %>
+    <div style="max-height: 500px; overflow-y: scroll;" id='search_results'>
+      <% if @results.present? %>
+        <%= render 'group_users/results', results: @results, group: @group %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class='card'>
+  <div class="card-content">
+    <span class="card-title purple-text">Current Users</span>
+    <div class="row no-margin" style="max-height: 500px; overflow-y: scroll;" id='group-users'>
+    </div>
+  </div>
 </div>
 
 <script>

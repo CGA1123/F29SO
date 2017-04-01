@@ -7,59 +7,24 @@ RSpec.describe ProjectRolePermissionsController, type: :controller do
   let(:project_role) { FactoryGirl.create(:project_role, project: project) }
   let(:permission) { FactoryGirl.create(:permission) }
 
-  describe 'GET #index' do
-    context 'has permission' do
-      before do
-        sign_in root_user
-        xhr :get, :index, code: project.code, name: project_role.name
-      end
-
-      it { expect(response).to be_success }
-
-      it 'sets @project_role_permissions' do
-        expect(assigns[:project_role_permissions])
-          .to eq(project_role.permissions)
-      end
-
-      it 'sets @disabled' do
-        expect(assigns[:disabled]).to be_falsy
-      end
-
-      it do
-        expect(response).to render_template('project_role_permissions/index')
-      end
-    end
-
-    context 'no permissions' do
-      before do
-        sign_in no_permission
-        xhr :get, :index, code: project.code, name: project_role.name
-      end
-
-      it do
-        expect(response).to redirect_to(project_roles_path(code: project.code))
-      end
-    end
-  end
-
   describe 'POST #create' do
     context 'has permission' do
       before { sign_in root_user }
       context 'invalid params' do
         it 'redirect if project not found' do
           xhr :post, :create, code: 'lel', name: 'lel', permissions: 'lel'
-          expect(flash[:alert]).to eq('Project not found')
+          expect(response.status).to be(404)
         end
 
         it 'redirects if project_role not found' do
           xhr :post, :create, code: project.code, name: 'lel', permissions: 'le'
-          expect(flash[:alert]).to eq('Not Found')
+          expect(response.status).to be(404)
         end
 
         it 'redirects if permission not found' do
           p = { code: project.code, name: project_role.name, permissions: 0 }
           xhr :post, :create, p
-          expect(assigns[:permission]).to be_nil
+          expect(response.status).to be(404)
         end
       end
 
@@ -147,8 +112,8 @@ RSpec.describe ProjectRolePermissionsController, type: :controller do
           expect(assigns[:project_role_permission]).to be_nil
         end
 
-        it 'sets alert' do
-          expect(flash[:alert]).to eq('Permission not found')
+        it '404' do
+          expect(response.status).to eq(404)
         end
       end
     end

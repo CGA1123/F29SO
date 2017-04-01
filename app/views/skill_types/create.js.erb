@@ -1,0 +1,3 @@
+<% if @skill_type.persisted? %>
+  $("#le-skill-types").prepend("<%= j render 'skill_types/skill_type', skill_type: @skill_type %>")
+<% end %>

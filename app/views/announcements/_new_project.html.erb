@@ -1,0 +1,23 @@
+<div class="modal-content">
+  <%= form_for @announcement, url: project_announcements_path, remote: true do |f| %>
+    <h4 class='purple-text'>New Project Announcement<a href="#!" class="right modal-action modal-close waves-effect waves-grey btn-flat"><i class="material-icons">close</i></a></h4>
+
+    <ul>
+    <% @announcement.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+
+    <div class='input-field'>
+      <%= f.text_field :title %>
+      <%= f.label :title %>
+    </div>
+
+    <div class='input-field'>
+      <%= f.text_area :content, class: 'materialize-textarea' %>
+      <%= f.label :content %>
+    </div>
+
+    <%= f.submit 'Post Announcement', class: "btn waves-effect waves-light" %>
+  <% end %>
+</div>

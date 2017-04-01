@@ -1,0 +1,154 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require material_icons
+ */
+@import "materialize/components/color";
+$primary-color: color("purple", "darken-2") !default;
+$secondary-color: color("purple", "darken-2") !default;
+$light-text-color: color("grey", "base") !default;
+@import 'materialize';
+
+.hunned-height {
+  min-height: calc(100vh - 64px);
+}
+
+body {
+  display: flex;
+  min-height: calc(100vh - 64px);
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+  min-height: 100vh;
+}
+
+.brand-logo {
+  background: image-url("leidos_logo.png") no-repeat;
+  height: 100%;
+  width: 150px;
+  background-size: contain;
+  background-position: center;
+}
+
+.purple-hover {
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+a.purple-hover {
+    color: $light-text-color;
+  }
+
+#settings-dropdown {
+  width: 200px;
+}
+
+#project-location {
+  font-size: 18px;
+}
+
+.tabs-vertical {
+    .tabs {
+        height: auto;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        display: -webkit-flex;
+        display: flex;
+    }
+    .tab {
+        width: 100%;
+        -webkit-box-flex: 1;
+        -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        display: block;
+        float: left;
+        text-align: left;
+        line-height: 48px;
+        height: 48px;
+        padding: 0;
+        margin: 0;
+        text-transform: none;
+        text-overflow: ellipsis;
+        .active {
+            -moz-transition: border-color .5s ease;
+            -o-transition: border-color .5s ease;
+            -webkit-transition: border-color .5s ease;
+            transition: border-color .5s ease;
+            border-right: 3px solid $tabs-underline-color;
+            color: $tabs-text-color;
+        }
+        :hover {}
+        a {
+            color: $tabs-text-color;
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            transition: .28s ease;
+            &:hover {
+                color: lighten($tabs-text-color, 20%);
+            }
+        }
+        &.disabled a {
+            color: lighten($tabs-text-color, 20%);
+            cursor: default;
+        }
+    }
+    .indicator {
+        display: none;
+    }
+}
+
+.row {
+  .no-margin {
+    margin: 0;
+  }
+}
+
+.max-width {
+  width: 100%;
+}
+
+ul.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    background-color: white;
+    font-size: 17px;
+}
+
+ul.breadcrumb li {
+    display: inline;
+}
+
+ul.breadcrumb li+li:before {
+    padding: 8px;
+    color: grey;
+    content: ">";
+}
+
+ul.breadcrumb li a {
+    color: grey;
+    text-decoration: none;
+}
+
+ul.breadcrumb li a:hover {
+    color: purple;
+    text-decoration: none;
+}

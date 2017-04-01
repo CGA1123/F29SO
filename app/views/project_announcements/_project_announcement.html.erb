@@ -1,0 +1,14 @@
+<div class='announcement card' id='project_announcement-<%= project_announcement.id %>'>
+  <div class="card-content">
+    <div class="row no-margin">
+      <span class="card-title purple-text left" onclick="Turbolinks.visit('<%= project_announcements_path(code: project_announcement.project.code, id: project_announcement.id) %>');" style="cursor: pointer;"><%= project_announcement.title %></span>
+      <span class="badge right">
+        <p class="right-align">
+        <%= link_to project_announcement.project.name, project_path(code: project_announcement.project.code), class: 'purple-hover' %><br/>
+        <%= link_to  time_ago_in_words(project_announcement.created_at) + ' ago', project_announcements_path(code: project_announcement.project.code, id: project_announcement.id, anchor: "announcement-#{project_announcement.id}"), class: 'purple-hover' %>
+        </p>
+      </span>
+    </div>
+    <span><%= project_announcement.content %></span>
+  </div>
+</div>

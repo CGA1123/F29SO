@@ -1,11 +1,22 @@
 class ProfilesController < PermissionController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :check_format, only: [:disable]
+  before_action :set_user, only: [:show, :edit, :update, :disable]
   before_action :check_permissions
+
+  def index
+    @profiles = User.all
+  end
+
+  def search
+    string = params[:search_bar]
+    @profiles = User.search(string) if string.present?
+  end
 
   def show
     @can_edit = edit?(@user)
     @groups = @user.groups
-    render '_show.html.erb'
+    @roles = @user.project_roles
+    @search_data = search_data
   end
 
   def edit; end
@@ -20,6 +31,12 @@ class ProfilesController < PermissionController
         format.js { render :edit }
       end
     end
+  end
+
+  def disable
+    return head(200) if @user == current_user
+    @user.active = !@user.active
+    @user.save ? head(200) : head(422)
   end
 
   private
@@ -40,5 +57,15 @@ class ProfilesController < PermissionController
   def set_user
     @user = User.find_by(id: params[:id])
     redirect_to authenticated_root_path, alert: 'User not found.' unless @user
+  end
+
+  def search_data
+    data = {}
+    (Skill.all - @user.skills).each { |s| data[s.name] = nil }
+    data.to_json
+  end
+
+  def check_format
+    head 404 unless request.xhr?
   end
 end

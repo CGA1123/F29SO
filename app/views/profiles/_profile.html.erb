@@ -1,0 +1,13 @@
+<div class="col s6" style="margin: 5px 0px;">
+  <div class='group-user z-depth-2' id='user-<%= profile.id %>' style="display: flex;">
+    <%= render 'users/user', user: profile, avatar: "" %>
+    <% if current_user.permission?('admin.user.disable') %>
+    <div class="row no-margin right switch" style="display: flex; justify-content: center; align-items: center; margin: 0px 10px 0px 0px">
+      <label>
+      <%= check_box_tag '', "1", profile.active, style: 'cursor: pointer;', onchange: "updateDisableStatus(#{profile.id})" %>
+      <span class="lever"></span>
+      </label>
+    </div>
+    <% end %>
+  </div>
+</div>

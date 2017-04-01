@@ -1,2 +1,2 @@
-$('#project-role-user-<%= @project_role_user.id %>').remove();
-$("#flash").empty();
+$('#<%= @project_role.id %>-project-role-user-<%= @project_role_user.id %>').remove();
+$('#<%= @project_role.id %>-manage-project-role-user-<%= @project_role_user.user.id %>').remove();

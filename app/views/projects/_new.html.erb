@@ -1,11 +1,43 @@
-<%= form_for @project, url: projects_path do |f| %>
-  <ul>
-  <% @project.errors.full_messages.each do |msg| %>
-    <li><%= msg %></li>
+<div class="modal-content">
+  <div class="row nor-margin">
+  <%= form_for @project, url: projects_path, remote: true do |f| %>
+    <h4 class='purple-text'>New Project<a href="#!" class="right modal-action modal-close waves-effect waves-grey btn-flat"><i class="material-icons">close</i></a></h4>
+
+    <ul>
+    <% @project.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+    <div class='input-field col s4'>
+      <%= f.text_field :code %>
+      <%= f.label :code %>
+    </div>
+
+    <div class='input-field col s8'>
+      <%= f.text_field :name %>
+      <%= f.label :name %>
+    </div>
+
+    <div class='input-field col s12'>
+      <%= f.collection_select(:project_type_id, ProjectType.all, :id, :name) %>
+    </div>
+
+    <div class='input-field col s12'>
+      <%= f.text_area :description, class: "materialize-textarea" %>
+      <%= f.label :description %>
+    </div>
+
+    <div class="input-field col s6">
+      <%= f.date_field :start_date, min: Date.today %>
+      <%= f.label :start_date, class: 'active' %>
+    </div>
+
+    <div class="input-field col s6">
+      <%= f.date_field :end_date %>
+      <%= f.label :end_date, class: 'active'%>
+    </div>
+
+    <%= f.submit 'Create Project', class: "btn waves-effect waves-light" %>
   <% end %>
-  </ul>
-  <%= f.text_field :code, placeholder: 'Project Code' %>
-  <%= f.text_field :name, placeholder: 'Project Name' %>
-  <%= f.collection_select(:project_type_id, ProjectType.all, :id, :name) %>
-  <%= f.submit 'Create Project' %>
-<% end %>
+  </div>
+</div>

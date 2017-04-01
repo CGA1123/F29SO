@@ -1,0 +1,8 @@
+<%= form_tag project_role_users_search_path(name: project_role.name, code: project_role.project.code), method: :post, remote: true, authenticity_token: true, id: 'search-form' do %>
+  <div class="input-field">
+    <%= text_field_tag :user, '' %>
+    <%= label_tag :user, 'Search User' %>
+  </div>
+<% end %>
+<div id='search_results'>
+</div>

@@ -1,3 +1,71 @@
-<% project_role_users.each do |project_role_user| %>
-  <%= render 'project_role_user', project_role_user: project_role_user %>
+<div class="row no-margin">
+  <% if @can_manage_users %>
+  <a href="#manage-users-<%= project_role.id %>" class='btn-flat center-align manage-button'>Manage Users</a>
+  <% end %>
+  <div id="project-role-users-<%= project_role.id %>" class="project-role-content">
+  <% if project_role.project_role_users.present? %>
+  <% project_role.project_role_users.each do |project_role_user| %>
+    <%= render 'project_role_users/project_role_user', project_role_user: project_role_user %>
+  <% end %>
+  </div>
+  <% end %>
+</div>
+
+<% if @can_manage_users %>
+<div class="modal manage-users" id="manage-users-<%= project_role.id %>">
+  <div class="modal-content">
+    <h4 class="purple-text">User Management: <%= project_role.name.humanize %></h4>
+    <div class="user-management-search">
+      <%= form_tag project_role_users_search_path(code: project_role.project.code, name: project_role.name), method: :post, remote: true do %>
+        <div class="row">
+          <div class="input-field col s8">
+            <%= text_field_tag :user, nil, id: "user-#{project_role.id}" %>
+            <%= label_tag "user-#{project_role.id}", "Name or Email" %>
+          </div>
+          <div class="input-field col s4">
+            <%= select_tag :location, options_for_select(project_role.locations.collect { |l| [l.name.humanize, l.id] }.insert(0, ["All Role Locations", "role"])),
+                                      include_blank: 'Any Location', multiple: true %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col s4">
+            <%= check_box_tag :role, "1", true, class: 'filled-in', id: "role-#{project_role.id}" %>
+            <%= label_tag "role-#{project_role.id}", 'Only users in role' %>
+          </div>
+          <div class="col s5">
+            <%= check_box_tag :project, "1", true, class: 'filled-in table', id: "project-#{project_role.id}" %>
+            <%= label_tag "project-#{project_role.id}", 'Only show users in project' %>
+          </div>
+
+          <div class="col s2">
+            <%= submit_tag 'Search', class: "btn-flat purple left white-text" %>
+          </div>
+
+          <div class="col s6">
+            <%= check_box_tag :skills, "1", false, class: 'filled-in', id: "skills-#{project_role.id}" %>
+            <%= label_tag "skills-#{project_role.id}", 'Only users with relevant skills' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div id="row">
+      <table class="striped highlight">
+        <thead>
+          <th style="width: 75px;">Select All</th>
+          <th>Name</th>
+          <th>Location</th>
+        </thead>
+        <tbody id="user-management-table-<%= project_role.id %>">
+          <% if project_role.users.present? %>
+            <% project_role.users.each do |user| %>
+              <%= render 'project_role_users/user_row', user: user, project_role: project_role %>
+           <% end %>
+          <% else %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 <% end %>

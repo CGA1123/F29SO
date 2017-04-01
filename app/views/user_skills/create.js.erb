@@ -1,0 +1,10 @@
+<% if @user_skill.persisted? %>
+// reset search field
+$('#user_skill_skill_id').val("");
+// modal skill list!
+$('#user_skills_edit').prepend("<%= j render 'user_skills/user_skill_edit', user: @user, user_skill: @user_skill %>");
+// profile skill list!
+$('#user_skills').prepend("<%= j render 'user_skills/user_skill', user_skill: @user_skill %>");
+<% else %>
+console.log('creation failed!!');
+<% end %>

@@ -8,6 +8,7 @@ FactoryGirl.define do
     password_confirmation 'password'
     confirmed_at Time.now.getlocal
     groups { [FactoryGirl.create(:group)] }
+    active true
 
     factory :root_user do
       groups { [FactoryGirl.create(:group, name: 'root')] }
