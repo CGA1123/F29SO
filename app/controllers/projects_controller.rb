@@ -21,7 +21,9 @@ class ProjectsController < PermissionController
                          project: @project,
                          locations: [current_user.location],
                          start_date: @project.start_date,
-                         end_date: @project.end_date)
+                         end_date: @project.end_date,
+                         users: [current_user])
+
       redirect_to project_path(code: @project.code)
     else
       @projects = Project.all
@@ -93,10 +95,11 @@ class ProjectsController < PermissionController
   end
 
   def check_manage(string)
-    current_user.permission?('project.roles.manage',
-                             "projects.roles.manage.#{string}",
-                             "#{@project.id}.projects.roles.manage.#{string}",
-                             "#{@project.id}.projects.roles.manage")
+    @project.owner?(current_user) || \
+      current_user.permission?('project.roles.manage',
+                               "projects.roles.manage.#{string}",
+                               "#{@project.id}.projects.roles.manage.#{string}",
+                               "#{@project.id}.projects.roles.manage")
   end
 
   def skills_data
