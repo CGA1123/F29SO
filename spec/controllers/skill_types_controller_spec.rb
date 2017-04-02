@@ -84,8 +84,6 @@ RSpec.describe SkillTypesController, type: :controller do
         it 'does not delete skill type' do
           expect(SkillType.find_by(id: skill_type.id)).to be_present
         end
-
-        it { expect(response.location).to eq(skill_types_url) }
       end
     end
   end
@@ -137,7 +135,7 @@ RSpec.describe SkillTypesController, type: :controller do
       context 'skill type not found' do
         before { xhr :patch, :update, id: 'breh' }
 
-        it { expect(response).to be_success }
+        it { expect(response.status).to eq(404) }
       end
     end
   end

@@ -1,5 +1,5 @@
 class InvitationsController < PermissionController
-  before_action :check_format
+  before_action :check_format, except: [:accept, :create_user, :index]
   before_action :check_permissions
   before_action :set_invitation, only: [:update, :destroy]
   skip_before_action :authenticate_user!, only: [:accept, :create_user]
@@ -62,7 +62,8 @@ class InvitationsController < PermissionController
   end
 
   def can_delete?(invitation)
-    current_user == invitation.inviter || user.permission?('users.invite.delete')
+    user = current_user
+    user == invitation.inviter || user.permission?('users.invite.delete')
   end
 
   def accept_params

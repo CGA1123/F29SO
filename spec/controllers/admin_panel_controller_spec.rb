@@ -20,18 +20,6 @@ RSpec.describe AdminPanelController, type: :controller do
       end
 
       it { expect(response).to be_success }
-
-      it 'assigns @invitations_count' do
-        expect(assigns[:invitations_count]).to eq(Invitation.count)
-      end
-
-      it 'assigns @project_types_count' do
-        expect(assigns[:project_types_count]).to eq(ProjectType.count)
-      end
-
-      it 'assigns @groups_count' do
-        expect(assigns[:groups_count]).to eq(Group.count)
-      end
     end
   end
 end
