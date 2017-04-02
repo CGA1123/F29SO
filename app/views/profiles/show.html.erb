@@ -44,11 +44,7 @@
               <li class="collection-item project" id="project-<%= project.id %>">
                 <span class="project-name"><%= project.name %></span>
                 <span class="secondary-content badge"><%= project.project_type.name %></span>
-                <p>
-                <% @roles.where(project: project).each do |project_role| %>
-                  <%= project_role.name %><%= ", " unless @roles.last == project_role %>
-                <% end %>
-                </p>
+                <p><%= @roles.where(project: project).map(&:name).join(', ') %></p>
               </li>
             <% end %>
           <% else %>
