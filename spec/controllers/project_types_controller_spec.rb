@@ -77,7 +77,7 @@ RSpec.describe ProjectTypesController, type: :controller do
           expect(ProjectType.find_by(id: project_type.id)).to be_present
         end
 
-        it { expect(response.location).to eq(project_types_url) }
+        it { expect(response.status).to eq(404) }
       end
 
       context 'project type has projects' do
@@ -116,10 +116,6 @@ RSpec.describe ProjectTypesController, type: :controller do
           xhr :patch, :update, id: project_type.id, project_type: { name: 'up' }
         end
 
-        it 'succeeds update' do
-          expect(assigns[:update_success]).to be(true)
-        end
-
         it 'updates' do
           expect(ProjectType.find(project_type.id).name).to eq('up')
         end
@@ -132,10 +128,6 @@ RSpec.describe ProjectTypesController, type: :controller do
 
         it { expect(response).to be_success }
 
-        it 'fails update' do
-          expect(assigns[:update_success]).to be(false)
-        end
-
         it 'does not update' do
           expect(ProjectType.find(project_type.id).name).not_to eq('')
         end
@@ -144,7 +136,7 @@ RSpec.describe ProjectTypesController, type: :controller do
       context 'project type not found' do
         before { xhr :patch, :update, id: 'breh' }
 
-        it { expect(response).to be_success }
+        it { expect(response.status).to eq(404) }
       end
     end
   end

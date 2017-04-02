@@ -40,7 +40,7 @@ RSpec.describe GroupsController, type: :controller do
     context 'User does not have permission' do
       before { sign_in no_permission }
       it_behaves_like 'no permission' do
-        let(:req) { { xhr: "", method: :delete, action: :destroy, params: {} } }
+        let(:req) { { xhr: '', method: :delete, action: :destroy, params: {} } }
       end
     end
 

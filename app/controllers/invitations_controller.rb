@@ -62,7 +62,8 @@ class InvitationsController < PermissionController
   end
 
   def can_delete?(invitation)
-    current_user == invitation.inviter || user.permission?('users.invite.delete')
+    user = current_user
+    user == invitation.inviter || user.permission?('users.invite.delete')
   end
 
   def accept_params
