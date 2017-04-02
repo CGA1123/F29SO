@@ -5,29 +5,6 @@ RSpec.describe ProjectTypesController, type: :controller do
   let(:root_user) { FactoryGirl.create(:root_user) }
   let(:project_type) { FactoryGirl.create(:project_type) }
 
-  describe 'GET #index' do
-    context 'no permission' do
-      before { sign_in no_permission }
-
-      it_behaves_like 'no permission' do
-        let(:req) { { method: :get, action: :index, params: {} } }
-      end
-    end
-
-    context 'has permission' do
-      before do
-        sign_in root_user
-        get :index
-      end
-
-      it { expect(response).to be_success }
-
-      it 'assigns @project_types' do
-        expect(assigns[:project_types]).to eq(ProjectType.all)
-      end
-    end
-  end
-
   describe 'POST #create' do
     context 'no permission' do
       before { sign_in no_permission }
@@ -116,30 +93,6 @@ RSpec.describe ProjectTypesController, type: :controller do
         end
 
         it { expect(response).to render_template('project_types/destroy') }
-      end
-    end
-  end
-
-  describe 'GET #edit' do
-    context 'no permission' do
-      before { sign_in no_permission }
-
-      it_behaves_like 'no permission' do
-        let(:req) do
-          { method: :get, action: :edit, params: { id: 'id' }, xhr: true }
-        end
-      end
-    end
-
-    context 'has permission' do
-      before { sign_in root_user }
-
-      context 'invalid params' do
-        before { xhr :get, :edit, id: 'id' }
-
-        it { expect(response).to be_redirect }
-
-        it { expect(response.location).to eq(project_types_url) }
       end
     end
   end
