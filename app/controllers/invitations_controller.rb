@@ -14,8 +14,7 @@ class InvitationsController < PermissionController
   def create
     @invitation = Invitation.new(invite_params)
     @invitation.inviter = current_user
-
-    redirect_to invitations_path
+    @invitation.invite
   end
 
   def accept
