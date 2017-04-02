@@ -15,9 +15,9 @@ ProjectRoleLocation.create!(location: Location. find_by(name: 'Earth'), project_
 
 
 # Project: Air Traffic Automation
-ProjectRole.create!(name: 'Project Manager', description: 'Manager', project: Project. find_by(name: 'Air Traffic Automation'), start_date: "2017/5/04", end_date: "2019/05/13")
-ProjectRole.create!(name: 'Software Engineer', description: 'Coder', project: Project. find_by(name: 'Air Traffic Automation'), start_date: "2017/5/04", end_date: "2019/03/25")
-ProjectRole.create!(name: 'Data Analyst', description: 'An analyser of data', project: Project. find_by(name: 'Air Traffic Automation'), start_date: "2017/5/04", end_date: "2017/9/21")
+ProjectRole.create!(name: 'Project Manager', description: 'Manager', project: Project. find_by(name: 'Air Traffic Automation'), start_date: "2017/3/18", end_date: "2018/03/18")
+ProjectRole.create!(name: 'Software Engineer', description: 'Coder', project: Project. find_by(name: 'Air Traffic Automation'), start_date: "2017/3/18", end_date: "2018/03/18")
+ProjectRole.create!(name: 'Data Analyst', description: 'An analyser of data', project: Project. find_by(name: 'Air Traffic Automation'), start_date: "2017/3/18", end_date: "2017/9/21")
 ProjectRoleUser.create!(user: User. find_by(email: 'mortyjr@earth-c137.local'), project_role: ProjectRole. find_by(name: 'Data Analyst', project: Project. find_by(name: 'Air Traffic Automation')))
 ProjectRoleUser.create!(user: User. find_by(email: 'bilbo@earth.local'), project_role: ProjectRole. find_by(name: 'Software Engineer', project: Project. find_by(name: 'Air Traffic Automation')))
 ProjectRoleUser.create!(user: User. find_by(email: 'frodo@earth.local'), project_role: ProjectRole. find_by(name: 'Data Analyst', project: Project. find_by(name: 'Air Traffic Automation')))
@@ -27,9 +27,9 @@ ProjectRoleLocation.create!(location: Location. find_by(name: 'Seattle'), projec
 
 
 # Project: Drone Protection
-ProjectRole.create!(name: 'Project Manager', description: 'Manager', project: Project.find_by(name: 'Drone Protection'), start_date: "2017/9/11", end_date: "2018/11/19")
-ProjectRole.create!(name: 'Software Engineer', description: 'Coder', project: Project.find_by(name: 'Drone Protection'), start_date: "2017/9/11", end_date: "2018/11/19")
-ProjectRole.create!(name: 'Data Analyst', description: 'An analyser of data', project: Project.find_by(name: 'Drone Protection'), start_date: "2017/9/11", end_date: "2018/01/10")
+ProjectRole.create!(name: 'Project Manager', description: 'Manager', project: Project.find_by(name: 'Drone Protection'), start_date: "2017/3/18", end_date: "2018/3/18")
+ProjectRole.create!(name: 'Software Engineer', description: 'Coder', project: Project.find_by(name: 'Drone Protection'), start_date: "2017/3/18", end_date: "2018/3/18")
+ProjectRole.create!(name: 'Data Analyst', description: 'An analyser of data', project: Project.find_by(name: 'Drone Protection'), start_date: "2017/3/20", end_date: "2018/01/10")
 ProjectRoleUser.create!(user: User.find_by(email: 'scary@earth-c137.local'), project_role: ProjectRole.find_by(name: 'Software Engineer', project: Project.find_by(name: 'Drone Protection')))
 ProjectRoleUser.create!(user: User.find_by(email: 'douglas@earth-c137.local'), project_role: ProjectRole.find_by(name: 'Software Engineer', project: Project.find_by(name: 'Drone Protection')))
 ProjectRoleUser.create!(user: User.find_by(email: 'vin@earth.local'), project_role: ProjectRole.find_by(name: 'Software Engineer', project: Project.find_by(name: 'Drone Protection')))
