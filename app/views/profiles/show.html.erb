@@ -13,12 +13,14 @@
         <%= user_avatar(@user) %>
       </div>
       <div class="profile-info">
-        <div class="profile-name">
+        <div class="profile-name" style="overflow-x: hidden;">
           <span class="purple-text"><%= @user.name %></span>
         </div>
-        <div class="center-align">
-          <i class="material-icons tooltipped" data-position="bottom" data-delay="0" data-tooltip="<%= @user.email %>">email</i>
-          <i class="material-icons tooltipped" data-position="bottom" data-delay="0" data-tooltip="<%= @user.location.name %>">place</i>
+        <div style="display: flex; justify-content: left; align-items: center; overflow-x: hidden;">
+          <i class="material-icons grey-text tooltipped" style="margin-right: 10px;" data-tooltip="<%= @user.email %>">email</i><%= @user.email %>
+        </div>
+        <div style="display: flex; justify-content: left; align-items: center;">
+          <i class="material-icons grey-text tooltipped" style="margin-right: 10px;" data-tooltip="<%= @user.location.name %>">location_on</i><%= @user.location.name %>
         </div>
         <div class="profile-groups">
           <% @user.groups.each do |group| %>
@@ -26,8 +28,10 @@
           <% end %>
         </div>
       </div>
+      <% if @can_edit_profile %>
+      <span class="card-title purple-text"><a href="#profile-edit-modal"><i class="material-icons right purple-text">mode_edit</i></a></span>
+      <% end %>
     </div>
-    <span class="card-title purple-text"><a href="#profile-edit-modal"><i class="material-icons right purple-text">mode_edit</i></a></span>
   </div>
 
   <div class="col s9">
@@ -55,7 +59,10 @@
     </div>
     <div class="card max-small">
       <div class="card-content">
-        <span class="card-title purple-text">Skills<a href="#skills-edit-modal"><i class="material-icons right purple-text">mode_edit</i></a></span>
+        <span class="card-title purple-text">Skills<a href="#skills-edit-modal">
+        <% if @can_edit_skill %>
+        <i class="material-icons right purple-text">mode_edit</i></a></span>
+        <% end %>
         <ul class="collection user_skills card-small-collection" id="user_skills">
         <% if @user.user_skills.present? %>
           <% @user.user_skills.each do |user_skill| %>
@@ -73,18 +80,20 @@
 <div id="skills-edit-modal" class="modal">
   <div class="modal-content">
     <h4 class="purple-text">Manage Skills<a href="#!" class="right modal-action modal-close grey-text"><i class="material-icons">close</i></a></h4>
-    <div class="new_skill row">
+    <div class="new_skill row" style="margin: auto;">
       <%= form_for UserSkill.new, url: user_skills_path(id: @user.id), remote: true, method: :post do |f|  %>
-        <div class="input-field col s4">
+      <div class="row">
+        <div class="input-field col s5">
           <%= f.label :skill_id, 'Skill' %>
           <%= f.text_field :skill_id %>
         </div>
         <div class="input-field col s4 skill">
           <%= f.select :rating, UserSkill.ratings.keys.map { |r| [r.humanize, r] }, {}, class: 'browser-default' %>
         </div>
-        <div class="input-field col s4 skill">
-          <%= f.submit 'Add Skill', class: 'btn-flat white-text grey' %>
+        <div class="input-field col s3 skill">
+          <%= f.submit 'Add Skill', class: 'btn-flat white-text grey', style: 'width: 100%;' %>
         </div>
+      </div>
       <% end %>
     </div>
     <div class="divider"></div>
@@ -96,26 +105,31 @@
   </div>
 </div>
 
-<div id="profile-edit-modal" class="modal">
+<div id="profile-edit-modal" class="modal" style="min-height: auto;">
   <div class="modal-content">
     <h4 class="purple-text">Edit Profile<a href="#!" class="right modal-action modal-close grey-text"><i class="material-icons">close</i></a></h4>
-    <div class="edit_profile row">
+    <div class="row">
       <%= form_for @user, url: profile_path(id: @user.id), method: :patch do |f| %>
         <ul>
           <% @user.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
           <% end %>
         </ul>
-        <div class="input-field col s4 profile">
-          <%= f.text_field :first_name, placeholder: 'first name' %>
+        <div class="row no-margin">
+          <div class="input-field col s4 profile">
+            <%= f.text_field :first_name%>
+            <%= f.label :first_name, class: 'active' %>
+          </div>
+          <div class="input-field col s4 profile">
+            <%= f.text_field :last_name%>
+            <%= f.label :last_name, class: 'active' %>
+          </div>
+          <div class="input-field col s4 profile">
+            <%= f.collection_select(:location_id, Location.all, :id, :name) %>
+            <%= f.label :last_name, 'Location' %>
+          </div>
         </div>
-        <div class="input-field col s4 profile">
-          <%= f.text_field :last_name, placeholder: 'last name' %>
-        </div>
-        <div class="input-field col s4 profile">
-          <%= f.collection_select(:location_id, Location.all, :id, :name) %>
-        </div>
-        <div class="input-field col s4 profile">
+        <div class="input-field col s3 profile right">
           <%= f.submit 'Update Profile', class: "btn" %>
         </div>
       <% end %>

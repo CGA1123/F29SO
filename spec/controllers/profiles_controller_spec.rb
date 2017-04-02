@@ -38,44 +38,6 @@ RSpec.describe ProfilesController, type: :controller do
           get :show, id: user.id
           expect(assigns['groups']).to eq(user.groups)
         end
-
-        it 'assigns @can_edit on own profile correctly' do
-          get :show, id: user.id
-          expect(assigns['can_edit']).to eq(false)
-        end
-
-        it 'assigns @can_edit on other_user profile correctly' do
-          get :show, id: other_user.id
-          expect(assigns['can_edit']).to eq(false)
-        end
-      end
-
-      context 'with profile.edit permission' do
-        before { user.groups << edit_group }
-
-        it 'assigns @can_edit on own profile correctly' do
-          get :show, id: user.id
-          expect(assigns['can_edit']).to eq(true)
-        end
-
-        it 'assigns @can_edit on other_user profile correctly' do
-          get :show, id: other_user.id
-          expect(assigns['can_edit']).to eq(false)
-        end
-      end
-
-      context 'with profile.edit.others permission' do
-        before { user.groups << edit_others_group }
-
-        it 'assigns @can_edit on own profile correctly' do
-          get :show, id: user.id
-          expect(assigns['can_edit']).to eq(true)
-        end
-
-        it 'assigns @can_edit on other_user profile correctly' do
-          get :show, id: other_user.id
-          expect(assigns['can_edit']).to eq(true)
-        end
       end
     end
 

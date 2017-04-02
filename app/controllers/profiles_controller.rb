@@ -2,6 +2,8 @@ class ProfilesController < PermissionController
   before_action :check_format, only: [:disable]
   before_action :set_user, only: [:show, :edit, :update, :disable]
   before_action :check_permissions
+  before_action :set_can_edit_profile, only: [:show]
+  before_action :set_can_edit_skills, only: [:show]
 
   def index
     @profiles = User.all
@@ -13,7 +15,6 @@ class ProfilesController < PermissionController
   end
 
   def show
-    @can_edit = edit?(@user)
     @groups = @user.groups
     @roles = @user.project_roles
     @search_data = search_data
@@ -45,15 +46,6 @@ class ProfilesController < PermissionController
     params.require(:user).permit(:first_name, :last_name, :location_id)
   end
 
-  # set @can_edit true/false
-  # is true if the user is trying to edit himself AND he has 'profile.edit'
-  # permission, OR if the user has the 'profile.edit.others' permission.
-  def edit?(user)
-    current = current_user
-    (user == current && current.permission?('profile.edit')) ||  \
-      current.permission?('profile.edit.others')
-  end
-
   def set_user
     @user = User.find_by(id: params[:id])
     redirect_to authenticated_root_path, alert: 'User not found.' unless @user
@@ -67,5 +59,22 @@ class ProfilesController < PermissionController
 
   def check_format
     head 404 unless request.xhr?
+  end
+
+  def set_can_edit_profile
+    if (@user == current_user) && current_user.permission?('profile.edit')
+      @can_edit_profile = true
+    else
+      @can_edit_profile = current_user.permission?('profile.edit.others')
+    end
+  end
+
+  def set_can_edit_skills
+    if (@user == current_user) &&
+       current_user.permission?('profile.skills.manage')
+      @can_edit_skill = true
+    else
+      @can_edit_skill = current_user.permission?('profile.skills.manage.others')
+    end
   end
 end
