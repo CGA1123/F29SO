@@ -30,7 +30,7 @@ class SkillsController < PermissionController
   end
 
   def skill_params
-    params.require(:skill).permit(:name, :description, :skill_type_id)
+    params.require(:skill).permit(:name, :skill_type_id)
   end
 
   def check_format

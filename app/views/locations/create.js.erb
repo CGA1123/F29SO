@@ -1,4 +1,4 @@
 <% if @location.persisted? %>
-    $('#le-locations').prepend('<%= j render 'locations/location', location: @location %>')
-    $('select').materialize_select();
+    $('#db-locations').prepend('<%= j render 'locations/location', location: @location %>')
+    $('#locations-counter').html('Locations (<%= Location.count %>)')
 <% end %>

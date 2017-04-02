@@ -1,7 +1,4 @@
 <% if @project_type.destroyed? %>
-  $('#flash').empty();
   $('#project-type-<%= @project_type.id %>').remove();
-  window.location.replace("<%= project_types_path %>");
-<% else %>
-  $('#flash').html("<p id='alert'>Could not delete project type.</p>");
+  $('#project-types-counter').html('Project Types (<%= ProjectType.count %>)')
 <% end %>

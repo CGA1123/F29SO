@@ -1,11 +1,10 @@
 <%= form_tag profile_search_path, method: :post, remote: true, id: 'profile_search_form', onchange: 'profileSearch();' do %>
   <div class="input-field">
     <%= text_field_tag :search_bar, "", onkeyup: 'profileSearch();' %>
-    <%= label_tag :search_bar, 'Search Profiles' %>
+    <%= label_tag :search_bar, 'Search Users' %>
   </div>
 <% end %>
 
 <div class="row" style="max-height: 500px; overflow-y: scroll;">
-  <div id='profiles'>
-  </div>
+  <div id='profiles'></div>
 </div>

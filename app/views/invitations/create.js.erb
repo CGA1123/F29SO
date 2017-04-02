@@ -1,0 +1,4 @@
+<% if @invitation.persisted? %>
+    $('#db-invitations').prepend('<%= j render 'invitations/invitation', invitation: @invitation %>')
+    $('#invitation-counter').html('Pending Invites (<%= Invitation.count %>)')
+<% end %>

@@ -1,0 +1,4 @@
+<% if @group.persisted? %>
+    $('#db-group').prepend('<%= j render 'groups/group', group: @group %>')
+    $('#group-counter').html('Groups (<%= Group.count %>)')
+<% end %>

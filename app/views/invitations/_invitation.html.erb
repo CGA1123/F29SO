@@ -1,12 +1,13 @@
-<div class="card small col s4", id="invitation-<%= invitation.id %>">
+<div class="card small col s4" style="height: 225px;" id="invitation-<%= invitation.id %>">
   <div class="card-content">
     <p class="card-title purple-text tooltipped" data-tooltip="<%= invitation.email %>"><%= invitation.email %></p>
     <p class="grey-text"><%= time_ago_in_words invitation.created_at %> ago</p>
     <p>Invited by <%= link_to invitation.inviter.name, profile_path(id: invitation.inviter.id) %><p>
     <p>Groups: <%= invitation.groups.map { |g| link_to g.name, group_path(g.name) }.join(", ").html_safe %></p>
+
     <div class="card-action right-align">
-      <%= link_to invitations_path(id: invitation.id), method: :delete, remote: true do %>
-        <i class="material-icons purple-text tooltipped" data-position="bottom"data-delay="50" data-tooltip="Delete Invitation">delete_forever</i>
+      <%= link_to invitations_path(id: invitation.id), method: :delete, remote: true, style: 'margin: 0px;' do %>
+        <i class="material-icons purple-text" data-position="bottom" data-delay="50">delete_forever</i>
       <% end %>
     </div>
   </div>

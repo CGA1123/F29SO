@@ -1,14 +1,15 @@
-<%= form_for ProjectType.new, url: project_types_path, method: :post, remote: true do |f| %>
-<ul id="project-type-errors"></ul>
-<div class="input-field">
-  <%= f.text_field :name %>
-  <%= f.label :name %>
-</div>
+<%= form_for SkillType.new, url: skill_types_path, method: :post, remote: true do |f| %>
 <div class="row" style="display: flex;">
-  <div class="input-field col s9">
+  <div class="input-field col s3">
+    <%= f.text_field :name %>
+    <%= f.label :name %>
+  </div>
+
+  <div class="input-field col s6">
     <%= f.text_field :description %>
     <%= f.label :description %>
   </div>
+
   <div class="col s3" style="display: flex; justify-content: center; align-items: center;">
     <button class="btn waves-effect waves-light" style="width: 100%" type="submit" name="action">Create</button>
   </div>
