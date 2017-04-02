@@ -1,6 +1,6 @@
 <div class="col s6" style="margin: 5px 0px;">
   <div class='group-user z-depth-2' id='user-<%= profile.id %>' style="display: flex;">
-    <div onclick="Turbolinks.visit('<%= profile_path(id: profile.id) %>')" style="cursor: pointer;">
+    <div onclick="Turbolinks.visit('<%= profile_path(id: profile.id) %>')" style="cursor: pointer; width: 100%;">
       <%= render 'users/user', user: profile, avatar: "" %>
     </div>
     <% if current_user.permission?('admin.user.disable') %>
