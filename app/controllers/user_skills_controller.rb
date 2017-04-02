@@ -6,9 +6,10 @@ class UserSkillsController < PermissionController
   before_action :set_user_skill, only: [:destroy, :edit, :update]
 
   def create
+    name = params[:user_skill][:skill_id].downcase
     @user_skill = UserSkill.new(
       user: @user,
-      skill: Skill.find_by(name: params[:user_skill][:skill_id]),
+      skill: Skill.where('lower(name) = ?', name).first,
       rating: params[:user_skill][:rating].to_sym
     )
     @user_skill.save

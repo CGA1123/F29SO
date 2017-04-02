@@ -35,7 +35,7 @@ class ProjectRoleSkillsController < PermissionController
   end
 
   def set_skill
-    @skill = Skill.find_by(name: params[:skill])
+    @skill = Skill.where('lower(name) = ?', params[:skill].downcase).first
     head(404) unless @skill
   end
 

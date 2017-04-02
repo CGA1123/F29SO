@@ -1,5 +1,0 @@
-<% results.each do |user| %>
-  <%= link_to project_role_users_path(code: project_role.project.code, name: project_role.name, id: user.id), method: :post, remote: true do %>
-    <p><%= user.name %></p>
-  <% end %>
-<% end %>

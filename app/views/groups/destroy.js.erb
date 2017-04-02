@@ -1,0 +1,4 @@
+<% if @group.destroyed? %>
+  $('#group-<%= @group.id %>').remove();
+  $('#groups-counter').html('Groups (<%= Group.count %>)')
+<% end %>

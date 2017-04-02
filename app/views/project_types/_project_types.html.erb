@@ -1,0 +1,21 @@
+<%= form_for ProjectType.new, url: project_types_path, method: :post, remote: true do |f| %>
+<div class="row" style="display: flex;">
+  <div class="input-field col s3">
+    <%= f.text_field :name %>
+    <%= f.label :name %>
+  </div>
+
+  <div class="input-field col s7">
+    <%= f.text_field :description %>
+    <%= f.label :description %>
+  </div>
+
+  <div class="col s2" style="display: flex; justify-content: center; align-items: center;">
+    <button class="btn waves-effect waves-light" style="width: 100%" type="submit" name="action">Create</button>
+  </div>
+</div>
+<% end %>
+
+<div class="row" style="max-height: 500px; overflow-y: auto;" id="db-project-types">
+  <%= render ProjectType.all.sort_by(&:name) %>
+</div>

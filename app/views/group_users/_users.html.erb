@@ -1,7 +1,9 @@
 <% group_users.each do |user| %>
   <div class="col s6" style="margin: 5px 0px;" id='group-user-<%= user.id %>'>
     <div class='group-user z-depth-2' style="display: flex;">
-      <%= render 'users/user', user: user.user %>
+      <div onclick="Turbolinks.visit('<%= profile_path(id: user.id) %>')" style="cursor: pointer; width: 100%;">
+        <%= render 'users/user', user: user.user %>
+      </div>
       <div class="row no-margin right" style="display: flex; justify-content: center; align-items: center; margin: 0px 10px 0px 0px;">
         <%= link_to group_users_path(name: user.group.name, id: user.id), method: :delete, remote: true do %>
         <i class="material-icons purple-text tooltipped" data-position="bottom" data-delay="50" data-tooltip="Remove User">delete</i>

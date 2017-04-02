@@ -1,0 +1,4 @@
+<% if @invitation.destroyed? %>
+  $('#invitation-<%= @invitation.id %>').remove();
+  $('#invitations-counter').html('Pending Invites (<%= Invitation.count %>)')
+<% end %>

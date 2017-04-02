@@ -38,8 +38,6 @@ RSpec.describe InvitationsController, type: :controller do
         end
       end
 
-# rubocop:disable Style/BlockComments, Style/InlineComment
-=begin
       context 'parameters valid' do
         it 'invites new user' do
           expect { xhr :post, :create, valid_params }
@@ -50,14 +48,14 @@ RSpec.describe InvitationsController, type: :controller do
           expect { xhr :post, :create, valid_params }
             .to have_enqueued_job.on_queue('mailers')
         end
-
       end
     end
 
     context 'user without users.invite permission' do
       it 'throws 404' do
         sign_in no_permission
-        expect { post :create }.to raise_error(ActionController::RoutingError)
+        expect { xhr :post, :create }
+          .to raise_error(ActionController::RoutingError)
       end
     end
 
@@ -66,7 +64,7 @@ RSpec.describe InvitationsController, type: :controller do
         sign_in no_permission
 
         group.permissions << [users_invite]
-        expect { post :create, valid_params }
+        expect { xhr :post, :create, valid_params }
           .to change { Invitation.count }.by(0)
       end
     end
@@ -76,13 +74,11 @@ RSpec.describe InvitationsController, type: :controller do
         sign_in no_permission
 
         group.permissions << [users_invite, group_invite]
-        expect { post :create, valid_params }
+        expect { xhr :post, :create, valid_params }
           .to change { Invitation.count }.by(1)
       end
-=end
     end
   end
-  # rubocop:enable Style/BlockComments, Style/InlineComment
 
   describe 'GET #accept' do
     context 'user is logged in' do
@@ -123,14 +119,6 @@ RSpec.describe InvitationsController, type: :controller do
   end
 
   describe 'POST #create_user' do
-    context 'user signed in' do
-      it do
-        sign_in root
-        post :create_user
-        expect(response).to redirect_to(unauthenticated_root_path)
-      end
-    end
-
     context 'user is not signed in' do
       context 'token is invalid/empty' do
         it do
@@ -192,13 +180,6 @@ RSpec.describe InvitationsController, type: :controller do
       let(:in_group) { FactoryGirl.create(:group, permissions: [users_invite]) }
       let(:user) { FactoryGirl.create(:user, groups: [in_group]) }
 
-      #      context 'w/ only users.invite permission' do
-      #        before do
-      #          sign_in user
-      #          xhr :delete, :destroy, id: invitation.id
-      #        end
-      #      end
-
       context 'w/ users.invite.delete' do
         let(:invite_delete) do
           FactoryGirl.create(:permission, name: 'users.invite.delete')
@@ -207,10 +188,6 @@ RSpec.describe InvitationsController, type: :controller do
         before do
           in_group.permissions << invite_delete
           sign_in user
-        end
-
-        it do
-          xhr :delete, :destroy, id: invitation.id
         end
 
         it 'sets @invitation' do
@@ -244,6 +221,10 @@ RSpec.describe InvitationsController, type: :controller do
 
       it 'assigns @invitations' do
         expect(assigns[:invitations]).to eq(Invitation.all)
+      end
+
+      it 'assigns @invitation' do
+        expect(assigns[:invitation]).not_to be_nil
       end
     end
   end

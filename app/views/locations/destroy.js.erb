@@ -1,3 +1,4 @@
 <% if @location.destroyed? %>
   $('#location-<%= @location.id %>').remove();
+  $('#locations-counter').html('Locations (<%= Location.count %>)')
 <% end %>

@@ -3,14 +3,14 @@ class LocationsController < PermissionController
   before_action :check_permissions
   before_action :set_location, only: [:update, :destroy]
 
-  def update
-    @location.update(location_params)
-    @location.reload
-  end
-
   def create
     @location = Location.new(location_params)
     @location.save
+  end
+
+  def update
+    @location.update(location_params)
+    @location.reload
   end
 
   def destroy

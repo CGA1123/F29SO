@@ -21,13 +21,12 @@ class PermissionController < ApplicationController
     when 'show'
       redirect_to projects_path, alert: 'You cannot do that.' unless @project.users.include?(current_user) || current_user.permission?('projects.view', "#{@project.id}.projects.view")
     when 'destroy'
-      redirect_to projects_path, alert: 'You cannot do that.' unless \
-        current_user.permission?('projects.delete',
-                                 "#{@project.id}.projects.delete")
+      redirect_to projects_path, alert: 'You cannot do that.' unless @project.owner?(current_user) || current_user.permission?('projects.delete', "#{@project.id}.projects.delete")
     end
   end
 
   def check_project_roles
+    return if @project.owner?(current_user)
     case action_name
     when 'create', 'destroy'
       not_found unless \
@@ -37,6 +36,7 @@ class PermissionController < ApplicationController
   end
 
   def check_project_role_users
+    return if @project.owner?(current_user)
     case action_name
     when 'create', 'destroy', 'search'
       not_found unless \
@@ -46,6 +46,7 @@ class PermissionController < ApplicationController
   end
 
   def check_project_role_locations
+    return if @project.owner?(current_user)
     case action_name
     when 'index'
       not_found unless current_user.permission?('projects.view',
@@ -60,6 +61,7 @@ class PermissionController < ApplicationController
   end
 
   def check_project_role_permissions
+    return if @project.owner?(current_user)
     case action_name
     when 'create', 'destroy'
       id = @project.id
@@ -72,6 +74,7 @@ class PermissionController < ApplicationController
   end
 
   def check_project_role_skills
+    return if @project.owner?(current_user)
     case action_name
     when 'create', 'destroy', 'edit', 'update'
       not_found unless \
@@ -115,7 +118,7 @@ class PermissionController < ApplicationController
   def check_profiles
     case action_name
     when 'edit', 'update'
-      redirect_to profile_path(@user), alert: 'Nope...' unless edit?(@user)
+      redirect_to profile_path(@user), alert: 'Nope...' unless @can_edit_profile
     when 'disable'
       head(404) unless current_user.permission?('admin.users.disable')
     end

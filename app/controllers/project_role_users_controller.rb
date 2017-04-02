@@ -21,25 +21,42 @@ class ProjectRoleUsersController < PermissionController
   def search
     name = params[:user]
     if !params[:location].present? || params[:location].include?('')
-      locations = Location.all
+      users = User.all
     elsif params[:location].include?('role')
-      locations = @project_role.locations
+      users = User.where(location: @project_role.locations)
     else
       ids = params[:location].map(&:to_i)
-      locations = @project_role.locations & Location.where(id: ids)
+      users = User.where(location_id: ids)
     end
 
-    users = User.where(location: locations)
     users &= @project.users if params[:project].present?
     users &= @project_role.users if params[:role].present?
     users = users.search(name) unless name.blank?
 
     if params[:skills].present?
       skills = @project_role.skills
-      users = UserSkill.where(user: users, skill: skills).map(&:user)
+
+      # get list of users that possess each skill
+      user_ranking = {}
+      users.each do |user|
+        # if no skills have been specified in the project role,
+        # rank users based on all the skills they have, else rank them on
+        # the relevant skills
+        skills = skills.present? ? skills : user.skills
+        intersection = UserSkill.where(user: user, skill: skills)
+
+        # magically rank them
+        user_ranking[user] = rank(intersection) unless intersection.empty?
+      end
+
+      # sort by rank (magic also)
+      ranks = user_ranking.keys.sort_by { |id| -user_ranking[id] }
+
+      @users = ranks
     end
 
-    @users = users
+    @ranks = user_ranking
+    @users ||= users
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -62,6 +79,15 @@ class ProjectRoleUsersController < PermissionController
     @project_role_user = ProjectRoleUser.find_by(project_role: @project_role,
                                                  user_id: params[:id])
     head(404) unless @project_role_user
+  end
+
+  def rank(skills)
+    rank = skills.count
+    skills.each do |skill|
+      # placeholder. Need to work out the best way to factor in skill rating
+      rank += (skill[:rating] + 1)
+    end
+    rank
   end
 
   def set_user

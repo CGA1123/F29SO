@@ -1,10 +1,10 @@
 class InvitationsController < PermissionController
+  before_action :check_format, except: [:accept, :create_user, :index]
   before_action :check_permissions
-
+  before_action :set_invitation, only: [:update, :destroy]
   skip_before_action :authenticate_user!, only: [:accept, :create_user]
   before_action :unauthenticated_only, only: [:accept, :create_user]
   before_action :verify_token, only: [:accept, :create_user]
-  before_action :set_can_manage, only: [:index]
 
   def index
     @invitations = Invitation.all
@@ -14,8 +14,16 @@ class InvitationsController < PermissionController
   def create
     @invitation = Invitation.new(invite_params)
     @invitation.inviter = current_user
+    @invitation.invite
+  end
 
-    redirect_to invitations_path
+  def update
+    @invitation.update(invite_params)
+    @invitation.reload
+  end
+
+  def destroy
+    @invitation.destroy if can_delete?(@invitation)
   end
 
   def accept
@@ -36,27 +44,26 @@ class InvitationsController < PermissionController
     end
   end
 
-  def destroy
-    @invitation = Invitation.find_by(id: params[:id])
-
-    @invitation.destroy if @invitation.present? && can_delete?(@invitation)
-
-    redirect_to invitations_path
-  end
-
   private
 
-  # invite_params returns the parameters used to create the new invited user.
   def invite_params
     permitted_params = params.require(:invitation).permit(:email, groups: [])
-
-    # The params hash sent through the HTTP POST request contains an array of
-    # integers, relating to the ID of the groups, this method maps those IDs
-    # to the actual Group object. (This is necessary for the relationship
-    # between Group & User to work)
     permitted_params[:groups] = Group.where(id: permitted_params[:groups])
-
     permitted_params
+  end
+
+  def set_invitation
+    @invitation = Invitation.find_by(id: params[:id])
+    head(404) unless @invitation
+  end
+
+  def check_format
+    not_found unless request.xhr?
+  end
+
+  def can_delete?(invitation)
+    user = current_user
+    user == invitation.inviter || user.permission?('users.invite.delete')
   end
 
   def accept_params
@@ -75,14 +82,5 @@ class InvitationsController < PermissionController
     return if @invitation
     redirect_to unauthenticated_root_path,
                 notice: 'Your invitation token is invalid'
-  end
-
-  def can_delete?(invitation)
-    user = current_user
-    user == invitation.inviter || user.permission?('users.invite.delete')
-  end
-
-  def set_can_manage
-    @can_manage = current_user.permission?('users.invite')
   end
 end

@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="tabs-vertical">
+    <div class="col s3">
+      <ul class="tabs" id="skill-type-tabs">
+        <li class="tab">
+          <a href="#new-skill-type"><i class="material-icons purple-text right" style="display: flex; height: 100%; justify-content: center; align-items: center;">add</i>Add Skill Type</a>
+        </li>
+        <% SkillType.all.each do |skill_type| %>
+        <li class="tab" id="skill-type-tab-<%= skill_type.id %>">
+          <a href="#skill-type-<%= skill_type.id %>"><%= skill_type.name %></a>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="col s9" id="skill-type-content">
+      <div class="tab-content" id="new-skill-type">
+        <%= render 'skills/new_type' %>
+      </div>
+      <% SkillType.all.each do |skill_type| %>
+      <%= render 'skills/skills', skill_type: skill_type %>
+      <% end %>
+    </div>
+  </div>
+</div>

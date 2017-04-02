@@ -1,18 +1,22 @@
-<div class="skill-type" id="skill-type-<%= skill_type.id %>">
-  <%= form_for skill_type, url: skill_types_path(id: skill_type.id), method: :patch, remote: true, html: { class: 'row no-margin' } do |f| %>
-    <div class="input-field col s4">
+<div class="row no-margin" id="skill-type-manage-<%= skill_type.id %>">
+  <%= form_for skill_type, url: skill_types_path(id: skill_type.id), method: :patch, remote: true do |f| %>
+  <div class="row no-margin" style="display: flex;">
+    <div class="input-field col s3">
       <%= f.text_field :name %>
+      <%= f.label :name, class: 'active' %>
     </div>
-    <div class="input-field col s4">
+
+    <div class="input-field col s7">
       <%= f.text_field :description %>
+      <%= f.label :description, class: 'active' %>
     </div>
-    <div class="input-field col s2">
-      <%= f.submit 'Update', class: 'btn-flat', style: 'height: 45px;' %>
-    </div>
-    <div class="input-field col s2" style="height: 45px;">
-      <%= link_to skill_types_path(id: skill_type.id), method: :delete, remote: true do %>
-        <i class="material-icons purple-text">delete</i>
+
+    <div class="col s3" style="display: flex; justify-content: center; align-items: center;">
+      <button class="btn waves-effect waves-light" style="width: 100%" type="submit" name="action">Update</button>
+      <%= link_to skill_types_path(id: skill_type.id), method: :delete, remote: true, style: 'margin-left: 30px;' do %>
+        <i class="material-icons <%= skill_type.skills.any? ? 'grey-text' : 'purple-text' %>">delete</i>
       <% end %>
     </div>
+  </div>
   <% end %>
 </div>

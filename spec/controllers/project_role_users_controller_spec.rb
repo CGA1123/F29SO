@@ -117,6 +117,22 @@ RSpec.describe ProjectRoleUsersController, type: :controller do
     end
   end
 
+  describe 'POST match' do
+    context 'no permission' do
+      before { sign_in no_permission }
+      it_behaves_like 'no permission' do
+        let(:req) do
+          { method: :post,
+            action: :search,
+            params: { code: project.code,
+                      name: project_role.name,
+                      user: no_permission.first_name },
+            xhr: true }
+        end
+      end
+    end
+  end
+
   describe 'POST #search' do
     context 'no permission' do
       before { sign_in no_permission }
