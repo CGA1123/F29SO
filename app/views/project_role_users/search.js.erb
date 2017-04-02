@@ -3,6 +3,6 @@
 <% else %>
   $('tbody#user-management-table-<%= @project_role.id %>').empty();
   <% @users.each do |user| %>
-  $('tbody#user-management-table-<%= @project_role.id %>').append("<%= j render 'project_role_users/user_row', user: user, project_role: @project_role, rank: @ranks.present? ? @ranks[user.id] : '' %>");
+  $('tbody#user-management-table-<%= @project_role.id %>').append("<%= j render 'project_role_users/user_row', user: user, project_role: @project_role, rank: @ranks.present? ? @ranks[user] : '' %>");
   <% end %>
 <% end %>

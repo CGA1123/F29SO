@@ -46,18 +46,17 @@ class ProjectRoleUsersController < PermissionController
         intersection = UserSkill.where(user: user, skill: skills)
 
         # magically rank them
-        user_ranking[user.id] = rank(intersection) unless intersection.empty?
+        user_ranking[user] = rank(intersection) unless intersection.empty?
       end
 
       # sort by rank (magic also)
       ranks = user_ranking.keys.sort_by { |id| -user_ranking[id] }
-      users = []
-      ranks.each do |id|
-        users << User.find(id)
-      end
+
+      @users = ranks
     end
+
     @ranks = user_ranking
-    @users = users
+    @users ||= users
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
