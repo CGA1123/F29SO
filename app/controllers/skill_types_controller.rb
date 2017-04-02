@@ -14,8 +14,7 @@ class SkillTypesController < PermissionController
   end
 
   def destroy
-    @skill_type.skills.delete_all
-    @skill_type.destroy
+    @skill_type.destroy unless @skill_type.skills.any?
   end
 
   private
