@@ -33,6 +33,26 @@ class ProjectRoleUsersController < PermissionController
     users &= @project_role.users if params[:role].present?
     users = users.search(name) unless name.blank?
 
+    role_start = @project_role.project.start_date
+    role_end = @project_role.project.end_date
+
+    availability = []
+    users.each do |user|
+      user.projects.each do |project|
+        if (project.start_date < role_start)
+          if (project.end_date > role_start)
+            break
+          end
+        else
+          if (project.start_date < role_end)
+            break
+          end
+        end
+        availability << user
+      end
+    end
+    users = availability;
+
     if params[:skills].present?
       skills = @project_role.skills
 
