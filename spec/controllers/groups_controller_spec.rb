@@ -10,7 +10,7 @@ RSpec.describe GroupsController, type: :controller do
       before { sign_in no_permission }
       it_behaves_like 'no permission' do
         let(:req) do
-          { xhr: true, method: :get, action: :show, params: { name: 'lel'} }
+          { xhr: true, method: :get, action: :show, params: { name: 'lel' } }
         end
       end
     end
