@@ -9,7 +9,7 @@ RSpec.describe GroupsController, type: :controller do
     context 'User does not have permission' do
       before { sign_in no_permission }
       it_behaves_like 'no permission' do
-        let(:req) { { xhr: true, method: :get, action: :index, params: {} } }
+        let(:req) { { xhr: true, method: :get, action: :show, params: {} } }
       end
     end
 
@@ -27,11 +27,7 @@ RSpec.describe GroupsController, type: :controller do
 
       context 'group does not exist' do
         before { xhr :get, :show, name: 'doesnt_exist' }
-        it { expect(response).to redirect_to(groups_path) }
-
-        it 'sets alert' do
-          expect(flash[:alert]).to eq('Group not found')
-        end
+        it { expect(response.status).to eq(404) }
       end
     end
   end
@@ -51,28 +47,12 @@ RSpec.describe GroupsController, type: :controller do
           expect { xhr :delete, :destroy, name: group.name }
             .to change(Group, :count).by(-1)
         end
-
-        it do
-          xhr :delete, :destroy, name: group.name
-          expect(response).to redirect_to(groups_path)
-        end
       end
 
       context 'deleting root group' do
         it 'does not deletes the Group' do
           expect { xhr :delete, :destroy, name: 'root' }
             .not_to change(Group, :count)
-        end
-
-        it do
-          xhr :delete, :destroy, name: 'root'
-          expect(response).to redirect_to(groups_path)
-        end
-
-        it 'sets alert' do
-          xhr :delete, :destroy, name: 'root'
-          expect(flash[:alert])
-            .to eq("You're not allowed to delete the root group.")
         end
       end
     end
