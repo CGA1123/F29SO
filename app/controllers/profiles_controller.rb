@@ -1,9 +1,9 @@
 class ProfilesController < PermissionController
   before_action :check_format, only: [:disable]
   before_action :set_user, only: [:show, :edit, :update, :disable]
-  before_action :check_permissions
-  before_action :set_can_edit_profile, only: [:show]
+  before_action :set_can_edit_profile, only: [:show, :edit, :update]
   before_action :set_can_edit_skills, only: [:show]
+  before_action :check_permissions
 
   def index
     @profiles = User.all

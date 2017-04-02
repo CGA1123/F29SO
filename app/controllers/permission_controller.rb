@@ -118,7 +118,7 @@ class PermissionController < ApplicationController
   def check_profiles
     case action_name
     when 'edit', 'update'
-      redirect_to profile_path(@user), alert: 'Nope...' unless set_can_edit_profile.instance_variable_get(:@can_edit_profile)
+      redirect_to profile_path(@user), alert: 'Nope...' unless @can_edit_profile
     when 'disable'
       head(404) unless current_user.permission?('admin.users.disable')
     end
