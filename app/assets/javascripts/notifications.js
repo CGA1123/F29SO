@@ -1,9 +1,5 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-var toggle_notification = function() {
-  $('#notification-dropdown').toggle();
-}
-
 var getNotifications = function () {
   if($('#notifications-dropdown').length) {
     $.ajax({
@@ -21,7 +17,7 @@ var showNotifications = function(data) {
   notification_menu.empty();
   for(var i = 0; i < l; i++) {
     notification = data[i];
-    notification_html = '<a href=' + notification['url'] + '>' + notification['message'] + '</a>'
+    notification_html = '<a href=' + notification['url'] + ' onclick="notificationRead(' + notification['id'] + ')" class="purple-text text-darken-2">' + notification['message'] + '</a>'
     notification_menu.append(notification_html);
   }
 
@@ -29,6 +25,14 @@ var showNotifications = function(data) {
     notification_html = "<span class='purple-text text-darken-2'>No New Notifications</span>";
     notification_menu.append(notification_html);
   }
+};
+
+var notificationRead = function(id) {
+  $.ajax({
+    method: 'POST',
+    url: '/notifications.js',
+    data: { id: id }
+  });
 };
 
 // call getNotifications() on document ready (through turbolinks)

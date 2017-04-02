@@ -118,5 +118,5 @@ Rails.application.routes.draw do
 
   # NotificationsController Routes
   get 'notifications', to: 'notifications#index', as: :notifications
-  patch 'notifications', to: 'notifications#mark_as_read'
+  post 'notifications', to: 'notifications#mark_as_read'
 end

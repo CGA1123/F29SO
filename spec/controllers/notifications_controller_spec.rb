@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe NotificationsController, type: :controller do
   let(:no_permission) { FactoryGirl.create(:user) }
+  let(:n) do
+    FactoryGirl.create(:notification, recipient: no_permission,
+                                      action: 'system_announcement')
+  end
 
   before { sign_in no_permission }
 
@@ -18,19 +22,17 @@ RSpec.describe NotificationsController, type: :controller do
 
   describe 'PATCH #mark_as_read' do
     before do
-      FactoryGirl.create(:notification)
-      patch :mark_as_read, format: :json
+      patch :mark_as_read, format: :json, id: n.id
     end
 
     it { expect(response).to be_success }
 
     it 'sets all notifications to read' do
-      expect(Notification.where(recipient: no_permission).unread).to be_empty
+      expect(Notification.find(n.id).read_at).not_to be_nil
     end
 
-    it 'sets @notifications' do
-      expect(assigns[:notifications]).to \
-        eq(Notification.where(recipient: no_permission, read_at: nil))
+    it 'sets @notification' do
+      expect(assigns[:notification]).not_to be_nil
     end
   end
 end
