@@ -55,10 +55,11 @@
     </div>
     <div class="card max-small">
       <div class="card-content">
-        <span class="card-title purple-text">Skills<a href="#skills-edit-modal">
+        <span class="card-title purple-text">Skills
         <% if @can_edit_skill %>
-        <i class="material-icons right purple-text">mode_edit</i></a></span>
+          <a href="#skills-edit-modal"><i class="material-icons right purple-text">mode_edit</i></a>
         <% end %>
+        </span>
         <ul class="collection user_skills card-small-collection" id="user_skills">
         <% if @user.user_skills.present? %>
           <% @user.user_skills.each do |user_skill| %>
