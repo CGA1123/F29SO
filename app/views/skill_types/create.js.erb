@@ -1,3 +1,6 @@
 <% if @skill_type.persisted? %>
-    $('#skill-type-tabs').append('<li class="tab"><a href="#new-skill-type"><%= @skill_type.name %></a></li>')
+  $('#db-skill-types').prepend('<%= j render 'skill_types/skill_type', skill_type: @skill_type %>')
+  $('#skill-type-tabs').append('<li class="tab" id="skill-type-tab-<%= @skill_type.id %>"><a href="#skill-type-<%= @skill_type.id %>"><%= @skill_type.name %></a></li>')
+  $('#skill-type-content').prepend('<%= j render 'skills/skills', skill_type: @skill_type %>')
+  $('#skill-type-<%= @skill_type.id %>').css('display','none')
 <% end %>

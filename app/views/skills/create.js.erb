@@ -1,4 +1,3 @@
 <% if @skill.persisted? %>
-  $('#db-skills-<%= @skill.skill_type %>').prepend('<%= j render 'skills/skill', skill: @skill %>');
-  $('select').material_select();
+  $('#db-skills-<%= @skill.skill_type.id %>').prepend('<%= j render 'skills/skill', skill: @skill %>');
 <% end %>

@@ -1,14 +1,9 @@
 <div class="row no-margin" id="skill-<%= skill.id %>">
   <%= form_for skill, url: skills_path(id: skill.id), method: :patch, remote: true do |f| %>
   <div class="row no-margin" style="display: flex;">
-    <div class="input-field col s4">
+    <div class="input-field col s9">
       <%= f.text_field :name %>
       <%= f.label :name, class: 'active' %>
-    </div>
-
-    <div class="input-field col s5">
-      <%= f.select :skill_type, options_for_select(SkillType.all.collect { |s| [s.name, s.id]}, skill.skill_type.id),{}, id: "skill_skill_type_id_#{skill.id}" %>
-      <%= f.label :skill_type, 'Search Users' %>
     </div>
 
     <div class="col s2" style="display: flex; justify-content: center; align-items: center;">

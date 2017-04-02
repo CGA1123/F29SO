@@ -15,3 +15,7 @@
   </div>
 </div>
 <% end %>
+
+<div class="row" style="max-height: 500px; overflow-y: auto;" id="db-skill-types">
+  <%= render SkillType.all.sort_by(&:name) %>
+</div>
