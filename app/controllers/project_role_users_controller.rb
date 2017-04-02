@@ -6,10 +6,6 @@ class ProjectRoleUsersController < PermissionController
   before_action :set_project_role_user, only: [:destroy]
   before_action :set_user, only: [:create]
 
-  def index
-    @project_role_users = ProjectRoleUser.where(project_role: @project_role)
-  end
-
   def create
     @project_role_user =
       ProjectRoleUser.new(user: @user, project_role: @project_role)
@@ -47,11 +43,8 @@ class ProjectRoleUsersController < PermissionController
         # if no skills have been specified in the project role,
         # rank users based on all the skills they have, else rank them on
         # the relevant skills
-        if skills.present?
-          intersection = UserSkill.where(user: user, skill: skills)
-        else
-          intersection = UserSkill.where(user: user, skill: user.skills)
-        end
+        skills = skills.present? ? skills : user.skills
+        intersection = UserSkill.where(user: user, skill: skills)
 
         # magically rank them
         user_ranking[user.id] = rank(intersection) unless intersection.empty?
@@ -64,7 +57,7 @@ class ProjectRoleUsersController < PermissionController
         users << User.find(id)
       end
     end
-
+    @ranks = user_ranking
     @users = users
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -94,7 +87,7 @@ class ProjectRoleUsersController < PermissionController
     rank = skills.count
     skills.each do |skill|
       # placeholder. Need to work out the best way to factor in skill rating
-      rank += (skill[:rating] + 1) / 5
+      rank += (skill[:rating] + 1)
     end
     rank
   end
