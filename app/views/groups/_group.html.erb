@@ -4,9 +4,7 @@
     <p><%= group.description %><p>
   </div>
   <div class="card-action right-align">
-    <%= link_to groups_path(id: group.id), method: :get, remote: true do %>
-      <i class="material-icons purple-text" data-position="bottom" data-delay="50">edit</i>
-    <% end %>
+    <i class="material-icons purple-text" data-position="bottom" data-delay="50" onclick="Turbolinks.visit('<%= group_path(name: group.name) %>')" style="cursor: pointer; margin-right: 15px;">edit</i>
     <%= link_to groups_path(id: group.id), method: :delete, remote: true, style: 'margin: 0px;' do %>
       <i class="material-icons purple-text" data-position="bottom" data-delay="50">delete_forever</i>
     <% end %>
