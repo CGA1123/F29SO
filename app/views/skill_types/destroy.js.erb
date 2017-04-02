@@ -1,0 +1,4 @@
+<% if @skill_type.destroyed? %>
+  $('#skill-type-tab-<%= @skill_type.id %>').remove();
+  $('#skill-type-manage-<%= @skill_type.id %>').remove();
+<% end %>

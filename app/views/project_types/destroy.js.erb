@@ -1,4 +1,3 @@
 <% if @project_type.destroyed? %>
   $('#project-type-<%= @project_type.id %>').remove();
-  $('#project-types-counter').html('Project Types (<%= ProjectType.count %>)')
 <% end %>
