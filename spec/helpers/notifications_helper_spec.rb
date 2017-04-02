@@ -1,29 +1,19 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the NotificationsHelper. For example:
-#
-# describe NotificationsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe NotificationsHelper, type: :helper do
-  let(:notification) { FactoryGirl.create(:notification) }
+  let(:notification) do
+    FactoryGirl.create(:notification, action: 'system_announcement')
+  end
 
   describe '#notification_path_helper' do
-    it 'returns nil' do
-      expect(notification_path_helper(notification)).to be_nil
+    it 'returns a path' do
+      expect(notification_path_helper(notification)).not_to be_nil
     end
   end
 
   describe '#notification_message_helper' do
-    it 'is not yet implemented' do
-      expect(notification_message_helper(notification))
-        .to eq 'Not yet implemented. ' \
-               'See NotificationsHelper#notification_message_helper'
+    it 'not nil' do
+      expect(notification_message_helper(notification)).not_to be_nil
     end
   end
 end
