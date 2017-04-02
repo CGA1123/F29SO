@@ -8,6 +8,13 @@ class ProjectRolesController < PermissionController
     @project_role = ProjectRole.new(project_role_params)
     @project_role.project = @project
     @project_roles = ProjectRole.where(project: @project)
+    @can_manage_permissions = check_manage('permissions')
+    @can_manage_users = check_manage('users')
+    @can_manage_skills = check_manage('skills')
+    @can_manage_locations = check_manage('locations')
+    @skills_data = skills_data
+    @locations_data = locations_data
+
     @project_role.save
   end
 
@@ -31,6 +38,26 @@ class ProjectRolesController < PermissionController
     @project_role = ProjectRole.find_by(project: @project,
                                         name: params[:name])
     head(404) unless @project_role
+  end
+
+  def check_manage(string)
+    @project.owner?(current_user) || \
+      current_user.permission?('project.roles.manage',
+                               "projects.roles.manage.#{string}",
+                               "#{@project.id}.projects.roles.manage.#{string}",
+                               "#{@project.id}.projects.roles.manage")
+  end
+
+  def skills_data
+    data = {}
+    Skill.all.each { |s| data[s.name] = nil }
+    data.to_json
+  end
+
+  def locations_data
+    data = {}
+    Location.all.each { |s| data[s.name] = nil }
+    data.to_json
   end
 
   # This controller should only be accessible through xhr/ajax requests

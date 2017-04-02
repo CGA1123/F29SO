@@ -19,6 +19,12 @@ class Project < ActiveRecord::Base
           string: "%#{string.downcase}%")
   end
 
+  def owner?(user)
+    owner_group = project_roles.find_by(name: 'Owner')
+    return false unless owner_group
+    owner_group.users.include?(user)
+  end
+
   private
 
   def end_date_after_start_date?

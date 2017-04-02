@@ -49,17 +49,21 @@
         </div>
       <% end %>
     </div>
+    <div id="auto-match-button">
+      <%= link_to 'Auto Match', project_role_users_search_path(code: project_role.project.code, name: project_role.name, location: ['role'], skills: true), method: :post, remote: true, class: 'btn purple' %>
+    </div>
     <div id="row">
       <table class="striped highlight">
         <thead>
           <th style="width: 75px;">Select All</th>
           <th>Name</th>
           <th>Location</th>
+          <th>Pts.</th>
         </thead>
         <tbody id="user-management-table-<%= project_role.id %>">
           <% if project_role.users.present? %>
             <% project_role.users.each do |user| %>
-              <%= render 'project_role_users/user_row', user: user, project_role: project_role %>
+              <%= render 'project_role_users/user_row', user: user, project_role: project_role, rank: "" %>
            <% end %>
           <% else %>
           <% end %>

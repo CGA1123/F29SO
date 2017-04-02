@@ -7,11 +7,7 @@
   <p>Welcome to the Leidos Resource Management System. An account has been created for you using this email address.</p>
 </div>
 
-<%= link_to accept_invitation_url(token: @token) do %>
-  <div id="passwordButton">
-    <p style="color:#FFF; font-weight:400;">Create your password</p>
-  </div>
-<% end %>
+<%= link_to 'Accept Invitation', accept_invitation_url(token: @token) %>
 
 <div id="emailBody1">
   <p>Once you've created your password for your account you will be able to log in from the <%= link_to 'login portal', unauthenticated_root_url %>.</p>
