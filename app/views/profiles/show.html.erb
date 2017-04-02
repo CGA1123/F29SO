@@ -44,7 +44,11 @@
               <li class="collection-item project" id="project-<%= project.id %>">
                 <span class="project-name"><%= project.name %></span>
                 <span class="secondary-content badge"><%= project.project_type.name %></span>
-                <p><%= @roles.where(project: project).map(&:name).join(', ') %></p>
+                <p>
+                <% @roles.where(project: project).each do |project_role| %>
+                  <%= project_role.name %><%= ", " unless @roles.last == project_role %>
+                <% end %>
+                </p>
               </li>
             <% end %>
           <% else %>
@@ -55,10 +59,11 @@
     </div>
     <div class="card max-small">
       <div class="card-content">
-        <span class="card-title purple-text">Skills<a href="#skills-edit-modal">
+        <span class="card-title purple-text">Skills
         <% if @can_edit_skill %>
-        <i class="material-icons right purple-text">mode_edit</i></a></span>
+          <a href="#skills-edit-modal"><i class="material-icons right purple-text">mode_edit</i></a>
         <% end %>
+        </span>
         <ul class="collection user_skills card-small-collection" id="user_skills">
         <% if @user.user_skills.present? %>
           <% @user.user_skills.each do |user_skill| %>
