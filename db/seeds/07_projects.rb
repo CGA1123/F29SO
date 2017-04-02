@@ -1,6 +1,6 @@
 #seeds
-Project.create!(name: 'Seed Excursion', description: 'Project', code: '001', project_type: ProjectType.find_by(name: 'Scientific'), start_date: "20/3/18", end_date: "20/3/18")
-Project.create!(name: 'Interdimensional Travel', description: 'Project', code: '002', project_type: ProjectType.find_by(name: 'Scientific'), start_date: "20/3/18", end_date: "20/3/18")
+Project.create!(name: 'Seed Excursion', description: 'Project', code: '001', project_type: ProjectType.find_by(name: 'Scientific'), start_date: "2017/3/18", end_date: "2017/06/09")
+Project.create!(name: 'Interdimensional Travel', description: 'Project', code: '002', project_type: ProjectType.find_by(name: 'Scientific'), start_date: "2017/02/04", end_date: "2018/02/15")
 Project.create!(name: 'Air Traffic Automation', description: 'Project', code: '003', project_type: ProjectType.find_by(name: 'Civil'), start_date: "20/3/18", end_date: "20/3/18")
 Project.create!(name: 'FAA Professional Services', description: 'Project', code: '004', project_type: ProjectType.find_by(name: 'Civil'), start_date: "20/3/18", end_date: "20/3/18")
 Project.create!(name: 'Airport Planning and Forecasting', description: 'Project', code: '005', project_type: ProjectType.find_by(name: 'Civil'), start_date: "20/3/18", end_date: "20/3/18")
