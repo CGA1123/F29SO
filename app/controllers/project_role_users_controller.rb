@@ -21,15 +21,14 @@ class ProjectRoleUsersController < PermissionController
   def search
     name = params[:user]
     if !params[:location].present? || params[:location].include?('')
-      locations = Location.all
+      users = User.all
     elsif params[:location].include?('role')
-      locations = @project_role.locations
+      users = User.where(location: @project_role.locations)
     else
       ids = params[:location].map(&:to_i)
-      locations = @project_role.locations & Location.where(id: ids)
+      users = User.where(location_id: ids)
     end
 
-    users = User.where(location: locations)
     users &= @project.users if params[:project].present?
     users &= @project_role.users if params[:role].present?
     users = users.search(name) unless name.blank?
