@@ -3,22 +3,19 @@ class ProjectRolesController < PermissionController
   before_action :set_project, only: [:create, :destroy]
   before_action :set_project_role, only: [:destroy]
   before_action :check_permissions
+  before_action :can_manage, only: [:create]
 
   def create
     @project_role = ProjectRole.new(project_role_params)
     @project_role.project = @project
     @project_roles = ProjectRole.where(project: @project)
-    @can_manage_permissions = check_manage('permissions')
-    @can_manage_users = check_manage('users')
-    @can_manage_skills = check_manage('skills')
-    @can_manage_locations = check_manage('locations')
     @skills_data = skills_data
     @locations_data = locations_data
-
     @project_role.save
   end
 
   def destroy
+    @id = @project_role.id
     @project_role.destroy
   end
 
@@ -41,11 +38,12 @@ class ProjectRolesController < PermissionController
   end
 
   def check_manage(string)
-    @project.owner?(current_user) || \
-      current_user.permission?('project.roles.manage',
-                               "projects.roles.manage.#{string}",
-                               "#{@project.id}.projects.roles.manage.#{string}",
-                               "#{@project.id}.projects.roles.manage")
+    @project.owner?(current_user) || current_user.permission?(
+      'project.roles.manage',
+      "projects.roles.manage.#{string}",
+      "#{@project.id}.projects.roles.manage.#{string}",
+      "#{@project.id}.projects.roles.manage"
+    )
   end
 
   def skills_data
@@ -63,5 +61,13 @@ class ProjectRolesController < PermissionController
   # This controller should only be accessible through xhr/ajax requests
   def check_format
     not_found unless request.xhr?
+  end
+
+  def can_manage
+    @can_manage_permissions = check_manage('permissions')
+    @can_manage_users = check_manage('users')
+    @can_manage_skills = check_manage('skills')
+    @can_manage_locations = check_manage('locations')
+    @can_manage_roles = check_manage('')
   end
 end
