@@ -15,6 +15,18 @@ padding-top: 35px;
 font-size: 20px;
 }
 
+.bgimg-1, .bgimg-2, bgimg-3, {
+	position: relative;
+	background-attachment: fixed;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.bgimg-1 {
+	background-image: url("img/gausblur";
+	min-height: 40%
+}
+
 .subtitle2 {
 font-size: 15px;
 font-style: italic;
