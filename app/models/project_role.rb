@@ -1,16 +1,16 @@
 class ProjectRole < ActiveRecord::Base
   belongs_to :project
 
-  has_many :project_role_permissions
+  has_many :project_role_permissions, dependent: :destroy
   has_many :permissions, through: :project_role_permissions
 
-  has_many :project_role_users
+  has_many :project_role_users, dependent: :destroy
   has_many :users, through: :project_role_users
 
   has_many :project_role_locations, dependent: :destroy
   has_many :locations, through: :project_role_locations
 
-  has_many :project_role_skills
+  has_many :project_role_skills, dependent: :destroy
   has_many :skills, through: :project_role_skills
 
   validates :name, uniqueness: { case_sensitive: false, scope: :project_id }

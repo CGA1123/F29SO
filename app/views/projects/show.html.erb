@@ -43,7 +43,7 @@
       <ul class="tabs" id="role-tabs">
         <li class="tab"><a href="#new-project-role"><i class="material-icons purple-text right">add</i>Add New Role</a></li>
         <% @project.project_roles.each do |project_role| %>
-        <li class="tab">
+          <li class="tab" id="project-role-tab-<%= project_role.id %>">
           <a href="#project-role-<%= project_role.id %>"><%= project_role.name.humanize %></a>
         </li>
         <% end %>

@@ -1,5 +1,13 @@
 <div id="project-role-<%= project_role.id %>" class="tab-content">
-  <h5 class="purple-text"><%= project_role.name %></h5>
+  <h5 class="purple-text"><%= project_role.name %>
+  <% if @can_manage_roles %>
+  <span class="badge">
+    <%= link_to project_roles_path(code: project_role.project.code, name: project_role.name), method: :delete, remote:true do %>
+    <i class="material-icons purple-text">delete</i>
+  <% end %>
+  </span>
+  <% end %>
+  </h5>
   <p class="grey-text"><%= project_role.description %></p>
   <div>
   <ul class="collapsible z-depth-0" data-collapsible="accordion">
