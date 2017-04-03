@@ -38,6 +38,7 @@ class ProjectsController < PermissionController
     @can_manage_users = check_manage('users')
     @can_manage_skills = check_manage('skills')
     @can_manage_locations = check_manage('locations')
+    @can_manage_roles = check_manage('')
     @skills_data = skills_data
     @locations_data = locations_data
   end
@@ -95,11 +96,12 @@ class ProjectsController < PermissionController
   end
 
   def check_manage(string)
-    @project.owner?(current_user) || \
-      current_user.permission?('project.roles.manage',
-                               "projects.roles.manage.#{string}",
-                               "#{@project.id}.projects.roles.manage.#{string}",
-                               "#{@project.id}.projects.roles.manage")
+    @project.owner?(current_user) || current_user.permission?(
+      'project.roles.manage',
+      "projects.roles.manage.#{string}",
+      "#{@project.id}.projects.roles.manage.#{string}",
+      "#{@project.id}.projects.roles.manage"
+    )
   end
 
   def skills_data
