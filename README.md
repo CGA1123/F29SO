@@ -2,6 +2,10 @@
 
 ![REAF LOGO](.github/resources/reaf_logo.png)
 
+**This project was undertaken by a group of students at Heriot Watt University in the academic year 2016-2017, and counted towards their 3rd Year Group Project.**
+
+**It is unlikely that this project will continue to be maintained any further.**
+
 ## Project Status (Develop Branch)
 [![Build Status](https://travis-ci.com/CGA1123/F29SO.svg?token=CLPqdNeNYg5kLHcGitp5&branch=develop)](https://travis-ci.com/CGA1123/F29SO)
 [![Code Climate](https://codeclimate.com/repos/57f27aea12e7170061001cb3/badges/0aa6f804f2c187f0aed7/gpa.svg)](https://codeclimate.com/repos/57f27aea12e7170061001cb3/feed)
